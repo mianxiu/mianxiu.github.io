@@ -77,7 +77,7 @@ function mp3Player() {
     //转化为数组
     var dataArray = new Uint8Array(bufferLength);
 
-   
+    console.log(HEIGHT+' '+WIDTH)
     function draw(){
         //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
         drawVisual = requestAnimationFrame(draw)
@@ -92,8 +92,9 @@ function mp3Player() {
             
             barHeight = dataArray[i]/2
             canvasCtx.fillStyle = 'blue';
-            canvasCtx.fillRect(x,HEIGHT - barHeight,barWidth,barHeight/2);
-        
+            canvasCtx.fillRect(x,HEIGHT - barHeight/2,barWidth,barHeight/2);
+            console.log(barHeight)
+            
             x += barWidth + 1;
         }
 
