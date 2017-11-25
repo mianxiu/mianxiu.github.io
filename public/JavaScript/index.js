@@ -78,7 +78,7 @@ function mp3Player() {
     function draw(){
         //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
         drawVisual = requestAnimationFrame(draw)
-      //  analyser.getByteFrequencyData(dataArray)
+        analyser.getByteFrequencyData(dataArray)
         canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
     
         var barWidth = (WIDTH/bufferLength)*2.5
