@@ -70,14 +70,14 @@ function mp3Player() {
 
     console.log(bufferLength);
     var dataArray = new Uint8Array(bufferLength);
-    canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
+    
 
     function draw(){
         //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
         drawVisual = requestAnimationFrame(draw)
         analyser.getByteFrequencyData(dataArray)
-
-        canvasCtx.fillStyle = 'rgba(255, 255, 255,1)'
+        canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
+      //  canvasCtx.fillStyle = 'rgba(255, 255, 255,1)'
         canvasCtx.fillRect(0,0,WIDTH,HEIGHT)
 
         var barWidth = (WIDTH/bufferLength)*2.5
