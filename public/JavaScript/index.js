@@ -15,8 +15,9 @@ function r() {
     document.querySelector('button.k').innerText = a[getRandomInt(1, 5)]
 }
 
+//获取子元素相对父元素的索引值
 function getIndex(childNode) {
-    //获取索引值
+    
     let p = childNode.parentNode
     let pChild = p.children
     for (i = 0; i < pChild.length; i++) {
@@ -27,24 +28,72 @@ function getIndex(childNode) {
     }
 }
 
+
+//mp3播放器
 function mp3Player() {
-    //播放器
+ 
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
-    for (const l of document.querySelector('#playList').children) {
-        playList.push('public/music/' + l.innerText + '.mp3')
-    }
+    var playPath = 'public/music/'
 
+    for (const l of document.querySelector('#playList').children) {
+        playList.push( playPath + l.innerText + '.mp3')
+    }
 
     var player = document.querySelector('#player')
     var source = audioCtx.createMediaElementSource(player);
-
-
     var analyser = audioCtx.createAnalyser()
-
     source.connect(analyser);
     analyser.connect(audioCtx.destination)
+
+    //双击播放
+    document.querySelector('#mp3Player').addEventListener('dblclick', function (db) {
+       
+     player.src = playList[getIndex(db.path[0])]
+
+    })
+
+
+    //可视化频谱
+    var canvas = document.querySelector('#visual')
+    var canvasCtx = canvas.getContext("2d")
+    //canvas画布大小
+    WIDTH = canvas.width;
+    HEIGHT = canvas.height;
+
+    analyser.minDecibels = -90;
+    analyser.maxDecibles = -10;
+    analyser.fftSize = 256;
+
+    var bufferLength = analyser.frequencyBinCount;
+
+    console.log(bufferLength);
+    var dataArray = new Uint8Array(bufferLength);
+    canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
+
+    function draw(){
+        drawVisual = requestAnimationFrame(draw)
+        analyser.getByteFrequencyData(dataArray)
+
+        canvasCtx.fillStyle = 'rgb(0, 0, 0)'
+        canvasCtx.fillRect(0,0,WIDTH,HEIGHT)
+
+        var barWidth = (WIDTH/bufferLength)*2.5
+        var barHeight,x = 0
+        
+        for(i=0;i<bufferLength;i++){
+            barHeight = dataArray[i]
+            canvasCtx.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
+            canvasCtx.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
+        
+            x += barWidth + 1;
+        }
+
+    }
+    draw()
+
+
 
 
     //默认音源
@@ -59,13 +108,8 @@ function mp3Player() {
         } else {
             return player.src = playList[0]
         }
-
-
     }
-    document.querySelector('#mp3Player').addEventListener('dblclick', function (db) {
-        //根据双击加载音源 
-        player.src = playList[getIndex(db.path[0])]
 
-    })
 
+    
 }
