@@ -84,7 +84,7 @@ function mp3Player() {
         var barHeight,x = 0
         
         for(i=0;i<bufferLength;i++){
-            barHeight = dataArray[i]
+            barHeight = dataArray[i]/2
             canvasCtx.fillStyle = 'rgba(' + (barHeight+100) + ',50,50,1)';
             canvasCtx.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
         
