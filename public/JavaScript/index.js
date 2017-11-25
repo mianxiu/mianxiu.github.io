@@ -52,8 +52,8 @@ function mp3Player(){
     player.onended = function(){
             console.log('下一曲')
             let e = playList.indexOf(player.src)
-            if(e+1 < playList.length){
-                player.src = playList[e+1]
+            if(e+1 <= playList.length){
+                return player.src = playList[e+1]
               
             }else{
                 return player.src = playList[0]
