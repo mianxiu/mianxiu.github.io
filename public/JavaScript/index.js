@@ -55,6 +55,7 @@ function mp3Player() {
     })
 
 
+    function visual(){
     //可视化频谱
     var canvas = document.querySelector('#visual')
     var canvasCtx = canvas.getContext("2d")
@@ -64,25 +65,26 @@ function mp3Player() {
 
     analyser.minDecibels = -90;
     analyser.maxDecibles = -10;
-    analyser.fftSize = 256;
 
+    //频谱FFT的大小，越大分析能力越强
+    analyser.fftSize = 256;
+    //为fftSize的一半
     var bufferLength = analyser.frequencyBinCount;
 
     console.log(bufferLength);
     var dataArray = new Uint8Array(bufferLength);
-    
+    console.log(dataArray);
 
     function draw(){
         //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
         drawVisual = requestAnimationFrame(draw)
         analyser.getByteFrequencyData(dataArray)
         canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
-      //  canvasCtx.fillStyle = 'rgba(255, 255, 255,1)'
-     //   canvasCtx.fillRect(0,0,WIDTH,HEIGHT)
-
+    
         var barWidth = (WIDTH/bufferLength)*2.5
         var barHeight,x = 0
         
+        //绘制
         for(i=0;i<bufferLength;i++){
             barHeight = dataArray[i]/2
             canvasCtx.fillStyle = 'blue';
@@ -92,8 +94,10 @@ function mp3Player() {
         }
 
     }
-    draw()
-
+         draw()
+    }
+    
+    visual()
 
 
 
