@@ -40,7 +40,7 @@ function mp3Player() {
     for (const l of document.querySelector('#playList').children) {
         playList.push( playPath + l.innerText + '.mp3')
     }
-
+    
     var player = document.querySelector('#player')
     var source = audioCtx.createMediaElementSource(player);
     var analyser = audioCtx.createAnalyser()
@@ -91,8 +91,8 @@ function mp3Player() {
         for(i=0;i<bufferLength;i++){
             
             barHeight = dataArray[i]/2
-            canvasCtx.fillStyle = 'blue';
-            canvasCtx.fillRect(x,HEIGHT - barHeight/2,barWidth,barHeight/2);
+            canvasCtx.fillStyle = 'black';
+            canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/2);
             
             x += barWidth + 1;
         }
