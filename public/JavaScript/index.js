@@ -54,10 +54,8 @@ function mp3Player() {
         console.log('下一曲')
         let host = decodeURI(player.src).replace(window.location.href, '')
         let e = playList.indexOf(host)
-        console.log(e + ' , ' + playList.length)
-        if (e + 1 <= playList.length) {
+        if (e + 1 < playList.length) {
             return player.src = playList[e + 1]
-
         } else {
             return player.src = playList[0]
         }
