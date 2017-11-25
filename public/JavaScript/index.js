@@ -49,8 +49,7 @@ function mp3Player() {
 
     //双击播放
     document.querySelector('#mp3Player').addEventListener('dblclick', function (db) {
-        console.log(db)
-        console.log(db.target)
+
      player.src = playList[getIndex(db.target)]
 
     })
