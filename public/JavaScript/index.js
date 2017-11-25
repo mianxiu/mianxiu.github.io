@@ -75,7 +75,7 @@ function mp3Player() {
     console.log(bufferLength);
     //转化为数组
     var dataArray = new Uint8Array(bufferLength);
-    setInterval(()=>{console.log(dataArray)},2000)
+
    
     function draw(){
         //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
