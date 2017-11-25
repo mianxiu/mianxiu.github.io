@@ -77,7 +77,7 @@ function mp3Player() {
         drawVisual = requestAnimationFrame(draw)
         analyser.getByteFrequencyData(dataArray)
 
-        canvasCtx.fillStyle = 'rgb(0, 0, 0,1)'
+        canvasCtx.fillStyle = 'rgb(0, 0, 0,0)'
         canvasCtx.fillRect(0,0,WIDTH,HEIGHT)
 
         var barWidth = (WIDTH/bufferLength)*2.5
