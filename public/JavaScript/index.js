@@ -66,15 +66,16 @@ function mp3Player() {
     analyser.minDecibels = -90;
     analyser.maxDecibles = -10;
 
+    //时域数据？
     //频谱FFT的大小，越大分析能力越强
     analyser.fftSize = 256;
-    //为fftSize的一半
+    //获取长度
     var bufferLength = analyser.frequencyBinCount;
 
     console.log(bufferLength);
-
+    //转化为数组
     var dataArray = new Uint8Array(bufferLength);
-    console.log(dataArray);
+    
 
     function draw(){
         //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
@@ -87,6 +88,7 @@ function mp3Player() {
         
         //绘制
         for(i=0;i<bufferLength;i++){
+            console.log(dataArray);
             barHeight = dataArray[i]/2
             canvasCtx.fillStyle = 'blue';
             canvasCtx.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
