@@ -50,16 +50,15 @@ function mp3Player(){
     //默认音源
     player.src=playList[0]
     player.onended = function(){
-        if(playListNum < playList.length){
+            console.log('下一曲')
             let e = playList.indexOf(player.src)
             if(e+1 < playList.length){
                 player.src = playList[e+1]
-                return playListNum = e+1
+              
             }else{
                 return player.src = playList[0]
             }
-          
-        }
+
         
     }
     document.querySelector('#mp3Player').addEventListener('dblclick',function(db){
