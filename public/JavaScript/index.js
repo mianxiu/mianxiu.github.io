@@ -28,6 +28,7 @@ function getIndex(childNode){
         }
 
 function mp3Player(){
+    //播放器
     var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
@@ -46,6 +47,21 @@ function mp3Player(){
     analyser.connect(audioCtx.destination)
 
 
+    //默认音源
+    player.src=playList[0]
+    player.onended = function(){
+        if(playListNum < playList.length){
+            let e = playList.indexOf(player.src)
+            if(e+1 < playList.length){
+                player.src = playList[e+1]
+                return playListNum = e+1
+            }else{
+                return player.src = playList[0]
+            }
+          
+        }
+        
+    }
     document.querySelector('#mp3Player').addEventListener('dblclick',function(db){
     //根据双击加载音源 
     player.src = playList[getIndex(db.path[0])]
