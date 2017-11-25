@@ -73,10 +73,11 @@ function mp3Player() {
     canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
 
     function draw(){
+        //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
         drawVisual = requestAnimationFrame(draw)
         analyser.getByteFrequencyData(dataArray)
 
-        canvasCtx.fillStyle = 'rgb(0, 0, 0,0)'
+        canvasCtx.fillStyle = 'rgb(0, 0, 0,1)'
         canvasCtx.fillRect(0,0,WIDTH,HEIGHT)
 
         var barWidth = (WIDTH/bufferLength)*2.5
@@ -84,7 +85,7 @@ function mp3Player() {
         
         for(i=0;i<bufferLength;i++){
             barHeight = dataArray[i]
-            canvasCtx.fillStyle = 'rgba(' + (barHeight+100) + ',50,50,0)';
+            canvasCtx.fillStyle = 'rgba(' + (barHeight+100) + ',50,50,1)';
             canvasCtx.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
         
             x += barWidth + 1;
