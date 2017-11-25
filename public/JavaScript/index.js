@@ -78,7 +78,7 @@ function mp3Player() {
         analyser.getByteFrequencyData(dataArray)
         canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
       //  canvasCtx.fillStyle = 'rgba(255, 255, 255,1)'
-        canvasCtx.fillRect(0,0,WIDTH,HEIGHT)
+     //   canvasCtx.fillRect(0,0,WIDTH,HEIGHT)
 
         var barWidth = (WIDTH/bufferLength)*2.5
         var barHeight,x = 0
