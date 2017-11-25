@@ -51,7 +51,9 @@ function mp3Player(){
     player.src=playList[0]
     player.onended = function(){
             console.log('下一曲')
-            let e = playList.indexOf(player.src)
+            let host =  decodeURI(player.src).replace(/https\:\/\/mianxiu\.github\.io\//,'')
+            console.log(host)
+            let e = playList.indexOf(host)
             console.log(player.src)
             console.log(e+' , '+playList.length)
             if(e+1 <= playList.length){
