@@ -151,14 +151,14 @@ function mp3Player() {
             //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
             drawVisual = requestAnimationFrame(draw)
             analyser.getByteFrequencyData(dataArray)
+            canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
 
             var barWidth = (WIDTH / bufferLength) * 2.5
             var barHeight, x = 0
 
             //绘制
             for (i = 0; i < bufferLength; i++) {
-            canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
-            
+    
                 canvasCtx.fillStyle = 'black';
                 barHeight = dataArray[i] / 2
                 if (0 < i && i < 64) {
