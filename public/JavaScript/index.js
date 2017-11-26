@@ -87,6 +87,7 @@ function mp3Player() {
             player.onloadedmetadata = function(){
                 
                 let pd = player.duration
+                let i = pd/120
                 console.log(pd/60 +' 分钟')
                 player.addEventListener('timeupdate',function(){     
                     let pc = player.currentTime
@@ -108,7 +109,7 @@ function mp3Player() {
                         canvasPCtx.fillRect(12, 0, 12, 10)
                         //减少层 
                         canvasPCtx.fillStyle = "rgb(230,230,230)"
-                        canvasPCtx.fillRect (pc/120,0,120,10)
+                        canvasPCtx.fillRect (pc/i,0,120,10)
                     }
                     drawProgress()
 
