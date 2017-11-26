@@ -123,7 +123,7 @@ function mp3Player() {
         }
 
     }
-    AudioProgress()
+  //  AudioProgress()
 
     //------------------------------------------------------//
     //可视化频谱
@@ -148,7 +148,8 @@ function mp3Player() {
         console.log(bufferLength);
         //转化为数组最大高度128
         var dataArray = new Uint8Array(bufferLength);
-
+        analyser.getByteFrequencyData(dataArray)
+        
 
         canvasCtx.fillStyle = 'black'; 
       
@@ -157,7 +158,6 @@ function mp3Player() {
             //页面完成时可以考虑把宽度写定值,降低性能要求
             //减少canvas API调用
             requestAnimationFrame(draw)
-            analyser.getByteFrequencyData(dataArray)
             canvasCtx.clearRect(0, 0,200, 100)
             var barHeight, x = 0
 
@@ -170,6 +170,7 @@ function mp3Player() {
             }
 
         }
+
         draw()
     }
 
