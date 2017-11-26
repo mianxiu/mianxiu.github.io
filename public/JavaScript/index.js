@@ -56,7 +56,7 @@ function mp3Player() {
         var pCtr = document.querySelector('#playCtr')
         
         pl.addEventListener('dblclick', function (db) {
-            
+            console.log(db.target)
             player.src = playList[getIndex(db.target)]
     
         })
