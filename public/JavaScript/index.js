@@ -65,12 +65,12 @@ function mp3Player() {
             console.log(e.target)
             console.log(player.paused)
             
-            if(player.paused = false){
+            if(player.paused == false){
                 //绘制暂停按钮
-                player.play()
-               
-            }else if(player.paused){
                 player.pause()
+               
+            }else if(player.paused == true){
+                player.play()
             }
         }
     }
