@@ -141,7 +141,7 @@ function mp3Player() {
         //时域数据？
         //analyser读取的数据都是连续的
         //频谱FFT的大小，越大分析能力越强
-        analyser.fftSize = 64;
+        analyser.fftSize = 32;
         //获取1/2长度
         var bufferLength = analyser.frequencyBinCount;
 
