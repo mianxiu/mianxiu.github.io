@@ -13,12 +13,16 @@ body{
     background-color: blue;
 }
 
+
+#progress{
+    width: 120px;
+    height: 36px;
+}
 #audioProgressA,#audioProgressB{
     position: absolute;
 }
 #audioProgressA{
     z-index: 1;
-}
-#timePass{
-    margin-top:20px; 
+    height: 6px;
+    background-color: rgb(230,230,230)
 }

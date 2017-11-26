@@ -80,13 +80,10 @@ function mp3Player() {
     //时间
     //toFixed()保留小数
     function AudioProgress() {
-        let canvasPA = document.querySelector('#audioProgressA')
-        let canvasPB = document.querySelector('#audioProgressB')
-        let canvasPCtxA = canvasPA.getContext("2d")
+        let canvasPB = document.querySelector('#audioProgressB') 
         let canvasPCtxB = canvasPB.getContext("2d")
-
         player.onloadedmetadata = function () {
-            setTimeout(()=>{
+       
             //加载歌曲后开始绘制
             //黑色
             canvasPCtxB.fillStyle = "black"
@@ -97,28 +94,20 @@ function mp3Player() {
             //蓝色
             canvasPCtxB.fillStyle = "rgb(112,160,219)"
             canvasPCtxB.fillRect(12, 0, 12, 6)
-            //减少层    
-            canvasPCtxB.save()
-            },1000)
+            
+      
             
             let pd = player.duration
             let i = pd / 120
 
+            //减少层    
             player.addEventListener('timeupdate', function () {
                 let pc = player.currentTime
                 //绘制进度条 
-                function drawProgress() {
-                    window.requestAnimationFrame(drawProgress)
-                    canvasPCtxA.clearRect(0, 0, 120, 6)
-                    canvasPCtxA.fillStyle = "rgb(230,230,230)"
-                    canvasPCtxA.fillRect(pc / i, 0, 120, 6)
-                }
-                drawProgress()
-
+                document.querySelector('#audioProgressA').style = 'margin-left:'+pc/i+'px;width:'+(120-pc/i)+'px'
+                
                 //歌曲播放时间
                 document.querySelector('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':')
-
-
             })
         }
 
@@ -148,12 +137,11 @@ function mp3Player() {
         console.log(bufferLength);
         //转化为数组最大高度128
         var dataArray = new Uint8Array(bufferLength);
-        analyser.getByteFrequencyData(dataArray)
         
-
         canvasCtx.fillStyle = 'black'; 
       
         function draw() {
+            analyser.getByteFrequencyData(dataArray)
             //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
             //页面完成时可以考虑把宽度写定值,降低性能要求
             //减少canvas API调用
@@ -164,7 +152,7 @@ function mp3Player() {
             //绘制            
             for (i = 0; i < bufferLength; i++) {
                 barHeight = dataArray[i] 
-                canvasCtx.fillRect(x,100-barHeight/4, 6, 100);
+                canvasCtx.fillRect(x,Math.floor(100-barHeight/4), 6, 100);
                // x += barWidth + 1;
                 x +=7
             }
