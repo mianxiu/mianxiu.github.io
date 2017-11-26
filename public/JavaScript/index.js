@@ -51,9 +51,9 @@ function mp3Player() {
     //------------------------------------------------------//
     //播放器相关
     function control() {
-        var p = document.querySelector('#mp3Player')
-        var pl = document.querySelector('#playList')
-        var pCtr = document.querySelector('#playCtr')
+        let p = document.querySelector('#mp3Player')
+        let pl = document.querySelector('#playList')
+        let pCtr = document.querySelector('#playCtr')
 
         //播放列表双击歌曲播放
         pl.addEventListener('dblclick', function (db) {
@@ -74,6 +74,22 @@ function mp3Player() {
     }
 
     control()
+
+
+    //暂停/播放icon
+    function playPauseIcons(){
+        let canvasPC = document.querySelector('#playCtr')
+        let canvasPCCtx = canvasPC.getContext('2d')
+
+        canvasPCCtx.beginPath();
+        canvasPCCtx.moveTo(50,50)
+        canvasPCCtx.lineTo(50,100)
+        canvasPCCtx.lineTo(95,56)
+        canvasPCCtx.closePath();
+        canvasPCCtx.fill();
+     
+    }
+    playPauseIcons()
 
 
     //进度条

@@ -5,8 +5,8 @@ body{
 
 
 #playCtr{
-    /*指针消失，可用于图片查看*/
-    cursor: none
+    /*指针消失，可用于图片查看cursor: none*/
+    
 }
 
 #progress{
