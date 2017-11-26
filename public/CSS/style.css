@@ -2,27 +2,39 @@ body{
     background-color: rgb(252, 252, 252)
 }
 
-#timePass{
-    width: 120px;
-    height: 36px;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: right;
-}
-#playList li:hover{
-    background-color: blue;
-}
 
+
+#playCtr{
+    /*指针消失，可用于图片查看*/
+    cursor: none
+}
 
 #progress{
     width: 120px;
     height: 36px;
 }
-#audioProgressA,#audioProgressB{
+
+#audioProgressA,#audioProgressB,#timePass{
     position: absolute;
 }
 #audioProgressA{
+    width: 120px;
     z-index: 1;
     height: 6px;
     background-color: rgb(230,230,230)
+}
+
+#timePass{
+    width: 120px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+    line-height: 24px;
+    letter-spacing: 0.2rem;
+    margin-top: 1em
+}
+
+#playList li:hover{
+    cursor: pointer;
+    background-color: blue;
 }
