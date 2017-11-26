@@ -59,7 +59,7 @@ function mp3Player() {
 
     })
 
-    pCtr.addEventListener('click',function(e){
+    pCtr.onclick = function(e){
         console.log(e.target)
         if(p.getAttribute('play') === 'play'){
             //绘制暂停按钮
@@ -69,7 +69,7 @@ function mp3Player() {
             p.play()
             p.setAttribute('play','play')
         }
-    })
+    }
 
     
 
