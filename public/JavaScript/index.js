@@ -161,7 +161,7 @@ function mp3Player() {
             //绘制            
             for (i = 0; i < bufferLength; i++) {
                 barHeight = dataArray[i] 
-                canvasCtx.fillRect(x,50, 6, barHeight / 2);
+                canvasCtx.fillRect(x,100-barHeight/4.5, 6, 50);
                // x += barWidth + 1;
                 x +=7
             }
