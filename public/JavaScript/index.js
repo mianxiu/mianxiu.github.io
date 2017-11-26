@@ -79,12 +79,16 @@ function mp3Player() {
         //进度条
         //时间
         function AudioProgress(){
-            console.log( player.duration )
-            player.addEventListener('timeupdate',function(){
-                
-                console.log(player.currenTime)
-            })
-           
+            let pd = player.duration
+            let pc = player.currentTime
+
+            player.onloadedmetadata = function(){
+                console.log(pd/60 +' 分钟')
+                player.addEventListener('timeupdate',function(){     
+                    console.log(pc/60 +' 分钟')
+                })
+            }
+              
         }
         AudioProgress()
 
