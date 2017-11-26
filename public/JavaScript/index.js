@@ -96,7 +96,7 @@ function mp3Player() {
             }else if(64<i && i<96){
                 canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/4);   
             }else if(96<i && i<128){
-                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/6);   
+                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/8);   
             }
             
             x += barWidth + 1;
