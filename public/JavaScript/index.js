@@ -151,6 +151,8 @@ function mp3Player() {
 
         function draw() {
             //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
+            //页面完成时可以考虑把宽度写定值,降低性能要求
+            //减少canvas API调用
             drawVisual = requestAnimationFrame(draw)
             analyser.getByteFrequencyData(dataArray)
             canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
@@ -159,14 +161,12 @@ function mp3Player() {
             var barHeight, x = 0
 
             //绘制
+            canvasCtx.fillStyle = 'black';            
             for (i = 0; i < bufferLength; i++) {
-
-                canvasCtx.fillStyle = 'black';
-                barHeight = dataArray[i] / 2
-                canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 2);
-              
-
-                x += barWidth + 1;
+                barHeight = dataArray[i] 
+                canvasCtx.fillRect(x, HEIGHT - barHeight / 4.5, 6, barHeight / 2);
+               // x += barWidth + 1;
+                x +=7
             }
 
         }
