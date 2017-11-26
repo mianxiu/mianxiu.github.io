@@ -49,14 +49,14 @@ function mp3Player() {
 
 
     //------------------------------------------------------//
-    //双击列表播放
+    //播放器相关
     function control(){
         var p = document.querySelector('#mp3Player')
         var pl = document.querySelector('#playList')
         var pCtr = document.querySelector('#playCtr')
         
+        //播放列表双击歌曲播放
         pl.addEventListener('dblclick', function (db) {
-            console.log(db.target)
             player.src = playList[getIndex(db.target)]
     
         })
@@ -76,6 +76,17 @@ function mp3Player() {
     control()
     
 
+        //进度条
+        //时间
+        function AudioProgress(){
+            console.log( player.duration )
+            player.addEventListener('timeupdate',function(){
+                
+                console.log(player.currenTime)
+            })
+           
+        }
+        AudioProgress()
 
     //------------------------------------------------------//
     //可视化频谱
