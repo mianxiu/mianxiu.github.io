@@ -90,7 +90,7 @@ function mp3Player() {
                 console.log(pd/60 +' 分钟')
                 player.addEventListener('timeupdate',function(){     
                     let pc = player.currentTime
-
+                    console.log(pc)
                     //绘制进度条 
                     function drawProgress(){
                         window.requestAnimationFrame(drawProgress)
@@ -108,7 +108,7 @@ function mp3Player() {
                         canvasPCtx.fillRect(12, 0, 12, 10)
                         //减少层 
                         canvasPCtx.fillStyle = "rgb(230,230,230)"
-                        canvasPCtx.fillRect (pc/10,0,120,10)
+                        canvasPCtx.fillRect (pc/120,0,120,10)
                     }
                     drawProgress()
 
