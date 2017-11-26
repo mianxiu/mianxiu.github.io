@@ -65,7 +65,7 @@ function mp3Player() {
             console.log(e.target)
             console.log(player.paused)
             
-            if(!player.paused){
+            if(player.paused = false){
                 //绘制暂停按钮
                 player.play()
                
