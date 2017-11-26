@@ -19,3 +19,6 @@ body{
 #audioProgressA{
     z-index: 1;
 }
+#timePass{
+    margin-top:20px; 
+}

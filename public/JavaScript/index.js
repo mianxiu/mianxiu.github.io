@@ -148,23 +148,20 @@ function mp3Player() {
         console.log(bufferLength);
         //转化为数组最大高度128
         var dataArray = new Uint8Array(bufferLength);
-
+        canvasCtx.fillStyle = 'black'; 
         function draw() {
             //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
             //页面完成时可以考虑把宽度写定值,降低性能要求
             //减少canvas API调用
-            drawVisual = requestAnimationFrame(draw)
+            requestAnimationFrame(draw)
             analyser.getByteFrequencyData(dataArray)
-            canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
-
-            var barWidth = (WIDTH / bufferLength) * 2.5
+            canvasCtx.clearRect(0, 0,200, 100)
             var barHeight, x = 0
 
-            //绘制
-            canvasCtx.fillStyle = 'black';            
+            //绘制            
             for (i = 0; i < bufferLength; i++) {
                 barHeight = dataArray[i] 
-                canvasCtx.fillRect(x, HEIGHT - barHeight / 4.5, 6, barHeight / 2);
+                canvasCtx.fillRect(x,0, 6, barHeight / 2);
                // x += barWidth + 1;
                 x +=7
             }
