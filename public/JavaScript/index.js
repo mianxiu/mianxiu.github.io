@@ -85,7 +85,7 @@ function mp3Player() {
     
                 console.log(pd/60 +' 分钟')
                 player.addEventListener('timeupdate',function(){     
-                    console.log(pc/60 +' 分钟')
+                    console.log(pc)
                 })
             }
               
