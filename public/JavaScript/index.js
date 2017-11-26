@@ -151,7 +151,7 @@ function mp3Player() {
 
 
         canvasCtx.fillStyle = 'black'; 
-        canvasCtx.translate(0,100)
+      
         function draw() {
             //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
             //页面完成时可以考虑把宽度写定值,降低性能要求
@@ -164,7 +164,7 @@ function mp3Player() {
             //绘制            
             for (i = 0; i < bufferLength; i++) {
                 barHeight = dataArray[i] 
-                canvasCtx.fillRect(x,0, 6, barHeight);
+                canvasCtx.fillRect(x,-100, 6, barHeight);
                // x += barWidth + 1;
                 x +=7
             }
