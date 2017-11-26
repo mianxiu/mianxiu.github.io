@@ -52,7 +52,6 @@ function mp3Player() {
     //双击列表播放
     function control(){
         var p = document.querySelector('#mp3Player')
-        var pl = document.querySelector('#player')
         var pCtr = document.querySelector('#playCtr')
         
         p.addEventListener('dblclick', function (db) {
@@ -64,12 +63,14 @@ function mp3Player() {
         //暂停/播放
         pCtr.onclick = function(e){
             console.log(e.target)
-            if(pl.paused){
+            console.log(player.paused)
+            
+            if(player.paused){
                 //绘制暂停按钮
-                pl.play()
+                player.play()
                
-            }else if(pl.playing){
-                pl.pause()
+            }else if(player.playing){
+                player.pause()
             }
         }
     }
