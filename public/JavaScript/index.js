@@ -17,7 +17,7 @@ function r() {
 
 //获取子元素相对父元素的索引值
 function getIndex(childNode) {
-    
+
     let p = childNode.parentNode
     let pChild = p.children
     for (i = 0; i < pChild.length; i++) {
@@ -31,85 +31,105 @@ function getIndex(childNode) {
 
 //mp3播放器
 function mp3Player() {
- 
+
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
     var playPath = 'public/music/'
 
     for (const l of document.querySelector('#playList').children) {
-        playList.push( playPath + l.innerText + '.mp3')
+        playList.push(playPath + l.innerText + '.mp3')
     }
-    
+
     var player = document.querySelector('#player')
     var source = audioCtx.createMediaElementSource(player);
     var analyser = audioCtx.createAnalyser()
     source.connect(analyser);
     analyser.connect(audioCtx.destination)
 
-    //双击播放
-    document.querySelector('#mp3Player').addEventListener('dblclick', function (db) {
 
-     player.src = playList[getIndex(db.target)]
+    //------------------------------------------------------//
+    //双击列表播放
+    var p = document.querySelector('#mp3Player')
+    var pCtr = document.querySelector('#playCtr')
+    
+    p.addEventListener('dblclick', function (db) {
+
+        player.src = playList[getIndex(db.target)]
 
     })
 
-
-    function visual(){
-    //可视化频谱
-    var canvas = document.querySelector('#visual')
-    var canvasCtx = canvas.getContext("2d")
-    //canvas画布大小
-    WIDTH = canvas.width;
-    HEIGHT = canvas.height;
-
-    analyser.minDecibels = -90;
-    analyser.maxDecibles = -10;
-
-    //时域数据？
-    //analyser读取的数据都是连续的
-    //频谱FFT的大小，越大分析能力越强
-    analyser.fftSize = 256;
-    //获取长度
-    var bufferLength = analyser.frequencyBinCount;
-
-    console.log(bufferLength);
-    //转化为数组最大高度128
-    var dataArray = new Uint8Array(bufferLength);
-
-    console.log(HEIGHT+' '+WIDTH)
-    function draw(){
-        //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
-        drawVisual = requestAnimationFrame(draw)
-        analyser.getByteFrequencyData(dataArray)
-        canvasCtx.clearRect(0,0,WIDTH,HEIGHT)
-    
-        var barWidth = (WIDTH/bufferLength)*2.5
-        var barHeight,x = 0
-        
-        //绘制
-        for(i=0;i<bufferLength;i++){
-            canvasCtx.fillStyle = 'black';
-            barHeight = dataArray[i]/2
-            if(0<i && i< 64){
-                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/2);            
-            }else if(64<i && i<96){
-                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/4);   
-            }else if(96<i && i<128){
-                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/8);   
-            }
-            
-            x += barWidth + 1;
+    pCtr.addEventListener('click',function(){
+        if(p.getAttribute('play') === 'play'){
+            //绘制暂停按钮
+            p.pause()
+            p.setAttribute('play','pause')
+        }else if(p.getAttribute('play')==='pause'){
+            p.play()
+            p.setAttribute('play','play')
         }
+    })
 
-    }
-         draw()
-    }
     
+
+
+    //------------------------------------------------------//
+    //可视化频谱
+    function visual() {
+
+        var canvas = document.querySelector('#visual')
+        var canvasCtx = canvas.getContext("2d")
+        //canvas画布大小
+        WIDTH = canvas.width;
+        HEIGHT = canvas.height;
+
+        analyser.minDecibels = -90;
+        analyser.maxDecibles = -10;
+
+        //时域数据？
+        //analyser读取的数据都是连续的
+        //频谱FFT的大小，越大分析能力越强
+        analyser.fftSize = 256;
+        //获取长度
+        var bufferLength = analyser.frequencyBinCount;
+
+        console.log(bufferLength);
+        //转化为数组最大高度128
+        var dataArray = new Uint8Array(bufferLength);
+
+        console.log(HEIGHT + ' ' + WIDTH)
+        function draw() {
+            //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
+            drawVisual = requestAnimationFrame(draw)
+            analyser.getByteFrequencyData(dataArray)
+            canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
+
+            var barWidth = (WIDTH / bufferLength) * 2.5
+            var barHeight, x = 0
+
+            //绘制
+            for (i = 0; i < bufferLength; i++) {
+                canvasCtx.fillStyle = 'black';
+                barHeight = dataArray[i] / 2
+                if (0 < i && i < 64) {
+                    canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 2);
+                } else if (64 < i && i < 96) {
+                    canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 4);
+                } else if (96 < i && i < 128) {
+                    canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 8);
+                }
+
+                x += barWidth + 1;
+            }
+
+        }
+        draw()
+    }
+
     visual()
 
 
-
+    //------------------------------------------------------//
     //默认音源
     //循环播放列表
     player.src = playList[0]
@@ -125,5 +145,5 @@ function mp3Player() {
     }
 
 
-    
+
 }
