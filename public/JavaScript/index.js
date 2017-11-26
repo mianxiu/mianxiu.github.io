@@ -78,13 +78,26 @@ function mp3Player() {
 
         //进度条
         //时间
+        //toFixed()保留小数
         function AudioProgress(){
+            let canvasP = document.querySelector('#AudioProgress')
+            let canvasPCtx = canvasP.getContext("2d")
+
+            canvasPCtx.fillStyle = "rgb(230,230,230)"
+            canvasPCtx.fillRect = (0,0,120,10)
+
+            console.log('canvasP')
             player.onloadedmetadata = function(){
                 let pd = player.duration
                 console.log(pd/60 +' 分钟')
                 player.addEventListener('timeupdate',function(){     
                     let pc = player.currentTime
                     console.log((pd-pc)/60)
+
+                    //绘制进度条 
+                    function drawProgress(){
+
+                    }
                 })
             }
               
@@ -95,8 +108,8 @@ function mp3Player() {
     //可视化频谱
     function visual() {
 
-        var canvas = document.querySelector('#visual')
-        var canvasCtx = canvas.getContext("2d")
+        let canvas = document.querySelector('#visual')
+        let canvasCtx = canvas.getContext("2d")
         //canvas画布大小
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
