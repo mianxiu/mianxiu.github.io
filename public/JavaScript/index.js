@@ -123,7 +123,7 @@ function mp3Player() {
         }
 
     }
-  //  AudioProgress()
+    AudioProgress()
 
     //------------------------------------------------------//
     //可视化频谱
