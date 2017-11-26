@@ -74,7 +74,7 @@ function mp3Player() {
     var bufferLength = analyser.frequencyBinCount;
 
     console.log(bufferLength);
-    //转化为数组
+    //转化为数组最大高度128
     var dataArray = new Uint8Array(bufferLength);
 
     console.log(HEIGHT+' '+WIDTH)
@@ -89,10 +89,15 @@ function mp3Player() {
         
         //绘制
         for(i=0;i<bufferLength;i++){
-            
-            barHeight = dataArray[i]/2
             canvasCtx.fillStyle = 'black';
-            canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/2);
+            barHeight = dataArray[i]/2
+            if(0<i && i< 64){
+                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/2);            
+            }else if(64<i && i<96){
+                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/4);   
+            }else if(96<i && i<128){
+                canvasCtx.fillRect(x,HEIGHT - barHeight/2.5,barWidth,barHeight/6);   
+            }
             
             x += barWidth + 1;
         }
