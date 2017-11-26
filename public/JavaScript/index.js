@@ -82,22 +82,36 @@ function mp3Player() {
         function AudioProgress(){
             let canvasP = document.querySelector('#AudioProgress')
             let canvasPCtx = canvasP.getContext("2d")
-
-            canvasPCtx.fillStyle = "rgb(230,230,230)"
-            canvasPCtx.fillRect = (0,0,120,10)
-
-            console.log('canvasP')
+               
+               
             player.onloadedmetadata = function(){
+                
                 let pd = player.duration
                 console.log(pd/60 +' 分钟')
                 player.addEventListener('timeupdate',function(){     
                     let pc = player.currentTime
-                    console.log((pd-pc)/60)
 
                     //绘制进度条 
                     function drawProgress(){
+                        window.requestAnimationFrame(drawProgress)
 
+                        canvasPCtx.clearRect(0,0,120,10)
+                        //加载歌曲后开始绘制
+                        //黑色
+                        canvasPCtx.fillStyle = "black"
+                        canvasPCtx.fillRect(0, 0, 120, 10)
+                        //黄色
+                        canvasPCtx.fillStyle = "rgb(252,171,29)"
+                        canvasPCtx.fillRect(0, 0, 12, 10)
+                        //蓝色
+                        canvasPCtx.fillStyle = "rgb(112,160,219)"
+                        canvasPCtx.fillRect(12, 0, 12, 10)
+                        //减少层 
+                        canvasPCtx.fillStyle = "rgb(230,230,230)"
+                        canvasPCtx.fillRect (pc/10,0,120,10)
                     }
+                    drawProgress()
+
                 })
             }
               
