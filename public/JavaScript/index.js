@@ -61,15 +61,15 @@ function mp3Player() {
     
         })
     
+        //暂停/播放
         pCtr.onclick = function(e){
             console.log(e.target)
-            if(pl.getAttribute('play') === 'play'){
+            if(pl.pause){
                 //绘制暂停按钮
-                pl.pause()
-                pl.setAttribute('play','pause')
-            }else if(p.getAttribute('play')==='pause'){
                 pl.play()
-                pl.setAttribute('play','play')
+               
+            }else if(pl.playing){
+                pl.pause()
             }
         }
     }
