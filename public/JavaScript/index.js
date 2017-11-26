@@ -142,14 +142,13 @@ function mp3Player() {
         //analyser读取的数据都是连续的
         //频谱FFT的大小，越大分析能力越强
         analyser.fftSize = 128;
-        //获取长度
+        //获取1/2长度
         var bufferLength = analyser.frequencyBinCount;
 
         console.log(bufferLength);
         //转化为数组最大高度128
         var dataArray = new Uint8Array(bufferLength);
 
-        console.log(HEIGHT + ' ' + WIDTH)
         function draw() {
             //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
             drawVisual = requestAnimationFrame(draw)
@@ -164,13 +163,8 @@ function mp3Player() {
 
                 canvasCtx.fillStyle = 'black';
                 barHeight = dataArray[i] / 2
-                if (0 < i && i < 64) {
-                    canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 2);
-                } else if (64 < i && i < 96) {
-                    canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 4);
-                } else if (96 < i && i < 128) {
-                    canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 8);
-                }
+                canvasCtx.fillRect(x, HEIGHT - barHeight / 2.5, barWidth, barHeight / 2);
+              
 
                 x += barWidth + 1;
             }
