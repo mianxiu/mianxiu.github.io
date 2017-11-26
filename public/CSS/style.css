@@ -12,3 +12,10 @@ body{
 #playList li:hover{
     background-color: blue;
 }
+
+#audioProgressA,#audioProgressB{
+    position: absolute;
+}
+#audioProgressA{
+    z-index: 1;
+}

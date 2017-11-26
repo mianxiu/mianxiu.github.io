@@ -50,77 +50,80 @@ function mp3Player() {
 
     //------------------------------------------------------//
     //播放器相关
-    function control(){
+    function control() {
         var p = document.querySelector('#mp3Player')
         var pl = document.querySelector('#playList')
         var pCtr = document.querySelector('#playCtr')
-        
+
         //播放列表双击歌曲播放
         pl.addEventListener('dblclick', function (db) {
             player.src = playList[getIndex(db.target)]
-    
+
         })
-    
+
         //暂停/播放
-        pCtr.onclick = function(e){
-            if(player.paused == false){
+        pCtr.onclick = function (e) {
+            if (player.paused == false) {
                 //绘制暂停按钮
                 player.pause()
-               
-            }else if(player.paused == true){
+
+            } else if (player.paused == true) {
                 player.play()
             }
         }
     }
-   
+
     control()
-    
-
-        //进度条
-        //时间
-        //toFixed()保留小数
-        function AudioProgress(){
-            let canvasP = document.querySelector('#AudioProgress')
-            let canvasPCtx = canvasP.getContext("2d")
-               
-               
-            player.onloadedmetadata = function(){
-                
-                let pd = player.duration
-                let i = pd/120
-
-                player.addEventListener('timeupdate',function(){     
-                    let pc = player.currentTime          
-                    //绘制进度条 
-                    function drawProgress(){
-                        window.requestAnimationFrame(drawProgress)
-
-                        canvasPCtx.clearRect(0,0,120,6)
-                        //加载歌曲后开始绘制
-                        //黑色
-                        canvasPCtx.fillStyle = "black"
-                        canvasPCtx.fillRect(0, 0, 120, 6)
-                        //黄色
-                        canvasPCtx.fillStyle = "rgb(252,171,29)"
-                        canvasPCtx.fillRect(0, 0, 12, 6)
-                        //蓝色
-                        canvasPCtx.fillStyle = "rgb(112,160,219)"
-                        canvasPCtx.fillRect(12, 0, 12, 6)
-                        //减少层 
-                        canvasPCtx.fillStyle = "rgb(230,230,230)"
-                        canvasPCtx.fillRect (pc/i,0,120,6)
-                    }
-                    drawProgress()
-
-                    //歌曲播放时间
-                    document.querySelector('#timePass').innerText = ((pd-pc)/60).toFixed(2).replace(/\./,':')
 
 
-                })
-            }
-              
+    //进度条
+    //时间
+    //toFixed()保留小数
+    function AudioProgress() {
+        let canvasPA = document.querySelector('#audioProgressA')
+        let canvasPB = document.querySelector('#audioProgressB')
+        let canvasPCtxA = canvasPA.getContext("2d")
+        let canvasPCtxB = canvasPB.getContext("2d")
+
+        player.onloadedmetadata = function () {
+            setTimeout(()=>{
+            //加载歌曲后开始绘制
+            //黑色
+            canvasPCtxB.fillStyle = "black"
+            canvasPCtxB.fillRect(0, 0, 120, 6)
+            //黄色
+            canvasPCtxB.fillStyle = "rgb(252,171,29)"
+            canvasPCtxB.fillRect(0, 0, 12, 6)
+            //蓝色
+            canvasPCtxB.fillStyle = "rgb(112,160,219)"
+            canvasPCtxB.fillRect(12, 0, 12, 6)
+            //减少层    
+            canvasPCtxB.save()
+            },1000)
+            
+            let pd = player.duration
+            let i = pd / 120
+
+            player.addEventListener('timeupdate', function () {
+                let pc = player.currentTime
+                //绘制进度条 
+                function drawProgress() {
+                    window.requestAnimationFrame(drawProgress)
+                    canvasPCtxA.clearRect(0, 0, 120, 6)
+                    canvasPCtxA.fillStyle = "rgb(230,230,230)"
+                    canvasPCtxA.fillRect(pc / i, 0, 120, 6)
+                }
+                drawProgress()
+
+                //歌曲播放时间
+                document.querySelector('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':')
+
+
+            })
         }
-        AudioProgress()
+
+    }
+    AudioProgress()
 
     //------------------------------------------------------//
     //可视化频谱
@@ -138,7 +141,7 @@ function mp3Player() {
         //时域数据？
         //analyser读取的数据都是连续的
         //频谱FFT的大小，越大分析能力越强
-        analyser.fftSize = 256;
+        analyser.fftSize = 128;
         //获取长度
         var bufferLength = analyser.frequencyBinCount;
 
@@ -158,7 +161,7 @@ function mp3Player() {
 
             //绘制
             for (i = 0; i < bufferLength; i++) {
-    
+
                 canvasCtx.fillStyle = 'black';
                 barHeight = dataArray[i] / 2
                 if (0 < i && i < 64) {
