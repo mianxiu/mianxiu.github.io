@@ -81,11 +81,10 @@ function mp3Player() {
         function AudioProgress(){
             player.onloadedmetadata = function(){
                 let pd = player.duration
-                let pc = player.currentTime
-    
                 console.log(pd/60 +' 分钟')
                 player.addEventListener('timeupdate',function(){     
-                    console.log(document.querySelector('#player').currentTime)
+                    let pc = player.currentTime
+                    console.log((pd-pc)/60)
                 })
             }
               
