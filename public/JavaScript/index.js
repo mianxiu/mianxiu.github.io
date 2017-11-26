@@ -63,9 +63,9 @@ function mp3Player() {
         //暂停/播放
         pCtr.onclick = function(e){
             console.log(e.target)
-            console.log(player.playing)
+            console.log(player.paused)
             
-            if(player.playing){
+            if(player.paused = false){
                 //绘制暂停按钮
                 player.play()
                
