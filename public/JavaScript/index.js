@@ -88,30 +88,33 @@ function mp3Player() {
                 
                 let pd = player.duration
                 let i = pd/120
-                console.log(pd/60 +' 分钟')
+
                 player.addEventListener('timeupdate',function(){     
-                    let pc = player.currentTime
-                    console.log(pc)
+                    let pc = player.currentTime          
                     //绘制进度条 
                     function drawProgress(){
                         window.requestAnimationFrame(drawProgress)
 
-                        canvasPCtx.clearRect(0,0,120,10)
+                        canvasPCtx.clearRect(0,0,120,6)
                         //加载歌曲后开始绘制
                         //黑色
                         canvasPCtx.fillStyle = "black"
-                        canvasPCtx.fillRect(0, 0, 120, 10)
+                        canvasPCtx.fillRect(0, 0, 120, 6)
                         //黄色
                         canvasPCtx.fillStyle = "rgb(252,171,29)"
-                        canvasPCtx.fillRect(0, 0, 12, 10)
+                        canvasPCtx.fillRect(0, 0, 12, 6)
                         //蓝色
                         canvasPCtx.fillStyle = "rgb(112,160,219)"
-                        canvasPCtx.fillRect(12, 0, 12, 10)
+                        canvasPCtx.fillRect(12, 0, 12, 6)
                         //减少层 
                         canvasPCtx.fillStyle = "rgb(230,230,230)"
-                        canvasPCtx.fillRect (pc/i,0,120,10)
+                        canvasPCtx.fillRect (pc/i,0,120,6)
                     }
                     drawProgress()
+
+                    //歌曲播放时间
+                    document.querySelector('#timePass').innerText = ((pd-pc)/60).toFixed(2).replace(/\./,':')
+
 
                 })
             }

@@ -1,3 +1,11 @@
 body{
     background-color: rgb(252, 252, 252)
 }
+
+div#timePass{
+    width: 120px;
+    height: 36px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: right;
+}
