@@ -50,27 +50,31 @@ function mp3Player() {
 
     //------------------------------------------------------//
     //双击列表播放
-    var p = document.querySelector('#mp3Player')
-    var pCtr = document.querySelector('#playCtr')
+    function control(){
+        var p = document.querySelector('#mp3Player')
+        var pl = document.querySelector('#player')
+        var pCtr = document.querySelector('#playCtr')
+        
+        p.addEventListener('dblclick', function (db) {
     
-    p.addEventListener('dblclick', function (db) {
-
-        player.src = playList[getIndex(db.target)]
-
-    })
-
-    pCtr.onclick = function(e){
-        console.log(e.target)
-        if(p.getAttribute('play') === 'play'){
-            //绘制暂停按钮
-            p.pause()
-            p.setAttribute('play','pause')
-        }else if(p.getAttribute('play')==='pause'){
-            p.play()
-            p.setAttribute('play','play')
+            player.src = playList[getIndex(db.target)]
+    
+        })
+    
+        pCtr.onclick = function(e){
+            console.log(e.target)
+            if(pl.getAttribute('play') === 'play'){
+                //绘制暂停按钮
+                pl.pause()
+                pl.setAttribute('play','pause')
+            }else if(p.getAttribute('play')==='pause'){
+                pl.play()
+                pl.setAttribute('play','play')
+            }
         }
     }
-
+   
+    control()
     
 
 
