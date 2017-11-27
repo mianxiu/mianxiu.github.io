@@ -15,16 +15,19 @@ function r() {
     document.querySelector('button.k').innerText = a[getRandomInt(1, 5)]
 }
 
-//获取子元素相对父元素的索引值
-function getIndex(childNode) {
 
+
+/**
+ * 输入DOM对象，返回相对父元素的索引值
+ * @param {*} childNode 
+ */
+function getIndex(childNode) {
     let p = childNode.parentNode
     let pChild = p.children
     for (i = 0; i < pChild.length; i++) {
         if (pChild[i] === childNode) {
             return i
         }
-
     }
 }
 
@@ -51,6 +54,25 @@ function mp3Player() {
     //------------------------------------------------------//
     //播放器相关
     function control() {
+        let canvasPC = document.querySelector('#playCtr')
+        let C = canvasPC.getContext('2d')
+                let gx1 = [0, 0, 22, 22, 22, 22, 31, 41]
+                let gx2 = [0, 8, 20, 8, 18, 30, 38, 30]
+                let gy1 = [0, 48, 28, 6, 6, 28, 20, 11]
+                let gy2 = [14, 50, 45, 11, 6, 40, 36, 0]
+        player.addEventListener('pause',function(){
+            console.log('暂停')
+            iconMotions(gx1, gy1, gx2, gy2,canvasPC,true)
+         
+        }) 
+        player.addEventListener('play',function(){
+            console.log('播放')
+            iconMotions(gx1, gy1, gx2, gy2,canvasPC,false)
+            
+        })      
+    
+
+        
         let p = document.querySelector('#mp3Player')
         let pl = document.querySelector('#playList')
         let pCtr = document.querySelector('#playCtr')
@@ -66,9 +88,13 @@ function mp3Player() {
             if (player.paused == false) {
                 //绘制暂停按钮
                 player.pause()
-
+               
+             
             } else if (player.paused == true) {
                 player.play()
+              
+                
+        
             }
         }
     }
@@ -76,21 +102,109 @@ function mp3Player() {
     control()
 
 
-    //暂停/播放icon
-    function playPauseIcons(){
-        let canvasPC = document.querySelector('#playCtr')
-        let canvasPCCtx = canvasPC.getContext('2d')
-      
+    
+  
 
-        //4点多边形简单变形绘制
-        function drawIcon(oX1, oY2,fillStyle, Ctx, drawNum) {
-            /**
-             * oX1,oY2是需要绘制形状的坐标点
-             * fillStyle是填充样式的数组
-             * ctx是canvas
-             * drawNum是同一画布绘制的图形个数
-             */
+        /**
+         * 动画函数，前4个参数是原图像->变化图形坐标,输出变形动画
+         * upend:是否倒放动画
+         * @param {array} oX1 
+         * @param {array} oY1 
+         * @param {array} toX1 
+         * @param {array} toY2 
+         * @param {boolean} upend 
+         */
+        function iconMotions(oX1, oY1, toX1, toY2,C,upend) {
+            let Ctx = C.getContext('2d')
+            let reqA
+            let x1 =[], x2=[], y1=[], y2=[]
 
+            
+            //坐标参数
+            //x1,y1 播放icon，x2
+            //不复制数组的话会改变参数，导致无法新参数无效,无法变形
+            if (upend == false) {
+                x1 = oX1.slice()
+                x2 = toX1.slice()
+                y1 = oY1.slice()
+                y2 = toY2.slice()
+                console.log(x1+'false')
+                drawMotion()
+            } else if (upend == true) {
+                x1 = toX1.slice()
+                x2 = oX1.slice()
+                y1 = toY2.slice()
+                y2 = oY1.slice()
+                console.log(x1+'true')
+                drawMotion()
+            }
+
+
+            
+            function drawMotion() {
+                console.log(x1+'drawM')
+                let x = [], y = []
+                reqA = requestAnimationFrame(drawMotion)
+                
+                for (p = 0; p < x1.length; p++) {
+                    x.push(x1[p] - x2[p])
+                    y.push(y1[p] - y2[p])
+                }
+                //x
+                
+                for (m = 0; m < x.length; m++) {
+                    if (x[m] > 0 && x1[m] >= x2[m]) {
+                        x1[m] -= 1
+                    } else if (x[m] < 0 && x1[m] <= x2[m]) {
+                        x1[m] += 1
+                    } else {
+                    }
+                }
+
+                //y
+                for (m = 0; m < y.length; m++) {
+                    if (y[m] > 0 && y1[m] >= y2[m]) {
+                        y1[m] -= 1
+                    } else if (y[m] < 0 && y1[m] <= y2[m]) {
+                        y1[m] += 1
+                    } else { }
+                }
+
+                for(t=0;t<x.length;t++){
+                   let r =0
+                   r += (x[t]+y[t])
+                   if(r===0){
+                   //    console.log('.......'+x)
+                        
+                   }else{
+                      
+                   }
+                }
+               
+                //引用drawIcon函数绘制
+                drawIcon(x1, y1, ['blue', 'red'],C, 2)
+            }
+          
+            setTimeout(()=>{ 
+                 cancelAnimationFrame(reqA)
+              
+                },500)
+        }
+
+        
+        /**绘制4点不规则图形函数 |
+         * x1,y2 : 是图形坐标，和drawNum关联.例绘制3个图形，x1,y2分别需要坐标12个 |
+         * C : dom节点 |
+         * drawNum : 图形数量 
+         * @param {array} X1 
+         * @param {array} Y2 
+         * @param {array} fillStyle 
+         * @param {Object} Ctx 
+         * @param {numble} drawNum 
+         */
+        function drawIcon(iX1, iY2, fillStyle,C,drawNum) {
+            Ctx = C.getContext('2d')
+            Ctx.clearRect(0,0,C.width,C.height)
             for (n = 1; n <= drawNum; n++) {
                 for (i = 0; i < 1; i++) {
                     let a = 0 + (n - 1) * 4
@@ -99,76 +213,29 @@ function mp3Player() {
                     let d = 3 + (n - 1) * 4
                     Ctx.beginPath();
                     //绘制原点
-                    Ctx.moveTo(oX1[a], oY2[a])
-                    Ctx.lineTo(oX1[b], oY2[b])
-                    Ctx.lineTo(oX1[c], oY2[c])
-                    Ctx.lineTo(oX1[d], oY2[d])
+                    Ctx.moveTo(iX1[a], iY2[a])
+                    Ctx.lineTo(iX1[b], iY2[b])
+                    Ctx.lineTo(iX1[c], iY2[c])
+                    Ctx.lineTo(iX1[d], iY2[d])
                     Ctx.closePath();
-                    Ctx.fillStyle = fillStyle[n-1]
+                    Ctx.fillStyle = fillStyle[n - 1]
                     Ctx.fill();
                 }
-             
+
             }
 
         }
-        //播放icon
-     //   drawIcon([0, 0, 22, 22, 22, 22, 31, 41], [0, 48, 28, 6, 6, 28, 20, 11],['blue','red'], canvasPCCtx, 2)
-        //暂停icon----------------
-     //   drawIcon([0, 8, 20, 8, 18, 30, 38, 30], [14, 50, 45, 11, 6, 40, 36, 0],['black','yellow'], canvasPCCtx, 2)
 
-
-     let x1 = [0, 0, 22, 22, 22, 22, 31, 41]
-     let x2 = [0, 8, 20, 8, 18, 30, 38, 30]
-     let y1 = [0, 48, 28, 6, 6, 28, 20, 11]
-     let y2 = [14, 50, 45, 11, 6, 40, 36, 0]
-
-        function iconMotion(){
-           requestAnimationFrame(iconMotion)
-        
-           let x = [],y = []
-           for(p=0;p<x1.length;p++){  
-             x.push(x1[p]-x2[p])
-             y.push(y1[p]-y2[p])
-           }
-
-           //x
-           for(m=0;m<x.length;m++){
-                if(x[m]>0 && x1[m]>=x2[m]){  
-                    x1[m] -= 1
-                }else if(x[m]<0 && x1[m]<=x2[m]){
-                    x1[m] +=1
-                }else{
-                }
-           }
-
-           //y
-           for(m=0;m<y.length;m++){
-            if(y[m]>0 && y1[m]>=y2[m]){  
-                y1[m] -= 1
-            }else if(y[m]<0 && y1[m]<=y2[m]){
-                y1[m] +=1
-            }else{
-            }
-       }
-           //绘制
-           canvasPCCtx.clearRect(0,0,50,50)
-           drawIcon(x1,y1,['blue','red'], canvasPCCtx, 2)
-         
-        }
-        iconMotion()
-
-    }
-    playPauseIcons()
 
 
     //进度条
     //时间
     //toFixed()保留小数
     function AudioProgress() {
-        let canvasPB = document.querySelector('#audioProgressB') 
+        let canvasPB = document.querySelector('#audioProgressB')
         let canvasPCtxB = canvasPB.getContext("2d")
         player.onloadedmetadata = function () {
-       
+
             //加载歌曲后开始绘制
             //黑色
             canvasPCtxB.fillStyle = "black"
@@ -187,8 +254,7 @@ function mp3Player() {
             player.addEventListener('timeupdate', function () {
                 let pc = player.currentTime
                 //绘制进度条 
-                document.querySelector('#audioProgressA').style = 'margin-left:'+pc/i+'px;width:'+(120-pc/i)+'px'
-                
+                document.querySelector('#audioProgressA').style = 'margin-left:' + pc / i + 'px;width:' + (120 - pc / i) + 'px'
                 //歌曲播放时间
                 document.querySelector('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':')
             })
@@ -200,7 +266,6 @@ function mp3Player() {
     //------------------------------------------------------//
     //可视化频谱
     function visual() {
-
         let canvas = document.querySelector('#visual')
         let canvasCtx = canvas.getContext("2d")
         //canvas画布大小
@@ -217,30 +282,26 @@ function mp3Player() {
         //获取1/2长度
         var bufferLength = analyser.frequencyBinCount;
 
-        //转化为数组最大高度128
         var dataArray = new Uint8Array(bufferLength);
-        
-        canvasCtx.fillStyle = 'black'; 
-      
+
+        canvasCtx.fillStyle = 'black';
+
         function draw() {
             analyser.getByteFrequencyData(dataArray)
             //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
             //页面完成时可以考虑把宽度写定值,降低性能要求
             //减少canvas API调用
             requestAnimationFrame(draw)
-            canvasCtx.clearRect(0, 0,200, 100)
+            canvasCtx.clearRect(0, 0, 200, 100)
             var barHeight, x = 0
 
             //绘制            
             for (i = 0; i < bufferLength; i++) {
-                barHeight = dataArray[i] 
-                canvasCtx.fillRect(x,Math.floor(100-barHeight/4), 6, 100);
-               // x += barWidth + 1;
-                x +=7
+                barHeight = dataArray[i]
+                canvasCtx.fillRect(x, Math.floor(100 - barHeight / 4), 6, 100);
+                x += 7
             }
-
         }
-
         draw()
     }
 
