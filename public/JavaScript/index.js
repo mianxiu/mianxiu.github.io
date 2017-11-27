@@ -80,14 +80,83 @@ function mp3Player() {
     function playPauseIcons(){
         let canvasPC = document.querySelector('#playCtr')
         let canvasPCCtx = canvasPC.getContext('2d')
+      
 
-        canvasPCCtx.beginPath();
-        canvasPCCtx.moveTo(50,50)
-        canvasPCCtx.lineTo(50,100)
-        canvasPCCtx.lineTo(95,56)
-        canvasPCCtx.closePath();
-        canvasPCCtx.fill();
-     
+        //4点多边形简单变形绘制
+        function drawIcon(oX1, oY2,fillStyle, Ctx, drawNum) {
+            /**
+             * oX1,oY2是需要绘制形状的坐标点
+             * fillStyle是填充样式的数组
+             * ctx是canvas
+             * drawNum是同一画布绘制的图形个数
+             */
+
+            for (n = 1; n <= drawNum; n++) {
+                for (i = 0; i < 1; i++) {
+                    let a = 0 + (n - 1) * 4
+                    let b = 1 + (n - 1) * 4
+                    let c = 2 + (n - 1) * 4
+                    let d = 3 + (n - 1) * 4
+                    Ctx.beginPath();
+                    //绘制原点
+                    Ctx.moveTo(oX1[a], oY2[a])
+                    Ctx.lineTo(oX1[b], oY2[b])
+                    Ctx.lineTo(oX1[c], oY2[c])
+                    Ctx.lineTo(oX1[d], oY2[d])
+                    Ctx.closePath();
+                    Ctx.fillStyle = fillStyle[n-1]
+                    Ctx.fill();
+                }
+             
+            }
+
+        }
+        //播放icon
+     //   drawIcon([0, 0, 22, 22, 22, 22, 31, 41], [0, 48, 28, 6, 6, 28, 20, 11],['blue','red'], canvasPCCtx, 2)
+        //暂停icon----------------
+     //   drawIcon([0, 8, 20, 8, 18, 30, 38, 30], [14, 50, 45, 11, 6, 40, 36, 0],['black','yellow'], canvasPCCtx, 2)
+
+
+     let x1 = [0, 0, 22, 22, 22, 22, 31, 41]
+     let x2 = [0, 8, 20, 8, 18, 30, 38, 30]
+     let y1 = [0, 48, 28, 6, 6, 28, 20, 11]
+     let y2 = [14, 50, 45, 11, 6, 40, 36, 0]
+
+        function iconMotion(){
+           requestAnimationFrame(iconMotion)
+        
+           let x = [],y = []
+           for(p=0;p<x1.length;p++){  
+             x.push(x1[p]-x2[p])
+             y.push(y1[p]-y2[p])
+           }
+
+           //x
+           for(m=0;m<x.length;m++){
+                if(x[m]>0 && x1[m]>=x2[m]){  
+                    x1[m] -= 1
+                }else if(x[m]<0 && x1[m]<=x2[m]){
+                    x1[m] +=1
+                }else{
+                }
+           }
+
+           //y
+           for(m=0;m<y.length;m++){
+            if(y[m]>0 && y1[m]>=y2[m]){  
+                y1[m] -= 1
+            }else if(y[m]<0 && y1[m]<=y2[m]){
+                y1[m] +=1
+            }else{
+            }
+       }
+           //绘制
+           canvasPCCtx.clearRect(0,0,50,50)
+           drawIcon(x1,y1,['blue','red'], canvasPCCtx, 2)
+         
+        }
+        iconMotion()
+
     }
     playPauseIcons()
 
@@ -110,9 +179,7 @@ function mp3Player() {
             //蓝色
             canvasPCtxB.fillStyle = "rgb(112,160,219)"
             canvasPCtxB.fillRect(12, 0, 12, 6)
-            
-      
-            
+
             let pd = player.duration
             let i = pd / 120
 
@@ -150,7 +217,6 @@ function mp3Player() {
         //获取1/2长度
         var bufferLength = analyser.frequencyBinCount;
 
-        console.log(bufferLength);
         //转化为数组最大高度128
         var dataArray = new Uint8Array(bufferLength);
         
