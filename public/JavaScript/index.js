@@ -1,8 +1,6 @@
 
 
 window.onload = function () {
-
-    document.querySelector('#UA').innerText = 'UA='+navigator.userAgent
     mp3Player();
 }
 
@@ -59,6 +57,7 @@ function mp3Player() {
     function control() {
         let canvasPC = document.querySelector('#playCtr')
         let C = canvasPC.getContext('2d')
+      
                 let gx1 = [0, 0, 22, 22, 22, 22, 31, 41]
                 let gx2 = [0, 8, 20, 8, 18, 30, 38, 30]
                 let gy1 = [0, 48, 28, 6, 6, 28, 20, 11]
@@ -295,8 +294,8 @@ function mp3Player() {
             //绘制            
             for (i = 0; i < bufferLength; i++) {
                 barHeight = dataArray[i]
-                canvasCtx.fillRect(x, Math.floor(100 - barHeight / 4), 6, 100);
-                x += 7
+                canvasCtx.fillRect(x, Math.floor(100 - barHeight / 4), 8, 100);
+                x += 10
             }
         }
         draw()

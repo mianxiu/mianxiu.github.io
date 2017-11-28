@@ -1,7 +1,31 @@
+@font-face { 
+     font-family: 'Microsoft YaHei UI';
+     src: url('/public/CSS/fonts/MicrosoftYaHeiUI-02.ttf');
+     font-weight:normal;
+    }
+@font-face { 
+        font-family: 'Microsoft YaHei UI Bold';
+        src: url('/public/CSS/fonts/MicrosoftYaHeiUI-Bold-02.ttf');
+        font-weight:bold;
+       }
+ @font-face { 
+        font-family: 'Microsoft YaHei UI Light';
+        src: url('/public/CSS/fonts/MicrosoftYaHeiUILight-02.ttf');
+        font-weight:lighter;
+       }
+
+
 html,body{
+    font-family: 'Microsoft YaHei UI,Microsoft YaHei UI Bold,Microsoft YaHei UI Light';
     background-color: rgb(252, 252, 252);
     height: 100%;
     margin: 0 0;
+}
+
+#main{
+    max-width: 80%;
+    margin-left: 10%;
+    height: 100%
 }
 
 #navigation{
@@ -20,16 +44,21 @@ html,body{
 
 #mp3Player{
     display: flex;
+    flex-direction: row;
     margin-top: 2%;
 
 }
 #visual{
-  background-color: beige;
+    position: absolute;
+    margin-top: -100px;
+    background-color: beige;
+    transform: scale(0.5,0.5)
     
 }
 #playCtr{
     width: 50px;
     height: 50px;
+    transform: scale(0.8,0.8)
     /*指针消失，可用于图片查看cursor: none*/
 }
 
@@ -50,7 +79,7 @@ html,body{
 
 #timePass{
     width: 120px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
     text-align: right;
     line-height: 24px;
@@ -59,9 +88,22 @@ html,body{
 }
 
 
+
+#playList{
+    text-overflow: clip;
+    overflow: hidden;
+    min-width: 50%;
+    height: 60px;
+}
 #playList ol {
-    text-overflow:clip;
     margin: 0 0;
+}
+
+#playList li{
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 6px;
+    
 }
 #playList li:hover{
     cursor: pointer;
