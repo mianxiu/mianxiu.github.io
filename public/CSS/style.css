@@ -1,11 +1,29 @@
-body{
-    background-color: rgb(252, 252, 252)
+html,body{
+    background-color: rgb(252, 252, 252);
+    height: 100%;
+    margin: 0 0;
 }
+
+#navigation{
+    height: 25%;
+    background-color:blue; 
+}
+#allContext{
+    height: 50%;
+    background-color:rgb(226, 1, 87); 
+
+}
+#foot{
+
+}
+
 
 #mp3Player{
     display: flex;
-}
+    margin-top: 2%;
 
+   
+}
 #visual{
     position: absolute;
     background-color: beige;
@@ -44,6 +62,7 @@ body{
 
 
 #playList ol {
+    text-overflow:clip;
     margin: 0 0;
 }
 #playList li:hover{

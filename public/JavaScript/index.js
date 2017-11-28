@@ -61,12 +61,10 @@ function mp3Player() {
                 let gy1 = [0, 48, 28, 6, 6, 28, 20, 11]
                 let gy2 = [15, 50, 44, 11, 6, 40, 36, 0]
         player.addEventListener('pause',function(){
-            console.log('暂停')
             iconMotions(gx1, gy1, gx2, gy2,canvasPC,['black'],true)
          
         }) 
         player.addEventListener('play',function(){
-            console.log('播放')
             iconMotions(gx1, gy1, gx2, gy2,canvasPC,['red'],false)
             
         })      
@@ -88,13 +86,10 @@ function mp3Player() {
             if (player.paused == false) {
                 //绘制暂停按钮
                 player.pause()
-               
-             
+                         
             } else if (player.paused == true) {
                 player.play()
-              
-                
-        
+                    
             }
         }
     }
@@ -180,15 +175,10 @@ function mp3Player() {
                 }
                
                 //引用drawIcon函数绘制
-                let f = []
-                f= fillStyle.slice()
-                drawIcon(x1, y1,f,C, 2)
+                drawIcon(x1, y1,fillStyle,C, 2)
             }
           
-            setTimeout(()=>{ 
-                 cancelAnimationFrame(reqA)
-              
-                },500)
+            
         }
 
         
@@ -218,7 +208,11 @@ function mp3Player() {
                     Ctx.lineTo(iX1[c], iY2[c])
                     Ctx.lineTo(iX1[d], iY2[d])
                     Ctx.closePath();
-                    Ctx.fillStyle = fillStyle[n - 1]
+                    if(fillStyle.length=1){
+                        Ctx.fillStyle = fillStyle
+                    }else{
+                        Ctx.fillStyle = fillStyle[n - 1] 
+                    }
                     Ctx.fill();
                 }
 
