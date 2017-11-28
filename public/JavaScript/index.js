@@ -32,7 +32,7 @@ function getIndex(childNode) {
 }
 
 
-//mp3播放器
+//1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
 
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -99,8 +99,6 @@ function mp3Player() {
     control()
 
 
-    
-  
 
         /**
          * 动画函数，前4个参数是原图像->变化图形坐标,输出变形动画
@@ -309,16 +307,22 @@ function mp3Player() {
     //循环播放列表
     player.src = playList[0]
     player.onended = function () {   
+        //歌曲切换效果
+        let playListOl = document.querySelector('#playList>ol')
+
         let host = decodeURI(player.src).replace(window.location.href, '')
         let e = playList.indexOf(host)
         if (e + 1 < playList.length) {
-            
+            playListOl.style.marginTop = (e+1)*30+'px'
             return player.src = playList[e + 1]
             
         } else {
+            playListOl.style.marginTop = 0
             return player.src = playList[0]
         }
     }
+
+  
 
 
 

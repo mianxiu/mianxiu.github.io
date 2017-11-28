@@ -1,10 +1,11 @@
 
 body{
      font-family:"Microsoft YaHei","微软雅黑",sans-serif!important;
+   
     }
 html,body{
    
-    background-color: rgb(252, 252, 252);
+    background-color: white;
     height: 100%;
     margin: 0 0;
 }
@@ -67,23 +68,41 @@ html,body{
 #timePass{
     width: 120px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: bold;
     text-align: right;
     line-height: 24px;
     letter-spacing: 0.2rem;
     margin-top: 1em
 }
 
-
+#playList:hover::before{
+    height: 0px;
+    margin-top: 60px;
+}
 
 #playList{
+    border: 0px solid royalblue;
     text-overflow: clip;
     overflow: hidden;
     min-width: 50%;
     height: 60px;
 }
+#playList::before{
+    display: block;
+    content: '';
+    position: absolute;
+    margin-top: 30px;
+    min-width: 40%;
+    height: 30px;
+    background:linear-gradient(0deg,white,rgba(255,255,255,0.5));
+    transition: height 0.2s,margin-top 0.2s;
+    
+    
+}
 #playList ol {
     margin: 0 0;
+    margin-top:0;
+    transition:margin-top 0.2s;
 }
 
 #playList li{
@@ -94,5 +113,4 @@ html,body{
 }
 #playList li:hover{
     cursor: pointer;
-    background-color: blue;
 }
