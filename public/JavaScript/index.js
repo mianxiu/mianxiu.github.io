@@ -1,6 +1,8 @@
 
 
 window.onload = function () {
+
+    document.querySelector('#UA').innerText = 'UA='+navigator.userAgent
     mp3Player();
 }
 
