@@ -41,6 +41,7 @@ function mp3Player() {
     var playPath = 'public/music/'
 
     for (const l of document.querySelector('#playList>ol').children) {
+        console.log(l)
         playList.push(playPath + l.innerText + '.mp3')
     }
 
@@ -306,12 +307,13 @@ function mp3Player() {
     //默认音源
     //循环播放列表
     player.src = playList[0]
-    player.onended = function () {
-        console.log('下一曲')
+    player.onended = function () {   
         let host = decodeURI(player.src).replace(window.location.href, '')
         let e = playList.indexOf(host)
         if (e + 1 < playList.length) {
+            
             return player.src = playList[e + 1]
+            
         } else {
             return player.src = playList[0]
         }
