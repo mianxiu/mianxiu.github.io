@@ -22,12 +22,10 @@ html,body{
     display: flex;
     margin-top: 2%;
 
-   
 }
 #visual{
-    position: absolute;
-    background-color: beige;
-    z-index: -5;
+  background-color: beige;
+    
 }
 #playCtr{
     width: 50px;
