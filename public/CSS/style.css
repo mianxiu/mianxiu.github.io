@@ -1,8 +1,14 @@
+@font-face{
+    font-family: 'YH';
+    src: ('MicrosoftYaHeiUI-02.tff');
+    src: ('MicrosoftYaHeiUI-02.tff') format('truetype')
+}
 
-    body{
-        font-family:YH,YHB,YHL,'Microsoft Yahei','微软雅黑',sans-serif !important;
+
+body{
+        font-family:"YH" !important;
     }
-    html,body{
+html,body{
    
     background-color: rgb(252, 252, 252);
     height: 100%;
