@@ -83,7 +83,6 @@ html,body{
 
 
 #playList{
-    font-family: YHB;
     text-overflow: clip;
     overflow: hidden;
     min-width: 50%;
