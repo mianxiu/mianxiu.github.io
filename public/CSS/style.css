@@ -1,22 +1,9 @@
-@font-face { 
-     font-family: 'Microsoft YaHei UI';
-     src: url('/public/CSS/fonts/MicrosoftYaHeiUI-02.ttf');
-     font-weight:normal;
+
+    body{
+        font-family:YH,YHB,YHL,'Microsoft Yahei','微软雅黑',sans-serif !important;
     }
-@font-face { 
-        font-family: 'Microsoft YaHei UI Bold';
-        src: url('/public/CSS/fonts/MicrosoftYaHeiUI-Bold-02.ttf');
-        font-weight:bold;
-       }
- @font-face { 
-        font-family: 'Microsoft YaHei UI Light';
-        src: url('/public/CSS/fonts/MicrosoftYaHeiUILight-02.ttf');
-        font-weight:lighter;
-       }
-
-
-html,body{
-    font-family: 'Microsoft YaHei UI,Microsoft YaHei UI Bold,Microsoft YaHei UI Light';
+    html,body{
+   
     background-color: rgb(252, 252, 252);
     height: 100%;
     margin: 0 0;
@@ -90,6 +77,7 @@ html,body{
 
 
 #playList{
+    font-family: YHB;
     text-overflow: clip;
     overflow: hidden;
     min-width: 50%;
