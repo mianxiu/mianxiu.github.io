@@ -40,7 +40,7 @@ function mp3Player() {
     var playList = []
     var playPath = 'public/music/'
 
-    for (const l of document.querySelector('#playList').children) {
+    for (const l of document.querySelector('#playList ol').children) {
         playList.push(playPath + l.innerText + '.mp3')
     }
 
@@ -59,15 +59,15 @@ function mp3Player() {
                 let gx1 = [0, 0, 22, 22, 22, 22, 31, 41]
                 let gx2 = [0, 8, 20, 8, 18, 30, 38, 30]
                 let gy1 = [0, 48, 28, 6, 6, 28, 20, 11]
-                let gy2 = [14, 50, 45, 11, 6, 40, 36, 0]
+                let gy2 = [15, 50, 44, 11, 6, 40, 36, 0]
         player.addEventListener('pause',function(){
             console.log('暂停')
-            iconMotions(gx1, gy1, gx2, gy2,canvasPC,true)
+            iconMotions(gx1, gy1, gx2, gy2,canvasPC,['black'],true)
          
         }) 
         player.addEventListener('play',function(){
             console.log('播放')
-            iconMotions(gx1, gy1, gx2, gy2,canvasPC,false)
+            iconMotions(gx1, gy1, gx2, gy2,canvasPC,['red'],false)
             
         })      
     
@@ -114,7 +114,7 @@ function mp3Player() {
          * @param {array} toY2 
          * @param {boolean} upend 
          */
-        function iconMotions(oX1, oY1, toX1, toY2,C,upend) {
+        function iconMotions(oX1, oY1, toX1, toY2,C,fillStyle,upend) {
             let Ctx = C.getContext('2d')
             let reqA
             let x1 =[], x2=[], y1=[], y2=[]
@@ -128,21 +128,21 @@ function mp3Player() {
                 x2 = toX1.slice()
                 y1 = oY1.slice()
                 y2 = toY2.slice()
-                console.log(x1+'false')
+               
                 drawMotion()
             } else if (upend == true) {
                 x1 = toX1.slice()
                 x2 = oX1.slice()
                 y1 = toY2.slice()
                 y2 = oY1.slice()
-                console.log(x1+'true')
+              
                 drawMotion()
             }
 
 
             
             function drawMotion() {
-                console.log(x1+'drawM')
+                
                 let x = [], y = []
                 reqA = requestAnimationFrame(drawMotion)
                 
@@ -174,15 +174,15 @@ function mp3Player() {
                    let r =0
                    r += (x[t]+y[t])
                    if(r===0){
-                   //    console.log('.......'+x)
-                        
-                   }else{
-                      
+                   //    console.log('.......'+x)                    
+                   }else{                    
                    }
                 }
                
                 //引用drawIcon函数绘制
-                drawIcon(x1, y1, ['blue', 'red'],C, 2)
+                let f = []
+                f= fillStyle.slice()
+                drawIcon(x1, y1,f,C, 2)
             }
           
             setTimeout(()=>{ 
