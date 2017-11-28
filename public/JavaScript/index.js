@@ -332,7 +332,22 @@ function mp3Player() {
 
 
 
+    //画红色箭头
+    let lt = document.querySelector('#lineTo')
+        ltCtx = lt.getContext('2d')
 
+        ltCtx.lineWidth = 2;
+        ltCtx.strokeStyle='red'
 
+        ltCtx.beginPath()
+        ltCtx.moveTo(35,88)
+        ltCtx.bezierCurveTo(35,88,39,42,9,5)
+        ltCtx.stroke()
+
+        ltCtx.beginPath()
+        ltCtx.moveTo(5,10)
+        ltCtx.bezierCurveTo(9,3,9,3,9,3)
+        ltCtx.bezierCurveTo(9,3,21,7,25,6)
+        ltCtx.stroke()
 
 }
