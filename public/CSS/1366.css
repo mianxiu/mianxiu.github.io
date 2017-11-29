@@ -88,7 +88,7 @@ body{
     margin-top: 0;
     margin-left: -40px;
     color: #7f7f7f;
-    opacity:1;
+    opacity:0;
     transition: margin-top 0.2s,opacity 0.2s;
 }
 
