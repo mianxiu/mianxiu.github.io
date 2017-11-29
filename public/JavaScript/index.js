@@ -141,8 +141,10 @@ function mp3Player() {
             //双击切换效果
             let s = 'public/music/'+ db.target.innerText+'.mp3'
             let i = playList.indexOf(s)
-            playListOl.style.marginTop = -(i)*30+'px'
-            
+            if(playListOl.style.marginTop !== -(i)*26+'px'){
+                playListOl.style.marginTop = -(i)*26+'px'
+                
+            }
 
         })
     //------------------------------------------------------//
@@ -154,7 +156,7 @@ function mp3Player() {
         let host = decodeURI(player.src).replace(window.location.href, '')
         let e = playList.indexOf(host)
         if (e + 1 < playList.length) {
-            playListOl.style.marginTop = -(e + 1) * 30 + 'px'
+            playListOl.style.marginTop = -(e + 1) * 26 + 'px'
             return player.src = playList[e + 1]
 
         } else {
