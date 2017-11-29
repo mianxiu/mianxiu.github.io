@@ -1,6 +1,7 @@
 
 
 window.onload = function () {
+    document.cookie = "musicCurrent=oeschger";
     mp3Player();
 }
 
@@ -225,11 +226,11 @@ function mp3Player() {
                 } else { }
             }
 
+            //取消监听,也许能释放cpu占用
             if(AryInclue(x1,x2) && AryInclue(y1,y2)){
-                console.log('相等')
                 cancelAnimationFrame(reqA)
             }else{
-                console.log('不等')
+                
             }
           
             //引用drawIcon函数绘制

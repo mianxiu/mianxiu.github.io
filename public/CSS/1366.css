@@ -27,37 +27,66 @@ body{
      
     width: 1016px;
     height: 645px;
-    background-color: rebeccapurple;
+    background-color: rgb(9, 214, 170);
     
 }
 
 #navigation{
-    min-height: 10%;
-    height: 25%;
-    background-color:white; 
+    padding-left: 107px;
+    height: 120px;
+    background-color:#e1d2d2; 
 }
 #allContext{
-    height: 50%;
+    height: 324px;;
     background-color:rgb(255, 245, 245); 
 
 }
 #rule{
     height: 100%;
     width: 50%;
-    background-color: #fbfbfb;
+    background-color: #ed5454;
 }
-
 
 
 #foot{
-
+    height: 160px;
+    overflow-y: hidden;
+    background-color: royalblue;
 }
 
+#navigation ul{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    background-color: #fef882;
+}
+#navigation>ul li{
+    width: 125px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#navigation>ul> li a{
+    display: block;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+}
+#navigation>ul> li:hover{
+    background-color: #555;
+    color: white;
+}
 
 #mp3Player{
     display: flex;
     flex-direction: row;
-    margin-top: 7%;
+    margin-top: 110px;
 
 }
 #visual{
@@ -128,7 +157,7 @@ body{
     
     width: 120px;
     font-size: 12px;
-    font-weight: bold;
+    
     text-align: right;
     line-height: 24px;
     letter-spacing: 0.2rem;
@@ -174,7 +203,7 @@ body{
 
 #playList li{
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 6px;
     
 }
