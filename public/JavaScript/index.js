@@ -32,6 +32,31 @@ function getIndex(childNode) {
 }
 
 
+/**
+ * 对比数组，只有完全相等返回true
+ * @param {array} a 
+ * @param {array} b 
+ */
+function AryInclue(a,b){
+    let equal = 0
+    if(a.length === b.length){
+        for(i=0;i<b.length;i++){
+            if(a[i]===b[i]){
+                equal +=1
+            }else{
+                equal -=1
+            }
+        }
+    }   
+
+    if(equal === a.length){
+        return true
+    }else{
+        return false
+    }
+}
+
+
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
 
@@ -200,15 +225,13 @@ function mp3Player() {
                 } else { }
             }
 
-            for (t = 0; t < x.length; t++) {
-                let r = 0
-                r += (x[t] + y[t])
-                if (r === 0) {
-                    //    console.log('.......'+x)                    
-                } else {
-                }
+            if(AryInclue(x1,x2) && AryInclue(y1,y2)){
+                console.log('相等')
+                cancelAnimationFrame(reqA)
+            }else{
+                console.log('不等')
             }
-
+          
             //引用drawIcon函数绘制
             drawIcon(x1, y1, fillStyle, C, 2)
         }
