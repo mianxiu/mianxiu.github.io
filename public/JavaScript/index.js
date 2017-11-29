@@ -57,6 +57,9 @@ function mp3Player() {
         let canvasPC = document.querySelector('#playCtr')
         let C = canvasPC.getContext('2d')
 
+        let canvasToline = document.querySelector('#ToShow')
+        let canvasPCS = document.querySelector('#playCtrShade')
+
         let gx1 = [0, 0, 22, 22, 22, 22, 31, 41]
         let gx2 = [0, 8, 20, 8, 18, 30, 38, 30]
         let gy1 = [0, 48, 28, 6, 6, 28, 20, 11]
@@ -65,17 +68,20 @@ function mp3Player() {
 
         player.addEventListener('pause', function () {
             iconMotions(gx1, gy1, gx2, gy2, canvasPC, ['black'], true)
-
+            iconMotions(gx1, gy1, gx2, gy2, canvasPCS, ['rgb(230,230,230)'], true)
+            iconMotions(gx1, gy1, gx2, gy2, canvasToline, ['red'], false)
+            
         })
         player.addEventListener('play', function () {
-            iconMotions(gx1, gy1, gx2, gy2, canvasPC, ['red'], false)
+            iconMotions(gx1, gy1, gx2, gy2, canvasPC, ['black'], false)
+            iconMotions(gx1, gy1, gx2, gy2, canvasPCS, ['rgb(230,230,230)'], false)
+            iconMotions(gx1, gy1, gx2, gy2, canvasToline, ['red'], true)
 
         })
 
 
 
         let p = document.querySelector('#mp3Player')
- 
         let pCtr = document.querySelector('#playCtr')
 
         //暂停/播放

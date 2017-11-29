@@ -18,11 +18,11 @@ html,body{
 
 #navigation{
     height: 25%;
-    background-color:blue; 
+    background-color:white; 
 }
 #allContext{
     height: 50%;
-    background-color:rgb(226, 1, 87); 
+    background-color:rgb(248, 222, 222); 
 
 }
 #foot{
@@ -40,7 +40,7 @@ html,body{
     position: absolute;
     margin-top: -90px;
     margin-left: -26px;
-    background-color: rgb(218, 218, 33);
+    
     transform: scale(0.5,0.5)
     
 }
@@ -50,20 +50,39 @@ html,body{
     margin-left: 4.5%;
     
 }
+#ToShow{
+    position: absolute;
+    margin-top: -140px;
+    margin-left: -70px;
+    
+    transform: scale(0.7,0.7)
+}
+
 #lineTo{
     position: absolute;
-    margin-top: -100px;
+    margin-top: -110px;
     margin-left: -20px;
-    background: rgb(255, 255, 255);
+ 
+    transform: scale(0.8,0.8)
 }
 #playCtr{
+    z-index: 1;
     position: absolute;
-    margin-top: -10px;
+    margin-top: -20px;
     width: 50px;
     height: 50px;
     transform: scale(0.8,0.8)
     
 }
+#playCtrShade{
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    transform: scale(0.8,0.8)
+}
+
 #progress{
     margin-left: 20%;
     width: 120px;
