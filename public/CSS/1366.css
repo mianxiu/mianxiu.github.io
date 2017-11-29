@@ -70,8 +70,9 @@ body{
     width: 20px;
     height: 4px;
     margin-top: 14px;
-    margin-left: 66px;
+    margin-left: 65px;
     background-color: black;
+    transition: margin-left 0.4s;
 }
 #navigation>ul li{
     width: 125px;

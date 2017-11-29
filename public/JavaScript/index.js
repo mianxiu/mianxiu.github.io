@@ -8,6 +8,7 @@ window.onload = function () {
     }
     window.navigator.cookieEnabled
     mp3Player();
+    nav()
 }
 
 
@@ -130,7 +131,10 @@ function mp3Player() {
 
     Playcontrol()
 
-    
+    //
+    let olH = document.querySelector('#playList ol').offsetHeight;
+    let quarterH = olH/4
+
     //播放列表双击歌曲播放
     let playListOl = document.querySelector('#playList>ol')
     let pl = document.querySelector('#playList')
@@ -141,13 +145,14 @@ function mp3Player() {
             //双击切换效果
             let s = 'public/music/'+ db.target.innerText+'.mp3'
             let i = playList.indexOf(s)
-            if(playListOl.style.marginTop !== -(i)*26+'px'){
-                playListOl.style.marginTop = -(i)*26+'px'
+            if(playListOl.style.marginTop !== -(i)*quarterH+'px'){
+                playListOl.style.marginTop = -(i)*quarterH+'px'
                 
             }
 
         })
     //------------------------------------------------------//
+    
     //循环播放列表
     player.src = playList[0]
     player.onended = function () {
@@ -156,7 +161,7 @@ function mp3Player() {
         let host = decodeURI(player.src).replace(window.location.href, '')
         let e = playList.indexOf(host)
         if (e + 1 < playList.length) {
-            playListOl.style.marginTop = -(e + 1) * 26 + 'px'
+            playListOl.style.marginTop = -(e + 1) * quarterH + 'px'
             return player.src = playList[e + 1]
 
         } else {
@@ -201,8 +206,6 @@ function mp3Player() {
 
             drawMotion()
         }
-
-
 
         function drawMotion() {
 
@@ -386,5 +389,54 @@ function mp3Player() {
         ltCtx.bezierCurveTo(9,3,9,3,9,3)
         ltCtx.bezierCurveTo(9,3,21,7,25,6)
         ltCtx.stroke()
+
+}
+
+
+
+
+//导航栏
+function nav(){
+let navBlock = document.querySelector('.nav-block')
+let navW = document.querySelector('#navigation ul').offsetWidth;
+let navQuarterW = navW/4
+let navUl =document.querySelector('#navigation ul')
+
+//位移动画
+navUl.addEventListener('mouseover',function(e){
+  let p =  parseInt(navBlock.style.marginLeft.replace('px',''))
+  if(e.target.tagName === 'LI'){
+    navBlock.style.marginLeft = (navQuarterW*(getIndex(e.target)+1)-(0.48*navQuarterW))+'px'
+  }else{
+      
+  }
+
+})
+
+//指示
+let liAry = []
+for (let i of document.querySelectorAll('#navigation ul li a')){
+    liAry.push(i.href.replace(/.*mianxiu\.github\.io\//,''))
+}
+let n = liAry.indexOf(window.location.href.replace(/.*mianxiu\.github\.io\//,''))
+
+function marginL(){
+    if(n === -1){
+        navBlock.style.marginLeft = 0.48*navQuarterW+'px'
+    }else{     
+        navBlock.style.marginLeft = (navQuarterW*(n+1))-(0.48*navQuarterW)+'px'
+    }
+    
+}
+marginL()  
+//监听复位
+navUl.addEventListener('mouseleave',function(e){
+    marginL()  
+})
+
+
+    
+   
+
 
 }
