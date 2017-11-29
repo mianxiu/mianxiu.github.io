@@ -1,7 +1,12 @@
 
 
 window.onload = function () {
-    document.cookie = 'fontSize=14'
+    if(document.cookie ==='currentTime=14'  ){
+
+    }else{
+        document.cookie = 'currentTime=14'    
+    }
+    window.navigator.cookieEnabled
     mp3Player();
 }
 
