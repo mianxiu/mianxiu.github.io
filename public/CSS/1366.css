@@ -6,6 +6,7 @@ html,body{
     background-color: white;
     height: 100%;
     margin: 0 0;
+   
 }
 
 body{
@@ -61,7 +62,16 @@ body{
     margin: 0;
     padding: 0;
     width: 500px;
-    background-color: #fef882;
+    background-color: #fffd30;
+}
+.nav-block{
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 4px;
+    margin-top: 14px;
+    margin-left: 66px;
+    background-color: black;
 }
 #navigation>ul li{
     width: 125px;
@@ -71,6 +81,23 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.nav-span{
+    font-size: 12px;
+    
+    margin-top: 0;
+    margin-left: -40px;
+    color: #7f7f7f;
+    opacity:1;
+    transition: margin-top 0.2s,opacity 0.2s;
+}
+
+#navigation>ul li:hover div.nav-span{
+    opacity:1;
+    margin-top: 10px;
+
+}
+
 #navigation>ul> li a{
     display: block;
     color: #000;
@@ -79,7 +106,7 @@ body{
     font-size: 22px;
 }
 #navigation>ul> li:hover{
-    background-color: #555;
+    background-color: rgb(255, 255, 255);
     color: white;
 }
 
