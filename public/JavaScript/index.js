@@ -1,7 +1,7 @@
 
 
 window.onload = function () {
-    document.cookie = "musicCurrent=oeschger";
+    document.cookie = 'fontSize=14'
     mp3Player();
 }
 
