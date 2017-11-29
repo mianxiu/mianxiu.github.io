@@ -398,10 +398,9 @@ function mp3Player() {
 //导航栏
 function nav(){
 let navBlock = document.querySelector('.nav-block')
-let navW = document.querySelector('#navigation ul').offsetWidth;
-let navQuarterW = navW/4
 let navUl =document.querySelector('#navigation ul')
-
+let navW = navUl.offsetWidth;
+let navQuarterW = navW/4
 //位移动画
 navUl.addEventListener('mouseover',function(e){
   let p =  parseInt(navBlock.style.marginLeft.replace('px',''))
@@ -414,6 +413,7 @@ navUl.addEventListener('mouseover',function(e){
 })
 
 //指示
+let navSpan = document.querySelectorAll('.nav-span')
 let liAry = []
 for (let i of document.querySelectorAll('#navigation ul li a')){
     liAry.push(i.href.replace(/.*mianxiu\.github\.io\//,''))
@@ -423,8 +423,12 @@ let n = liAry.indexOf(window.location.href.replace(/.*mianxiu\.github\.io\//,'')
 function marginL(){
     if(n === -1){
         navBlock.style.marginLeft = 0.48*navQuarterW+'px'
+        navSpan[0].style.marginTop = 0.08*navQuarterW+'px'
+        navSpan[0].style.opacity = 1;
     }else{     
         navBlock.style.marginLeft = (navQuarterW*(n+1))-(0.48*navQuarterW)+'px'
+        navSpan[n].style.marginTop = 0.08*navQuarterW+'px'
+        navSpan[n].style.opacity = 1;
     }
     
 }
@@ -433,10 +437,5 @@ marginL()
 navUl.addEventListener('mouseleave',function(e){
     marginL()  
 })
-
-
-    
-   
-
 
 }

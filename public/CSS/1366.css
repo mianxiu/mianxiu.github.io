@@ -28,41 +28,44 @@ body{
      
     width: 1016px;
     height: 645px;
-    background-color: rgb(9, 214, 170);
+    background-color: rgb(255, 255, 255);
     
 }
 
-#navigation{
-    padding-left: 107px;
-    height: 120px;
-    background-color:#e1d2d2; 
-}
+
 #allContext{
     height: 324px;;
-    background-color:rgb(255, 245, 245); 
+    background-color:rgb(255, 255, 255); 
 
 }
 #rule{
     height: 100%;
     width: 50%;
-    background-color: #ed5454;
+    background-color: #fff;
 }
 
 
 #foot{
     height: 160px;
     overflow-y: hidden;
-    background-color: royalblue;
+    background-color: white;
 }
 
+/*导航*/
+#navigation{
+    padding-left: 107px;
+    height: 120px;
+    background-color:#fff; 
+}
 #navigation ul{
     display: flex;
+    height: 120px;
     flex-direction: row;
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 500px;
-    background-color: #fffd30;
+    background-color: #fff;
 }
 .nav-block{
     position: absolute;
@@ -76,17 +79,17 @@ body{
 }
 #navigation>ul li{
     width: 125px;
-    height: 120px;
+   
     display: flex;
+    padding-top: 40px;
     flex-direction: column;
-    justify-content: center;
+    
     align-items: center;
 }
 
 .nav-span{
     font-size: 12px;
     
-    margin-top: 0;
     margin-left: -40px;
     color: #7f7f7f;
     opacity:0;
