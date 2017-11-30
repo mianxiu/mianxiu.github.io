@@ -102,7 +102,7 @@ function mp3Player() {
     /**
      * 输出歌曲数组
      */
-    mp3Player.prototype.playListAry = function(){
+    this.prototype.playListAry = function(){
         return this.content = playList
     }
 
