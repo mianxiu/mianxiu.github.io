@@ -517,11 +517,13 @@ if(document.cookie!==""){
 
 function ajax(){
     
-    xmlhttp=new XMLHttpRequest();
-    xmlhttp.open("GET",'about.html',true)
-    xmlhttp.responseType = "text";
-    xmlhttp.send();
-    console.log('ajax测试'+xmlHttp.responseText)
-
-}
+    function reqListener () {
+        console.log(this.responseText);
+      }
+      
+      var oReq = new XMLHttpRequest();
+      oReq.onload = reqListener;
+      oReq.open("get", "about.html", true);
+      oReq.send();
+    }
 ajax()
