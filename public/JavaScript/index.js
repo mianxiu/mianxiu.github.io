@@ -8,8 +8,6 @@ window.onload = function () {
 }
 
 
-//域名的正则，用于匹配歌曲
-var domainName = new RegExp(/https\:\/\/mianxiu\.github\.io/)
 
 function r() {
     var a = ['这是什么', '不会是真的吧', '开个玩乐', '无用功', '惨~~', 'surprise!!!', '........']
@@ -22,6 +20,11 @@ function r() {
 }
 
 
+
+
+
+//域名的正则，用于匹配歌曲
+var domainName = new RegExp(/https\:\/\/mianxiu\.github\.io/)
 
 /**
  * 输入DOM对象，返回相对父元素的索引值
@@ -496,6 +499,7 @@ let p = playListAry()
         let c =  'currentTime='+document.querySelector('#player').currentTime
         let d = decodeURI(document.querySelector('#player').src).replace(domainName,'')
         console.log(d)
+        console.log(p)
         let n =  'songNum='+ p.indexOf(d)
         document.cookie = c
         document.cookie = n       
