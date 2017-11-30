@@ -102,7 +102,7 @@ function mp3Player() {
     /**
      * 输出歌曲数组
      */
-    this.prototype.playListAry = function(){
+    this.playListAry = function(){
         return this.content = playList
     }
 
@@ -479,7 +479,7 @@ function currentTime(){
 
 console.log(document.cookie)
 console.log( getCookie())
-console.log(mp3Player.playListAry())
+console.log(mp3Player.playListAry)
     document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
