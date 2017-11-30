@@ -103,6 +103,13 @@ function mp3Player() {
      * 输出歌曲数组
      */
     this.playListAry = function(){
+        let playList = []
+        let playPath = 'public/music/'
+    
+        for (const l of document.querySelector('#playList>ol').children) {
+            playList.push(playPath + l.innerText + '.mp3')
+        }
+    
         return playList
     }
 
