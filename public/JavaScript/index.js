@@ -519,8 +519,8 @@ function ajax(){
     console.log('ajax测试')
     xmlhttp=new XMLHttpRequest();
     xmlhttp.open("GET",'about.html',true)
-    oReq.responseType = "text";
-    oReq.send();
+    xmlhttp.responseType = "text";
+    xmlhttp.send();
 
 }
 ajax()
