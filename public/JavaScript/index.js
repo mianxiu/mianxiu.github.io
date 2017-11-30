@@ -179,12 +179,13 @@ function mp3Player() {
     Playcontrol()
 
     //
-    let olH = document.querySelector('#playList ol').offsetHeight;
-    let quarterH = olH/4
 
     //播放列表双击歌曲播放
     let playListOl = document.querySelector('#playList>ol')
     let pl = document.querySelector('#playList')
+
+    let olH = playListOl.offsetHeight;
+    let quarterH  = olH/playListOl.length
 
         pl.addEventListener('dblclick', function (db) {
             player.src = playList[getIndex(db.target)]
@@ -494,11 +495,11 @@ navUl.addEventListener('mouseleave',function(e){
 //把当前播放时间和歌曲设置为cookie
 function currentTime(){
 let p = playListAry()
-
+let t = document.querySelector('#playList>ol')
 if(document.cookie!==""){
-
     document.querySelector('#player').currentTime = getCookie().currentTime
     document.querySelector('#player').src = p[getCookie().songNum]
+    t.style.marginTop =   -getCookie().songNum*(t.offsetHeight/p.length)+'px'
 }
 
     document.querySelector('#navigation').addEventListener('click',function(){
