@@ -513,3 +513,12 @@ if(document.cookie!==""){
     })
 }
 
+
+
+function ajax(){
+    xmlhttp=new XMLHttpRequest();
+   
+    xmlhttp.open("GET",'about.html',true)
+
+}
+ajax()
