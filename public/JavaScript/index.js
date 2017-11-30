@@ -512,3 +512,9 @@ if(document.cookie!==""){
         document.cookie = n       
     })
 }
+
+
+
+window.onbeforeunload = function(event){    
+    return '您可能有数据没有保存'; 
+};
