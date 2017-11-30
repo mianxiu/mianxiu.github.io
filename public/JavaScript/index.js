@@ -471,7 +471,7 @@ function currentTime(){
 console.log(document.cookie)
 console.log( getCookie())
 
-    window.addEventListener('click',function(){
+    document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
         let n =  'songNum='+playList.indexOf(decodeURI(document.querySelector('#player').src).replace(window.location.href,''))
