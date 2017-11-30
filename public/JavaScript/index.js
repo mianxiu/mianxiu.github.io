@@ -8,6 +8,9 @@ window.onload = function () {
 }
 
 
+//域名的正则，用于匹配歌曲
+var domainName = new RegExp(/https\:\/\/mianxiu\.github\.io/)
+
 function r() {
     var a = ['这是什么', '不会是真的吧', '开个玩乐', '无用功', '惨~~', 'surprise!!!', '........']
     getRandomInt = function (min, max) {
@@ -198,7 +201,7 @@ function mp3Player() {
     player.onended = function () {
         //歌曲切换效果
 
-        let host = decodeURI(player.src).replace(window.location.href, '')
+        let host = decodeURI(player.src).replace(domainName, '')
         let e = playList.indexOf(host)
         if (e + 1 < playList.length) {
             playListOl.style.marginTop = -(e + 1) * quarterH + 'px'
@@ -460,9 +463,9 @@ navUl.addEventListener('mouseover',function(e){
 let navSpan = document.querySelectorAll('.nav-span')
 let liAry = []
 for (let i of document.querySelectorAll('#navigation ul li a')){
-    liAry.push(i.href.replace(/.*mianxiu\.github\.io\//,''))
+    liAry.push(i.href.replace(domainName,''))
 }
-let n = liAry.indexOf(window.location.href.replace(/.*mianxiu\.github\.io\//,''))
+let n = liAry.indexOf(window.location.href.replace(domainName,''))
 
 function marginL(){
     if(n === -1){
@@ -491,12 +494,10 @@ let p = playListAry()
     document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
-        let d = decodeURI(document.querySelector('#player').src).replace(window.location.href,'')
+        let d = decodeURI(document.querySelector('#player').src).replace(domainName,'')
         console.log(d)
         let n =  'songNum='+ p.indexOf(d)
         document.cookie = c
-        document.cookie = n
-
-        
+        document.cookie = n       
     })
 }
