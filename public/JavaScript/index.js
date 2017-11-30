@@ -185,7 +185,7 @@ function mp3Player() {
     let pl = document.querySelector('#playList')
 
     let olH = playListOl.offsetHeight;
-    let quarterH  = olH/playList.length
+    let quarterH  = olH/playListAry().length
 
         pl.addEventListener('dblclick', function (db) {
             player.src = playList[getIndex(db.target)]
