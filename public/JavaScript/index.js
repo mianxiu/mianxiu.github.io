@@ -185,7 +185,11 @@ function mp3Player() {
     let pl = document.querySelector('#playList')
 
     let olH = playListOl.offsetHeight;
-    let quarterH  = olH/playListAry.length
+<<<<<<< HEAD
+    let quarterH  = olH/playListAry().length
+=======
+    let quarterH  = olH/playList.length
+>>>>>>> parent of 81137c0... 1
 
         pl.addEventListener('dblclick', function (db) {
             player.src = playList[getIndex(db.target)]
