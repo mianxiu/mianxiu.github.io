@@ -516,11 +516,11 @@ if(document.cookie!==""){
 
 
 function ajax(){
-    console.log('ajax测试')
+    
     xmlhttp=new XMLHttpRequest();
     xmlhttp.open("GET",'about.html',true)
-    xmlhttp.responseType = "text";
     xmlhttp.send();
+    console.log('ajax测试'+xmlHttp.responseText)
 
 }
 ajax()
