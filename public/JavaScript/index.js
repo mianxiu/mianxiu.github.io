@@ -24,7 +24,7 @@ function r() {
 
 
 //域名的正则，用于匹配歌曲
-var domainName = new RegExp(/https\:\/\/mianxiu\.github\.io/)
+var domainName = new RegExp(/https\:\/\/mianxiu\.github\.io\//)
 
 /**
  * 输入DOM对象，返回相对父元素的索引值
