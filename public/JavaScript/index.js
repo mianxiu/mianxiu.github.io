@@ -187,10 +187,10 @@ function mp3Player() {
     let olH = playListOl.offsetHeight;
     let quarterH  = olH/playListAry().length
 
-        pl.addEventListener('dblclick', function (db) {
+        pl.addEventListener('click', function (db) {
             player.src = playList[getIndex(db.target)]
 
-            //双击切换效果
+            //切换效果
             let s = 'public/music/'+ db.target.innerText+'.mp3'
             let i = playList.indexOf(s)
             if(playListOl.style.marginTop !== -(i)*quarterH+'px'){
