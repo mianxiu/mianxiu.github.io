@@ -185,7 +185,7 @@ function mp3Player() {
     let pl = document.querySelector('#playList')
 
     let olH = playListOl.offsetHeight;
-    let quarterH  = olH/playListAry().length
+    let quarterH  = olH/playListAry.length
 
         pl.addEventListener('dblclick', function (db) {
             player.src = playList[getIndex(db.target)]
@@ -502,7 +502,7 @@ if(document.cookie!==""){
     t.style.marginTop =   -getCookie().songNum*(t.offsetHeight/p.length)+'px'
 }
 
-    document.querySelector('#player').addEventListener('timeupdate',function(){
+    document.querySelector('#navigation').addEventListener('click',function(){
      
         let c =  'currentTime='+document.querySelector('#player').currentTime
         let d = decodeURI(document.querySelector('#player').src).replace(domainName,'')
