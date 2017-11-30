@@ -85,6 +85,22 @@ function AryInclue(a,b){
         }
     }
 
+
+
+     /**
+     * 输出歌曲数组
+     */
+    function playListAry(){
+        let playList = []
+        let playPath = 'public/music/'
+    
+        for (const l of document.querySelector('#playList>ol').children) {
+            playList.push(playPath + l.innerText + '.mp3')
+        }
+    
+        return playList
+    }
+
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
 
@@ -99,19 +115,7 @@ function mp3Player() {
     }
 
 
-    /**
-     * 输出歌曲数组
-     */
-    this.playListAry = function(){
-        let playList = []
-        let playPath = 'public/music/'
-    
-        for (const l of document.querySelector('#playList>ol').children) {
-            playList.push(playPath + l.innerText + '.mp3')
-        }
-    
-        return playList
-    }
+   
 
     var player = document.querySelector('#player')
     var source = audioCtx.createMediaElementSource(player);
@@ -486,7 +490,7 @@ function currentTime(){
 
 console.log(document.cookie)
 console.log( getCookie())
-console.log(mp3Player.playListAry)
+console.log(playListAry())
     document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
