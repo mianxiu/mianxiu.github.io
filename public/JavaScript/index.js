@@ -1,13 +1,9 @@
 
 
 window.onload = function () {
-    if(document.cookie ==='currentTime=14'  ){
 
-    }else{
-        document.cookie = 'currentTime=14'    
-    }
-    window.navigator.cookieEnabled
     mp3Player();
+    currentTime()
     nav()
 }
 
@@ -438,4 +434,16 @@ navUl.addEventListener('mouseleave',function(e){
     marginL()  
 })
 
+}
+
+
+//把当前播放时间和歌曲设置为cookie
+
+function currentTime(){
+
+    document.querySelector('#navigation').addEventListener('click',function(){
+        console.log(document.querySelector('#player').currentTime)
+        let c =  'currentTime='+document.querySelector('#player').currentTime
+        document.cookie = c
+    })
 }
