@@ -88,6 +88,7 @@ function AryInclue(a,b){
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
 
+  
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
@@ -95,6 +96,14 @@ function mp3Player() {
 
     for (const l of document.querySelector('#playList>ol').children) {
         playList.push(playPath + l.innerText + '.mp3')
+    }
+
+
+    /**
+     * 输出歌曲数组
+     */
+    mp3Player.prototype.playList = function(){
+        return playList
     }
 
     var player = document.querySelector('#player')
@@ -470,12 +479,14 @@ function currentTime(){
 
 console.log(document.cookie)
 console.log( getCookie())
-console.log(playList)
+console.log(mp3Player.playList())
     document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
-        let n =  'songNum='+playList.indexOf(decodeURI(document.querySelector('#player').src).replace(window.location.href,''))
+      //  let n =  'songNum='+playList.indexOf(decodeURI(document.querySelector('#player').src).replace(window.location.href,''))
         document.cookie = c
         document.cookie = n
+
+        
     })
 }
