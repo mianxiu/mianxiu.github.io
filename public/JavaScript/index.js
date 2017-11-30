@@ -502,7 +502,7 @@ if(document.cookie!==""){
     t.style.marginTop =   -getCookie().songNum*(t.offsetHeight/p.length)+'px'
 }
 
-    document.querySelector('#navigation').addEventListener('click',function(){
+    document.querySelector('#player').addEventListener('timeupdate',function(){
      
         let c =  'currentTime='+document.querySelector('#player').currentTime
         let d = decodeURI(document.querySelector('#player').src).replace(domainName,'')
