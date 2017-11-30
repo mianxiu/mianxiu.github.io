@@ -494,12 +494,17 @@ navUl.addEventListener('mouseleave',function(e){
 //把当前播放时间和歌曲设置为cookie
 function currentTime(){
 let p = playListAry()
+
+if(document.cookie!==""){
+    document.querySelector('#player').currentTime = getCookie().currentTime
+    document.querySelector('#player').src = p[getCookie.songNum]
+}
+
     document.querySelector('#navigation').addEventListener('click',function(){
-        console.log(document.querySelector('#player').currentTime)
+     
         let c =  'currentTime='+document.querySelector('#player').currentTime
         let d = decodeURI(document.querySelector('#player').src).replace(domainName,'')
-        console.log(d)
-        console.log(p)
+      
         let n =  'songNum='+ p.indexOf(d)
         document.cookie = c
         document.cookie = n       
