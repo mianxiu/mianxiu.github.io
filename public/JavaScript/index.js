@@ -490,11 +490,11 @@ function currentTime(){
 
 console.log(document.cookie)
 console.log( getCookie())
-console.log(playListAry())
+let p = playListAry
     document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
-        let n =  'songNum='+ playListAry.indexOf(decodeURI(document.querySelector('#player').src).replace(window.location.href,''))
+        let n =  'songNum='+ p.indexOf(decodeURI(document.querySelector('#player').src).replace(window.location.href,''))
         document.cookie = c
         document.cookie = n
 
