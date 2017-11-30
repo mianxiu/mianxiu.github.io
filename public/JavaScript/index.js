@@ -470,7 +470,7 @@ function currentTime(){
 
 console.log(document.cookie)
 console.log( getCookie())
-
+console.log(playList)
     document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
