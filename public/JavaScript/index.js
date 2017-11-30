@@ -496,8 +496,9 @@ function currentTime(){
 let p = playListAry()
 
 if(document.cookie!==""){
+
     document.querySelector('#player').currentTime = getCookie().currentTime
-    document.querySelector('#player').src = p[getCookie.songNum]
+    document.querySelector('#player').src = p[getCookie().songNum]
 }
 
     document.querySelector('#navigation').addEventListener('click',function(){
