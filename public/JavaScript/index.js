@@ -103,7 +103,7 @@ function mp3Player() {
      * 输出歌曲数组
      */
     this.playListAry = function(){
-        return this.content = playList
+        return playList
     }
 
     var player = document.querySelector('#player')
