@@ -60,6 +60,31 @@ function AryInclue(a,b){
 }
 
 
+    /**获取cookie
+     * 返回一个cookieName:value的对象
+     */
+    function getCookie(){
+        let r = new RegExp(/=/)
+        let c = []
+        let u = document.cookie
+        if(/;/.test(u)){
+          ua =  u.split(/;\s/)
+          let co =new Object()
+          for(let i of ua){
+              cn = i.split(r)[0]
+              cv = i.split(r)[1]
+              co[cn] = cv       
+          }  
+          return co
+        }else{
+          let co =new Object()
+              cn = u.split(r)[0]
+              cv = u.split(r)[1]
+              co[cn] = cv
+              return co
+        }
+    }
+
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
 
@@ -442,37 +467,14 @@ navUl.addEventListener('mouseleave',function(e){
 
 //把当前播放时间和歌曲设置为cookie
 function currentTime(){
-  function getCookie(){
-      let r = new RegExp(/=/)
-      let c = []
-      let u = document.cookie
-      if(/;/.test(u)){
-        ua =  u.split(/;/)
-        for(let i of ua){
-            let co =new Object()
-            cn = i.split(r)[0]
-            cv = i.split(r)[1]
-            co[cn] = cv
-            c.push(co)
-            return c
-        }   
-        return c
-      }else{
-        let co =new Object()
-            cn = u.split(r)[0]
-            cv = u.split(r)[1]
-            co[cn] = cv
-            c.push(co)
-            return c
-      }
-  }
 
-  console.log( getCookie())
+console.log(document.cookie)
+console.log( getCookie())
 
     document.querySelector('#navigation').addEventListener('click',function(){
         console.log(document.querySelector('#player').currentTime)
         let c =  'currentTime='+document.querySelector('#player').currentTime
-        let n =  'songNum='+getIndex(document.querySelector('#player'))
+        let n =  'songNum='+playList.indexOf(decodeURI(document.querySelector('#player').src).replace(window.location.href,''))
         document.cookie = c
         document.cookie = n
     })
