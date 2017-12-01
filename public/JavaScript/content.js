@@ -3,9 +3,14 @@
  //  ajax()
  function ajax(url){
       var oReq = new XMLHttpRequest();
+      oReq.onload = writeContent;
       oReq.open("get",url, true);
       oReq.send();
-      return this.responseText
+    
+      
+      function writeContent(){
+        console.log(this.responseText)
+        }
     }
     
 
@@ -18,7 +23,7 @@
             let u = '/' + e.target.innerText.toLowerCase()
             if(u !== '/home'){
                 window.history.replaceState(null,null,u)  
-                console.log(ajax(u))
+                ajax(u)
                       
                 }
             }
@@ -28,6 +33,4 @@
     }
 
 
-    function writeContent(context){
-        console.log(context)
-    }
+   
