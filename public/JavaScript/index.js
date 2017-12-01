@@ -154,16 +154,21 @@ function nav() {
     //指示复位
     let navA = $All('#navigation  a')
     let navSpan = $All('.nav-span')
-    let navAry = []
-       for(let i of navA){
-           navAry.push(i.innerText)
-       }
+    
     navUl.addEventListener('mouseleave',function(){
-       let o =navAry.indexOf($('.nav-active').innerText)
+       let o = getIndex($('.nav-active').parentNode)
        navBlock.style.marginLeft = (navQuarterW * (o + 1) - (0.48 * navQuarterW))+'px'
-       navSpan[o].style = 'opacity:1;margin-top:10px'
+       
+    })
 
-
+      navUl.addEventListener('click',(e)=>{
+         for(p of navSpan){
+             p.style = ''
+         }
+         if(e.target.tagName === 'A'){
+         navSpan[getIndex(e.target.parentNode)].style = 'opacity:1;margin-top:10px;'
+         
+         }
     })
 
 }

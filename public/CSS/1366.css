@@ -89,7 +89,7 @@ body{
 
 .nav-span{
     font-size: 12px;
-    
+    margin-top: 0px;
     margin-left: -40px;
     color: #7f7f7f;
     opacity:0;
