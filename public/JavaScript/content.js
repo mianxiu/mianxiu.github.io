@@ -21,10 +21,10 @@
         if(e.target.tagName ==='A'){
             console.log(e.target)
             let u = '/' + e.target.innerText.toLowerCase()
-            if(u !== 'home'){
+            if(u !== '/home'){
                 window.history.pushState(null,null,u)  
-                console.log(ajax(u))          
-            }
+                let o = ajax(u)  
+                console.log(o)            }
         }
     })
 
