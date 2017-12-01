@@ -2,13 +2,8 @@
 
  //  ajax()
  function ajax(url){
-    
-    function reqListener () {
-       return this.responseText
-      }
-      
       var oReq = new XMLHttpRequest();
-      oReq.onload = reqListener;
+      oReq.onload = writeContent(this.responseText);
       oReq.open("get",url, true);
       oReq.send();
     }
@@ -24,11 +19,15 @@
             if(u !== '/home'){
                 window.history.pushState(null,null,u)  
                 let o = ajax(u)  
-                console.log(o)            }
-        }
-    })
+                console.log(o)            
+                }
+            }
+        })
 
 
     }
 
 
+    function writeContent(context){
+        console.log(context)
+    }
