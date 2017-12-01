@@ -29,7 +29,7 @@
             if(u !== 'home'){
                 //   window.history.replaceState(null,null,'/'+u)  
                 ajax('public/navigation/'+u)      
-            }else if (u==='home'){
+            }else if (u ==='home'){
                 $('#rule').innerText = '" to turning around..... "'
             }
                       
