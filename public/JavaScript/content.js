@@ -18,7 +18,7 @@
             let u = '/' + e.target.innerText.toLowerCase()
             if(u !== '/home'){
                 window.history.replaceState(null,null,u)  
-                ajax(u)  
+                console.log(ajax(u))
                       
                 }
             }
