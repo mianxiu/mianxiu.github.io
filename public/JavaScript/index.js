@@ -180,7 +180,8 @@ function nav() {
     navUl.addEventListener('click',function(e){
         if(e.target.tagName ==='A'){
             console.log(e.target)
-            window.history.pushState(null,null,'/gallery.html')
+            let u = '/' + e.target.innerText
+            window.history.pushState(null,null,u)
             
         }
     })
