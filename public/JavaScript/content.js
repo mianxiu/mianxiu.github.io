@@ -11,7 +11,7 @@ function ajax(url) {
     //写入内容
     function writeContent() {
         console.log(this.responseText)
-        $('#rule').innerText = '" ' + this.responseText + ' "'
+        $('#rule').innerHTML = '" ' + this.responseText + ' "'
 
         triangle()
     }
