@@ -20,7 +20,7 @@
     $('#navigation ul').addEventListener('click',function(e){
         if(e.target.tagName ==='A'){
             console.log(e.target)
-            let u = '/' + e.target.innerText.toLoweCase()
+            let u = '/' + e.target.innerText.toLowerCase()
             window.history.pushState(null,null,u)
             console.log(ajax(u+'.html'))
             
