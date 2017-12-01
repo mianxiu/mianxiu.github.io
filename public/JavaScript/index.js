@@ -3,8 +3,8 @@
 window.onload = function () {
 
     mp3Player();
-
     nav()
+    navGetAjax()
 
 
 }
@@ -176,13 +176,6 @@ function nav() {
     })
 
 }
-
-
-
-
-
-
-
 
 
 
