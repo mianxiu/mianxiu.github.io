@@ -7,7 +7,7 @@ function mp3Player() {
         var playList = []
         var playPath = 'public/music/'
     
-        for (const l of $('#playList>ol').children) {
+        for (let l of $('#playList>ol').children) {
             playList.push(playPath + l.innerText + '.mp3')
         }
     
