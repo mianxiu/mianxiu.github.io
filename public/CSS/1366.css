@@ -200,11 +200,6 @@ body{
     margin-left: 10.1%;
 }
 
-#playList:hover::before{
-    height: 0px;
-    margin-top: 60px;
-}
-
 #playList{
     
     border: 0px solid royalblue;
@@ -217,7 +212,7 @@ body{
     display: block;
     content: '';
     position: absolute;
-    margin-top: 30px;
+    margin-top: 28px;
     min-width: 40%;
     height: 30px;
     background:linear-gradient(0deg,white,rgba(255,255,255,0.5));
@@ -228,7 +223,6 @@ body{
 #playList ol {
     
     margin: 0 0;
-    margin-top:0;
     transition:margin-top 0.2s;
 }
 

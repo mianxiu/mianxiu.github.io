@@ -1,10 +1,31 @@
 
 
 window.onload = function () {
-
+    
     mp3Player();
     currentTime()
     nav()
+
+    
+}
+
+
+
+/**
+ * 等于document.querSelector
+ * @param {*} dom 
+ */
+function $(dom){
+    return document.querySelector(dom)
+    
+}
+
+/**
+ * 等于document.querSelectorAll
+ * @param {*} dom 
+ */
+function $All(dom){
+    return document.querySelectorAll(dom)
 }
 
 
@@ -16,7 +37,7 @@ function r() {
         max = Math.floor(max)
         return Math.floor((Math.random() * (max - min)) + min)
     }
-    document.querySelector('button.k').innerText = a[getRandomInt(1, 5)]
+    $('button.k').innerText = a[getRandomInt(1, 5)]
 }
 
 
@@ -24,7 +45,7 @@ function r() {
 
 
 //域名的正则，用于匹配歌曲
-var domainName = new RegExp(/https\:\/\/mianxiu\.github\.io\//)
+var musicRegex = new RegExp(/.*mianxiu\.github\.io\//)
 
 /**
  * 输入DOM对象，返回相对父元素的索引值
@@ -100,7 +121,7 @@ function AryInclue(a,b){
         let playList = []
         let playPath = 'public/music/'
     
-        for (const l of document.querySelector('#playList>ol').children) {
+        for (const l of $('#playList>ol').children) {
             playList.push(playPath + l.innerText + '.mp3')
         }
     
@@ -116,14 +137,14 @@ function mp3Player() {
     var playList = []
     var playPath = 'public/music/'
 
-    for (const l of document.querySelector('#playList>ol').children) {
+    for (const l of $('#playList>ol').children) {
         playList.push(playPath + l.innerText + '.mp3')
     }
 
 
    
 
-    var player = document.querySelector('#player')
+    var player = $('#player')
     var source = audioCtx.createMediaElementSource(player);
     var analyser = audioCtx.createAnalyser()
     source.connect(analyser);
@@ -133,11 +154,11 @@ function mp3Player() {
     //------------------------------------------------------//
     //按钮播放/暂停+动画相关
     function Playcontrol() {
-        let canvasPC = document.querySelector('#playCtr')
+        let canvasPC = $('#playCtr')
         let C = canvasPC.getContext('2d')
 
-        let canvasToline = document.querySelector('#ToShow')
-        let canvasPCS = document.querySelector('#playCtrShade')
+        let canvasToline = $('#ToShow')
+        let canvasPCS = $('#playCtrShade')
 
         let gx1 = [0, 0, 22, 22, 22, 22, 31, 41]
         let gx2 = [0, 8, 20, 8, 18, 30, 38, 30]
@@ -160,8 +181,8 @@ function mp3Player() {
 
 
 
-        let p = document.querySelector('#mp3Player')
-        let pCtr = document.querySelector('#playCtr')
+        let p = $('#mp3Player')
+        let pCtr = $('#playCtr')
 
         //暂停/播放
         pCtr.onclick = function (e) {
@@ -180,32 +201,66 @@ function mp3Player() {
 
     //
 
-    //播放列表双击歌曲播放
-    let playListOl = document.querySelector('#playList>ol')
-    let pl = document.querySelector('#playList')
+    //播放列表控制
+    let playListOl = $('#playList>ol')
+    let pl = $('#playList')
 
     let olH = playListOl.offsetHeight;
-    let quarterH  = olH/playListAry().length
-
-        pl.addEventListener('click', function (db) {
-            player.src = playList[getIndex(db.target)]
-
-            //切换效果
-            let s = 'public/music/'+ db.target.innerText+'.mp3'
-            let i = playList.indexOf(s)
-            if(playListOl.style.marginTop !== -(i)*quarterH+'px'){
-                playListOl.style.marginTop = -(i)*quarterH+'px'
+    let olB = window.getComputedStyle($('#playList>ol>li'),null).marginBottom
+    let quarterH  = (olH+parseInt(olB.replace('px','')))/playListAry().length
+        //单击播放
+        pl.addEventListener('click', function (e) {
+            if(e.target.id !=='playList'){
+                player.src = playList[getIndex(e.target)]
                 
+                            //切换效果
+                            let s = 'public/music/'+ e.target.innerText+'.mp3'
+                            let i = playList.indexOf(s)
+                            if(playListOl.style.marginTop !== -(i)*quarterH+'px'){
+                               playListOl.style.marginTop = -(i)*quarterH+'px'
+                                
+                            }
             }
-
+        
         })
+
+
+    //滚动滚轮浏览歌曲
+    function listView(){
+        //歌单滚动
+        let pl = $('#playList ol')
+        //li的高度(包括margin)
+        let pllh = $('#playList ol li').offsetHeight + parseInt(window.getComputedStyle($('#playList>ol>li'),null).marginBottom.replace(/px/,''))
+        $('#playList').addEventListener('wheel',function(e){
+            let g = parseInt(pl.style.marginTop.replace(/px/,''))
+                if(e.deltaY<0 && g!==0){
+                    //up
+                    pl.style.marginTop = g+pllh+'px';
+                }else if(e.deltaY>0　&& g!==($All('#playList ol li').length-1)*-pllh ){
+                    //down
+                    pl.style.marginTop = g-pllh+'px';    
+             
+                }
+          
+        })
+    
+        pl.addEventListener('mouseleave',function(e){
+            //播放歌曲的索引值*li’s height
+            let initial_marginTop = playListAry().indexOf(decodeURI($('#player').src.replace(musicRegex,'')))*-pllh
+            pl.style.marginTop = initial_marginTop+'px'
+        })
+        
+     }
+
+     listView()
+   
     //------------------------------------------------------//
     //循环播放列表
     player.src = playList[0]
     player.onended = function () {
         //歌曲切换效果
 
-        let host = decodeURI(player.src).replace(domainName, '')
+        let host = decodeURI(player.src).replace(musicRegex, '')
         let e = playList.indexOf(host)
         if (e + 1 < playList.length) {
             playListOl.style.marginTop = -(e + 1) * quarterH + 'px'
@@ -346,7 +401,7 @@ function mp3Player() {
     //时间
     //toFixed()保留小数
     function AudioProgress() {
-        let canvasPB = document.querySelector('#audioProgressB')
+        let canvasPB = $('#audioProgressB')
         let canvasPCtxB = canvasPB.getContext("2d")
         player.onloadedmetadata = function () {
 
@@ -368,9 +423,9 @@ function mp3Player() {
             player.addEventListener('timeupdate', function () {
                 let pc = player.currentTime
                 //绘制进度条 
-                document.querySelector('#audioProgressA').style = 'margin-left:' + pc / i + 'px;width:' + (120 - pc / i) + 'px'
+                $('#audioProgressA').style = 'margin-left:' + pc / i + 'px;width:' + (120 - pc / i) + 'px'
                 //歌曲播放时间
-                document.querySelector('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':')
+                $('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':')
             })
         }
 
@@ -380,7 +435,7 @@ function mp3Player() {
     //------------------------------------------------------//
     //可视化频谱
     function visual() {
-        let canvas = document.querySelector('#visual')
+        let canvas = $('#visual')
         let canvasCtx = canvas.getContext("2d")
         //canvas画布大小
         WIDTH = canvas.width;
@@ -424,7 +479,7 @@ function mp3Player() {
 
 
     //画红色箭头
-    let lt = document.querySelector('#lineTo')
+    let lt = $('#lineTo')
         ltCtx = lt.getContext('2d')
 
         ltCtx.lineWidth = 2;
@@ -448,8 +503,8 @@ function mp3Player() {
 
 //导航栏
 function nav(){
-let navBlock = document.querySelector('.nav-block')
-let navUl =document.querySelector('#navigation ul')
+let navBlock = $('.nav-block')
+let navUl =$('#navigation ul')
 let navW = navUl.offsetWidth;
 let navQuarterW = navW/4
 //位移动画
@@ -464,12 +519,12 @@ navUl.addEventListener('mouseover',function(e){
 })
 
 //指示
-let navSpan = document.querySelectorAll('.nav-span')
+let navSpan = $All('.nav-span')
 let liAry = []
-for (let i of document.querySelectorAll('#navigation ul li a')){
-    liAry.push(i.href.replace(domainName,''))
+for (let i of $All('#navigation ul li a')){
+    liAry.push(i.href.replace(musicRegex,''))
 }
-let n = liAry.indexOf(window.location.href.replace(domainName,''))
+let n = liAry.indexOf(window.location.href.replace(musicRegex,''))
 
 function marginL(){
     if(n === -1){
@@ -495,17 +550,17 @@ navUl.addEventListener('mouseleave',function(e){
 //把当前播放时间和歌曲设置为cookie
 function currentTime(){
 let p = playListAry()
-let t = document.querySelector('#playList>ol')
+let t = $('#playList>ol')
 if(document.cookie!==""){
-    document.querySelector('#player').currentTime = getCookie().currentTime
-    document.querySelector('#player').src = p[getCookie().songNum]
+    $('#player').currentTime = getCookie().currentTime
+    $('#player').src = p[getCookie().songNum]
     t.style.marginTop =   -getCookie().songNum*(t.offsetHeight/p.length)+'px'
 }
 
-    document.querySelector('#navigation').addEventListener('click',function(){
+    $('#navigation').addEventListener('click',function(){
      
-        let c =  'currentTime='+document.querySelector('#player').currentTime
-        let d = decodeURI(document.querySelector('#player').src).replace(domainName,'')
+        let c =  'currentTime='+$('#player').currentTime
+        let d = decodeURI($('#player').src).replace(musicRegex,'')
       
         let n =  'songNum='+ p.indexOf(d)
         document.cookie = c
@@ -515,15 +570,3 @@ if(document.cookie!==""){
 
 
 
-function ajax(){
-    
-    function reqListener () {
-        console.log(this.responseText);
-      }
-      
-      var oReq = new XMLHttpRequest();
-      oReq.onload = reqListener;
-      oReq.open("get", "about.html", true);
-      oReq.send();
-    }
-ajax()
