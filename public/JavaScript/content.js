@@ -1,6 +1,6 @@
 
 
- //  ajax()
+ //ajax()
  function ajax(url){
       var oReq = new XMLHttpRequest();
       oReq.onload = writeContent;
@@ -8,6 +8,7 @@
       oReq.send();
     
       
+      //写入内容
       function writeContent(){
         console.log(this.responseText)
         }
@@ -23,8 +24,9 @@
             let u = e.target.innerText.toLowerCase()
             if(u !== 'home'){
                 window.history.replaceState(null,null,'/'+u)  
-                ajax('public/navigation/'+u)
-                      
+                ajax('public/navigation/'+u)                 
+                }else{
+                window.history.replaceState(null,null,'')  
                 }
             }
         })
