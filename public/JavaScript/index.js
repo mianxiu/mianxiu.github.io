@@ -153,6 +153,7 @@ function nav() {
 
     //指示复位
     let navA = $All('#navigation  a')
+    let navSpan = $All('.nav-span')
     let navAry = []
        for(let i of navA){
            navAry.push(i.innerText)
@@ -160,6 +161,9 @@ function nav() {
     navUl.addEventListener('mouseleave',function(){
        let o =navAry.indexOf($('.nav-active').innerText)
        navBlock.style.marginLeft = (navQuarterW * (o + 1) - (0.48 * navQuarterW))+'px'
+       navSpan[o].style = 'opacity:1;margin-top:10px'
+
+
     })
 
 }
