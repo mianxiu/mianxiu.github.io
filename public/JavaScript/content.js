@@ -20,10 +20,10 @@
     $('#navigation ul').addEventListener('click',function(e){
         if(e.target.tagName ==='A'){
             console.log(e.target)
-            let u = '/' + e.target.innerText.toLowerCase()
-            if(u !== '/home'){
-                window.history.replaceState(null,null,u)  
-                ajax(u)
+            let u = e.target.innerText.toLowerCase()
+            if(u !== 'home'){
+                window.history.replaceState(null,null,'/'+u)  
+                ajax('public/navigation/'+u)
                       
                 }
             }
