@@ -175,19 +175,7 @@ function nav() {
         marginL()
     })
 
-
-    //点击导航利用History API
-    navUl.addEventListener('click',function(e){
-        if(e.target.tagName ==='A'){
-            console.log(e.target)
-            let u = '/' + e.target.innerText
-            window.history.pushState(null,null,u)
-            
-        }
-    })
-
 }
-
 
 
 
