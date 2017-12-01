@@ -4,7 +4,7 @@
  function ajax(url){
     
     function reqListener () {
-        console.log(this.responseText);
+       return this.responseText
       }
       
       var oReq = new XMLHttpRequest();
@@ -21,9 +21,10 @@
         if(e.target.tagName ==='A'){
             console.log(e.target)
             let u = '/' + e.target.innerText.toLowerCase()
-            window.history.pushState(null,null,u)
-            console.log(ajax(u+'.html'))
-            
+            if(u !== 'home'){
+                window.history.pushState(null,null,u)  
+                console.log(ajax(u))          
+            }
         }
     })
 
