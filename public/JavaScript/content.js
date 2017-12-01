@@ -25,8 +25,8 @@
             if(u !== 'home'){
                 window.history.replaceState(null,null,'/'+u)  
                 ajax('public/navigation/'+u)                 
-                }else{
-                window.history.replaceState(null,null,'')  
+                }else if(u === 'home'){
+                window.history.replaceState(null,null,'/')  
                 }
             }
         })
