@@ -47,6 +47,9 @@ function r() {
 //域名的正则，用于匹配歌曲
 var musicRegex = new RegExp(/.*mianxiu\.github\.io\//)
 
+
+
+
 /**
  * 输入DOM对象，返回相对父元素的索引值
  * @param {*} childNode 
@@ -144,38 +147,23 @@ function nav() {
         let p = parseInt(navBlock.style.marginLeft.replace('px', ''))
         if (e.target.tagName === 'LI') {
             navBlock.style.marginLeft = (navQuarterW * (getIndex(e.target) + 1) - (0.48 * navQuarterW)) + 'px'
-        } else {
-
         }
 
     })
 
-    //指示
-    let navSpan = $All('.nav-span')
-    let liAry = []
-    for (let i of $All('#navigation ul li a')) {
-        liAry.push(i.href.replace(musicRegex, ''))
-    }
-    let n = liAry.indexOf(window.location.href.replace(musicRegex, ''))
-    function marginL() {
-        if (n === -1) {
-            navBlock.style.marginLeft = 0.48 * navQuarterW + 'px'
-            navSpan[0].style.marginTop = 0.08 * navQuarterW + 'px'
-            navSpan[0].style.opacity = 1;
-        } else {
-            navBlock.style.marginLeft = (navQuarterW * (n + 1)) - (0.48 * navQuarterW) + 'px'
-            navSpan[n].style.marginTop = 0.08 * navQuarterW + 'px'
-            navSpan[n].style.opacity = 1;
-        }
-
-    }
-    marginL()
-    //监听复位
-    navUl.addEventListener('mouseleave', function (e) {
-        marginL()
+    //指示复位
+    let navA = $All('#navigation  a')
+    let navAry = []
+       for(let i of navA){
+           navAry.push(i.innerText)
+       }
+    navUl.addEventListener('mouseleave',function(){
+       let o =navAry.indexOf($('.nav-active').innerText)
+       navBlock.style.marginLeft = (navQuarterW * (o + 1) - (0.48 * navQuarterW))+'px'
     })
 
 }
+
 
 
 
