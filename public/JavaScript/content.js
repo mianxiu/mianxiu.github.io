@@ -3,9 +3,9 @@
  //  ajax()
  function ajax(url){
       var oReq = new XMLHttpRequest();
-      oReq.onload = writeContent(this.responseText);
       oReq.open("get",url, true);
       oReq.send();
+      return this.responseText
     }
     
 
@@ -17,9 +17,9 @@
             console.log(e.target)
             let u = '/' + e.target.innerText.toLowerCase()
             if(u !== '/home'){
-                window.history.pushState(null,null,u)  
-                let o = ajax(u)  
-                console.log(o)            
+                window.history.replaceState(null,null,u)  
+                ajax(u)  
+                      
                 }
             }
         })
