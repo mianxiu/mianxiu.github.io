@@ -103,6 +103,7 @@ body{
 }
 
 #navigation>ul> li a{
+    cursor: pointer;
     display: block;
     color: #000;
     text-decoration: none;
