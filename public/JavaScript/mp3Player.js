@@ -1,3 +1,9 @@
+
+//域名的正则，用于匹配歌曲
+//new RegExp(/.*mianxiu\.github\.io\//)
+var musicRegex = new RegExp(/.*public/)
+
+
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
     
@@ -114,9 +120,10 @@ function mp3Player() {
               
             })
         
-            pl.addEventListener('mouseleave',function(e){
+            $('#playList').addEventListener('mouseleave',function(e){
                 //播放歌曲的索引值*li’s height
-                let initial_marginTop = playListAry().indexOf(decodeURI($('#player').src.replace(musicRegex,'')))*-pllh
+                let initial_marginTop = playListAry().indexOf(decodeURI($('#player').src.replace(musicRegex,'public')))*-pllh
+             
                 pl.style.marginTop = initial_marginTop+'px'
             })
             
@@ -130,7 +137,7 @@ function mp3Player() {
         player.onended = function () {
             //歌曲切换效果
     
-            let host = decodeURI(player.src).replace(musicRegex, '')
+            let host = decodeURI(player.src).replace(musicRegex, 'public')
             let e = playList.indexOf(host)
             if (e + 1 < playList.length) {
                 playListOl.style.marginTop = -(e + 1) * quarterH + 'px'

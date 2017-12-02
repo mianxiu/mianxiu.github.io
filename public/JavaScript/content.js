@@ -29,7 +29,7 @@ function navGetAjax() {
             e.target.className = 'nav-active'
             let u = e.target.innerText.toLowerCase()
             //   window.history.replaceState(null,null,'/'+u)  
-            ajax('public/navigation/' + u)
+            ajax('public/navigation/' + u+'.html')
         }
     })
 }

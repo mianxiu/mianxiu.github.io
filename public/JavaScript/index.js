@@ -44,10 +44,6 @@ function r() {
 
 
 
-//域名的正则，用于匹配歌曲
-var musicRegex = new RegExp(/.*mianxiu\.github\.io\//)
-
-
 
 
 /**
@@ -191,7 +187,7 @@ function currentTime() {
     $('#navigation').addEventListener('click', function () {
 
         let c = 'currentTime=' + $('#player').currentTime
-        let d = decodeURI($('#player').src).replace(musicRegex, '')
+        let d = decodeURI($('#player').src).replace(musicRegex, 'public')
 
         let n = 'songNum=' + p.indexOf(d)
         document.cookie = c
