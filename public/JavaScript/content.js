@@ -29,7 +29,7 @@ function navGetAjax() {
             e.target.className = 'nav-active'
             let u = e.target.innerText.toLowerCase()
             //   window.history.replaceState(null,null,'/'+u)  
-            ajax('public/navigation/' + u+'.html')
+            ajax('public/navigation/' + u +'.html')
         }
     })
 }
@@ -40,10 +40,10 @@ function navGetAjax() {
 function triangle(){
     let triCtx = $('#triangle').getContext('2d')
 
-    triCtx.beginPath()
-    triCtx.arc(0,0,100,0,180)
+
+    triCtx.fillRect(0,0,2,2)
     triCtx.fillStyle = 'blue'
     triCtx.fill()
 
-    console.log(triCtx.createImageData(550, 364)); 
+    console.log(triCtx.createImageData(2, 4)); 
 }
