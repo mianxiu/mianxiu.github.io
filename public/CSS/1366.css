@@ -239,6 +239,18 @@ body{
 
 
 /*---------ajax内容--------------*/
-#triangle{
+#red,#green,#blue{
+  position: relative;
   
+}
+#red{
+    background-color: rgb(218, 218, 218)
+}
+#green{
+
+    background-color: rgb(158, 158, 158)
+}
+#blue{
+   
+    background-color: rgb(94, 94, 94)
 }

@@ -122,8 +122,7 @@ function mp3Player() {
         
             $('#playList').addEventListener('mouseleave',function(e){
                 //播放歌曲的索引值*li’s height
-                let initial_marginTop = playListAry().indexOf(decodeURI($('#player').src.replace(musicRegex,'public')))*-pllh
-             
+                let initial_marginTop = playListAry().indexOf(decodeURI($('#player').src.replace(musicRegex,'public')))*-pllh 
                 pl.style.marginTop = initial_marginTop+'px'
             })
             
