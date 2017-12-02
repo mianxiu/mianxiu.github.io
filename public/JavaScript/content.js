@@ -44,4 +44,6 @@ function triangle(){
     triCtx.arc(0,0,100,0,180)
     triCtx.fillStyle = 'blue'
     triCtx.fill()
+
+    console.log(triCtx.createImageData(550, 364)); 
 }
