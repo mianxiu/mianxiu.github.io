@@ -14,20 +14,20 @@ function ajax(url) {
         console.log(this.responseText)
 
         $('#rule').innerHTML = this.responseText
-        let data_id =  $('#rule').dataset.id
-        if(data_id === 'home' ){
+        let data_id = $('#rule').dataset.id
+        if (data_id === 'home') {
             triangle()
         }
-        else if(data_id === 'gallery'){
+        else if (data_id === 'gallery') {
 
         }
-        else if(data_id === 'essay'){
+        else if (data_id === 'essay') {
 
         }
-        else if(data_id === 'about'){
+        else if (data_id === 'about') {
 
         }
-        
+
     }
 }
 
@@ -41,12 +41,12 @@ function navGetAjax() {
                 i.className = ''
             }
             e.target.className = 'nav-active'
-            
+
             let u = e.target.innerText.toLowerCase()
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
             $('#rule').dataset.id = u
-            ajax('public/navigation/' + u +'.html')
+            ajax('public/navigation/' + u + '.html')
         }
     })
 }
@@ -54,73 +54,98 @@ function navGetAjax() {
 
 //----------------------------------------
 //1. home 相关函数
-function triangle(){
-    let R,G,B,RGB
+function triangle() {
+    let R, G, B, RGB
 
-    function drawAndGetData(x,y,width,height,fillStyle,dom) {  }
+    /**selector 
+     * grid  [x,y,width,height,'fillStyle'],...[]
+     * draw Rectangular and return imageData
+     * 
+     * @param {*} selector 
+     * @param {*} grid 
+     */
+    function rectAndGetData(selector, ...grid) {
+        let d = $(selector)
+        let d_ = d.getContext('2d')
 
-
-
-    function r(x,y,width,height){
-        let dom = $('#red')
-        let r = dom.getContext('2d')
-      
-        r.fillStyle = "red"
-        r.fillRect(x,y,width,height)
-        r.fill()
-        R = r.getImageData(0,0,dom.width,dom.height)
-      
+        for (i = 0; i < grid.length; i++) {
+            d_.fillStyle = grid[i][4]
+            d_.fillRect(grid[i][0], grid[i][1], grid[i][2], grid[i][3])
+            d_.fill()
+        }
+        return d_.getImageData(0, 0, d.width, d.height)
     }
-    r(0,10,20,20)
 
-    function g(x,y,width,height){
-        let dom = $('#green')
-        let g = dom.getContext('2d')
-     
-        g.fillStyle = "Lime"
-        g.fillRect(x,y,width,height)
-        g.fill()
-        G = g.getImageData(0,0,dom.width,dom.height)
-      
-    }
-    g(5,10,20,20)
 
-    function b(x,y,width,height){
-        let dom = $('#blue')
-        let b = dom.getContext('2d')
-    
-        b.fillStyle = "blue"
-        b.fillRect(x,y,width,height)
-        b.fill()
-        return b.getImageData(0,0,dom.width,dom.height)
-       
-    }
-    B = b(10,10,20,20)
+    R = rectAndGetData('#red', [0, 10, 20, 20, 'red'])
+    G = rectAndGetData('#green', [5, 10, 20, 20, 'Lime'])
+    B = rectAndGetData('#blue', [10, 10, 20, 20, 'blue'])
+    W = rectAndGetData('#rgb',[0,0,100,100,'white'])
 
-    function rgb(){
-        let dom = $('#rgb')
-        let rgb = dom.getContext('2d')
-        rgb.fillStyle="white"
-        rgb.fillRect(0,0,100,100)
-        rgb.fill()
-        RGB = rgb.getImageData(0,0,dom.width,dom.height)
-    }
-    rgb()
 
-    function Difference(){
-        //差值，假如背景透明，计算后无法填充,所以需要一个白底背景层
+
+
+    let rgba = $('#rgb').getContext('2d')
+
+    /**
+     * 
+     * @param {*} drawSelector 
+     * @param {*} width 
+     * @param {*} height 
+     * @param {*} layer 
+     */
+    function Difference(drawSelector, width, height, layer) {
+        RGB = drawSelector.getImageData(0,0,width, height)
+        //混合模式-差值
         //计算公式为 绝对值|n层-(n-1)层|
-        for(i=0;i<RGB.data.length;i+=4){
-            RGB.data[i] = Math.abs(Math.abs(Math.abs(R.data[i]-G.data[i])-B.data[i])-RGB.data[i])
-            RGB.data[i+1] = Math.abs(Math.abs(Math.abs(R.data[i+1]-G.data[i+1])-B.data[i+1])-RGB.data[i+1])
-            RGB.data[i+2] = Math.abs(Math.abs(Math.abs(R.data[i+2]-G.data[i+2])-B.data[i+2])-RGB.data[i+2])
+        //重合部分 判断所有层透明度相加 > 0 ? 赋值255 ： 复制 0
+
+        if (layer.length < 2) {
+            for (i = 0; i < RGB.data.length; i += 4) {
+                RGB.data[i] = Math.abs(layer[0].data[i])
+                RGB.data[i + 1] = Math.abs(layer[0].data[i + 1])
+                RGB.data[i + 2] = Math.abs(layer[0].data[i + 2])
+                RGB.data[i + 3] = Math.abs(layer[0].data[i + 3])
+                
+            }
+            
+        }
+        else if (layer.length < 3) {
+            for (i = 0; i < RGB.data.length; i += 4) {
+                RGB.data[i] = Math.abs(layer[0].data[i] - layer[1].data[i])
+                RGB.data[i + 1] = Math.abs(layer[0].data[i + 1] - layer[1].data[i + 1])
+                RGB.data[i + 2] = Math.abs(layer[0].data[i + 2] - layer[1].data[i + 2])
+                
+                //判断透明度
+                layer[0].data[i + 3] +  layer[1].data[i + 3] > 0 ?   RGB.data[i + 3] = 255 :  RGB.data[i + 3] = 0
+               
+            }
+            
+        }
+        else if (layer.length >= 3) {
+            for (i = 0; i < RGB.data.length; i += 4) {
+                for (j = 0; j < layer.length; j++) {
+                    if (j < 1) {
+                        RGB.data[i] = Math.abs(layer[j].data[i] - layer[j + 1].data[i])
+                        RGB.data[i + 1] = Math.abs(layer[j].data[i + 1] - layer[j + 1].data[i + 1])
+                        RGB.data[i + 2] = Math.abs(layer[j].data[i + 2] - layer[j + 1].data[i + 2])
+
+                        layer[0].data[i + 3] +  layer[1].data[i + 3] > 0 ?   RGB.data[i + 3] = 255 :  RGB.data[i + 3] = 0
+
+                    } else if (j > 1) {
+                        RGB.data[i] = Math.abs(Math.abs(RGB.data[i] - layer[j].data[i]))
+                        RGB.data[i + 1] = Math.abs(Math.abs(RGB.data[i + 1] - layer[j].data[i + 1]))
+                        RGB.data[i + 2] = Math.abs(Math.abs(RGB.data[i + 2] - layer[j].data[i + 2]))
+
+                        RGB.data[i + 3] + layer[j].data[i + 3] > 0 ?   RGB.data[i + 3] = 255 :  RGB.data[i + 3] = 0
+                    }
+                }
+            }
 
         }
-   
-        let rgba = $('#rgb').getContext('2d')
-        rgba.putImageData(RGB,0,0)        
+
+        drawSelector.putImageData(RGB, 0, 0)
     }
-    Difference()
 
-
+    Difference(rgba, 100, 100, [R,G,B])
 }
