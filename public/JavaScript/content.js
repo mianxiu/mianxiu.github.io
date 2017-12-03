@@ -52,14 +52,14 @@ function navGetAjax() {
 }
 
 
-//----------------------------------------
+//--------------------------------------------------------------------------------------------
 //1. home 相关函数
 function triangle() {
     let R, G, B, RGB
 
     /**selector 
      * grid  [x,y,width,height,'fillStyle'],...[]
-     * draw Rectangular and return imageData
+     * 画矩形和返回0，0，canvas width，height 的imageData
      * 
      * @param {*} selector 
      * @param {*} grid 
@@ -67,7 +67,7 @@ function triangle() {
     function rectAndGetData(selector, ...grid) {
         let d = $(selector)
         let d_ = d.getContext('2d')
-
+            d_.clearRect(0,0,d.width,d.height)
         for (i = 0; i < grid.length; i++) {
             d_.fillStyle = grid[i][4]
             d_.fillRect(grid[i][0], grid[i][1], grid[i][2], grid[i][3])
@@ -77,25 +77,46 @@ function triangle() {
     }
 
 
-    R = rectAndGetData('#red', [0, 10, 20, 20, 'red'])
-    G = rectAndGetData('#green', [5, 10, 20, 20, 'Lime'])
-    B = rectAndGetData('#blue', [10, 10, 20, 20, 'blue'])
-    W = rectAndGetData('#rgb',[0,0,100,100,'white'])
 
+ //   R = rectAndGetData('#red', [0, 10, 40, 40, 'red'])
+ //   G = rectAndGetData('#green', [10, 10, 40, 40, 'Lime'])
+ //   B = rectAndGetData('#blue', [20, 10, 40, 40, 'blue'])    
+ //   W = rectAndGetData('#rgb', [0, 0, 100, 100, 'white'])   
+    
 
+    let rgba = $('#rgb')
+  
+    let num = 1
+    function testA(){
+    let o = requestAnimationFrame(testA)
+    
+    
+        R = rectAndGetData('#red', [0, 10, 40, 40, 'red'])
+        G = rectAndGetData('#green',[10,num, 40, 40, 'Lime'])
+        B = rectAndGetData('#blue', [20, 10, 40, 40, 'blue'])  
+        W = rectAndGetData('#rgb', [0, 0, 100, 100, 'white']) 
+        Difference(rgba,[R,G,B,W])
+        console.log(num)
+        num++
 
+        if(num > 60){
+            cancelAnimationFrame(o)
+        }
+       // cancelAnimationFrame(o)
+    
+    }
+    testA()
 
-    let rgba = $('#rgb').getContext('2d')
+    
+    
 
-    /**
-     * 
+    /**drawSelector canvas选择器 |
+     * layer [imageData,..] 需要叠加的层
      * @param {*} drawSelector 
-     * @param {*} width 
-     * @param {*} height 
      * @param {*} layer 
      */
-    function Difference(drawSelector, width, height, layer) {
-        RGB = drawSelector.getImageData(0,0,width, height)
+    function Difference(drawSelector, layer) {
+        RGB = drawSelector.getContext('2d').getImageData(0,0,drawSelector.width, drawSelector.height)
         //混合模式-差值
         //计算公式为 绝对值|n层-(n-1)层|
         //重合部分 判断所有层透明度相加 > 0 ? 赋值255 ： 复制 0
@@ -142,10 +163,12 @@ function triangle() {
                 }
             }
 
+        }else {
+            console.log('参数 ImageData')
         }
 
-        drawSelector.putImageData(RGB, 0, 0)
+        drawSelector.getContext('2d').putImageData(RGB,0,0)
     }
-
-    Difference(rgba, 100, 100, [R,G,B])
+    
 }
+
