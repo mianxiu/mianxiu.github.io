@@ -240,9 +240,13 @@ body{
 
 
 /*---------ajax内容--------------*/
+#rgb{
+    background-color: rgb(214, 214, 214);
+    
+}
 #red,#green,#blue{
   position: relative;
-  display: none
+  display: none;
 }
 #red{
     background-color: rgb(218, 218, 218)

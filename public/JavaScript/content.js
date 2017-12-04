@@ -17,6 +17,8 @@ function ajax(url) {
         let data_id = $('#rule').dataset.id
         if (data_id === 'home') {
             triangle()
+        
+          
         }
         else if (data_id === 'gallery') {
 
@@ -54,15 +56,16 @@ function navGetAjax() {
 
 //--------------------------------------------------------------------------------------------
 //1. home 相关函数
+
 function triangle() {
     let R, G, B, RGB
 
-    /**selector 
+    /**绘制矩形和返回一个imageData |
+     * selector-需要绘制的图层的CSS selector
      * grid  [x,y,width,height,'fillStyle'],...[]
-     * 画矩形和返回0，0，canvas width，height 的imageData
      * 
-     * @param {*} selector 
-     * @param {*} grid 
+     * @param {String} selector 
+     * @param {array} grid 
      */
     function rectAndGetData(selector, ...grid) {
         let d = $(selector)
@@ -75,7 +78,51 @@ function triangle() {
         }
         return d_.getImageData(0, 0, d.width, d.height)
     }
+    
 
+    /**绘制多点图形和返回一个imageData |
+     * selector-需要绘制的图层的CSS selector |
+     * grid [moveTo(x,y),...lineTo(x,y),'fillStyle','fill/stroke',[translate:x,y]]...[]
+     * 注意:绘制3点图形只需2组坐标，以此类推。因为最后会自动闭合
+     * @param {String} selector
+     * @param {array} grid 
+     */
+    function triangleAndGetData(selector,...grid){
+        let t = $(selector)
+        let t_ = t.getContext('2d')
+            t_.clearRect(0,0,t.width,t.height)
+
+
+            for(i = 0;i<grid.length;i++){
+                t_.translate(grid[i][grid[i].length-1][0],grid[i][grid[i].length-1][1])
+                t_.beginPath()
+                t_.moveTo(grid[i][0],grid[i][1])         
+
+                for(j=2; j<grid[i].length-2; j+=2){
+                 
+                    t_.lineTo(grid[i][j],grid[i][j+1])
+                }
+                t_.fillStyle = grid[i][grid[i].length-3]
+                if(grid[i][grid[i].length-2] ==='fill'){               
+                    t_.fill()
+                }else if(grid[i][grid[i].length-2] ==='stroke'){               
+                    t_.closePath()
+                    t_.stroke()
+                }   
+            }
+
+            return t_.getImageData(0,0,t.width,t.height)            
+            
+    }
+
+
+  RT = triangleAndGetData('#red',[22,29,153,254,357,167,'red','fill',[0,0]])
+  GT = triangleAndGetData('#red',[140,9,153,254,357,167,'lime','fill',[10,40]])
+  BT = triangleAndGetData('#red',[100,59,153,254,357,167,'blue','fill',[20,20]])
+  WT = rectAndGetData('#rgb',[0,0,1016,342,'white'])
+  let rgba = $('#rgb')
+  Difference(rgba,[RT,GT,BT,WT])
+  
 
 
  //   R = rectAndGetData('#red', [0, 10, 40, 40, 'red'])
@@ -84,7 +131,7 @@ function triangle() {
  //   W = rectAndGetData('#rgb', [0, 0, 100, 100, 'white'])   
     
 
-    let rgba = $('#rgb')
+   
   
     let num = 1
     function testA(){
@@ -105,15 +152,14 @@ function triangle() {
        // cancelAnimationFrame(o)
     
     }
-    testA()
+  
 
     
-    
 
-    /**drawSelector canvas选择器 |
+    /**drawSelector-最终绘制的 element 对象 |
      * layer [imageData,..] 需要叠加的层
-     * @param {*} drawSelector 
-     * @param {*} layer 
+     * @param {Object} drawSelector 
+     * @param {array} layer 
      */
     function Difference(drawSelector, layer) {
         RGB = drawSelector.getContext('2d').getImageData(0,0,drawSelector.width, drawSelector.height)
