@@ -17,7 +17,7 @@ function ajax(url) {
         let data_id = $('#rule').dataset.id
         if (data_id === 'home') {
             triangle()
-        
+      
           
         }
         else if (data_id === 'gallery') {
@@ -82,7 +82,7 @@ function triangle() {
 
     /**绘制多点图形和返回一个imageData |
      * selector-需要绘制的图层的CSS selector |
-     * grid [moveTo(x,y),...lineTo(x,y),'fillStyle','fill/stroke',[translate:x,y]]...[]
+     * grid [moveTo(x,y),...lineTo(x,y),'fillStyle','fill/stroke','globalCompositeOperation-Type',lineWidth,[translate:x,y]]...[]
      * 注意:绘制3点图形只需2组坐标，以此类推。因为最后会自动闭合
      * @param {String} selector
      * @param {array} grid 
@@ -92,129 +92,142 @@ function triangle() {
         let t_ = t.getContext('2d')
             t_.clearRect(0,0,t.width,t.height)
 
-
+           
             for(i = 0;i<grid.length;i++){
-                t_.translate(grid[i][grid[i].length-1][0],grid[i][grid[i].length-1][1])
-                t_.beginPath()
-                t_.moveTo(grid[i][0],grid[i][1])         
+                //混合模式，布尔运算等等
+                t_.globalCompositeOperation = grid[i][grid[i].length-3]
 
-                for(j=2; j<grid[i].length-2; j+=2){
+                t_.translate(grid[i][grid[i].length-1][0],grid[i][grid[i].length-1][1])
+
+                t_.beginPath()
+                t_.moveTo(grid[i][0][0],grid[i][0][1])         
+
+                for(j=2; j<grid[i][0].length; j+=2){
                  
-                    t_.lineTo(grid[i][j],grid[i][j+1])
+                    t_.lineTo(grid[i][0][j],grid[i][0][j+1])
                 }
-                t_.fillStyle = grid[i][grid[i].length-3]
-                if(grid[i][grid[i].length-2] ==='fill'){               
+
+
+                if(grid[i][grid[i].length-4] ==='fill'){    
+                    t_.fillStyle = grid[i][grid[i].length-5]
                     t_.fill()
-                }else if(grid[i][grid[i].length-2] ==='stroke'){               
+                }else if(grid[i][grid[i].length-4] ==='stroke'){    
+                    t_.lineWidth = grid[i][grid[i].length-2]   
+                    t_.strokeStyle = grid[i][grid[i].length-5]
                     t_.closePath()
                     t_.stroke()
                 }   
             }
 
-            return t_.getImageData(0,0,t.width,t.height)            
+        //    return t_.getImageData(0,0,t.width,t.height)            
             
     }
 
 
-  RT = triangleAndGetData('#red',[22,29,153,254,357,167,'red','fill',[0,0]])
-  GT = triangleAndGetData('#red',[140,9,153,254,357,167,'lime','fill',[10,40]])
-  BT = triangleAndGetData('#red',[100,59,153,254,357,167,'blue','fill',[20,20]])
-  WT = rectAndGetData('#rgb',[0,0,1016,342,'white'])
-  let rgba = $('#rgb')
-  Difference(rgba,[RT,GT,BT,WT])
+    
+
+
+    
+  G = triangleAndGetData('#gray',[[47,73,176,297,377,209],'#f2f2f2','fill','none',0,[0,0]])
   
-
-
- //   R = rectAndGetData('#red', [0, 10, 40, 40, 'red'])
- //   G = rectAndGetData('#green', [10, 10, 40, 40, 'Lime'])
- //   B = rectAndGetData('#blue', [20, 10, 40, 40, 'blue'])    
- //   W = rectAndGetData('#rgb', [0, 0, 100, 100, 'white'])   
-    
-
-   
   
-    let num = 1
-    function testA(){
-    let o = requestAnimationFrame(testA)
-    
-    
-        R = rectAndGetData('#red', [0, 10, 40, 40, 'red'])
-        G = rectAndGetData('#green',[10,num, 40, 40, 'Lime'])
-        B = rectAndGetData('#blue', [20, 10, 40, 40, 'blue'])  
-        W = rectAndGetData('#rgb', [0, 0, 100, 100, 'white']) 
-        Difference(rgba,[R,G,B,W])
-        console.log(num)
-        num++
+//43,5,155,248,404,241
+let y0 = 45
 
-        if(num > 60){
+
+
+/**
+ * 输入数组[],返回一个随机数组
+ * randomNum-[min,max]
+ * @param {array} array 
+ * @param {array} randomNum
+ */
+    function getRandom(array,randomNum) {
+        /**
+     * -输入区间，返回随机数
+     * @param {*} min 
+     * @param {*} max 
+     */
+        function getRandomArbitrary(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        let a_ = []
+        for (let i = 0; i < array.length; i++) {
+            a_.push(array[i] + getRandomArbitrary(randomNum[0],randomNum[1]) * 20)
+        }
+
+        return a_
+    }
+
+
+    let p_0 = [43,5,155,248,404,241]
+    let p = getRandom([43,5,155,248,404,241],[-1,1])
+    let p_t = p_0.slice()
+    let p_num = 0
+    function test(){
+        let o = requestAnimationFrame(test)
+        let p_a= 0
+        let p_b = 0
+      
+        if($('#triangle')===null){
             cancelAnimationFrame(o)
         }
-       // cancelAnimationFrame(o)
-    
+        //动画差值
+        for(let k =0;k<p.length;k++){
+           if(p_t[k]<p[k]){
+            p_t[k]+=0.04             
+           }else if(p_t[k]>p[k]){
+            p_t[k]-=0.04
+           }
+           
+        }
+
+        //判断是否相同
+        for(let a =0;a<p_t.length;a++){
+                p_a+=p[a]
+                p_b+=p_t[a]
+        }
+
+        //判断差值后的距离，重新random
+        if(p_a<p_b){
+            p = getRandom([43,5,155,248,404,241],[-1,1])
+        }else{
+            p_num+=1
+        }
+
+        if(p_num>100){
+            p = getRandom([43,5,155,248,404,241],[-1,1])
+            p_num = 0
+        }
+      
+        triangleAndGetData('#triangle',[p_t,'black','stroke','none',1,[0,0]])
+       
+        
     }
+    
+        test()
+   
+    
   
 
-    
 
-    /**drawSelector-最终绘制的 element 对象 |
-     * layer [imageData,..] 需要叠加的层
-     * @param {Object} drawSelector 
-     * @param {array} layer 
-     */
-    function Difference(drawSelector, layer) {
-        RGB = drawSelector.getContext('2d').getImageData(0,0,drawSelector.width, drawSelector.height)
-        //混合模式-差值
-        //计算公式为 绝对值|n层-(n-1)层|
-        //重合部分 判断所有层透明度相加 > 0 ? 赋值255 ： 复制 0
 
-        if (layer.length < 2) {
-            for (i = 0; i < RGB.data.length; i += 4) {
-                RGB.data[i] = Math.abs(layer[0].data[i])
-                RGB.data[i + 1] = Math.abs(layer[0].data[i + 1])
-                RGB.data[i + 2] = Math.abs(layer[0].data[i + 2])
-                RGB.data[i + 3] = Math.abs(layer[0].data[i + 3])
-                
-            }
-            
-        }
-        else if (layer.length < 3) {
-            for (i = 0; i < RGB.data.length; i += 4) {
-                RGB.data[i] = Math.abs(layer[0].data[i] - layer[1].data[i])
-                RGB.data[i + 1] = Math.abs(layer[0].data[i + 1] - layer[1].data[i + 1])
-                RGB.data[i + 2] = Math.abs(layer[0].data[i + 2] - layer[1].data[i + 2])
-                
-                //判断透明度
-                layer[0].data[i + 3] +  layer[1].data[i + 3] > 0 ?   RGB.data[i + 3] = 255 :  RGB.data[i + 3] = 0
+    function mouseTriangle(){
+        clientW = document.body.clientWidth
+        clientH = document.body.clientHeight
+        
+            window.addEventListener('mousemove',function(e){
                
-            }
-            
-        }
-        else if (layer.length >= 3) {
-            for (i = 0; i < RGB.data.length; i += 4) {
-                for (j = 0; j < layer.length; j++) {
-                    if (j < 1) {
-                        RGB.data[i] = Math.abs(layer[j].data[i] - layer[j + 1].data[i])
-                        RGB.data[i + 1] = Math.abs(layer[j].data[i + 1] - layer[j + 1].data[i + 1])
-                        RGB.data[i + 2] = Math.abs(layer[j].data[i + 2] - layer[j + 1].data[i + 2])
-
-                        layer[0].data[i + 3] +  layer[1].data[i + 3] > 0 ?   RGB.data[i + 3] = 255 :  RGB.data[i + 3] = 0
-
-                    } else if (j > 1) {
-                        RGB.data[i] = Math.abs(Math.abs(RGB.data[i] - layer[j].data[i]))
-                        RGB.data[i + 1] = Math.abs(Math.abs(RGB.data[i + 1] - layer[j].data[i + 1]))
-                        RGB.data[i + 2] = Math.abs(Math.abs(RGB.data[i + 2] - layer[j].data[i + 2]))
-
-                        RGB.data[i + 3] + layer[j].data[i + 3] > 0 ?   RGB.data[i + 3] = 255 :  RGB.data[i + 3] = 0
-                    }
+                if($('#triangle')!==null){
+                e.clientX > clientW/2 ? $('#gray').style.marginLeft = (clientW - e.clientX)*0.05+'px' : $('#gray').style.marginLeft = (clientW - e.clientX)*0.05+'px'
+                e.clientY > clientH/2 ? $('#gray').style.marginTop = (clientH - e.clientY)*0.02+'px' : $('#gray').style.marginTop = (clientH - e.clientY)*0.02+'px'
+                e.clientX > clientW/2 ? $('#triangle').style.marginLeft = (e.clientX - clientW)*0.08+'px' : $('#triangle').style.marginLeft = (e.clientX - clientW )*0.08+'px'
+                e.clientY > clientH/2 ? $('#triangle').style.marginTop = (e.clientY - clientH)*0.04+'px' : $('#triangle').style.marginTop = (e.clientY - clientH )*0.04+'px'
                 }
-            }
+            })
 
-        }else {
-            console.log('参数 ImageData')
-        }
-
-        drawSelector.getContext('2d').putImageData(RGB,0,0)
-    }
     
+    }
+    mouseTriangle()
 }
-
