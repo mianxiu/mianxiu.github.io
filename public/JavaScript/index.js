@@ -162,6 +162,7 @@ function nav() {
              p.style = ''
          }
          if(e.target.tagName === 'A'){
+
          navSpan[getIndex(e.target.parentNode)].style = 'opacity:1;margin-top:10px;'
          
          }
