@@ -154,13 +154,13 @@ function triangle() {
     }
 
 
-    //稍微的不规则移动点
+    //1稍微的不规则移动点
     let p_0 = [60,15,155,248,404,241]
     let p = getRandom([60,15,155,248,404,241],[-1,1])
     let p_t = p_0.slice()
     let p_num = 0
-    function test(){
-        let o = requestAnimationFrame(test)
+    function pointRandom(){
+        let o = requestAnimationFrame(pointRandom)
         let p_a= 0
         let p_b = 0
       
@@ -199,11 +199,11 @@ function triangle() {
               
     }
    
-        test()
+    pointRandom()
    
     
 
-    //跟随鼠标的parallax动画
+    //2跟随鼠标的parallax动画
     function mouseTriangle(){
         clientW = document.body.clientWidth
         clientH = document.body.clientHeight
@@ -226,23 +226,23 @@ function triangle() {
                     b_ = a_.slice(-2)
                    
                     //判断前后值
-                    if(Math.abs(b_[0]-b_[1])>50){
+                    if(Math.abs(b_[0]-b_[1])>150){
                      
-                        $('#triangle').style.transition = 'all 0.5s'
-                        $('#gray').style.transition = 'all 0.5s'
+                        $('#triangle').style.transition = 'all 0.4s'
+                        $('#gray').style.transition = 'all 0.4s'
                         
                         if(b_[0]-b_[1]>0){   
                             //settimeout是因为Firefox会因为值变化过快导致transition检测不到变化无法正常工作            
                             setTimeout(()=>{
                                 $('#triangle').style.marginLeft = -(clientW-b_[1])*0.05 + 'px'  
                                 $('#gray').style.marginLeft = (clientW-b_[1])*0.02 + 'px'  
-                            },100)
+                            },300)
 
                         }else if(b_[0]-b_[1]<0){         
                                 setTimeout(()=>{                                   
                                     $('#triangle').style.marginLeft = (clientW-b_[1])*0.05 + 'px'
                                     $('#gray').style.marginLeft = -(clientW-b_[1])*0.02 + 'px'  
-                                },100)
+                                },300)
                         }
                       
                     }else {
@@ -256,14 +256,18 @@ function triangle() {
                         
                         e.clientX > clientW/2 ? (
                         $('#gray').style.marginLeft = (clientW - e.clientX)*0.05+'px',
-                        $('#triangle').style.marginLeft = (e.clientX - clientW)*0.02+'px')
-                         :( 
+                        $('#triangle').style.marginLeft = (e.clientX - clientW)*0.02+'px'
+                        ):( 
                         $('#gray').style.marginLeft = (clientW - e.clientX)*0.05+'px',
                         $('#triangle').style.marginLeft = (e.clientX - clientW )*0.02+'px')
         
-                        e.clientY > clientH/2 ? $('#gray').style.marginTop = (clientH - e.clientY)*0.02+'px' : $('#gray').style.marginTop = (clientH - e.clientY)*0.02+'px'
-                        e.clientY > clientH/2 ? $('#triangle').style.marginTop = (e.clientY - clientH)*0.005+'px' : $('#triangle').style.marginTop = (e.clientY - clientH )*0.005+'px'
-                 
+                        e.clientY > clientH/2 ? (
+                        $('#gray').style.marginTop = (clientH - e.clientY)*0.02+'px',
+                        $('#triangle').style.marginTop = (e.clientY - clientH)*0.005+'px'
+                        ) : (
+                        $('#gray').style.marginTop = (clientH - e.clientY)*0.02+'px',
+                        $('#triangle').style.marginTop = (e.clientY - clientH )*0.005+'px')
+                     
                     }  
 
                     if(a_.length>100){
@@ -279,4 +283,41 @@ function triangle() {
     
     }
     mouseTriangle()
+
+
+    //3移动
+    function RGBRandom(){
+    //    $('#h').addEventListener('mouseover',e =>{ 
+            
+        let x = 0
+        function test(){
+       let o =  requestAnimationFrame(test)
+          x+=Math.random()*4
+
+               
+                triangleAndGetData('#triangleRGB',
+                [[47+x*2,73-x,176+x*4,297-x,377+x*2,209-x],'red','fill','difference',1,[0,0]],
+                [[47+x*2,73,176+x*2,297,377+x*2,209],'lime','fill','difference',1,[0,0]],
+                [[47-x/2,73+x*3,176-x/2,297+x*3,377-x/2,209+x*2],'blue','fill','difference',1,[0,0]],
+                [[0,0,0,350,500,350,500,0],'white','fill','none',1,[0,0]]
+              
+                )
+           if(x>10){
+                x=0
+             //   triangleAndGetData('#triangleRGB',  [[0,0,0,350,500,350,500,0],'white','fill','none',1,[0,0]])
+               
+               cancelAnimationFrame(o)
+           }
+                
+              //  setTimeout(()=>{
+             //   },20)
+          
+            }
+        test()
+        
+  //  })
+
+       
+    }
+    RGBRandom()
 }

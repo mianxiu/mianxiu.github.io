@@ -243,22 +243,26 @@ body{
 }
 
 #s{
+    z-index: 4;
     position: absolute;
     margin-top: 300px;
     margin-left: 400px;
 }
 
-#triangle,#gray,#line{
+#triangle,#triangleRGB,#gray,#line{
   position: absolute;
   
 }
 #triangle{
- z-index: 2;
+ z-index: 3;
  margin-left: -20.5px;
  margin-top: -3px;
  
 
 
+}
+#triangleRGB{
+    z-index: 0
 }
 #gray{
 z-index: 1;
