@@ -2,16 +2,17 @@
 /* 1366X768
 */
 
-html,body{
-    font-family:"Microsoft YaHei","微软雅黑",sans-serif!important;
+
+
+html,body{  
+    font-family:"Microsoft YaHei","微软雅黑",sans-serif!important;    
     background-color: white;
     height: 100%;
     margin: 0 0;
    
 }
 
-body{
-    
+body{ 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -166,7 +167,7 @@ body{
 }
 
 #progress{
-    margin-left: 20%;
+    margin-left: 260px;
     width: 120px;
     height: 36px;
 }
@@ -262,7 +263,7 @@ body{
 
 }
 #triangleRGB{
-    z-index: 0
+    z-index: 2
 }
 #gray{
 z-index: 1;
@@ -275,4 +276,73 @@ margin-top: 12px;
 #line{
    
    
+}
+
+/*----------*/
+#Personal{
+    margin-top: 120px;
+    position: absolute;
+}
+#logo{
+}
+#logo::after{
+    display: block;
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 4px;
+    background-color: black;
+    margin-top: -32px;
+    margin-left: 90px;
+}
+#name{
+    margin-top: 24px;
+}
+#year{
+    margin-top: 15px;
+}
+#link{
+    margin-top: 24px;
+    display: flex;
+}
+#github,#more,#mail{
+    width: 30px;
+    height: 30px;
+}
+#github{
+    border-radius: 20px;
+    background-color: #70a0db;
+}
+#github>a{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+#github>img{
+    margin-left: 0.4px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+#more{
+    border-radius: 20px;
+    margin-left: 16px;
+    background-color: #fcab1d; 
+    
+}
+#more>img{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+#mail{
+    border-radius: 20px;
+    margin-left: 16px;
+    background-color: #fc1d1d;
+}
+
+#mail>img,#mail>a{
+    position: absolute;
+    width: 30px;
+    height: 30px;
 }

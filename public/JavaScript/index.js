@@ -5,7 +5,7 @@ window.onload = function () {
     mp3Player();
     nav()
     navGetAjax()
-
+    triangle()
 
 }
 
@@ -17,7 +17,6 @@ window.onload = function () {
  */
 function $(dom) {
     return document.querySelector(dom)
-
 }
 
 /**
@@ -123,7 +122,6 @@ function playListAry() {
     for (const l of $('#playList>ol').children) {
         playList.push(playPath + l.innerText + '.mp3')
     }
-
     return playList
 }
 
@@ -144,28 +142,24 @@ function nav() {
         if (e.target.tagName === 'LI') {
             navBlock.style.marginLeft = (navQuarterW * (getIndex(e.target) + 1) - (0.48 * navQuarterW)) + 'px'
         }
-
     })
 
     //指示复位
     let navA = $All('#navigation  a')
     let navSpan = $All('.nav-span')
-    
-    navUl.addEventListener('mouseleave',function(){
-       let o = getIndex($('.nav-active').parentNode)
-       navBlock.style.marginLeft = (navQuarterW * (o + 1) - (0.48 * navQuarterW))+'px'
-       
+
+    navUl.addEventListener('mouseleave', function () {
+        let o = getIndex($('.nav-active').parentNode)
+        navBlock.style.marginLeft = (navQuarterW * (o + 1) - (0.48 * navQuarterW)) + 'px'
     })
 
-      navUl.addEventListener('click',(e)=>{
-         for(p of navSpan){
-             p.style = ''
-         }
-         if(e.target.tagName === 'A'){
-
-         navSpan[getIndex(e.target.parentNode)].style = 'opacity:1;margin-top:10px;'
-         
-         }
+    navUl.addEventListener('click', (e) => {
+        for (p of navSpan) {
+            p.style = ''
+        }
+        if (e.target.tagName === 'A') {
+            navSpan[getIndex(e.target.parentNode)].style = 'opacity:1;margin-top:10px;'
+        }
     })
 
 }
@@ -186,7 +180,6 @@ function currentTime() {
     }
 
     $('#navigation').addEventListener('click', function () {
-
         let c = 'currentTime=' + $('#player').currentTime
         let d = decodeURI($('#player').src).replace(musicRegex, 'public')
 
