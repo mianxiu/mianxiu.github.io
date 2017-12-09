@@ -301,6 +301,9 @@ margin-top: 12px;
 #year{
     margin-top: 15px;
 }
+#say{
+    margin-top: -6px;
+}
 #link{
     margin-top: 24px;
     display: flex;
@@ -324,11 +327,42 @@ margin-top: 12px;
     width: 30px;
     height: 30px;
 }
+#meow{
+    position: absolute;
+    border-radius: 4px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: 30px;
+    margin-left: 4px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    text-align: center;
+    justify-content: center;
+
+    transition: transform 0.2s;
+}
+#meow::before{
+    position: absolute;
+    margin-top: -9px;
+    margin-left: 5px;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 5px;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+    
+}
 #more{
     border-radius: 20px;
     margin-left: 16px;
     background-color: #fcab1d; 
-    
 }
 #more>img{
     position: absolute;
@@ -345,4 +379,57 @@ margin-top: 12px;
     position: absolute;
     width: 30px;
     height: 30px;
+}
+
+/*keyfranme_动画*/
+#L_1{ transform-origin: 10px 10px;}
+#L_2{ transform-origin: 20px 10px;}
+#head{transform-origin: 15px 22px;} /**/
+#L_3{ transform-origin: 13px 24px;}
+#body{transform-origin: 15px 31px;}
+
+
+@keyframes githubIcon_head{
+    0%{transform: scale(1,1)}
+    50%{transform: scale(1,1.15)}
+    100%{transform: scale(1,1)} 
+}
+@keyframes githubIcon_L_1 { 
+    0%{transform: rotate(0deg)}
+    50%{transform: rotate(30deg)}
+    100%{transform: rotate(0deg)} 
+}
+@keyframes githubIcon_L_2 {
+    0%{transform: rotate(0deg)}
+    50%{transform: rotate(60deg)}
+    100%{transform: rotate(0deg)} 
+}
+@keyframes githubIcon_L_3 {
+    0%{transform: rotate(0deg)}
+    50%{transform: rotate(-15deg)}
+    100%{transform: rotate(0deg)} 
+}
+@keyframes githubIcon_body {
+}
+
+#github:hover #meow{
+    transform: translateY(10px);
+    opacity: 0.5;
+
+}
+#github:hover #head{
+    animation:githubIcon_head 1s ease-in-out;
+    animation-iteration-count: 1;
+}
+#github:hover #L_1{
+    animation:githubIcon_L_1 0.2s infinite 1s;
+    animation-iteration-count: 1;
+}
+#github:hover #L_2{
+    animation:githubIcon_L_2 0.2s infinite 1.2s;
+    animation-iteration-count: 1;
+}
+#github:hover #L_3{
+    animation:githubIcon_L_3 1s infinite ease-in-out;
+    animation-iteration-count: 1;
 }
