@@ -269,14 +269,8 @@ body{
 z-index: 1;
 margin-left: 50px;
 margin-top: 12px;
-
-
-
 }
-#line{
-   
-   
-}
+
 
 /*----------*/
 #Personal{
@@ -376,7 +370,38 @@ margin-top: 12px;
     margin-left: 16px;
     background-color: #fc1d1d;
 }
-
+#atMe{
+    position: absolute;
+    border-radius: 4px;
+    display: block;
+    padding: 1px 2px;
+    margin-top: 30px;
+    margin-left: 4px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    text-align: center;
+    justify-content: center;
+    transform: scale(0,0) translateY(0);
+    transition: transform 0.2s;
+    
+}
+#atMe::before{
+    position: absolute;
+    margin-top: -9px;
+    margin-left: 5px;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 5px;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+    
+}
 #mail>img,#mail>a{
     position: absolute;
     width: 30px;
@@ -412,8 +437,7 @@ margin-top: 12px;
     50%{transform: rotate(-20deg)}
     100%{transform: rotate(0deg)} 
 }
-@keyframes githubIcon_body {
-}
+
 @keyframes mouth{
     0%{transform: scale(0,1);opacity: 1}
     50%{transform: scale(1,1);opacity: 1}
@@ -533,4 +557,23 @@ margin-top: 12px;
 #mail:hover #line{
     animation:line 1s ease-in-out 0s;
     animation-iteration-count: 1;
+}
+#mail:hover #atMe{
+    transform: scale(1,1) translateY(10px);
+    opacity: 0.5;
+}
+
+
+/*最后的post*/
+/*通过translateZ开启GPU较少旋转后的锯齿*/
+#lastPost{
+    transform-origin: 0 0;
+    position: absolute;
+    transform: rotate(90deg) translateZ(0);
+    margin-top: 82px;
+    margin-left: 1015px
+}
+#lastPost span:nth-child(1){
+    font-size: 16px;
+    font-weight: bold;
 }
