@@ -1,13 +1,20 @@
-
-
-window.onload = function () {
-
-    mp3Player();
-    nav()
-    navGetAjax()
-    triangle()
-
+function UA(){
+    ua = navigator.userAgent;
+    if(/.*iPhone/.test(ua) || /.*Andriod/.test(ua)){
+        $('#pageCSS').href = 'public/CSS/mobile.css'
+    }else{
+        window.onload = function () {
+            
+                mp3Player();
+                nav()
+                navGetAjax()
+                triangle()          
+            }
+            
+    }
 }
+UA()
+
 
 
 
