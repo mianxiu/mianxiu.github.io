@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="public/CSS/1366.css">
-   
+    <link id="pageCSS" rel="stylesheet" href="public/CSS/1366.css">
+    <link id="mp3CSS" rel="stylesheet" href="public/CSS/mp3Player_normal.css">
     <script src="public/JavaScript/index.js"></script>
     <script src="public/JavaScript/content.js"></script>
     <script src="public/JavaScript/mp3Player.js"></script>
@@ -100,7 +100,7 @@
                          <audio id="player" src="" autoplay="true" type="audio/mp3" preload="auto"></audio>                        
                          <div id="progress">
                              <div id="audioProgressA"></div>    
-                             <canvas id="audioProgressB" width="120" height="6"></canvas>                
+                             <canvas id="audioProgressB" width="0" height="6"></canvas>                
                              <div id="timePass"></div>
                          </div>  
                          <div id="LP">
@@ -111,8 +111,7 @@
                          </div>
                          <div id="VP">
                              <canvas id="visual" width="200" height="100"></canvas>
-                             <div id="playList">
-                                    
+                             <div id="playList">                              
                                     <ol style="margin-top:0px">
                                     <li>3nd - 眠る</li>
                                     <li>方大同 - 三人游</li>

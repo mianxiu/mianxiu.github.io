@@ -17,17 +17,20 @@ function ajax(url) {
 
         //根据自定义id ajax
         let data_id = $('#rule').dataset.id
-        if (data_id === 'home') {
-            triangle()
-        }
-        else if (data_id === 'gallery') {
-
-        }
-        else if (data_id === 'essay') {
-
-        }
-        else if (data_id === 'about') {
-
+        switch(data_id){
+            case 'home':
+                triangle()
+                mp3PlayerType('normal')
+                break;
+            case 'gallery':
+                mp3PlayerType('min')
+                break;
+            case 'essay':
+                mp3PlayerType('min')
+                break;
+            case 'about':
+                mp3PlayerType('min')
+                break;
         }
     }
 }
@@ -283,3 +286,18 @@ function triangle() {
 }
 
 
+//2 更改播放器样式
+/**change mp3Player type
+ *-normal and min
+ * @param {*} type 
+ */
+function mp3PlayerType(type){
+    switch(type){
+      case 'normal': 
+            $('#mp3CSS').href = 'public/CSS/mp3Player_normal.css'
+            break;
+      case 'min' : 
+            $('#mp3CSS').href = 'public/CSS/mp3Player_min.css'   
+            break; 
+    }
+}
