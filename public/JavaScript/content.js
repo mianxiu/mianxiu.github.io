@@ -19,16 +19,20 @@ function ajax(url) {
         let data_id = $('#rule').dataset.id
         switch(data_id){
             case 'home':
+                $('#index').style.display = 'block'
                 triangle()
                 mp3PlayerType('normal')
                 break;
             case 'gallery':
+            $('#index').style.display = 'none'
                 mp3PlayerType('min')
                 break;
             case 'essay':
+            $('#index').style.display = 'none'
                 mp3PlayerType('min')
                 break;
             case 'about':
+            $('#index').style.display = 'none'
                 mp3PlayerType('min')
                 break;
         }
@@ -50,7 +54,9 @@ function navGetAjax() {
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
             $('#rule').dataset.id = u
-            ajax('public/navigation/' + u + '.html')
+            
+              ajax('public/navigation/' + u + '.html')      
+            
         }
     })
 }
