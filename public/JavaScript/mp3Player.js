@@ -271,7 +271,7 @@ function mp3Player() {
                
                 let pc = player.currentTime
                 //绘制进度条 
-                $('#audioProgressA').style = 'margin-left:' + pc / i + 'px;width:' + (Pwidth - pc / i) + 'px'
+                $('#audioProgressA').style = 'margin-left:' + pc / i + 'px;width:' + (Pwidth - pc / i) + 'px';
                
                 //歌曲播放时间
                 ((pd - pc) / 60).toFixed(2).replace(/\./, ':') === NaN ? 
