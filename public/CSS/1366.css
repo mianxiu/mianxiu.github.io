@@ -457,3 +457,14 @@ margin-top: 12px;
 }
 
 /**/
+/**/
+#allContext{
+    opacity: 0;
+    animation: opacityTwo ease 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes opacityTwo{
+    from{opacity: 0}
+    to{opacity: 1}
+}
+
