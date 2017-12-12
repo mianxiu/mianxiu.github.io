@@ -19,20 +19,16 @@ function ajax(url) {
         let data_id = $('#rule').dataset.id
         switch(data_id){
             case 'home':
-                $('#index').style.display = 'block'
                 triangle()
                 mp3PlayerType('normal')
                 break;
             case 'gallery':
-            $('#index').style.display = 'none'
                 mp3PlayerType('min')
                 break;
             case 'essay':
-            $('#index').style.display = 'none'
                 mp3PlayerType('min')
                 break;
             case 'about':
-            $('#index').style.display = 'none'
                 mp3PlayerType('min')
                 break;
         }
