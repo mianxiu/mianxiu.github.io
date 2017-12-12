@@ -122,12 +122,7 @@
 }
 
 
-/**/
-#allContext{
-    opacity: 0;
-    animation: opacityTwo ease 1s;
-    animation-fill-mode: forwards;
-}
+
 #foot{
     animation: opacityTwo ease 0.5s;
     
