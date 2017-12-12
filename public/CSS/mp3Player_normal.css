@@ -120,3 +120,17 @@
 #playList li:hover{
     cursor: pointer;
 }
+
+
+/**/
+#allContext{
+    animation: opacityTwo ease 1s;
+}
+#foot{
+    animation: opacityTwo ease 0.5s;
+    
+}
+@keyframes opacityTwo{
+    from{opacity: 0}
+    to{opacity: 1}
+}

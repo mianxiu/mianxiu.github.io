@@ -331,19 +331,19 @@ margin-top: 12px;
     animation-iteration-count: 1;
 }
 #github:hover #L_1{
-    animation:githubIcon_L_1 0.2s infinite 0.8s;
+    animation:githubIcon_L_1 0.2s 0.8s;
     animation-iteration-count: 1;
 }
 #github:hover #L_2{
-    animation:githubIcon_L_2 0.2s infinite 1s;
+    animation:githubIcon_L_2 0.2s 1s;
     animation-iteration-count: 1;
 }
 #github:hover #L_3{
-    animation:githubIcon_L_3 1s infinite ease-in-out;
+    animation:githubIcon_L_3 1s ease-in-out;
     animation-iteration-count: 1;
 }
 #github:hover #mouth{
-    animation:mouth 1s infinite ease-in-out;
+    animation:mouth 1s ease-in-out;
     animation-iteration-count: 1;
 }
 
