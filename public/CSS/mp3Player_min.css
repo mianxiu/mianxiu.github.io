@@ -1,5 +1,12 @@
 #mp3Player{
    margin-top: 54px;
+   animation: mp3Player ease-in-out 0.5s;
+   opacity: 1;
+}
+
+@keyframes mp3Player{
+    from{opacity: 0}
+    to{opacity: 1}
 }
 
 #visual{
