@@ -274,11 +274,12 @@ function mp3Player() {
                 $('#audioProgressA').style = 'margin-left:' + pc / i + 'px;width:' + (Pwidth - pc / i) + 'px';
                
                 //歌曲播放时间
-                if(((pd - pc) / 60).toFixed(2).replace(/\./, ':')==NaN){
+               
+                ((pd - pc) / 60).toFixed(2).replace(/\./, ':') ==='NaN' ?
                     $('#timePass').innerText = '缓冲中...'
-                }else{
-                    $('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':')
-                }
+                :
+                    $('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':');
+                
             })
         }
     }
