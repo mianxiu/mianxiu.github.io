@@ -42,11 +42,10 @@ html,body{
 }
 
 #lastPost{
+    margin-top: -4vmin;
     right: 0.2vmin;
     position: absolute;
     transform: rotate(90deg) translateZ(0);
- 
-    
 }
 #lastPost span:nth-child(1){
     font-size: 3.8vmin;
