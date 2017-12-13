@@ -1,4 +1,7 @@
-
+/*
+*safari iOS 会忽略html,body的overflow
+*
+*/
 html,body{
     height: 100%;
     width: 100vw;
@@ -31,6 +34,11 @@ html,body{
 /*---------首页动画+内容--------------*/
 #h{
     position: absolute;
+    width: 32vmax;
+    height: 50vmax;
+    margin-top: -68vmax;
+    overflow: hidden;
+    right: 0;
 }
 #s{
     z-index: 4;
