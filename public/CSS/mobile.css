@@ -26,15 +26,19 @@ html,body{
     height:11.2443vmax;
     font-weight: bold;
 }
+.nav-span{
+    font-weight:normal;
+}
+
 
 #Personal{
     margin-left: 7.4666vmin;
 }
 #name{
-    margin-top: 24px;
+    margin-top: 3.2vmin;
 }
 #year{
-    margin-top: 15px;
+    margin-top: 2vmin;
 }
 
 #lastPost{
@@ -45,11 +49,13 @@ html,body{
     
 }
 #lastPost span:nth-child(1){
-    font-size: 16px;
+    font-size: 3.8vmin;
     font-weight: bold;
 }
 
-
+#rule{
+    margin-left: 7.4666vmin;
+}
 #foot{display: none}
 
 
