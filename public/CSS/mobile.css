@@ -31,10 +31,21 @@ html,body{
     font-weight:normal;
 }
 
-
+/*----------*/
 #Personal{
     margin-left: 7.4666vmin;
 }
+#logo::after{
+    display: block;
+    position: absolute;
+    content: '';
+    width: 2vmin;
+    height: 1vmin;
+    background-color: black;
+    margin-top: -7vmin;
+    margin-left: 22vmin;
+}
+
 #name{
     margin-top: 3.2vmin;
 }
