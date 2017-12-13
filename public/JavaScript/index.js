@@ -1,26 +1,22 @@
 function UA(){
     ua = navigator.userAgent;
-    if(/.*iPhone/.test(ua) || /.*Andriod/.test(ua)){
+    if(ua.match(/iPhone|Android/i)){
         $('#pageCSS').href = 'public/CSS/mobile.css'
-        window.onload = function () {        
+        /*mobile.js*/
+        window.onload = function(){
+            navGetAjax()
+            triangle()   
+        }      
+    }else{
+        window.onload = function(){        
+            mp3Player();
             nav()
             navGetAjax()
             triangle()          
-        }
-        
-    }else{
-        window.onload = function () {        
-                mp3Player();
-                nav()
-                navGetAjax()
-                triangle()          
-            }
-            
+        }       
     }
 }
 UA()
-
-
 
 
 /**
@@ -50,9 +46,6 @@ function r() {
     }
     $('button.k').innerText = a[getRandomInt(1, 5)]
 }
-
-
-
 
 
 
@@ -93,32 +86,6 @@ function AryInclue(a, b) {
         return true
     } else {
         return false
-    }
-}
-
-
-/**获取cookie
- * 返回一个cookieName:value的对象
- */
-function getCookie() {
-    let r = new RegExp(/=/)
-    let c = []
-    let u = document.cookie
-    if (/;/.test(u)) {
-        ua = u.split(/;\s/)
-        let co = new Object()
-        for (let i of ua) {
-            cn = i.split(r)[0]
-            cv = i.split(r)[1]
-            co[cn] = cv
-        }
-        return co
-    } else {
-        let co = new Object()
-        cn = u.split(r)[0]
-        cv = u.split(r)[1]
-        co[cn] = cv
-        return co
     }
 }
 
@@ -177,29 +144,6 @@ function nav() {
 }
 
 
-
-
-/**
- * 把歌曲序号+时间写入cookie
- */
-function currentTime() {
-    let p = playListAry()
-    let t = $('#playList>ol')
-    if (document.cookie !== "") {
-        $('#player').currentTime = getCookie().currentTime
-        $('#player').src = p[getCookie().songNum]
-        t.style.marginTop = -getCookie().songNum * (t.offsetHeight / p.length) + 'px'
-    }
-
-    $('#navigation').addEventListener('click', function () {
-        let c = 'currentTime=' + $('#player').currentTime
-        let d = decodeURI($('#player').src).replace(musicRegex, 'public')
-
-        let n = 'songNum=' + p.indexOf(d)
-        document.cookie = c
-        document.cookie = n
-    })
+//
+function mobile(){
 }
-
-
-

@@ -19,13 +19,11 @@ body{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-   }
-
-body{
     display: flex;
     align-items: center;
     justify-content: center;
-}
+   }
+
 #main{
      
     width: 1016px;
@@ -113,7 +111,7 @@ body{
 }
 
 
-/*---------ajax内容--------------*/
+/*---------首页动画+内容--------------*/
 #h{
     height: 100%;
     width: 50%;
@@ -137,8 +135,6 @@ body{
  margin-left: -20.5px;
  margin-top: -3px;
  
-
-
 }
 #triangleRGB{
     z-index: 2
@@ -155,8 +151,7 @@ margin-top: 12px;
     margin-top: 120px;
     position: absolute;
 }
-#logo{
-}
+
 #logo::after{
     display: block;
     position: absolute;
