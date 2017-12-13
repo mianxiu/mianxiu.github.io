@@ -27,6 +27,28 @@ html,body{
     font-weight: bold;
 }
 
+#Personal{
+    margin-left: 7.4666vmin;
+}
+#name{
+    margin-top: 24px;
+}
+#year{
+    margin-top: 15px;
+}
+
+#lastPost{
+    right: 0.2vmin;
+    position: absolute;
+    transform: rotate(90deg) translateZ(0);
+ 
+    
+}
+#lastPost span:nth-child(1){
+    font-size: 16px;
+    font-weight: bold;
+}
+
 
 #foot{display: none}
 
@@ -35,12 +57,13 @@ html,body{
 #h{
     position: absolute;
     width: 32vmax;
-    height: 50vmax;
+    height: 100vmin;
     margin-top: -68vmax;
     overflow: hidden;
     right: 0;
 }
 #s{
+    display: none;
     z-index: 4;
     position: absolute;
 }
