@@ -42,7 +42,7 @@ html,body{
 }
 
 #lastPost{
-    margin-top: -10vmin;
+    margin-top: -6vmax;
     right: 0.2vmin;
     position: absolute;
     transform: rotate(90deg) translateZ(0);
