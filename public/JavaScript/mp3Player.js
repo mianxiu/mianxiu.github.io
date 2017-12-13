@@ -276,7 +276,7 @@ function mp3Player() {
                 //歌曲播放时间
                
                 ((pd - pc) / 60).toFixed(2).replace(/\./, ':') ==='NaN' ?
-                    $('#timePass').innerText = '缓冲中...'
+                    $('#timePass').innerText = 'loading'
                 :
                     $('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':');
                 
