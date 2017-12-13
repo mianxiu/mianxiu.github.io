@@ -43,7 +43,7 @@ html,body{
 }
 
 #lastPost{
-    bottom: 6vmax;
+    bottom: 24vmax;
     right: 0.2vmin;
     position: absolute;
     transform: rotate(90deg) translateZ(0);
