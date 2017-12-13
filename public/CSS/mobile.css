@@ -27,6 +27,7 @@ html,body{
     font-weight: bold;
 }
 .nav-span{
+    margin-top:0 !important;
     font-weight:normal;
 }
 
@@ -42,7 +43,7 @@ html,body{
 }
 
 #lastPost{
-    margin-top: -6vmax;
+    bottom: 6vmax;
     right: 0.2vmin;
     position: absolute;
     transform: rotate(90deg) translateZ(0);
