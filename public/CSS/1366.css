@@ -40,11 +40,6 @@ body{
 }
 
 
-#foot{
-    height: 160px;
-    overflow-y: hidden;
-    background-color: white;
-}
 
 /*导航*/
 #navigation{
@@ -463,3 +458,8 @@ margin-top: 12px;
     to{opacity: 1}
 }
 
+
+/*eassay 随笔----------------*/
+#essay{
+    width: 68.0555vw;
+}

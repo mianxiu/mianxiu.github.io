@@ -1,3 +1,12 @@
+#allContext{
+    max-height: 350px;
+}
+#foot{
+    overflow-y:initial;
+    position: absolute;
+    left: 0;
+}
+
 #mp3Player{
    margin-top: 54px;
    animation: mp3Player ease-in-out 0.5s;

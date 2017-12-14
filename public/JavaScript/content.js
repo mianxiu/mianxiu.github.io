@@ -4,10 +4,16 @@
 function ajax(url) {
     var oReq = new XMLHttpRequest();
     oReq.onload = writeContent;
+    oReq.addEventListener('progress',e=>{
+        console.log('__'+Date())
+    })
+    oReq.addEventListener('load',e=>{
+        console.log('=='+Date())
+    })
     oReq.open("get", url, true);
     oReq.send();
 
-    console.log(url)
+
 
     //写入内容
     function writeContent() {
@@ -49,14 +55,11 @@ function navGetAjax() {
                 i.className = ''
             }
             e.target.className = 'nav-active'
-
             let u = e.target.innerText.toLowerCase()
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
-            $('#rule').dataset.id = u
-            
-              ajax('public/navigation/' + u + '.html')      
-            
+            $('#rule').dataset.id = u         
+              ajax('public/navigation/' + u + '.html')                
         }
     })
 }
