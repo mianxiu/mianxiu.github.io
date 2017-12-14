@@ -511,6 +511,23 @@ margin-top: 12px;
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
+
+.postDate{
+    background-color: #70a0db;
+    color: white;
+    padding: 0 4px;
+    border-radius: 4px;
+}
+.folder{
+
+    background-color: #fcab1d;
+    color: white;
+    padding: 0 4px;
+    border-radius: 4px;
+    
+}
+
+
 #essayRight{
     position: fixed;
     width: 196px;
