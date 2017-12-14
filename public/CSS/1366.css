@@ -472,19 +472,38 @@ margin-top: 12px;
     flex-direction: row;
     position: absolute;;
     width: 980px;
-    background-color: red;
 }
 #essayLeft{
-    width: 588px;
+    width: 900px;
 }
 #essayLeft li{
-    list-style: none;
+    list-style: none; 
+    padding-bottom: 10px;    
 }
-
+#essayLeft li::after{
+    content: '';
+    display:block;
+    width: 0px;
+    height: 4px;
+    background-color: rgb(0, 0, 0);
+    margin-top: 10px;
+    transition: width 0.5s;
+}
+#essayLeft > ul > li:hover::after{
+    width: 50px;
+}
+#essayLeft > ul > li > p{  
+    overflow: hidden;
+    height: 46px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
 #essayRight{
     position: fixed;
     width: 196px;
     height: 100px;
     background-color: yellow;
-    margin-left: 784px;
+    margin-left: 980px;
 }

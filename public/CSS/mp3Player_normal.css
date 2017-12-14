@@ -100,7 +100,7 @@
     position: absolute;
     margin-top: 28px;
     min-width: 40%;
-    height: 30px;
+    height: 32px;
     background:linear-gradient(0deg,white,rgba(255,255,255,0.5));
     transition: height 0.2s,margin-top 0.2s;   
     
