@@ -141,6 +141,21 @@ function nav() {
         }
     })
 
+
+    /*检测页面滚动*/
+    window.onscroll = e=>{
+        let sH = document.documentElement.scrollHeight
+        let sT = document.documentElement.scrollTop
+        let dH = document.documentElement.offsetHeight
+        if(sH-sT < sH){
+            $('#navigation').style.transform = 'translateY(-100px)'
+          //  $('#navigation').style.filter = 'drop-shadow(1px 0px 8px red)'
+        }else{
+            $('#navigation').style.transform = 'translateY(0px)'
+            
+        }
+    }
+
 }
 
 

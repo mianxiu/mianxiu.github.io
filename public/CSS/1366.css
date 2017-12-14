@@ -1,7 +1,9 @@
 
 /* 1366X768
 */
-
+::-webkit-scrollbar{
+    display:none;
+  }
 
 
 html,body{  
@@ -25,22 +27,18 @@ body{
     justify-content: center;
     width: 100vw;
     overflow-x:hidden;
+    text-shadow: 0px 0px 0.2px #b3b3b3;
    }
 
 #main{
      
     width: 1016px;
-    height: 645px;
+    min-height: 645px;
+    height: 100vh;
     background-color: rgb(255, 255, 255);
     
 }
 
-/* height: 350px;*/
-#allContext{
-
-    background-color:rgb(255, 255, 255); 
-
-}
 
 
 
@@ -48,7 +46,12 @@ body{
 #navigation{
     padding-left: 107px;
     height: 120px;
+    width: 100vw;
+    z-index: 2;
     background-color:#fff; 
+    position: fixed;
+    transform:translateY(0px);
+    transition: transform 0.2s;
 }
 #navigation ul{
     display: flex;
@@ -106,6 +109,14 @@ body{
 #navigation>ul> li:hover{
     background-color: rgb(255, 255, 255);
     color: white;
+}
+
+
+/* height: 350px;*/
+#allContext{
+    margin-top: 120px;
+    background-color:rgb(255, 255, 255); 
+
 }
 
 
