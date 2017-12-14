@@ -12,6 +12,7 @@ html,body{
    
 }
 
+/*body 100vw后元素不会随滚动条变动,但会出现横向滚动*/
 body{ 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -22,6 +23,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100vw;
+    overflow-x:hidden;
    }
 
 #main{
@@ -32,9 +35,9 @@ body{
     
 }
 
-
+/* height: 350px;*/
 #allContext{
-    height: 350px;;
+
     background-color:rgb(255, 255, 255); 
 
 }
@@ -460,6 +463,28 @@ margin-top: 12px;
 
 
 /*eassay 随笔----------------*/
+#foot{
+    position: absolute;
+    transform: translateY(350px)
+}
 #essay{
-    width: 68.0555vw;
+    display: flex;
+    flex-direction: row;
+    position: absolute;;
+    width: 980px;
+    background-color: red;
+}
+#essayLeft{
+    width: 588px;
+}
+#essayLeft li{
+    list-style: none;
+}
+
+#essayRight{
+    position: fixed;
+    width: 196px;
+    height: 100px;
+    background-color: yellow;
+    margin-left: 784px;
 }

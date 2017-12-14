@@ -1,16 +1,13 @@
-#allContext{
-    max-height: 350px;
-}
 #foot{
-    overflow-y:initial;
-    position: absolute;
+    position: fixed;
     left: 0;
+    transform: translateY(350px);
 }
-
 #mp3Player{
    margin-top: 54px;
    animation: mp3Player ease-in-out 0.5s;
    opacity: 1;
+   background-color: white;
 }
 
 @keyframes mp3Player{
@@ -72,13 +69,12 @@
     width: 16px;
     position: absolute;
     left: 0;
-
     padding:14px 0px;
     padding-left: 70px;
     border-top:2px solid black;
     border-right:2px solid black;
     border-bottom: 2px solid black;
-
+    background-color: white;
     transition: width 0.4s;
 }
 
