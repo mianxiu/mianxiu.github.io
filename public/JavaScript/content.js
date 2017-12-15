@@ -36,6 +36,7 @@ function ajax(url) {
             case 'essay':
                 $('#index').style.display ='none'
                 mp3PlayerType('min')
+                essayAjax()
                 break;
             case 'about':
                 $('#index').style.display ='none'
@@ -309,4 +310,16 @@ function mp3PlayerType(type){
             $('#mp3CSS').href = 'public/CSS/mp3Player_min.css'   
             break; 
     }
+}
+
+
+
+//3 essay列表
+function essayAjax(){
+    $('#essayLeft').addEventListener('click',e=>{
+        if(e.target.tagName === 'H3' || e.target.tagName === 'P'){
+            let eP = e.target.parentNode
+            console.log(eP.childNodes)
+        }
+    })
 }
