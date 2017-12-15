@@ -489,7 +489,8 @@ margin-top: 12px;
 }
 #essayLeft li{
     list-style: none; 
-    padding-bottom: 10px;    
+    padding-bottom: 10px;  
+    cursor: pointer; 
 }
 #essayLeft li::after{
     content: '';
