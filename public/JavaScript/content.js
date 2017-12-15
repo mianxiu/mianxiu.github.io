@@ -322,7 +322,6 @@ function essayAjax(){
             let ePC = eP.childNodes[1].innerText
             let ePD = eP.childNodes[5].innerText
             ajax('/public/essay/' + ePD.slice(0,8) + ePC +'.html',writeEssay)
-            history.pushState({},null, ePD.slice(0,8) + ePC)
         }
     })
 
