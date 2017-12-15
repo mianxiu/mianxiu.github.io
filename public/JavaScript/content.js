@@ -1,51 +1,47 @@
 
 //
 //ajax()
-function ajax(url) {
+function ajax(url,run) {
     var oReq = new XMLHttpRequest();
-    oReq.onload = writeContent;
+    oReq.onload = run;
     oReq.addEventListener('progress',e=>{
         console.log('__'+Date())
     })
     oReq.addEventListener('load',e=>{
-        console.log('=='+Date())
     })
     oReq.open("get", url, true);
     oReq.send();
 
-
-
-    //写入内容
-    function writeContent() {
-        console.log(this.responseText)
-
-        $('#rule').innerHTML = this.responseText
-
-        //根据自定义id ajax
-        let data_id = $('#rule').dataset.id
-        switch(data_id){
-            case 'home':
-                $('#index').style.display ='block'
-                triangle()
-                mp3PlayerType('normal')
-                break;
-            case 'gallery':
-                $('#index').style.display ='none'
-                mp3PlayerType('min')
-                break;
-            case 'essay':
-                $('#index').style.display ='none'
-                mp3PlayerType('min')
-                essayAjax()
-                break;
-            case 'about':
-                $('#index').style.display ='none'
-                mp3PlayerType('min')
-                break;
-        }
-    }
 }
 
+
+  //写入内容
+  let writeContent=function() {
+    console.log(this.responseText)
+    $('#rule').innerHTML = this.responseText
+    //根据自定义id ajax
+    let data_id = $('#rule').dataset.id
+    switch(data_id){
+        case 'home':
+            $('#index').style.display ='block'
+            triangle()
+            mp3PlayerType('normal')
+            break;
+        case 'gallery':
+            $('#index').style.display ='none'
+            mp3PlayerType('min')
+            break;
+        case 'essay':
+            $('#index').style.display ='none'
+            mp3PlayerType('min')
+            essayAjax()
+            break;
+        case 'about':
+            $('#index').style.display ='none'
+            mp3PlayerType('min')
+            break;
+    }
+}
 
 
 function navGetAjax() {
@@ -60,7 +56,7 @@ function navGetAjax() {
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
             $('#rule').dataset.id = u         
-              ajax('public/navigation/' + u + '.html')                
+              ajax('public/navigation/' + u + '.html',writeContent)                
         }
     })
 }
@@ -319,7 +315,7 @@ function essayAjax(){
     $('#essayLeft').addEventListener('click',e=>{
         if(e.target.tagName === 'H3' || e.target.tagName === 'P'){
             let eP = e.target.parentNode
-            console.log(eP.childNodes)
+            let ePC = eP.childNodes[1].innerText    
         }
     })
 }
