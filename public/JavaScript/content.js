@@ -1,6 +1,10 @@
 
-//
-//ajax()
+/**-是url
+ *-run是函数
+ *-默认传入this.responseText
+ * @param {*} url 
+ * @param {*} run 
+ */
 function ajax(url,run) {
     var oReq = new XMLHttpRequest();
     oReq.onload = run;
@@ -16,7 +20,7 @@ function ajax(url,run) {
 
 
   //写入内容
-  let writeContent=function() {
+  let writeContent = function() {
     console.log(this.responseText)
     $('#rule').innerHTML = this.responseText
     //根据自定义id ajax
@@ -314,8 +318,15 @@ function mp3PlayerType(type){
 function essayAjax(){
     $('#essayLeft').addEventListener('click',e=>{
         if(e.target.tagName === 'H3' || e.target.tagName === 'P'){
-            let eP = e.target.parentNode
-            let ePC = eP.childNodes[1].innerText    
+            let eP = e.target.parentNode     
+            let ePC = eP.childNodes[1].innerText
+            let ePD = eP.childNodes[5].innerText
+            ajax('/public/essay/' + ePD.slice(0,8) + ePC +'.html',writeEssay)
+            history.pushState({},null, ePD.slice(0,8) + ePC)
         }
     })
+
+    let writeEssay = function(){
+        $('#essay').innerHTML = '<div id="essayText">' + this.responseText + '</div>'    
+    }
 }
