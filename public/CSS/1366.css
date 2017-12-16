@@ -517,7 +517,9 @@ margin-top: 12px;
     
 }
 .folder{
-   
+   text-decoration-line: underline;
+   text-decoration-color: #9c9c9c;
+   margin-left: 20px;
 }
 
 
