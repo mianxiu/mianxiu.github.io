@@ -5,13 +5,13 @@
  * @param {*} url 
  * @param {*} run 
  */
-function ajax(url,run) {
+function ajax(url, run) {
     var oReq = new XMLHttpRequest();
     oReq.onload = run;
-    oReq.addEventListener('progress',e=>{
-        console.log('__'+Date())
+    oReq.addEventListener('progress', e => {
+        console.log('__' + Date())
     })
-    oReq.addEventListener('load',e=>{
+    oReq.addEventListener('load', e => {
     })
     oReq.open("get", url, true);
     oReq.send();
@@ -19,29 +19,29 @@ function ajax(url,run) {
 }
 
 
-  //写入内容
-  let writeContent = function() {
+//写入内容
+let writeContent = function () {
     console.log(this.responseText)
     $('#rule').innerHTML = this.responseText
     //根据自定义id ajax
     let data_id = $('#rule').dataset.id
-    switch(data_id){
+    switch (data_id) {
         case 'home':
-            $('#index').style.display ='block'
+            $('#index').style.display = 'block'
             triangle()
             mp3PlayerType('normal')
             break;
         case 'gallery':
-            $('#index').style.display ='none'
+            $('#index').style.display = 'none'
             mp3PlayerType('min')
             break;
         case 'essay':
-            $('#index').style.display ='none'
+            $('#index').style.display = 'none'
             mp3PlayerType('min')
             essayAjax()
             break;
         case 'about':
-            $('#index').style.display ='none'
+            $('#index').style.display = 'none'
             mp3PlayerType('min')
             break;
     }
@@ -59,8 +59,8 @@ function navGetAjax() {
             let u = e.target.innerText.toLowerCase()
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
-            $('#rule').dataset.id = u         
-              ajax('public/navigation/' + u + '.html',writeContent)                
+            $('#rule').dataset.id = u
+            ajax('public/navigation/' + u + '.html', writeContent)
         }
     })
 }
@@ -301,14 +301,14 @@ function triangle() {
  *-normal and min
  * @param {*} type 
  */
-function mp3PlayerType(type){
-    switch(type){
-      case 'normal': 
+function mp3PlayerType(type) {
+    switch (type) {
+        case 'normal':
             $('#mp3CSS').href = 'public/CSS/mp3Player_normal.css'
             break;
-      case 'min' : 
-            $('#mp3CSS').href = 'public/CSS/mp3Player_min.css'   
-            break; 
+        case 'min':
+            $('#mp3CSS').href = 'public/CSS/mp3Player_min.css'
+            break;
     }
 }
 
@@ -317,18 +317,31 @@ function mp3PlayerType(type){
 //3 essay列表---------------------------------------------------------------------------
 
 //获取内容
-function essayAjax(){
-    $('#essayLeft').addEventListener('click',e=>{
-        if(e.target.tagName === 'H3'){
-            let eP = e.target.parentNode     
-            let ePC = eP.childNodes[1].innerText
-            let ePD = eP.childNodes[5].innerText
-            ajax('/public/essay/' + ePD.slice(0,8) + ePC +'.html',writeEssay)
+function essayAjax() {
+    $('#essayLeft').addEventListener('click', e => {
+        if (e.target.tagName === 'H3') {
+            let eP = e.target.parentNode
+            let ePostH3 = eP.childNodes[1].innerText
+            let ePostDate = eP.childNodes[3].innerText
+            ajax('/public/essay/' + ePostDate.slice(0, 8) + ePostH3 + '.html', writeEssay)
         }
     })
 
-    let writeEssay = function(){
-        $('#essay').innerHTML = '<div id="essayText">' + this.responseText + '</div>'    
+    let writeEssay = function () {
+        document.documentElement.scrollTop = 0
+        $('#essay').style.display = 'none'
+        $('#essayText').style.height = '100vh'
+        $('#essayText>div').style.marginTop = '50px'
+        $('#essayClose').style.transform = 'scale(1,1)'
+        $('#essayText>div').innerHTML = this.responseText
+
+        $('#essayClose').addEventListener('click', () => {
+            $('#essay').style.display = ''
+            $('#essayText').style.height = ''
+            $('#essayText>div').style.marginTop = ''
+            $('#essayClose').style.transform = ''
+            $('#essayText>div').innerHTML = ''
+        })
     }
 
     //文件夹

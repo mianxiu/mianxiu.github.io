@@ -476,6 +476,7 @@ margin-top: 12px;
 /*eassay 随笔----------------*/
 #foot{
     position: absolute;
+    z-index: 5;
     transform: translateY(350px)
 }
 #essay{
@@ -490,8 +491,12 @@ margin-top: 12px;
 #essayLeft li{
     list-style: none; 
     padding-bottom: 30px;  
+    
 }
 
+#essayLeft > ul > li{
+    
+}
 
 
 #essayLeft > ul > li > h3 {
@@ -499,7 +504,6 @@ margin-top: 12px;
 }
 #essayLeft > ul > li > p{  
     cursor: text;
-    max-height: 46px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -509,20 +513,29 @@ margin-top: 12px;
 
 
 .postDate,.folder{
-    letter-spacing: 5px;
+    width: 160px;
     font-size: 14px;
     color: #9c9c9c;
 }
 .postDate{
-    
+    letter-spacing: 5px;
+}
+.postDate::before,.folder::before{
+    width:19px;
+    height: 19px;
+    display: flex;
+}
+.postDate::before{
+  /*  content: url('/public/icon/essay/date.svg');*/
+}
+.folder::before{
+   /* content: url('/public/icon/essay/folder.svg');*/
 }
 
 .folder{
    margin-left: 20px;
 }
-.folder:hover{
-    border-bottom:1px solid #9c9c9c;
-}
+
 
 #essayRight{
     position: fixed;
@@ -532,11 +545,35 @@ margin-top: 12px;
     margin-left: 980px;
 }
 
-#essayText{
+#essayText {
+    background-color: rgba(255, 255, 255,0.94);
+    width: 900px;
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 20px;
+    font-weight: lighter;
+}
+#essayText > div:nth-child(1){
+    width: 980px;
+}
+#essayClose{
+    cursor: pointer;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    top:50px;
+    right: 50px;
+    background-image: url('/public/icon/essay/close.svg');
+    transform: scale(0,0);
+    transition:transform 0.4s;
+}
 
+._Date{
+    letter-spacing: 5px;
 }
 ._Date,._folder{
-    letter-spacing: 5px;
     font-size: 14px;
     color: #9c9c9c;
 }
