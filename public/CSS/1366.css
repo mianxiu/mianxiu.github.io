@@ -489,39 +489,40 @@ margin-top: 12px;
 }
 #essayLeft li{
     list-style: none; 
-    padding-bottom: 10px;  
-    cursor: pointer; 
+    padding-bottom: 30px;  
 }
-#essayLeft li::after{
-    content: '';
-    display:block;
-    width: 0px;
-    height: 4px;
-    background-color: rgb(0, 0, 0);
-    margin-top: 10px;
-    transition: width 0.5s;
-}
-#essayLeft > ul > li:hover::after{
-    width: 50px;
+
+
+
+#essayLeft > ul > li > h3 {
+    cursor: pointer;
 }
 #essayLeft > ul > li > p{  
-    overflow: hidden;
-    height: 46px;
+    cursor: text;
+    max-height: 46px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
 
+
+
+.postDate,.folder{
+    letter-spacing: 5px;
+    font-size: 14px;
+    color: #9c9c9c;
+}
 .postDate{
     
 }
+
 .folder{
-   text-decoration-line: underline;
-   text-decoration-color: #9c9c9c;
    margin-left: 20px;
 }
-
+.folder:hover{
+    border-bottom:1px solid #9c9c9c;
+}
 
 #essayRight{
     position: fixed;
@@ -529,4 +530,16 @@ margin-top: 12px;
     height: 100px;
     background-color: yellow;
     margin-left: 980px;
+}
+
+#essayText{
+
+}
+._Date,._folder{
+    letter-spacing: 5px;
+    font-size: 14px;
+    color: #9c9c9c;
+}
+._folder{
+    margin-left: 20px;
 }

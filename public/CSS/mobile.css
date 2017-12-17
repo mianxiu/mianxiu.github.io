@@ -6,7 +6,7 @@ html,body{
     height: 100%;
     width: 100vw;
     margin: 0 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 #main{
     height: 100vh;

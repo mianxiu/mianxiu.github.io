@@ -314,10 +314,12 @@ function mp3PlayerType(type){
 
 
 
-//3 essay列表
+//3 essay列表---------------------------------------------------------------------------
+
+//获取内容
 function essayAjax(){
     $('#essayLeft').addEventListener('click',e=>{
-        if(e.target.tagName === 'H3' || e.target.tagName === 'P'){
+        if(e.target.tagName === 'H3'){
             let eP = e.target.parentNode     
             let ePC = eP.childNodes[1].innerText
             let ePD = eP.childNodes[5].innerText
@@ -328,4 +330,6 @@ function essayAjax(){
     let writeEssay = function(){
         $('#essay').innerHTML = '<div id="essayText">' + this.responseText + '</div>'    
     }
+
+    //文件夹
 }
