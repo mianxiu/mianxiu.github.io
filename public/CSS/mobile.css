@@ -65,7 +65,6 @@ html,body{
 }
 
 #rule{
-    margin-left: 7.4666vmin;
 }
 #foot{display: none}
 
@@ -234,4 +233,24 @@ margin-top: 12px;
     background-image: url('/public/icon/essay/close.svg');
     transform: scale(0,0);
     transition:transform 0.4s;
+}
+
+
+#essayLeft > ul{
+    padding: 0 30px;
+}
+#essayLeft > ul > li{
+    list-style: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.postDate,.folder{
+    width: 160px;
+    font-size: 14px;
+    color: #9c9c9c;
+    font-weight: lighter;
+}
+.postDate{
+    letter-spacing: 5px;
 }
