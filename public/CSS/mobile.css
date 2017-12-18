@@ -248,7 +248,7 @@ margin-top: 12px;
 .postDate,.folder,._Date,._folder{
     width: 160px;
     font-size: 14px;
-    color: #9c9c9c;
+    color: #636363;
     font-weight: lighter;
 }
 .postDate{
@@ -261,7 +261,7 @@ margin-top: 12px;
 }
 ._Date,._folder{
     font-size: 14px;
-    color: #9c9c9c;
+    color: #636363;
 }
 ._folder{
     margin-left: 20px;
