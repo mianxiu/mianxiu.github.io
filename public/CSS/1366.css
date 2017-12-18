@@ -503,6 +503,7 @@ margin-top: 12px;
     cursor: pointer;
 }
 #essayLeft > ul > li > p{  
+    font-weight: lighter;
     cursor: text;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -516,6 +517,7 @@ margin-top: 12px;
     width: 160px;
     font-size: 14px;
     color: #9c9c9c;
+    font-weight: lighter;
 }
 .postDate{
     letter-spacing: 5px;
@@ -538,7 +540,7 @@ margin-top: 12px;
 
 
 #essayRight{
-    position: fixed;
+    position: absolute;
     width: 196px;
     height: 100px;
     background-color: yellow;

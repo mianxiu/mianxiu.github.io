@@ -318,15 +318,18 @@ function mp3PlayerType(type) {
 
 //获取内容
 function essayAjax() {
+    let originScroll = 0
     $('#essayLeft').addEventListener('click', e => {
         if (e.target.tagName === 'H3') {
             let eP = e.target.parentNode
             let ePostH3 = eP.childNodes[1].innerText
             let ePostDate = eP.childNodes[3].innerText
             ajax('/public/essay/' + ePostDate.slice(0, 8) + ePostH3 + '.html', writeEssay)
+            originScroll = document.documentElement.scrollTop
         }
     })
 
+    
     let writeEssay = function () {
         document.documentElement.scrollTop = 0
         $('#essay').style.display = 'none'
@@ -341,6 +344,7 @@ function essayAjax() {
             $('#essayText>div').style.marginTop = ''
             $('#essayClose').style.transform = ''
             $('#essayText>div').innerHTML = ''
+            document.documentElement.scrollTop = originScroll
         })
     }
 
