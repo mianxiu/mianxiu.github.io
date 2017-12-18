@@ -1,7 +1,7 @@
 function UA(){
     ua = navigator.userAgent;
     if(ua.match(/iPhone|Android/i)){
-        $('#pageCSS').href = 'public/CSS/mobile.css'
+        $('#pageCSS').href = 'public/css/mobile.css'
         /*mobile.js*/
         window.onload = function(){
             navGetAjax()
