@@ -16,8 +16,9 @@ html,body{
     width: 29.3333vmin;
 }
 #navigation > ul{
+    margin-left: 0;
     padding: 0 0;
-    padding-left: 7.4666vmin;
+    padding-left: 30px;
     justify-content: center;
     
 }
