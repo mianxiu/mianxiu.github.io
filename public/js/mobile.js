@@ -25,11 +25,11 @@ function navHidden(type){
 
             if(r.slice(-2)[1]-r.slice(-2)[0]>0){
                 console.log('向右')
-                $('#navigation > ul').style.marginLeft = (510-x) + 'px'
+                $('#navigation > ul').style.marginLeft = (mw+1) + 'px'
             }else if(r.slice(-2)[1]-r.slice(-2)[0]<0){
                 console.log('向左')
                 console.log(x)
-                $('#navigation > ul').style.marginLeft = -(510-x) + 'px'
+                $('#navigation > ul').style.marginLeft = (mw-1) + 'px'
                 
             }
         })
