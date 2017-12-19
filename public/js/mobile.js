@@ -4,5 +4,9 @@ function navHidden(type){
         $('#navigation').style = 'height:100px;'
         $('#navigation > ul').style = 'display:flex;flex-direction:row;position:absolute'
         $('#essayText').style = 'z-index:4;'
+    }else if(type === 'off'){
+        $('#navigation').style = ''
+        $('#navigation > ul').style = ''
+        $('#essayText').style = ''
     }
 }

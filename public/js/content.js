@@ -30,6 +30,7 @@ let writeContent = function () {
             $('#index').style.display = 'block'
             triangle()
             mp3PlayerType('normal')
+            navHidden('off')
             break;
         case 'gallery':
             $('#index').style.display = 'none'
