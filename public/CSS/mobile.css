@@ -25,6 +25,7 @@ html,body{
     list-style: none;
     height:11.2443vmax;
     font-weight: bold;
+    width:120px;
 }
 .nav-span{
     margin-top:0 !important;

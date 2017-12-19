@@ -34,15 +34,18 @@ let writeContent = function () {
         case 'gallery':
             $('#index').style.display = 'none'
             mp3PlayerType('min')
+            navHidden('on')
             break;
         case 'essay':
             $('#index').style.display = 'none'
             mp3PlayerType('min')
+            navHidden('on')
             essayAjax()
             break;
         case 'about':
             $('#index').style.display = 'none'
             mp3PlayerType('min')
+            navHidden('on')
             break;
     }
 }
