@@ -3,6 +3,5 @@ function navHidden(type){
     if(type === 'on'){
         $('#navigation').style = 'height:100px;width:100vw;'
         $('#navigation > ul').style = 'display:flex;flex-direction:row;position:absolute'    
-      //  $('#navigation > ul  li').style = 'width:120px;'  
     }
 }
