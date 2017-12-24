@@ -17,23 +17,26 @@ function navHidden(type){
         let r = []
         //准确获取屏幕宽度
         let w = document.documentElement.clientWidth
-        let navW = parseInt(getComputedStyle($('#navigation'),null).marginLeft.replace(/px/,''))
+        let divW = $('#navigation > ul').offsetWidth
+      //  let navW = parseInt(getComputedStyle($('#navigation'),null).marginLeft.replace(/px/,''))
         $('#navigation').addEventListener('touchmove',e=>{
             let x = e.changedTouches[0].pageX
             let mw = parseInt(getComputedStyle($('#navigation > ul'),null).marginLeft.replace(/px/,''))
             r.push(x)
-
-            console.log(mw)
-            if(r.slice(-2)[1]-r.slice(-2)[0]>0){
-                //向右
-                if(mw != 0){
-                $('#navigation > ul').style.marginLeft = (mw+6) + 'px'                    
+            
+            if(w < divW){
+                console.log(mw)
+                if(r.slice(-2)[1]-r.slice(-2)[0]>0){
+                    //向右
+                    if(mw != 0){
+                    $('#navigation > ul').style.marginLeft = (mw+6) + 'px'                    
+                    }
+                }else if(r.slice(-2)[1]-r.slice(-2)[0]<0){
+                    //向左
+                    if(mw != -96){
+                    $('#navigation > ul').style.marginLeft = (mw-6) + 'px'                    
+                    }               
                 }
-            }else if(r.slice(-2)[1]-r.slice(-2)[0]<0){
-                //向左
-                if(mw != -96){
-                $('#navigation > ul').style.marginLeft = (mw-6) + 'px'                    
-                }               
             }
         })
     }
