@@ -23,13 +23,17 @@ function navHidden(type){
             let mw = parseInt(getComputedStyle($('#navigation > ul'),null).marginLeft.replace(/px/,''))
             r.push(x)
 
+            console.log(mw)
             if(r.slice(-2)[1]-r.slice(-2)[0]>0){
                 //向右
-                $('#navigation > ul').style.marginLeft = (mw+2) + 'px'
+                if(mw != 0){
+                $('#navigation > ul').style.marginLeft = (mw+6) + 'px'                    
+                }
             }else if(r.slice(-2)[1]-r.slice(-2)[0]<0){
                 //向左
-                $('#navigation > ul').style.marginLeft = (mw-2) + 'px'
-                
+                if(mw != -96){
+                $('#navigation > ul').style.marginLeft = (mw-6) + 'px'                    
+                }               
             }
         })
     }
