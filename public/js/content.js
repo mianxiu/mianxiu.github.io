@@ -352,5 +352,17 @@ function essayAjax() {
         })
     }
 
-    //文件夹
+    //分页
+    $('#pages').addEventListener('click', e =>{
+        if(e.target.tagName === 'LI'){
+            let l = '/public/essay/pages/li_'+e.target.innerText+'.html'
+            console.log(l)
+            ajax(l,essayLi)
+        }
+    })
+
+    let essayLi = function () {
+        $('#essayLeft > ul').innerHTML = this.responseText
+    }
+    
 }

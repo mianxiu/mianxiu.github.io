@@ -64,6 +64,7 @@ body{
     background-color: #fff;
 }
 .nav-block{
+    z-index: 5;
     position: absolute;
     display: block;
     width: 20px;
@@ -582,4 +583,24 @@ margin-top: 12px;
 }
 ._folder{
     margin-left: 20px;
+}
+
+/*换页*/
+#pages > ul{
+    display: flex;
+    flex-direction: row;
+}
+.onPage{
+    background-color: black;
+    color: white;
+}
+#pages > ul > li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0;
+    width: 30px;
+    height: 30px;
+    border:1px solid black;
+   margin-right: 10px;
 }
