@@ -42,6 +42,7 @@ let writeContent = function () {
             mp3PlayerType('min')
             navHidden('on')
             essayAjax()
+            ajax('/public/essay/pages/li_1.html',function(){$('#essayLeft > ul').innerHTML = this.responseText})
             break;
         case 'about':
             $('#index').style.display = 'none'
