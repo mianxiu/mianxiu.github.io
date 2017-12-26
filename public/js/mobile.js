@@ -20,7 +20,7 @@ function navHidden(type){
         let divW = $('#navigation > ul').offsetWidth
       //  let navW = parseInt(getComputedStyle($('#navigation'),null).marginLeft.replace(/px/,''))
         $('#navigation').addEventListener('touchmove',e=>{
-            document.addEventListener('touchstart',e=>{
+            document.addEventListener('touchmove',e=>{
                 e.preventDefault()
             })
             
@@ -44,7 +44,7 @@ function navHidden(type){
         })
 
         $('#navigation').addEventListener('touchend',e=>{
-            document.addEventListener('touchstart',e=>{
+            document.addEventListener('touchmove',e=>{
             })
         })
     }
