@@ -364,6 +364,7 @@ function essayAjax() {
 
     let essayLi = function () {
         $('#essayLeft > ul').innerHTML = this.responseText
+        document.documentElement.scrollTop = 0
     }
     
 }

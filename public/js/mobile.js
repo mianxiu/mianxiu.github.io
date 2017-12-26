@@ -20,12 +20,14 @@ function navHidden(type){
         let divW = $('#navigation > ul').offsetWidth
       //  let navW = parseInt(getComputedStyle($('#navigation'),null).marginLeft.replace(/px/,''))
         $('#navigation').addEventListener('touchmove',e=>{
+            document.ontouchmove = function(e){
+                e.preventDefault();
+            }
             let x = e.changedTouches[0].pageX
             let mw = parseInt(getComputedStyle($('#navigation > ul'),null).marginLeft.replace(/px/,''))
             r.push(x)
             
             if(w < divW){
-                console.log(mw)
                 if(r.slice(-2)[1]-r.slice(-2)[0]>0){
                     //向右
                     if(mw != 0){
