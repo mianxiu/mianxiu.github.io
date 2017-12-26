@@ -18,12 +18,13 @@ function navHidden(type){
         //准确获取屏幕宽度
         let w = document.documentElement.clientWidth
         let divW = $('#navigation > ul').offsetWidth
-      //  let navW = parseInt(getComputedStyle($('#navigation'),null).marginLeft.replace(/px/,''))
+        
+        let m = function(e){
+            e.preventDefault()
+        }
         $('#navigation').addEventListener('touchmove',e=>{
-            document.addEventListener('touchmove',e=>{
-                e.preventDefault()
-            })
-            
+            $('html').addEventListener('touchmove',m,false)
+
             let x = e.changedTouches[0].pageX
             let mw = parseInt(getComputedStyle($('#navigation > ul'),null).marginLeft.replace(/px/,''))
             r.push(x)
@@ -44,7 +45,7 @@ function navHidden(type){
         })
 
         $('#navigation').addEventListener('touchend',e=>{
-            window.document.ontouchmove = move;
+            $('html').removeEventListener('touchmove',m,false)
         })
     }
 }
