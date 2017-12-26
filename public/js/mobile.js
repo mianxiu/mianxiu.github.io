@@ -20,9 +20,7 @@ function navHidden(type){
         let divW = $('#navigation > ul').offsetWidth
       //  let navW = parseInt(getComputedStyle($('#navigation'),null).marginLeft.replace(/px/,''))
         $('#navigation').addEventListener('touchmove',e=>{
-            document.addEventListener('touchmove',e=>{
-                e.preventDefault()
-            })
+            $('html').style.position = 'fixed'
             
             let x = e.changedTouches[0].pageX
             let mw = parseInt(getComputedStyle($('#navigation > ul'),null).marginLeft.replace(/px/,''))
@@ -44,8 +42,7 @@ function navHidden(type){
         })
 
         $('#navigation').addEventListener('touchend',e=>{
-            document.addEventListener('touchmove',e=>{
-            })
+            $('html').style.position = ''
         })
     }
 }
