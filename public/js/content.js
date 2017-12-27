@@ -8,9 +8,10 @@
 function ajax(url, run) {
     var oReq = new XMLHttpRequest();
     oReq.onload = run;
-    oReq.addEventListener('progress', e => {
-        console.log( e.loaded)
-        $('#ajaxProgress').style.width = e.loaded  + 'px' 
+    oReq.addEventListener('progress', e => {   
+        let n = e.loaded/document.documentElement.offsetWidth
+        console.log(n)
+        $('#ajaxProgress').style.width = e.loaded/n  + 'px'   
     })
     
     oReq.open("get", url, true);
