@@ -9,7 +9,7 @@ function ajax(url, run) {
     var oReq = new XMLHttpRequest();
     oReq.onload = run;
     oReq.addEventListener('progress', e => {
-        console.log('__' + Date())
+        console.log( e.loaded)
         $('#ajaxProgress').style.width = e.loaded  + 'px' 
     })
     
