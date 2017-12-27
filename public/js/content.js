@@ -10,17 +10,12 @@ function ajax(url, run) {
     oReq.onload = run;
     //加载进度条实现
 
-    oReq.addEventListener('load', e => {
-        let n = e.loaded / document.documentElement.offsetWidth
-        $('#ajaxProgress').style.width = '100px'
-        $('#ajaxProgress').style.height = '4px'
-    })
     oReq.addEventListener('progress', e => {
         let n = e.loaded / document.documentElement.offsetWidth
         $('#ajaxProgress').style.width = e.loaded / n + 'px'
         $('#ajaxProgress').style.height = '4px'
     })
-    oReq.addEventListener('progress', e => {
+    oReq.addEventListener('load', e => {
         setTimeout(() => { $('#ajaxProgress').style.width = '0px' }, 1000)
         setTimeout(() => { $('#ajaxProgress').style.height = '0px' }, 500)
     })
