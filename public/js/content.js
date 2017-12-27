@@ -8,16 +8,17 @@
 function ajax(url, run) {
     var oReq = new XMLHttpRequest();
     oReq.onload = run;
-    oReq.addEventListener('progress', e => {   
-        let n = e.loaded/document.documentElement.offsetWidth
-        console.log(n)
-        $('#ajaxProgress').style.width = e.loaded/n  + 'px'   
+    //加载进度条实现
+    oReq.addEventListener('progress', e => {
+        let n = e.loaded / document.documentElement.offsetWidth
+        $('#ajaxProgress').style.width = e.loaded / n + 'px'
+        $('#ajaxProgress').style.height = '4px'
     })
-    oReq.addEventListener('progress', e => {   
-        $('#ajaxProgress').style.width = '0px'   
-      alert('d')
+    oReq.addEventListener('progress', e => {
+        setTimeout(() => { $('#ajaxProgress').style.width = '0px' }, 1000)
+        setTimeout(() => { $('#ajaxProgress').style.height = '0px' }, 500)
     })
-    
+
     oReq.open("get", url, true);
     oReq.send();
 
@@ -26,7 +27,7 @@ function ajax(url, run) {
 
 //写入内容
 let writeContent = function () {
-   
+
     $('#rule').innerHTML = this.responseText
     //根据自定义id ajax
     let data_id = $('#rule').dataset.id
@@ -47,7 +48,7 @@ let writeContent = function () {
             mp3PlayerType('min')
             navHidden('on')
             essayAjax()
-            ajax('/public/essay/pages/li_1.html',function(){$('#essayLeft > ul').innerHTML = this.responseText})
+            ajax('/public/essay/pages/li_1.html', function () { $('#essayLeft > ul').innerHTML = this.responseText })
             break;
         case 'about':
             $('#index').style.display = 'none'
@@ -339,7 +340,7 @@ function essayAjax() {
         }
     })
 
-    
+
     let writeEssay = function () {
         document.documentElement.scrollTop = 0
         $('#essay').style.display = 'none'
@@ -359,11 +360,11 @@ function essayAjax() {
     }
 
     //分页
-    $('#pages').addEventListener('click', e =>{
-        if(e.target.tagName === 'LI'){
-            let l = '/public/essay/pages/li_'+e.target.innerText+'.html'
+    $('#pages').addEventListener('click', e => {
+        if (e.target.tagName === 'LI') {
+            let l = '/public/essay/pages/li_' + e.target.innerText + '.html'
             console.log(l)
-            ajax(l,essayLi)
+            ajax(l, essayLi)
         }
     })
 
@@ -371,5 +372,5 @@ function essayAjax() {
         $('#essayLeft > ul').innerHTML = this.responseText
         document.documentElement.scrollTop = 0
     }
-    
+
 }

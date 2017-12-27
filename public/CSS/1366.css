@@ -34,10 +34,10 @@ body{
     z-index: 6;
     position: fixed;
     width: 0px;
-    height: 20px;
+    height: 0px;
     left: 0;
     top: 0;
-    background-color: #fcab1d;
+    background-color: #70a0db;
     transition: width 0.2s,height 0.2s;
 }
 #main{
