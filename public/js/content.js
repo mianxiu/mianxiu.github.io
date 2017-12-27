@@ -9,6 +9,12 @@ function ajax(url, run) {
     var oReq = new XMLHttpRequest();
     oReq.onload = run;
     //加载进度条实现
+
+    oReq.addEventListener('load', e => {
+        let n = e.loaded / document.documentElement.offsetWidth
+        $('#ajaxProgress').style.width = '100px'
+        $('#ajaxProgress').style.height = '4px'
+    })
     oReq.addEventListener('progress', e => {
         let n = e.loaded / document.documentElement.offsetWidth
         $('#ajaxProgress').style.width = e.loaded / n + 'px'
