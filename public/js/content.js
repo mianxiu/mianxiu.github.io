@@ -10,9 +10,9 @@ function ajax(url, run) {
     oReq.onload = run;
     oReq.addEventListener('progress', e => {
         console.log('__' + Date())
+        $('#ajaxProgress').style.width = e.loaded  + 'px' 
     })
-    oReq.addEventListener('load', e => {
-    })
+    
     oReq.open("get", url, true);
     oReq.send();
 
