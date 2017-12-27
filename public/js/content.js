@@ -21,7 +21,7 @@ function ajax(url, run) {
 
 //写入内容
 let writeContent = function () {
-    console.log(this.responseText)
+   
     $('#rule').innerHTML = this.responseText
     //根据自定义id ajax
     let data_id = $('#rule').dataset.id
