@@ -13,6 +13,10 @@ function ajax(url, run) {
         console.log(n)
         $('#ajaxProgress').style.width = e.loaded/n  + 'px'   
     })
+    oReq.addEventListener('progress', e => {   
+        $('#ajaxProgress').style.width = '0px'   
+      alert('d')
+    })
     
     oReq.open("get", url, true);
     oReq.send();
