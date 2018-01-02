@@ -334,9 +334,11 @@ function essayAjax() {
     $('#essayLeft').addEventListener('click', e => {
         if (e.target.tagName === 'H3') {
             let eP = e.target.parentNode
+            //标题
             let ePostH3 = eP.childNodes[1].innerText
+            //日期
             let ePostDate = eP.childNodes[3].innerText
-            ajax('/public/essay/' + ePostDate.slice(0, 8) + ePostH3 + '.html', writeEssay)
+            ajax('/public/essay/' + ePostDate.split('/')[0] +'/'+ ePostDate.split('/')[1] +'/'+ ePostH3 + '.html', writeEssay)
             originScroll = document.documentElement.scrollTop
         }
     })
