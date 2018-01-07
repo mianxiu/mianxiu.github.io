@@ -338,7 +338,7 @@ function essayAjax() {
             let ePostH3 = eP.childNodes[1].innerText
             //日期
             let ePostDate = eP.childNodes[3].innerText
-            ajax('/public/essay/' + ePostDate.split('/')[0] +'/'+ ePostDate.split('/')[1] +'/'+ ePostH3 + '.html', writeEssay)
+            ajax('/public/essay/' + ePostDate +'/'+ ePostH3 +'/'+'index.html', writeEssay)
             originScroll = document.documentElement.scrollTop
         }
     })
