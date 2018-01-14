@@ -316,10 +316,10 @@ function triangle() {
 function mp3PlayerType(type) {
     switch (type) {
         case 'normal':
-            $('#mp3CSS').href = 'public/CSS/mp3Player_normal.css'
+            $('#mp3CSS').href = 'public/css/mp3Player_normal.css'
             break;
         case 'min':
-            $('#mp3CSS').href = 'public/CSS/mp3Player_min.css'
+            $('#mp3CSS').href = 'public/css/mp3Player_min.css'
             break;
     }
 }
