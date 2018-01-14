@@ -583,10 +583,10 @@ margin-top: 12px;
     transition:transform 0.4s;
 }
 
-._Date{
+._date{
     letter-spacing: 5px;
 }
-._Date,._folder{
+._date,._folder{
     font-size: 14px;
     color: #9c9c9c;
 }

@@ -248,7 +248,7 @@ margin-top: 12px;
     border-bottom: 1px solid #f3f3f3;
 }
 
-.postDate,.folder,._Date,._folder{
+.postDate,.folder,._date,._folder{
     width: 160px;
     font-size: 14px;
     color: #636363;
@@ -259,10 +259,10 @@ margin-top: 12px;
 }
 
 
-._Date{
+._date{
     letter-spacing: 5px;
 }
-._Date,._folder{
+._date,._folder{
     font-size: 14px;
     color: #636363;
 }
