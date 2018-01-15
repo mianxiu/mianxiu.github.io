@@ -77,7 +77,21 @@
     background-color: white;
     transition: width 0.4s;
 }
-
+#VP::after{
+    content:'';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    width: 78px;
+    height: 78px;
+    opacity: 0.5;
+    background-image:url('/public/music/cover/五条人 - 清明过纸.jpg');
+    background-repeat: no-repeat;
+    background-size: 60px 60px;
+    background-position:center;
+}
 #playList{
     border: 0px solid royalblue;
     text-overflow: clip;
