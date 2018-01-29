@@ -11,7 +11,6 @@ html,body{
     background-color: white;
     height: 100%;
     margin: 0 0;
-   
 }
 
 /*body 100vw后元素不会随滚动条变动,但会出现横向滚动*/
@@ -468,6 +467,9 @@ margin-top: 12px;
 #lastPost span:nth-child(1){
     font-size: 16px;
     font-weight: bold;
+}
+#lastPost span:nth-child(3){
+    opacity: 0.1
 }
 
 /**/

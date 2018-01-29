@@ -49,7 +49,7 @@ let writeContent = function () {
             mp3PlayerType('min')
             navHidden('on')
             essayAjax()
-            ajax('/public/essay/pages/li_1.html', function () { $('#essayLeft > ul').innerHTML = this.responseText })
+            ajax('/public/essay/pages/1/index.html', function () { $('#essayLeft > ul').innerHTML = this.responseText })
             break;
         case 'about':
             $('#index').style.display = 'none'
@@ -365,7 +365,7 @@ function essayAjax() {
     //分页
     $('#pages').addEventListener('click', e => {
         if (e.target.tagName === 'LI') {
-            let l = '/public/essay/pages/li_' + e.target.innerText + '.html'
+            let l = '/public/essay/pages/' + e.target.innerText + '/index.html'
             console.log(l)
             ajax(l, essayLi)
         }
