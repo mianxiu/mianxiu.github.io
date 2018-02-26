@@ -344,12 +344,14 @@ function essayAjax() {
     })
 
 
+    // 点开文章，关闭文章
     let writeEssay = function () {
         document.documentElement.scrollTop = 0
         $('#essay').style.display = 'none'
         $('#essayText').style.height = '100vh'
-        $('#essayText>div').style.marginTop = '50px'
+        $('#essayText>div').style.marginTop = '30px'
         $('#essayClose').style.transform = 'scale(1,1)'
+        $('#navigation').style.filter = 'blur(4px)'        
         $('#essayText>div').innerHTML = this.responseText
 
         $('#essayClose').addEventListener('click', () => {
@@ -357,6 +359,7 @@ function essayAjax() {
             $('#essayText').style.height = ''
             $('#essayText>div').style.marginTop = ''
             $('#essayClose').style.transform = ''
+            $('#navigation').style.filter = 'blur(0px)'            
             $('#essayText>div').innerHTML = ''
             document.documentElement.scrollTop = originScroll
         })

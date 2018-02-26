@@ -68,7 +68,7 @@ body{
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 500px;
+    width: 650px;
     background-color: #fff;
 }
 .nav-block{
@@ -83,7 +83,7 @@ body{
     transition: margin-left 0.4s;
 }
 #navigation>ul li{
-    width: 125px;
+    width: 130px;
    
     display: flex;
     padding-top: 40px;
@@ -498,11 +498,14 @@ margin-top: 12px;
     width: 980px;
 }
 #essayLeft{
-    width: 900px;
+    padding-left:96px;
+    -moz-padding-left:84px;
+    width: 720px;
 }
 #essayLeft li{
     list-style: none; 
-    padding-bottom: 30px;  
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     
 }
 
@@ -512,6 +515,7 @@ margin-top: 12px;
 
 
 #essayLeft > ul > li > h3 {
+    letter-spacing:2px;
     cursor: pointer;
 }
 #essayLeft > ul > li > p{  
@@ -552,11 +556,11 @@ margin-top: 12px;
 
 
 #essayRight{
-    position: absolute;
+    position: fixed;
     width: 196px;
-    height: 100px;
-    background-color: yellow;
-    margin-left: 980px;
+    height: 400px;
+    background-color: #f7f7f7;
+    margin-left: 860px;
 }
 
 #essayText {
@@ -571,7 +575,12 @@ margin-top: 12px;
     justify-content: center;
 }
 #essayText > div:nth-child(1){
+    margin-right: -48px;
     width: 680px;
+}
+#essayText > div:nth-child(1) > p{
+    font-size: 18px;
+    color: #1e1e1e
 }
 #essayClose{
     cursor: pointer;

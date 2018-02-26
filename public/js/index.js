@@ -114,7 +114,7 @@ function nav() {
     let navBlock = $('.nav-block')
     let navUl = $('#navigation ul')
     let navW = navUl.offsetWidth;
-    let navQuarterW = navW / 4
+    let navQuarterW = navW / 5
     //位移动画
     navUl.addEventListener('mouseover', function (e) {
         let p = parseInt(navBlock.style.marginLeft.replace('px', ''))
