@@ -111,8 +111,11 @@ function mp3Player() {
         })
 
         $('#playList').addEventListener('mouseleave', function (e) {
-            //播放歌曲的索引值*li’s height
-            let initial_marginTop = playListAry().indexOf(decodeURI($('#player').src.replace(musicRegex, '.'))) * -pllh
+            //通过歌曲名获得歌曲索引，计算marginTop
+            let songPath = playPath + decodeURI($('#player').src.split(/\//)[4])
+            let initial_marginTop = playListAry().indexOf(songPath) * -pllh
+            // console.log(songPath)
+            // console.log(playListAry())
             pl.style.marginTop = initial_marginTop + 'px'
         })
     }
