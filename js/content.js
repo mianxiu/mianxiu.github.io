@@ -76,7 +76,7 @@ function navGetAjax() {
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
             $('#rule').dataset.id = u
-            u ==='home' ? writeContent() : ajax('./'+u+'/index', writeContent)     
+            u ==='home' ? writeContent() : ajax(u + '/context', writeContent)     
         }
     })
 }
