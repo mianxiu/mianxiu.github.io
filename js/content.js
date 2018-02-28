@@ -76,7 +76,7 @@ function navGetAjax() {
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
             $('#rule').dataset.id = u
-            u ==='home' ? writeContent() : ajax(u, writeContent)     
+            u ==='home' ? writeContent() : ajax('/'+u, writeContent)     
         }
     })
 }
@@ -342,8 +342,8 @@ function essayAjax() {
             let ePostH3 = eP.childNodes[1].innerText
             //日期
             let ePostDate = eP.childNodes[3].innerText
-            ajax('/essay/' + ePostDate +'/'+ ePostH3 +'/', writeEssay)
-            history.pushState(null,ePostH3,'/essay/' + ePostDate +'/'+ ePostH3 +'/')
+            ajax('./essay/' + ePostDate +'/'+ ePostH3 +'/', writeEssay)
+            history.pushState(null,ePostH3,'./essay/' + ePostDate +'/'+ ePostH3 +'/')
             originScroll = document.documentElement.scrollTop
         }
     })
@@ -375,7 +375,7 @@ function essayAjax() {
     //分页
     $('#pages').addEventListener('click', e => {
         if (e.target.tagName === 'LI') {
-            let l = '/essay/pages/' + e.target.innerText + '/index.html'
+            let l = './essay/pages/' + e.target.innerText + '/index.html'
             ajax(l, essayLi)
 
             // 页面
