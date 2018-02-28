@@ -1,0 +1,271 @@
+/*
+*safari iOS 会忽略html,body的overflow
+*
+*/
+html,body{
+   /* height: 100vh;*/
+    width: 100vw;
+    margin: 0 0;
+    overflow-x: hidden;
+}
+#main{
+   /* height: 100vh;*/
+}
+#navigation{
+    height: 48.5757vmax;
+    width: 29.3333vmin;
+}
+#navigation > ul{
+    margin-left: 0;
+    padding: 0 0;
+    padding-left: 30px;
+    justify-content: center;
+    
+}
+#navigation > ul > li{
+    list-style: none;
+    height:11.2443vmax;
+    font-weight: bold;
+    width:120px;
+}
+.nav-span{
+    margin-top:0 !important;
+    font-weight:normal;
+}
+
+/*----------*/
+#Personal{
+    margin-left: 7.4666vmin;
+}
+#logo::after{
+    display: block;
+    position: absolute;
+    content: '';
+    width: 2vmin;
+    height: 1vmin;
+    background-color: black;
+    margin-top: -7vmin;
+    margin-left: 22vmin;
+}
+
+#name{
+    margin-top: 3.2vmin;
+}
+#year{
+    margin-top: 2vmin;
+}
+
+#lastPost{
+    margin-top: -10.5vmax;
+    right: 0.2vmin;
+    position: absolute;
+    transform: rotate(90deg) translateZ(0);
+}
+#lastPost span:nth-child(1){
+    font-size: 3.8vmin;
+    font-weight: bold;
+}
+
+#rule{
+}
+#foot{display: none}
+
+
+/*---------首页动画+内容--------------*/
+#h{
+    position: absolute;
+    width: 32vmax;
+    height: 100vmin;
+    margin-top: -68vmax;
+    overflow: hidden;
+    right: 0;
+}
+#s{
+    display: none;
+    z-index: 4;
+    position: absolute;
+}
+
+#triangle,#triangleRGB,#gray,#line{
+  position: absolute;
+  
+}
+#triangle{
+ z-index: 3;
+ margin-left: -20.5px;
+ margin-top: -3px;
+ 
+}
+#triangleRGB{
+    z-index: 2
+}
+#gray{
+z-index: 1;
+margin-left: 50px;
+margin-top: 12px;
+}
+
+
+
+#link{
+    margin-top: 24px;
+    display: flex;
+}
+#github,#more,#mail{
+    width: 30px;
+    height: 30px;
+}
+#github{
+    border-radius: 20px;
+    background-color: #70a0db;
+}
+#github>a{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+#github>img{
+    margin-left: 0.4px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+#meow{
+    position: absolute;
+    border-radius: 4px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: 30px;
+    margin-left: 4px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    text-align: center;
+    justify-content: center;
+    transform: scale(0,0) translateY(0);
+    transition: transform 0.2s;
+    
+}
+#meow::before{
+    position: absolute;
+    margin-top: -9px;
+    margin-left: 5px;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 5px;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+    
+}
+#more{
+    border-radius: 20px;
+    margin-left: 16px;
+    background-color: #fcab1d; 
+    
+}
+#more>img,#more>a{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+#mail{
+    border-radius: 20px;
+    margin-left: 16px;
+    background-color: #fc1d1d;
+}
+#atMe{
+    position: absolute;
+    border-radius: 4px;
+    display: block;
+    padding: 1px 2px;
+    margin-top: 30px;
+    margin-left: 4px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    text-align: center;
+    justify-content: center;
+    transform: scale(0,0) translateY(0);
+    transition: transform 0.2s;
+    
+}
+#atMe::before{
+    position: absolute;
+    margin-top: -9px;
+    margin-left: 5px;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 5px;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+    
+}
+#mail>img,#mail>a{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+
+/*essayText*/
+#essayText{
+    min-width: 91vw;
+    background-color: white;
+    position: absolute;
+    padding:0 20px 0 20px;
+}
+
+#essayClose{
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top:50px;
+    right:30px;
+    background-image: url('/public/icon/essay/close.svg');
+    transform: scale(0,0);
+    transition:transform 0.4s;
+}
+
+
+#essayLeft > ul{
+    padding: 100px 30px 0 30px;
+}
+#essayLeft > ul > li{
+    list-style: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.postDate,.folder,._date,._folder{
+    width: 160px;
+    font-size: 14px;
+    color: #636363;
+    font-weight: lighter;
+}
+.postDate{
+    letter-spacing: 5px;
+}
+
+
+._date{
+    letter-spacing: 5px;
+}
+._date,._folder{
+    font-size: 14px;
+    color: #636363;
+}
+._folder{
+    margin-left: 20px;
+}
