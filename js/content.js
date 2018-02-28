@@ -21,7 +21,7 @@ function ajax(url, run) {
         setTimeout(() => { $('#ajaxProgress').style.width = '0px' }, 1000)
         setTimeout(() => { $('#ajaxProgress').style.height = '0px' }, 500)
     })
-    oReq.responseType = 'text'
+    oReq.responseType = ''
     oReq.open("get", url, true);
     oReq.send();
 
@@ -76,7 +76,7 @@ function navGetAjax() {
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
             $('#rule').dataset.id = u
-            u ==='home' ? writeContent() : ajax(u + '/context', writeContent)     
+            u ==='home' ? writeContent() : ajax(u + '/index.html', writeContent)     
         }
     })
 }
@@ -342,8 +342,8 @@ function essayAjax() {
             let ePostH3 = eP.childNodes[1].innerText
             //日期
             let ePostDate = eP.childNodes[3].innerText
-            ajax('./essay/' + ePostDate +'/'+ ePostH3 +'/', writeEssay)
-            history.pushState(null,ePostH3,'./essay/' + ePostDate +'/'+ ePostH3 +'/')
+            ajax('./essay/' + ePostDate +'/'+ ePostH3 +'/context.html', writeEssay)
+            history.pushState(null,ePostH3,'./essay/' + ePostDate +'/'+ ePostH3)
             originScroll = document.documentElement.scrollTop
         }
     })
