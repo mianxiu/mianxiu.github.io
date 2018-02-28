@@ -2,6 +2,7 @@
 //域名的正则，用于匹配歌曲
 //new RegExp(/.*mianxiu\.github\.io\//)
 var musicRegex = new RegExp(/.*./)
+//根目录
 
 
 //1. mp3播放器--------------------------------------------------------------------------------
@@ -9,7 +10,7 @@ function mp3Player() {
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
-    var playPath = './music/'
+    var playPath ='./music/'
 
     for (let l of $('#playList>ol').children) {
         playList.push(playPath + l.innerText + '.mp3')
@@ -126,9 +127,12 @@ function mp3Player() {
     player.src = playList[0]
     player.onended = function () {
         //歌曲切换效果
-
-        let host = decodeURI(player.src).replace(musicRegex, '.')
-        let e = playList.indexOf(host)
+        //
+        let songPath = playPath + decodeURI($('#player').src.split(/\//)[4])
+        let e = playList.indexOf(songPath)
+        // console.log(songPath)
+        // console.log(playList)
+        // console.log(e)
         if (e + 1 < playList.length) {
             playListOl.style.marginTop = -(e + 1) * quarterH + 'px'
             return player.src = playList[e + 1]
