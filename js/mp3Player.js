@@ -3,14 +3,16 @@
 //new RegExp(/.*mianxiu\.github\.io\//)
 var musicRegex = new RegExp(/.*./)
 //根目录
-
+var URL = window.location.href.split(/\//)
+var domin = URL[0]+'//'+ URL[2]
+var musicPath = domin +'/music/'
 
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
-    var playPath ='./music/'
+    var playPath = domin +'/music/'
 
     for (let l of $('#playList>ol').children) {
         playList.push(playPath + l.innerText + '.mp3')
@@ -18,7 +20,7 @@ function mp3Player() {
 
 
 
-
+    // audio API
     var player = $('#player')
     var source = audioCtx.createMediaElementSource(player);
     var analyser = audioCtx.createAnalyser()
@@ -83,10 +85,10 @@ function mp3Player() {
     //单击播放
     pl.addEventListener('click', function (e) {
         if (e.target.id !== 'playList') {
-            player.src = playList[getIndex(e.target)]
+            player.src = playListAry()[getIndex(e.target)]
             //切换效果
-            let s = './music/' + e.target.innerText + '.mp3'
-            let i = playList.indexOf(s)
+            let s = musicPath + e.target.innerText + '.mp3'
+            let i = playListAry().indexOf(s)
             if (playListOl.style.marginTop !== -(i) * quarterH + 'px') {
                 playListOl.style.marginTop = -(i) * quarterH + 'px'
             }
@@ -99,22 +101,22 @@ function mp3Player() {
         //歌单滚动
         let pl = $('#playList ol')
         //li的高度(包括margin)
-        let pllh = $('#playList ol li').offsetHeight + parseInt(window.getComputedStyle($('#playList>ol>li'), null).marginBottom.replace(/px/, ''))
+        let playListLiHeight = $('#playList ol li').offsetHeight + parseInt(window.getComputedStyle($('#playList>ol>li'), null).marginBottom.replace(/px/, ''))
         $('#playList').addEventListener('wheel', function (e) {
             let g = parseInt(pl.style.marginTop.replace(/px/, ''))
             if (e.deltaY < 0 && g !== 0) {
                 //up
-                pl.style.marginTop = g + pllh + 'px';
-            } else if (e.deltaY > 0 && g !== ($All('#playList ol li').length - 1) * -pllh) {
+                pl.style.marginTop = g + playListLiHeight + 'px';
+            } else if (e.deltaY > 0 && g !== ($All('#playList ol li').length - 1) * - playListLiHeight) {
                 //down
-                pl.style.marginTop = g - pllh + 'px';
+                pl.style.marginTop = g - playListLiHeight + 'px';
             }
         })
 
         $('#playList').addEventListener('mouseleave', function (e) {
             //通过歌曲名获得歌曲索引，计算marginTop
-            let songPath = playPath + decodeURI($('#player').src.split(/\//)[4])
-            let initial_marginTop = playListAry().indexOf(songPath) * -pllh
+            let songPath = musicPath + decodeURI($('#player').src.split(/\//)[4])
+            let initial_marginTop = playListAry().indexOf(songPath) * - playListLiHeight
             // console.log(songPath)
             // console.log(playListAry())
             pl.style.marginTop = initial_marginTop + 'px'
@@ -124,24 +126,23 @@ function mp3Player() {
 
     //------------------------------------------------------//
     //循环播放列表
-    player.src = playList[0]
+    player.src = playListAry()[0]
     player.onended = function () {
         //歌曲切换效果
         //
         let songPath = playPath + decodeURI($('#player').src.split(/\//)[4])
-        let e = playList.indexOf(songPath)
+        let e = playListAry().indexOf(songPath)
         // console.log(songPath)
         // console.log(playList)
         // console.log(e)
-        if (e + 1 < playList.length) {
+        if (e + 1 < playListAry().length) {
             playListOl.style.marginTop = -(e + 1) * quarterH + 'px'
-            return player.src = playList[e + 1]
+            return player.src = playListAry()[e + 1]
         } else {
             playListOl.style.marginTop = 0
-            return player.src = playList[0]
+            return player.src = playListAry()[0]
         }
     }
-
 
     /**
      * 动画函数，前4个参数是原图像->变化图形坐标,输出变形动画

@@ -94,9 +94,12 @@ function AryInclue(a, b) {
 /**
 * 输出歌曲数组
 */
+
 function playListAry() {
+    var URL = window.location.href.split(/\//)
+    var domin = URL[0]+'//'+ URL[2]
     let playList = []
-    let playPath = './music/'
+    let playPath = domin + '/music/'
 
     for (const l of $('#playList>ol').children) {
         playList.push(playPath + l.innerText + '.mp3')

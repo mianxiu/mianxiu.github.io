@@ -343,7 +343,8 @@ function essayAjax() {
             //日期
             let ePostDate = eP.childNodes[3].innerText
             ajax('./essay/' + ePostDate +'/'+ ePostH3 +'/context.html', writeEssay)
-            history.pushState(null,ePostH3,'./essay/' + ePostDate +'/'+ ePostH3)
+            // url斜杠不能少！！！
+            history.pushState(null,ePostH3,'./essay/' + ePostDate +'/'+ ePostH3 + '/')
             originScroll = document.documentElement.scrollTop
         }
     })
