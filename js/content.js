@@ -9,22 +9,41 @@
  */
 function ajax(url, run) {
     var oReq = new XMLHttpRequest();
-    oReq.onload = run;
+    
     //加载进度条实现
 
-    oReq.addEventListener('progress', e => {
-        let n = e.loaded / document.documentElement.offsetWidth
-        $('#ajaxProgress').style.width = e.loaded / n + 'px'
-        $('#ajaxProgress').style.height = '4px'
-    })
-    oReq.addEventListener('load', e => {
-        setTimeout(() => { $('#ajaxProgress').style.width = '0px' }, 1000)
-        setTimeout(() => { $('#ajaxProgress').style.height = '0px' }, 500)
-    })
+    oReq.addEventListener("progress", updateProgress, false);
+    oReq.addEventListener("load", transferComplete, false);
+    oReq.addEventListener("error", transferFailed, false);
+    oReq.addEventListener("abort", transferCanceled, false);
+    oReq.onload = run;
     oReq.responseType = ''
     oReq.open("get", url, true);
     oReq.send();
 
+    //
+    function updateProgress(evt){
+            if (evt.lengthComputable){
+    
+                console.log('进度'+evt.lengthComputable)
+                for(let i=0;i<100;i++){
+                    console.log('进度__'+evt.loaded)
+                }
+                console.log('进度___'+evt.total)
+            }
+    }
+    function transferComplete(evt){
+        console.log('完成')
+        setTimeout(()=>{
+        },800)
+        
+    }
+    function transferFailed(evt){
+        console.log('transferFailed')
+    }
+    function transferCanceled(evt){
+        console.log('Canceled')
+    }
 }
 
 
@@ -32,9 +51,8 @@ function ajax(url, run) {
 //写入内容
 let writeContent = function () {
     this.responseText === undefined ? $('#rule').innerHTML = '' : $('#rule').innerHTML = this.responseText
-
     //根据自定义id ajax
-   
+
     let data_id = $('#rule').dataset.id
     switch (data_id) {
         case 'home':
@@ -76,7 +94,7 @@ function navGetAjax() {
             //window.history.replaceState(null,null,'/'+u)  
             //添加自定义data属性
             $('#rule').dataset.id = u
-            u ==='home' ? writeContent() : ajax(u + '/index.html', writeContent)     
+            u === 'home' ? writeContent() : ajax(u + '/index.html', writeContent)
         }
     })
 }
@@ -342,9 +360,9 @@ function essayAjax() {
             let ePostH3 = eP.childNodes[1].innerText
             //日期
             let ePostDate = eP.childNodes[3].innerText
-            ajax('./essay/' + ePostDate +'/'+ ePostH3 +'/context.html', writeEssay)
+            ajax('./essay/' + ePostDate + '/' + ePostH3 + '/context.html', writeEssay)
             // url斜杠不能少！！！
-            history.pushState(null,ePostH3,'./essay/' + ePostDate +'/'+ ePostH3 + '/')
+            history.pushState(null, ePostH3, './essay/' + ePostDate + '/' + ePostH3 + '/')
             originScroll = document.documentElement.scrollTop
         }
     })
@@ -361,14 +379,14 @@ function essayAjax() {
         $('#essayClose').style.transform = 'scale(1,1)'
 
         $('#essayClose').addEventListener('click', () => {
-            history.pushState(null,"mianxiu's blog",'/')
-            $('#essayClose').style.transform = ''  
+            history.pushState(null, "mianxiu's blog", '/')
+            $('#essayClose').style.transform = ''
             $('#essay').style.display = ''
             $('#essayText').style.height = ''
             $('#essayText>div').style.marginTop = ''
-            $('#navigation').style.filter = 'blur(0px)'        
+            $('#navigation').style.filter = 'blur(0px)'
             $('#essayText>div').innerHTML = ''
-                   
+
             document.documentElement.scrollTop = originScroll
         })
     }
@@ -381,9 +399,9 @@ function essayAjax() {
 
             // 页面
             let on = $('#pages').childNodes[1].children
-            for(let i=0;i<on.length;i++){
-               on[i].className = ''
-            } 
+            for (let i = 0; i < on.length; i++) {
+                on[i].className = ''
+            }
             e.target.className = 'onPage'
         }
     })
@@ -395,7 +413,7 @@ function essayAjax() {
 
 }
 
-window.addEventListener('popstate',(e)=>{
+window.addEventListener('popstate', (e) => {
     var currentState = history.state;
     console.log(e)
 })

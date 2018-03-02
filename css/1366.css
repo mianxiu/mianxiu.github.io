@@ -27,20 +27,21 @@ body{
     width: 100vw;
     overflow-x:hidden;
     text-shadow: 0px 0px 0.2px #9c9c9c;
+    
    }
 
 #ajaxProgress{
     z-index: 6;
     position: fixed;
-    width: 0px;
-    height: 0px;
+    width: 100vw;
+    height: 0vh;
     left: 0;
     top: 0;
     background-color: #70a0db;
     transition: width 0.2s,height 0.2s;
 }
 #main{
-     
+    transition: transform 0.2s;
     width: 1016px;
     min-height: 645px;
     height: 100vh;
@@ -615,6 +616,8 @@ margin-top: 12px;
 #pages > ul{
     display: flex;
     flex-direction: row;
+    opacity: 1;
+    transition: opacity 0.5s;
 }
 
 .onPage{
