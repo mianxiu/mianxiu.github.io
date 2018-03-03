@@ -10,73 +10,57 @@
 function ajax(url, run) {
     var oReq = new XMLHttpRequest();
     
-    //加载进度条实现
-
-    oReq.addEventListener("progress", updateProgress, false);
-    oReq.addEventListener("load", transferComplete, false);
-    oReq.addEventListener("error", transferFailed, false);
-    oReq.addEventListener("abort", transferCanceled, false);
-    oReq.onload = run;
+    
     oReq.responseType = ''
     oReq.open("get", url, true);
-    oReq.send();
+    console.log(oReq.status)
 
-    //
-    function updateProgress(evt){
-            if (evt.lengthComputable){
-    
-                console.log('进度'+evt.lengthComputable)
-                for(let i=0;i<100;i++){
-                    console.log('进度__'+evt.loaded)
-                }
-                console.log('进度___'+evt.total)
-            }
+    $('#ajaxProgress').style = 'height:100vh;background-color:rgba(0,0,0,0.5);'
+    oReq.onprogress = function(){
+        console.log('LOADING', oReq.status);
+        $('#ajaxProgress').style = 'height:0vh;background-color:rgba(0,0,0,0);'
     }
-    function transferComplete(evt){
-        console.log('完成')
-        setTimeout(()=>{
-        },800)
-        
-    }
-    function transferFailed(evt){
-        console.log('transferFailed')
-    }
-    function transferCanceled(evt){
-        console.log('Canceled')
-    }
+    oReq.onload = run;
+    oReq.send(null);
+
 }
 
 
 
 //写入内容
 let writeContent = function () {
+    console.log('DONE', this.status);
     this.responseText === undefined ? $('#rule').innerHTML = '' : $('#rule').innerHTML = this.responseText
     //根据自定义id ajax
 
+    let hidden = function(type){
+        switch (type){
+            case 'on':
+            $('#index').style.display = 'none'
+            mp3PlayerType('min')
+            navHidden('on')
+            break;
+            case 'off':
+            $('#index').style.display = 'block'
+            mp3PlayerType('normal')
+            navHidden('off')
+        }
+    }
     let data_id = $('#rule').dataset.id
     switch (data_id) {
         case 'home':
-            $('#index').style.display = 'block'
+            hidden('off')
             triangle()
-            mp3PlayerType('normal')
-            navHidden('off')
             break;
         case 'gallery':
-            $('#index').style.display = 'none'
-            mp3PlayerType('min')
-            navHidden('on')
+            hidden('on')
             break;
         case 'essay':
-            $('#index').style.display = 'none'
-            mp3PlayerType('min')
-            navHidden('on')
+            hidden('on')
             essayAjax()
-            ajax('./essay/pages/1/index.html', function () { $('#essayLeft > ul').innerHTML = this.responseText })
             break;
         case 'about':
-            $('#index').style.display = 'none'
-            mp3PlayerType('min')
-            navHidden('on')
+            hidden('on')
             break;
     }
 }
@@ -101,7 +85,10 @@ function navGetAjax() {
 
 
 //--------------------------------------------------------------------------------------------
-//1. home 相关函数(动画等)
+
+/**
+ * 相关函数(动画等)
+ */
 function triangle() {
     let R, G, B, RGB
 

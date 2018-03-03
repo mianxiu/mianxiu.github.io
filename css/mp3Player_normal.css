@@ -42,7 +42,11 @@
     height: 50px;
     transform: scale(0.8,0.8);
     cursor: pointer;
+    transition:margin-top 0.2s;
     
+}
+#playCtr:hover{
+    margin-top:-18px;
 }
 #playCtrShade{
     position: absolute;
@@ -50,9 +54,12 @@
     margin-left: 10px;
     width: 50px;
     height: 50px;
-    transform: scale(0.8,0.8)
+    transform: scale(0.8,0.8);
+    transition:margin-left 0.2s;
 }
-
+#playCtr:hover + #playCtrShade{
+    margin-left:8px;
+}
 /*进度条*/
 #progress{
     margin-left: 260px;
