@@ -539,6 +539,11 @@ margin-top: 12px;
     background-color:rgb(241, 241, 241)
 }
 
+._iframe{
+    border-radius:6px;
+    background-color:rgb(241, 241, 241)
+}
+
 ._date,._updated{
     letter-spacing: 5px;
 }
