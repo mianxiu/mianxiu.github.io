@@ -18,6 +18,7 @@ function ajax(url, run) {
     $('#ajaxProgress').style = 'height:100vh;background-color:rgba(0,0,0,0.5);'
     oReq.onprogress = function(){
         console.log('LOADING', oReq.status);
+        
         $('#ajaxProgress').style = 'height:0vh;background-color:rgba(0,0,0,0);'
     }
     oReq.onload = run;
@@ -30,6 +31,7 @@ function ajax(url, run) {
 //写入内容
 let writeContent = function () {
     console.log('DONE', this.status);
+
     this.responseText === undefined ? $('#rule').innerHTML = '' : $('#rule').innerHTML = this.responseText
     //根据自定义id ajax
 
@@ -347,7 +349,7 @@ function essayAjax() {
             let ePostH3 = eP.childNodes[1].innerText
             //日期
             let ePostDate = eP.childNodes[3].innerText
-            ajax('./essay/' + ePostDate + '/' + ePostH3 + '/context.html', writeEssay)
+            ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH3)  + '/context.html', writeEssay)
             // url斜杠不能少！！！
             history.pushState(null, ePostH3, './essay/' + ePostDate + '/' + ePostH3 + '/')
             originScroll = document.documentElement.scrollTop
