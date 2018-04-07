@@ -98,6 +98,19 @@ function mp3Player() {
 
     //滚动滚轮浏览歌曲
     function listView() {
+        let stopScroll = function (event) {
+            event.preventDefault()
+        }
+        document.querySelector('#mp3Player').addEventListener('mouseenter', e => {
+            document.querySelector('html').addEventListener('wheel', stopScroll, false)
+
+            document.querySelector('#mp3Player').addEventListener('mouseleave', e => {
+                document.querySelector('html').removeEventListener('wheel', stopScroll, false)
+            })
+        })
+
+
+
         //歌单滚动
         let pl = $('#playList ol')
         //li的高度(包括margin)
