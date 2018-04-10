@@ -505,7 +505,7 @@ margin-top: 12px;
 }
 #essayLeft li{
     list-style: none; 
-    padding-bottom: 22px;
+    padding-bottom: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     
 }
@@ -539,16 +539,20 @@ margin-top: 12px;
     background-color:rgb(241, 241, 241)
 }
 
-._youtube{
+._iframe{
     border-radius:6px;
     background-color:rgb(241, 241, 241)
 }
 
 ._date,._updated{
-    letter-spacing: 2px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    padding: 2px 4px;   
+    letter-spacing: 5px;
 }
 ._date,._tags,._updated{
     font-size: 14px;
+    font-weight: lighter;
     color: #9c9c9c;
 }
 ._tags{

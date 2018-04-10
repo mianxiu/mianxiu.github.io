@@ -1,3 +1,4 @@
+
 function UA(){
     ua = navigator.userAgent;
     if(ua.match(/iPhone|Android/i)){

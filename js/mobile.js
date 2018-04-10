@@ -1,3 +1,4 @@
+
 function navHidden(type){
     //移动端进入子栏目后更改导航样式
     if(type === 'on'){
