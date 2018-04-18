@@ -366,10 +366,12 @@ function essayAjax() {
         $('#navigation').style.filter = 'blur(4px)'
         $('#essayText>div').innerHTML = this.responseText
         $('#essayClose').style.transform = 'scale(1,1)'
+        document.querySelector('#main').style.display = 'flex'
 
         $('#essayClose').addEventListener('click', () => {
             history.pushState(null, "mianxiu's blog", '/')
             $('#essayClose').style.transform = ''
+            document.querySelector('#main').style.display = ''
             $('#essay').style.display = ''
             $('#essayText').style.height = ''
             $('#essayText>div').style.marginTop = ''

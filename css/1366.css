@@ -42,6 +42,8 @@ body{
     transition: background-color 0.8s;
 }
 #main{
+    
+    justify-content: center;
     transition: transform 0.2s;
     width: 1016px;
     min-height: 645px;
@@ -516,8 +518,13 @@ margin-top: 12px;
 
 
 #essayLeft > ul > li > h3 {
+    font-size: 24px;
+    font-weight: 500;
     letter-spacing:2px;
     cursor: pointer;
+}
+#essayText > div:nth-child(1) > h3{
+    font-size: 1.8em;
 }
 #essayLeft > ul > li > p{  
     font-weight: lighter;
