@@ -9,16 +9,16 @@
  */
 function ajax(url, run) {
     var oReq = new XMLHttpRequest();
-    
-    
+
+
     oReq.responseType = ''
     oReq.open("get", url, true);
     console.log(oReq.status)
 
     $('#ajaxProgress').style = 'height:100vh;background-color:rgba(0,0,0,0.5);'
-    oReq.onprogress = function(){
+    oReq.onprogress = function () {
         console.log('LOADING', oReq.status);
-        
+
         $('#ajaxProgress').style = 'height:0vh;background-color:rgba(0,0,0,0);'
     }
     oReq.onload = run;
@@ -35,17 +35,17 @@ let writeContent = function () {
     this.responseText === undefined ? $('#rule').innerHTML = '' : $('#rule').innerHTML = this.responseText
     //根据自定义id ajax
 
-    let hidden = function(type){
-        switch (type){
+    let hidden = function (type) {
+        switch (type) {
             case 'on':
-            $('#index').style.display = 'none'
-            mp3PlayerType('min')
-            navHidden('on')
-            break;
+                $('#index').style.display = 'none'
+                mp3PlayerType('min')
+                navHidden('on')
+                break;
             case 'off':
-            $('#index').style.display = 'block'
-            mp3PlayerType('normal')
-            navHidden('off')
+                $('#index').style.display = 'block'
+                mp3PlayerType('normal')
+                navHidden('off')
         }
     }
     let data_id = $('#rule').dataset.id
@@ -348,8 +348,9 @@ function essayAjax() {
             //标题
             let ePostH3 = eP.childNodes[1].innerText
             //日期
-            let ePostDate = eP.childNodes[3].innerText
-            ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH3)  + '/context.html', writeEssay)
+            let date = new Date(eP.childNodes[3].innerText)
+            let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 10 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
+            ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH3) + '/context.html', writeEssay)
             // url斜杠不能少！！！
             history.pushState(null, ePostH3, './essay/' + ePostDate + '/' + ePostH3 + '/')
             originScroll = document.documentElement.scrollTop
@@ -366,12 +367,10 @@ function essayAjax() {
         $('#navigation').style.filter = 'blur(4px)'
         $('#essayText>div').innerHTML = this.responseText
         $('#essayClose').style.transform = 'scale(1,1)'
-        document.querySelector('#main').style.display = 'flex'
 
         $('#essayClose').addEventListener('click', () => {
             history.pushState(null, "mianxiu's blog", '/')
             $('#essayClose').style.transform = ''
-            document.querySelector('#main').style.display = ''
             $('#essay').style.display = ''
             $('#essayText').style.height = ''
             $('#essayText>div').style.marginTop = ''

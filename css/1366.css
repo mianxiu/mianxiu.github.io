@@ -42,8 +42,6 @@ body{
     transition: background-color 0.8s;
 }
 #main{
-    
-    justify-content: center;
     transition: transform 0.2s;
     width: 1016px;
     min-height: 645px;
@@ -507,7 +505,7 @@ margin-top: 12px;
 }
 #essayLeft li{
     list-style: none; 
-    padding-bottom: 10px;
+    padding-bottom: 22px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     
 }
@@ -518,13 +516,8 @@ margin-top: 12px;
 
 
 #essayLeft > ul > li > h3 {
-    font-size: 24px;
-    font-weight: 500;
     letter-spacing:2px;
     cursor: pointer;
-}
-#essayText > div:nth-child(1) > h3{
-    font-size: 1.8em;
 }
 #essayLeft > ul > li > p{  
     font-weight: lighter;
@@ -546,20 +539,16 @@ margin-top: 12px;
     background-color:rgb(241, 241, 241)
 }
 
-._iframe{
+._youtube{
     border-radius:6px;
     background-color:rgb(241, 241, 241)
 }
 
 ._date,._updated{
-    border: 1px solid #dbdbdb;
-    border-radius: 6px;
-    padding: 2px 4px;   
-    letter-spacing: 5px;
+    letter-spacing: 2px;
 }
 ._date,._tags,._updated{
     font-size: 14px;
-    font-weight: lighter;
     color: #9c9c9c;
 }
 ._tags{
