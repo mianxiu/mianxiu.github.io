@@ -343,12 +343,15 @@ function mp3PlayerType(type) {
 function essayAjax() {
     let originScroll = 0
     $('#essayLeft').addEventListener('click', e => {
+        console.log(e.target)
+        console.log(e.target.parentNode.children)
         if (e.target.tagName === 'H3') {
+
             let eP = e.target.parentNode
             //标题
-            let ePostH3 = eP.childNodes[1].innerText
+            let ePostH3 = eP.children[0].innerText
             //日期
-            let date = new Date(eP.childNodes[3].innerText)
+            let date = new Date(eP.children[1].innerText)
             let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 10 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
             ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH3) + '/context.html', writeEssay)
             // url斜杠不能少！！！
@@ -361,22 +364,21 @@ function essayAjax() {
 
     let writeEssay = function () {
         document.documentElement.scrollTop = 0
-        $('#essay').style.display = 'none'
-        $('#essayText').style.height = '100vh'
-        $('#essayText>div').style.marginTop = '30px'
+        $('#essay').style.display = 'none'    
+        $('#essayText').style = 'height:100vh;width:100vw;'
         $('#navigation').style.filter = 'blur(4px)'
         $('#essayText>div').innerHTML = this.responseText
         $('#essayClose').style.transform = 'scale(1,1)'
+        $('#main').style = 'display:flex;justify-content:center;'
 
         $('#essayClose').addEventListener('click', () => {
             history.pushState(null, "mianxiu's blog", '/')
             $('#essayClose').style.transform = ''
             $('#essay').style.display = ''
-            $('#essayText').style.height = ''
-            $('#essayText>div').style.marginTop = ''
+            $('#essayText').style = ''
             $('#navigation').style.filter = 'blur(0px)'
             $('#essayText>div').innerHTML = ''
-
+            $('#main').style = ''
             document.documentElement.scrollTop = originScroll
         })
     }
