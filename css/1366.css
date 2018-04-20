@@ -642,6 +642,7 @@ margin-top: 12px;
 }
 
 #essayClose{
+    background-color: rgba(255, 255, 255, 0.39);
     cursor: pointer;
     position: fixed;
     width: 50px;
