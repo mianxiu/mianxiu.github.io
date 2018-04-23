@@ -1,18 +1,20 @@
 
+
 //域名的正则，用于匹配歌曲
 //new RegExp(/.*mianxiu\.github\.io\//)
 var musicRegex = new RegExp(/.*./)
 //根目录
 var URL = window.location.href.split(/\//)
-var domin = URL[0]+'//'+ URL[2]
-var musicPath = domin +'/music/'
+var domin = URL[0] + '//' + URL[2]
+var musicPath = domin + '/music/'
 
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
+    let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('font-size').replace('px'))
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
-    var playPath = domin +'/music/'
+    var playPath = domin + '/music/'
 
     for (let l of $('#playList>ol').children) {
         playList.push(playPath + l.innerText + '.mp3')
@@ -89,8 +91,8 @@ function mp3Player() {
             //切换效果
             let s = musicPath + e.target.innerText + '.mp3'
             let i = playListAry().indexOf(s)
-            if (playListOl.style.marginTop !== -(i) * quarterH + 'px') {
-                playListOl.style.marginTop = -(i) * quarterH + 'px'
+            if (playListOl.style.marginTop !== -(i) * quarterH / htmlFontSize + 'rem') {
+                playListOl.style.marginTop = -(i) * quarterH / htmlFontSize + 'rem'
             }
         }
     })
@@ -113,16 +115,19 @@ function mp3Player() {
 
         //歌单滚动
         let pl = $('#playList ol')
+        let g
         //li的高度(包括margin)
-        let playListLiHeight = $('#playList ol li').offsetHeight + parseInt(window.getComputedStyle($('#playList>ol>li'), null).marginBottom.replace(/px/, ''))
+        let playListLiHeight = $('#playList ol li').offsetHeight / htmlFontSize + parseInt(window.getComputedStyle($('#playList>ol>li'), null).marginBottom.replace(/px/, '')) / htmlFontSize
         $('#playList').addEventListener('wheel', function (e) {
-            let g = parseInt(pl.style.marginTop.replace(/px/, ''))
+            g = Number($('#playList ol').style.marginTop.replace(/rem/, ''))
+            console.log (g)
             if (e.deltaY < 0 && g !== 0) {
                 //up
-                pl.style.marginTop = g + playListLiHeight + 'px';
-            } else if (e.deltaY > 0 && g !== ($All('#playList ol li').length - 1) * - playListLiHeight) {
+                pl.style.marginTop = g + playListLiHeight  + 'rem';
+            } else if (e.deltaY > 0 && g !== Number((($All('#playList ol li').length - 1) * - playListLiHeight).toString().slice(0,5))) {
                 //down
-                pl.style.marginTop = g - playListLiHeight + 'px';
+                console.log()
+                pl.style.marginTop = g - playListLiHeight + 'rem';
             }
         })
 
@@ -132,7 +137,7 @@ function mp3Player() {
             let initial_marginTop = playListAry().indexOf(songPath) * - playListLiHeight
             // console.log(songPath)
             // console.log(playListAry())
-            pl.style.marginTop = initial_marginTop + 'px'
+            pl.style.marginTop = initial_marginTop + 'rem'
         })
     }
     listView()
@@ -149,7 +154,7 @@ function mp3Player() {
         // console.log(playList)
         // console.log(e)
         if (e + 1 < playListAry().length) {
-            playListOl.style.marginTop = -(e + 1) * quarterH + 'px'
+            playListOl.style.marginTop = -(e + 1) * quarterH / htmlFontSize + 'rem'
             return player.src = playListAry()[e + 1]
         } else {
             playListOl.style.marginTop = 0
@@ -292,7 +297,7 @@ function mp3Player() {
 
                 let pc = player.currentTime
                 //绘制进度条 
-                $('#audioProgressA').style = 'margin-left:' + pc / i + 'px;width:' + (Pwidth - pc / i) + 'px';
+                $('#audioProgressA').style = 'margin-left:' + pc / i / htmlFontSize + 'rem;width:' + (Pwidth - pc / i) / htmlFontSize + 'rem';
 
                 //歌曲播放时间
 

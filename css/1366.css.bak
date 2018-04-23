@@ -1,28 +1,20 @@
 @import url('./markdown.css');
-@media(min-width:1920px){
-    html{
-        font-size: 160px!important;
-    }
-}
 
-/* 1366X768 rem
+
+/* 1366X768
 */
 ::-webkit-scrollbar{
     display:none;
   }
 
-html{
-    font-size: 100px;
-}
+
 html,body{  
     font-family:"Microsoft YaHei","微软雅黑",sans-serif;    
     background-color: white;
     height: 100%;
-    margin: 0 0;  
+    margin: 0 0;
 }
-hr{
-    margin: 0.4rem 0rem;
-}
+
 /*body 100vw后元素不会随滚动条变动,但会出现横向滚动*/
 body{ 
     -webkit-touch-callout: none;
@@ -36,8 +28,7 @@ body{
     justify-content: center;
     width: 100vw;
     overflow-x:hidden;
-    
-    /*text-shadow: 0rem 0rem 0.2rem #9c9c9c;*/
+    /*text-shadow: 0px 0px 0.2px #9c9c9c;*/
     
    }
 
@@ -53,71 +44,61 @@ body{
 }
 #main{
     transition: transform 0.2s;
-    width: 10.92rem;
-    min-height: 6.45rem;
-    height:0vh;
-    /*background-color: rgb(255, 255, 255); */ 
-    position: relative;
-    z-index: 1;
+    width: 1016px;
+    min-height: 645px;
+    height: 0vh;
+    background-color: rgb(255, 255, 255);  
 }
 
-#background-box{
-    background-color: #fcfcfc;
-    max-width: 10.46rem;
-    min-width:10rem;
-    min-height: 2.70rem;
-    max-height: 2.70rem;
-    position: absolute;
-    
-}
+
 
 
 /*导航*/
 #navigation{
-    padding-left: 1.40rem;
-    height: 1.20rem;
-    width: 1.00vw;
+    padding-left: 140px;
+    height: 120px;
+    width: 100vw;
     z-index: 2;
     background-color:#fff; 
     position: fixed;
-    transform:translateY(0rem);
+    transform:translateY(0px);
     transition: transform 0.2s;
 }
 #navigation ul{
     display: flex;
-    height: 1.20rem;
+    height: 120px;
     flex-direction: row;
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 6.50rem;
+    width: 650px;
     background-color: #fff;
 }
 .nav-block{
     z-index: 5;
     position: absolute;
     display: block;
-    width: 0.20rem;
-    height: 0.04rem;
-    margin-top: 0.14rem;
-    margin-left: 0.65rem;
+    width: 20px;
+    height: 4px;
+    margin-top: 14px;
+    margin-left: 65px;
     background-color: black;
     transition: margin-left 0.4s;
 }
 #navigation>ul li{
-    width: 1.30rem;
+    width: 130px;
    
     display: flex;
-    padding-top: 0.40rem;
+    padding-top: 40px;
     flex-direction: column;
     
     align-items: center;
 }
 
 .nav-span{
-    font-size: 0.12rem;
-    margin-top: 0rem;
-    margin-left: -0.40rem;
+    font-size: 12px;
+    margin-top: 0px;
+    margin-left: -40px;
     color: #7f7f7f;
     opacity:0;
     transition: margin-top 0.2s,opacity 0.2s;
@@ -125,7 +106,7 @@ body{
 
 #navigation>ul li:hover div.nav-span{
     opacity:1;
-    margin-top: 0.10rem;
+    margin-top: 10px;
 
 }
 
@@ -135,7 +116,7 @@ body{
     color: #000;
     text-decoration: none;
     font-weight: bold;
-    font-size: 0.22rem;
+    font-size: 22px;
 }
 #navigation>ul> li:hover{
     background-color: rgb(255, 255, 255);
@@ -143,9 +124,9 @@ body{
 }
 
 
-/* height: 350rem;*/
+/* height: 350px;*/
 #allContext{
-    margin-top: 1.20rem;
+    margin-top: 120px;
     background-color:rgb(255, 255, 255); 
 
 }
@@ -156,14 +137,14 @@ body{
     height: 100%;
     width: 50%;
     background-color: #fff;
-    margin-left: 4.00rem
+    margin-left: 400px
 }
 
 #s{
     z-index: 4;
     position: absolute;
-    margin-top: 3.00rem;
-    margin-left: 4.00rem;
+    margin-top: 300px;
+    margin-left: 400px;
 }
 
 #triangle,#triangleRGB,#gray,#line{
@@ -172,8 +153,8 @@ body{
 }
 #triangle{
  z-index: 3;
- margin-left: -0.205rem;
- margin-top: -0.03rem;
+ margin-left: -20.5px;
+ margin-top: -3px;
  
 }
 #triangleRGB{
@@ -181,14 +162,14 @@ body{
 }
 #gray{
 z-index: 1;
-margin-left: 0.50rem;
-margin-top: 0.12rem;
+margin-left: 50px;
+margin-top: 12px;
 }
 
 
 /*----------*/
 #Personal{
-    margin-top: 0.6rem;
+    margin-top: 120px;
     position: absolute;
 }
 
@@ -196,58 +177,55 @@ margin-top: 0.12rem;
     display: block;
     position: absolute;
     content: '';
-    width: 0.10rem;
-    height: 0.04rem;
+    width: 10px;
+    height: 4px;
     background-color: black;
-    margin-top: -0.32rem;
-    margin-left: 0.90rem;
-}
-#name,#year,#say{
-    font-size: 0.16rem;
+    margin-top: -32px;
+    margin-left: 90px;
 }
 #name{
-    margin-top: 0.24rem;
+    margin-top: 24px;
 }
 #year{
-    margin-top: 0.15rem;
+    margin-top: 15px;
 }
 #say{
-    margin-top: -0.06rem;
+    margin-top: -6px;
 }
 #link{
-    margin-top: 0.24rem;
+    margin-top: 24px;
     display: flex;
 }
 #github,#more,#mail{
-    width: 0.30rem;
-    height: 0.30rem;
+    width: 30px;
+    height: 30px;
 }
 #github{
-    border-radius: 0.20rem;
+    border-radius: 20px;
     background-color: #70a0db;
 }
 #github>a{
     position: absolute;
-    width: 0.30rem;
-    height: 0.30rem;
+    width: 30px;
+    height: 30px;
 }
 #github>img{
-    margin-left: 0.004rem;
+    margin-left: 0.4px;
     position: absolute;
-    width: 0.30rem;
-    height: 0.30rem;
+    width: 30px;
+    height: 30px;
 }
 #meow{
     position: absolute;
-    border-radius: 0.04rem;
+    border-radius: 4px;
     display: block;
-    width: 0.20rem;
-    height: 0.20rem;
-    margin-top: 0.30rem;
-    margin-left: 0.04rem;
+    width: 20px;
+    height: 20px;
+    margin-top: 30px;
+    margin-left: 4px;
     background-color: rgb(0, 0, 0);
     color: white;
-    font-size: 0.14rem;
+    font-size: 14px;
     opacity: 0;
     text-align: center;
     justify-content: center;
@@ -257,45 +235,45 @@ margin-top: 0.12rem;
 }
 #meow::before{
     position: absolute;
-    margin-top: -0.09rem;
-    margin-left: 0.05rem;
+    margin-top: -9px;
+    margin-left: 5px;
     content: '';
     display: block;
     width: 0;
     height: 0;
-    border-radius: 0.05rem;
-    border-top: 0.05rem solid transparent;
-    border-left: 0.05rem solid transparent;
-    border-right: 0.05rem solid transparent;
-    border-bottom: 0.05rem solid black;
+    border-radius: 5px;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
     
 }
 #more{
-    border-radius: 0.20rem;
-    margin-left: 0.16rem;
+    border-radius: 20px;
+    margin-left: 16px;
     background-color: #fcab1d; 
     
 }
 #more>img,#more>a{
     position: absolute;
-    width: 0.30rem;
-    height: 0.30rem;
+    width: 30px;
+    height: 30px;
 }
 #mail{
-    border-radius: 0.20rem;
-    margin-left: 0.16rem;
+    border-radius: 20px;
+    margin-left: 16px;
     background-color: #fc1d1d;
 }
 #atMe{
     position: absolute;
-    border-radius: 0.04rem;
+    border-radius: 4px;
     display: block;
-    padding: 0.01rem 0.02rem;
-    margin-top: 0.30rem;
-    margin-left: 0.04rem;
+    padding: 1px 2px;
+    margin-top: 30px;
+    margin-left: 4px;
     background-color: rgb(0, 0, 0);
     color: white;
-    font-size: 0.14rem;
+    font-size: 14px;
     opacity: 0;
     text-align: center;
     justify-content: center;
@@ -305,31 +283,31 @@ margin-top: 0.12rem;
 }
 #atMe::before{
     position: absolute;
-    margin-top: -0.09rem;
-    margin-left: 0.05rem;
+    margin-top: -9px;
+    margin-left: 5px;
     content: '';
     display: block;
     width: 0;
     height: 0;
-    border-radius: 0.05rem;
-    border-top: 0.05rem solid transparent;
-    border-left: 0.05rem solid transparent;
-    border-right: 0.05rem solid transparent;
-    border-bottom: 0.05rem solid black;
+    border-radius: 5px;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
     
 }
 #mail>img,#mail>a{
     position: absolute;
-    width: 0.30rem;
-    height: 0.30rem;
+    width: 30px;
+    height: 30px;
 }
 
 /*keyfranme_动画*/
-#L_1{ transform-origin: 0.10rem 0.10rem;}
-#L_2{ transform-origin: 0.20rem 0.10rem;}
-#head{transform-origin: 0.15rem 0.22rem;} /**/
-#L_3{ transform-origin: 0.13rem 0.24rem;}
-#body{transform-origin: 0.15rem 0.31rem;}
+#L_1{ transform-origin: 10px 10px;}
+#L_2{ transform-origin: 20px 10px;}
+#head{transform-origin: 15px 22px;} /**/
+#L_3{ transform-origin: 13px 24px;}
+#body{transform-origin: 15px 31px;}
 #mouth{opacity: 0}
 
 /*github*/
@@ -361,7 +339,7 @@ margin-top: 0.12rem;
 }
 
 #github:hover #meow{
-    transform: scale(1,1) translateY(0.10rem);
+    transform: scale(1,1) translateY(10px);
     opacity: 0.5;
 }
 #github:hover #head{
@@ -386,54 +364,54 @@ margin-top: 0.12rem;
 }
 
 /*more*/
-#M_1{transform-origin: 0.11rem 0.11rem}
-#M_2{transform-origin: 0.19rem 0.11rem}
-#M_3{transform-origin: 0.19rem 0.19rem}
-#M_4{transform-origin: 0.11rem 0.19rem}
+#M_1{transform-origin: 11px 11px}
+#M_2{transform-origin: 19px 11px}
+#M_3{transform-origin: 19px 19px}
+#M_4{transform-origin: 11px 19px}
 
 @keyframes M_1{
     0%{transform: translatX(0,0) rotate(0deg)}
     12.5%{transform: translate(0) rotate(45deg)}
     25%{transform:translate(0) rotate(45deg)}
-    37.5%{ttransform: translate(0.04rem,0) rotate(45deg)}
-    50%{transform: translate(0.04rem,0) rotate(45deg)}
-    62.5%{transform: translate(0.04rem,-0.02rem) rotate(45deg)}
-    75%{transform: translate(0.04rem,-0.02rem) rotate(45deg)}
-    87.5%{transform: translate(0.04rem,-0.01rem) rotate(45deg)}
+    37.5%{ttransform: translate(4px,0) rotate(45deg)}
+    50%{transform: translate(4px,0) rotate(45deg)}
+    62.5%{transform: translate(4px,-2px) rotate(45deg)}
+    75%{transform: translate(4px,-2px) rotate(45deg)}
+    87.5%{transform: translate(4px,-1px) rotate(45deg)}
     100%{transform: translate(0,0) rotate(0deg)}
 }
 @keyframes M_2{
     0%{transform: translatX(0,0) rotate(0deg)}
     12.5%{transform: translate(0) rotate(45deg)}
     25%{transform:translate(0) rotate(45deg)}
-    37.5%{ttransform: translate(0,0.04rem) rotate(45deg)}
-    50%{transform: translate(0rem,0.04rem) rotate(45deg)}
-    62.5%{transform: translate(0.02rem,0.04rem) rotate(45deg)}
-    75%{transform: translate(0.02rem,0.04rem) rotate(45deg)}
-    87.5%{transform: translate(0.01rem,0.04rem) rotate(45deg)}
+    37.5%{ttransform: translate(0,4px) rotate(45deg)}
+    50%{transform: translate(0px,4px) rotate(45deg)}
+    62.5%{transform: translate(2px,4px) rotate(45deg)}
+    75%{transform: translate(2px,4px) rotate(45deg)}
+    87.5%{transform: translate(1px,4px) rotate(45deg)}
     100%{transform: translate(0,0) rotate(0deg)}
 }
 @keyframes M_3{
     0%{transform: translatX(0,0) rotate(0deg)}
     12.5%{transform: translate(0) rotate(45deg)}
     25%{transform:translate(0) rotate(45deg)}
-    37.5%{ttransform: translate(-0.04rem,0) rotate(45deg)}
-    50%{transform: translate(-0.04rem,0) rotate(45deg)}
-    62.5%{transform: translate(-0.04rem,0.02rem) rotate(45deg)}
-    75%{transform: translate(-0.04rem,0.02rem) rotate(45deg)}
-    87.5%{transform: translate(-0.04rem,0.01rem) rotate(45deg)}
+    37.5%{ttransform: translate(-4px,0) rotate(45deg)}
+    50%{transform: translate(-4px,0) rotate(45deg)}
+    62.5%{transform: translate(-4px,2px) rotate(45deg)}
+    75%{transform: translate(-4px,2px) rotate(45deg)}
+    87.5%{transform: translate(-4px,1px) rotate(45deg)}
     100%{transform: translate(0,0) rotate(0deg)}
 }
 @keyframes M_4{
     0%{transform: translatX(0,0) rotate(0deg)}
     12.5%{transform: translate(0) rotate(45deg)}
-    25%{transform:translate(0rem) rotate(45deg)}
-    37.5%{ttransform: translate(0,-0.04rem) rotate(45deg)}
-    50%{transform: translate(0rem,-0.04rem) rotate(45deg)}
-    62.5%{transform: translate(-0.02rem,-0.04rem) rotate(45deg)}
-    75%{transform: translate(-0.02rem,-0.04rem) rotate(45deg)}
-    87.5%{transform: translate(-0.01rem,-0.04rem) rotate(45deg)}
-    100%{transform: translate(0rem,0rem) rotate(0deg)}
+    25%{transform:translate(0px) rotate(45deg)}
+    37.5%{ttransform: translate(0,-4px) rotate(45deg)}
+    50%{transform: translate(0px,-4px) rotate(45deg)}
+    62.5%{transform: translate(-2px,-4px) rotate(45deg)}
+    75%{transform: translate(-2px,-4px) rotate(45deg)}
+    87.5%{transform: translate(-1px,-4px) rotate(45deg)}
+    100%{transform: translate(0px,0px) rotate(0deg)}
 }
 
 #more:hover #M_1{
@@ -475,7 +453,7 @@ margin-top: 0.12rem;
     animation-iteration-count: 1;
 }
 #mail:hover #atMe{
-    transform: scale(1,1) translateY(0.10rem);
+    transform: scale(1,1) translateY(10px);
     opacity: 0.5;
 }
 
@@ -483,15 +461,14 @@ margin-top: 0.12rem;
 /*最后的post*/
 /*通过translateZ开启GPU较少旋转后的锯齿*/
 #lastPost{
-    font-size: 0.16rem;
     transform-origin: 0 0;
     position: absolute;
     transform: rotate(90deg) translateZ(0);
-    margin-top: 0.82rem;
-    margin-left: 10.15rem
+    margin-top: 82px;
+    margin-left: 1015px
 }
 #lastPost span:nth-child(1){
-    font-size: 0.16rem;
+    font-size: 16px;
     font-weight: bold;
 }
 #lastPost span:nth-child(3){
@@ -515,32 +492,28 @@ margin-top: 0.12rem;
 #foot{
     position: absolute;
     z-index: 5;
-    transform: translateY(3.50rem)
+    transform: translateY(350px)
 }
 #essay{
     display: flex;
     flex-direction: row;
     position: absolute;
     justify-content: center;
-    width: 10.92rem;
-    background-color: white;
+    width: 980px;
 }
 #essayLeft{
-   /* padding-left:0.96rem;*/
-    width: 7.20rem;
+   /* padding-left:96px;*/
+    width: 720px;
 }
 #essayLeft li{
-    font-size: 0.14rem;
     list-style: none; 
-    padding-bottom: 0.30rem;
-    border-bottom: 0.01rem solid rgba(0, 0, 0, 0.03);
-    margin-bottom:0.30rem;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    margin-bottom:30px;
     
 }
 
-#essayLeft > ul {
-    font-size: 0;
-}
+
 #essayLeft > ul > li{
     display: flex;
 }
@@ -559,11 +532,11 @@ margin-top: 0.12rem;
 }
 
 #essayLeft > ul:nth-child(1) > li:nth-child(1){
-    margin-top: 0.40rem;
+    margin-top: 40px;
 }
 .essay-title {
-    font-size:0.28rem;
-    letter-spacing:0rem;
+    font-size:28px;
+    letter-spacing:0px;
     cursor: pointer;
     margin-top: 0;
     font-weight: 600;
@@ -579,29 +552,29 @@ margin-top: 0.12rem;
     overflow: hidden;
 }
 #essayText > div:nth-child(1) > p{
-    font-size: 0.18rem;
+    font-size: 18px;
 }
 .essay-context{
-    width: 6.80rem;
-    margin-top: 0.20rem;
+    width: 680px;
+    margin-top: 20px;
 }
 #essayText > div > h3.essay-title{
-    margin-top: 0.30rem;
-    margin-bottom: 0.10rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 ._banner + h3 + span + span + div.essay-context,
 ._banner + h3,
 ._banner + h3 + span._date
 {
-    margin-left: calc(50vw - 3.40rem);
+    margin-left: calc(50vw - 340px);
 }
 .preview-img{
     background-size:cover;
     background-color: red;
-    margin-right: 0.40rem;
-    min-width:3.40rem;
-    height: 1.20rem;
+    margin-right: 40px;
+    min-width:340px;
+    height: 120px;
     background-position: center; 
 }
 .summary{
@@ -620,29 +593,29 @@ margin-top: 0.12rem;
     top:0;
     left: 0;
     width: 100vw;
-    height:3.00rem;
+    height:300px;
     background-position: center;
     background-color:rgb(241, 241, 241);
     
 }
 
 ._youtube{
-    border-radius:0.06rem;
+    border-radius:6px;
     background-color:rgb(241, 241, 241)
 }
 
 ._date,._updated{
-    letter-spacing: 0.02rem;
+    letter-spacing: 2px;
 }
 ._date,._tags,._updated{
     
-    font-size: 0.16rem;
+    font-size: 16px;
     color: #bababa;
     font-weight: lighter;
 }
 ._tags{
-    margin-left: 0.20rem;
-    width: 1.60rem;
+    margin-left: 20px;
+    width: 160px;
 }
 
 
@@ -657,8 +630,8 @@ margin-top: 0.12rem;
 }
 
 ._date::before,._tags::before{
-    width:0.19rem;
-    height: 0.19rem;
+    width:19px;
+    height: 19px;
     display: flex;
 }
 .date::before{
@@ -672,10 +645,10 @@ margin-top: 0.12rem;
 #essayRight{
     display: none;
     position: fixed;
-    width: 1.96rem;
-    height: 4.00rem;
+    width: 196px;
+    height: 400px;
     background-color: #f7f7f7;
-    margin-left: 8.60rem;
+    margin-left: 860px;
 }
 
 #essayText {
@@ -685,7 +658,7 @@ margin-top: 0.12rem;
     z-index: 4;
     display: flex;
     flex-direction: row-reverse;
-    font-size: 0.18rem;
+    font-size: 18px;
     font-weight: lighter;
     justify-content: center;
    
@@ -699,10 +672,10 @@ margin-top: 0.12rem;
     background-color: rgba(255, 255, 255, 0.39);
     cursor: pointer;
     position: fixed;
-    width: 0.50rem;
-    height: 0.50rem;
-    top:0.63rem;
-    right: 0.50rem;
+    width: 50px;
+    height: 50px;
+    top:63px;
+    right: 50px;
     background-image: url('/icon/essay/close.svg');
     transform: scale(0,0);
     transition:transform 0.4s;
@@ -726,10 +699,10 @@ margin-top: 0.12rem;
     align-items: center;
     justify-content: center;
     padding: 0 0;
-    width: 0.30rem;
-    height: 0.30rem;
-    border:0.01rem solid black;
-    margin-right: 0.10rem;
+    width: 30px;
+    height: 30px;
+    border:1px solid black;
+    margin-right: 10px;
     transition: background-color 0.5s,color 0.5s;
 }
 
@@ -742,7 +715,7 @@ margin-top: 0.12rem;
 #otherInfo{
     display: none;
     width: 100vw;
-    height:1.20rem;
+    height:120px;
     background-color: black;
     position: absolute;
     left: 0;
@@ -750,5 +723,3 @@ margin-top: 0.12rem;
     margin-top: 100vh;
     
 }
-
-

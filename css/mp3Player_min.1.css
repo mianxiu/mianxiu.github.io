@@ -1,10 +1,10 @@
 #foot{
     position: fixed;
     left: 0;
-    transform: translateY(3.50rem);
+    transform: translateY(350px);
 }
 #mp3Player{
-   margin-top: .54rem;
+   margin-top: 54px;
    animation: mp3Player ease-in-out 0.5s;
    opacity: 1;
    background-color: white;
@@ -18,21 +18,20 @@
     z-index: 2;
     transform: scale(0.4,0.4);
     position: absolute;
-    margin-top: -.32rem;
-    margin-left: 3.60rem;
+    margin-top: -32px;
+    margin-left: 360px;
 }
 
 #ToShow,#lineTo,#playCtrShade,#timePass{
     display: none;
-    font-size: 0px;
 }
 #playCtr{
     z-index: 1;
     position: absolute;
-    margin-top: .16rem;
-    left: .20rem;
-    width: .50rem;
-    height: .50rem;
+    margin-top: 16px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
     transform: scale(0.8,0.8);
     cursor: pointer;
     
@@ -44,9 +43,9 @@
 #progress{
     position: absolute;
     left: 0;
-    margin-top: .82rem;
-    width: .88rem;
-    height: .36rem;
+    margin-top: 82px;
+    width: 88px;
+    height: 36px;
     overflow:hidden;
     transition: width 0.2s;
 }
@@ -57,56 +56,56 @@
 #audioProgressA{
    
     z-index: 1;
-    height: .06rem;
+    height: 6px;
     background-color: rgb(230,230,230)
 }
 
 
 #mp3Player:hover #VP{
-    width:4.86rem;
+    width:486px;
 }
 #VP{
     overflow-x: hidden;
-    width: .16rem;
+    width: 16px;
     position: absolute;
     left: 0;
-    padding:.14rem 0rem;
-    padding-left: .70rem;
-    border-top:.02rem solid black;
-    border-right:.02rem solid black;
-    border-bottom: .02rem solid black;
+    padding:14px 0px;
+    padding-left: 70px;
+    border-top:2px solid black;
+    border-right:2px solid black;
+    border-bottom: 2px solid black;
     background-color: white;
     transition: width 0.4s;
 }
 
 #playList{
-    border: 0rem solid royalblue;
+    border: 0px solid royalblue;
     text-overflow: clip;
     overflow: hidden;
-    width: 4.56rem;
-    height: .50rem;
+    width: 456px;
+    height: 50px;
 }
 #playList::before{
     display: block;
     content: '';
     position: absolute;
-    margin-top: .28rem;
-    width: 4.56rem;
-    height: .30rem;
+    margin-top: 28px;
+    width: 456px;
+    height: 30px;
     background:linear-gradient(0deg,white,rgba(255,255,255,0.5));
     transition: height 0.2s,margin-top 0.2s;   
     
 }
 #playList ol {
-    list-style: none;
+    
     margin: 0 0;
     transition:margin-top 0.2s;
 }
 
 #playList li{
     font-weight: 400;
-    font-size: .16rem;
-    margin-bottom: .06rem;
+    font-size: 16px;
+    margin-bottom: 6px;
     
 }
 #playList li:hover{

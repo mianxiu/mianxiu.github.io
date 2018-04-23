@@ -1,4 +1,4 @@
-
+let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('font-size').replace('px'))
 
 
 /**-是url
@@ -274,14 +274,14 @@ function triangle() {
                     if (b_[0] - b_[1] > 0) {
                         //settimeout是因为Firefox会因为值变化过快导致transition检测不到变化无法正常工作            
                         setTimeout(() => {
-                            $('#triangle').style.marginLeft = -(clientW - b_[1]) * 0.05 + 'px'
-                            $('#gray').style.marginLeft = (clientW - b_[1]) * 0.02 + 'px'
+                            $('#triangle').style.marginLeft = -(clientW - b_[1]) * 0.05 / htmlFontSize + 'rem'
+                            $('#gray').style.marginLeft = (clientW - b_[1]) * 0.02 / htmlFontSize + 'rem'
                         }, 300)
 
                     } else if (b_[0] - b_[1] < 0) {
                         setTimeout(() => {
-                            $('#triangle').style.marginLeft = (clientW - b_[1]) * 0.05 + 'px'
-                            $('#gray').style.marginLeft = -(clientW - b_[1]) * 0.02 + 'px'
+                            $('#triangle').style.marginLeft = (clientW - b_[1]) * 0.05 / htmlFontSize + 'rem'
+                            $('#gray').style.marginLeft = -(clientW - b_[1]) * 0.02 / htmlFontSize + 'rem'
                         }, 300)
                     }
 
@@ -296,17 +296,17 @@ function triangle() {
                     }
 
                     e.clientX > clientW / 2 ? (
-                        $('#gray').style.marginLeft = (clientW - e.clientX) * 0.05 + 'px',
-                        $('#triangle').style.marginLeft = (e.clientX - clientW) * 0.02 + 'px'
+                        $('#gray').style.marginLeft = (clientW - e.clientX) * 0.05 / htmlFontSize + 'rem',
+                        $('#triangle').style.marginLeft = (e.clientX - clientW) * 0.02 / htmlFontSize + 'rem'
                     ) : (
-                            $('#gray').style.marginLeft = (clientW - e.clientX) * 0.05 + 'px',
-                            $('#triangle').style.marginLeft = (e.clientX - clientW) * 0.02 + 'px')
+                            $('#gray').style.marginLeft = (clientW - e.clientX) * 0.05 / htmlFontSize + 'rem',
+                            $('#triangle').style.marginLeft = (e.clientX - clientW) * 0.02 / htmlFontSize + 'rem')
                     e.clientY > clientH / 2 ? (
-                        $('#gray').style.marginTop = (clientH - e.clientY) * 0.02 + 'px',
-                        $('#triangle').style.marginTop = (e.clientY - clientH) * 0.005 + 'px'
+                        $('#gray').style.marginTop = (clientH - e.clientY) * 0.02 / htmlFontSize + 'rem',
+                        $('#triangle').style.marginTop = (e.clientY - clientH) * 0.005 / htmlFontSize + 'rem'
                     ) : (
-                            $('#gray').style.marginTop = (clientH - e.clientY) * 0.02 + 'px',
-                            $('#triangle').style.marginTop = (e.clientY - clientH) * 0.005 + 'px')
+                            $('#gray').style.marginTop = (clientH - e.clientY) * 0.02 / htmlFontSize + 'rem',
+                            $('#triangle').style.marginTop = (e.clientY - clientH) * 0.005 / htmlFontSize + 'rem')
                 }
 
                 if (a_.length > 100) {
@@ -349,13 +349,14 @@ function essayAjax() {
 
             let eP = e.target.parentNode
             //标题
-            let ePostH3 = eP.children[0].innerText
+            let ePostH3 = eP.children[2].innerText
             //日期
-            let date = new Date(eP.children[1].innerText)
+            let date = new Date(eP.children[0].innerText)
             let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 10 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
             ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH3) + '/context.html', writeEssay)
             // url斜杠不能少！！！
             history.pushState(null, ePostH3, './essay/' + ePostDate + '/' + ePostH3 + '/')
+
             originScroll = document.documentElement.scrollTop
         }
     })
@@ -364,12 +365,12 @@ function essayAjax() {
 
     let writeEssay = function () {
         document.documentElement.scrollTop = 0
-        $('#essay').style.display = 'none'    
+        $('#essay').style.display = 'none'
         $('#essayText').style = 'height:100vh;width:100vw;'
-        $('#navigation').style.filter = 'blur(4px)'
+        $('#navigation').style.filter = 'blur(0.04rem)'
         $('#essayText>div').innerHTML = this.responseText
         $('#essayClose').style.transform = 'scale(1,1)'
-        $('#main').style = 'display:flex;justify-content:center;'
+        $('#main').style = 'display:flex;justify-content:center;height:100vh;'
 
         $('#essayClose').addEventListener('click', () => {
             history.pushState(null, "mianxiu's blog", '/')
