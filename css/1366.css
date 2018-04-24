@@ -1,7 +1,7 @@
 @import url('./markdown.css');
 @media(min-width:1920px){
     html{
-        font-size: 160px!important;
+        font-size: 140px!important;
     }
 }
 
@@ -13,12 +13,14 @@
 
 html{
     font-size: 100px;
+    text-rendering: optimizeLegibility;
 }
 html,body{  
-    font-family:"Microsoft YaHei","微软雅黑",sans-serif;    
+    font-family:"Microsoft JhengHei","Microsoft YaHei","微软雅黑",sans-serif;    
     background-color: white;
     height: 100%;
     margin: 0 0;  
+    
 }
 hr{
     margin: 0.4rem 0rem;
@@ -771,20 +773,69 @@ margin-top: 0.12rem;
 
 
 /*gallery*/
+@media screen and (min-width: 1600px){
+    #gallery{ column-count: 4!important;}
+}
+@media screen and (min-width: 1800px){
+    #gallery{ column-count: 5!important;}
+}
 #gallery{
     min-height: 3.45rem;
     background-color: rgb(255, 255, 255);
-    height: 100%;
     display: block;
     flex-direction: row;
     flex-wrap: wrap;
     font-size: 0;
-    width: 80vw;
     max-width: 2000px;
     min-width: 10.92rem;
+    padding-top: 0.2rem;
+    position: absolute;
+    column-count: 3;
+    column-gap: 20px;
 }
 .gallery-preview{
-    height: 230px;
-    border: 1px solid #787878;
-    margin: 2px 2px;
+    outline: none!important;
+    width: 100%;
+    
+}
+.gallery-link{
+    cursor: zoom-in;
+    display:inline-block;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 0 0px 1px #f6f6f6;
+}
+.gallery-overlay{
+    display: block;
+    background-color: rgba(0, 0, 0, 0.445);
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.2s;
+    position: absolute;
+}
+.gallery-link:hover > div.gallery-overlay{
+    opacity: 1;
+}
+
+.gallery-text{
+    color: white;
+    display: block;
+    height: 20px;
+    font-size: 20px;
+    font-weight: lighter;
+    padding: .40rem .40rem;
+    text-align: left;
+}
+
+.gallery-num{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.44);
+    position: absolute;
+    font-size: 14px;
+    color: #ffffffb3;
+    padding: 4px 4px;
+    text-align: center;
 }
