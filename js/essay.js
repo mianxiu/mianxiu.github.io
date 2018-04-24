@@ -1,7 +1,7 @@
 
 // ajax同目录内容
 (() => {
-    document.querySelector('title').innerText = decodeURI(window.location.href.split(/\//)[7])
+    document.querySelector('title').innerText = decodeURI(window.location.href.split(/\//)[7])+" | Mianxiu's blog"
     var oReq = new XMLHttpRequest();
     oReq.onload = function () {
 

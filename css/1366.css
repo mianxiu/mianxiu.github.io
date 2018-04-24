@@ -207,6 +207,7 @@ margin-top: 0.12rem;
 }
 #name{
     margin-top: 0.24rem;
+    font-weight: bold;
 }
 #year{
     margin-top: 0.15rem;
@@ -488,7 +489,7 @@ margin-top: 0.12rem;
     position: absolute;
     transform: rotate(90deg) translateZ(0);
     margin-top: 0.82rem;
-    margin-left: 10.15rem
+    margin-left: 10.35rem
 }
 #lastPost span:nth-child(1){
     font-size: 0.16rem;
@@ -497,7 +498,22 @@ margin-top: 0.12rem;
 #lastPost span:nth-child(3){
     opacity: 0.1
 }
+#lastPost > span:nth-child(3){
+    width: 2rem;
+    display: block;
+    position: absolute;
+}
 
+#lastPost::before {
+    content: '';
+    display:inline-block;
+    width: .20rem;
+    height: .10rem;
+    background-color: red;
+    position: absolute;
+    margin-left: -.20rem;
+    margin-top: -.20rem
+}
 /**/
 /**/
 #allContext{
@@ -532,7 +548,7 @@ margin-top: 0.12rem;
 #essayLeft li{
     font-size: 0.14rem;
     list-style: none; 
-    padding-bottom: 0.30rem;
+    padding-bottom: 0.28rem;
     border-bottom: 0.01rem solid rgba(0, 0, 0, 0.03);
     margin-bottom:0.30rem;
     
@@ -545,8 +561,9 @@ margin-top: 0.12rem;
     display: flex;
 }
 #essayLeft > ul > li h3{
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
+    line-height: .28rem;
+    margin-top: 0.3em;
+    margin-bottom: 0em;
 }
 #essayLeft > ul > li:hover h3 {
     
@@ -562,7 +579,7 @@ margin-top: 0.12rem;
     margin-top: 0.40rem;
 }
 .essay-title {
-    font-size:0.28rem;
+    font-size:0.24rem;
     letter-spacing:0rem;
     cursor: pointer;
     margin-top: 0;
@@ -715,6 +732,7 @@ margin-top: 0.12rem;
     flex-direction: row;
     opacity: 1;
     transition: opacity 0.5s;
+    margin: 0.2rem 0 0.2rem 0;
 }
 
 .onPage{
@@ -752,3 +770,21 @@ margin-top: 0.12rem;
 }
 
 
+/*gallery*/
+#gallery{
+    min-height: 3.45rem;
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    display: block;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 0;
+    width: 80vw;
+    max-width: 2000px;
+    min-width: 10.92rem;
+}
+.gallery-preview{
+    height: 230px;
+    border: 1px solid #787878;
+    margin: 2px 2px;
+}

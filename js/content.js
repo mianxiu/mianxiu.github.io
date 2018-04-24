@@ -371,6 +371,7 @@ function essayAjax() {
         $('#essayText>div').innerHTML = this.responseText
         $('#essayClose').style.transform = 'scale(1,1)'
         $('#main').style = 'display:flex;justify-content:center;height:100vh;'
+        $('title').innerText = decodeURI(window.location.href.split(/\//)[7])+" | Mianxiu's blog"
 
         $('#essayClose').addEventListener('click', () => {
             history.pushState(null, "mianxiu's blog", '/')
@@ -380,6 +381,7 @@ function essayAjax() {
             $('#navigation').style.filter = 'blur(0px)'
             $('#essayText>div').innerHTML = ''
             $('#main').style = ''
+            $('title').innerText = "Mianxiu's blog"
             document.documentElement.scrollTop = originScroll
         })
     }
