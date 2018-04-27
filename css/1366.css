@@ -1,8 +1,27 @@
 @import url('./markdown.css');
-@media(min-width:1920px){
-    html{
-        font-size: 140px!important;
-    }
+@media screen and (min-width: 1600px){
+    html{ font-size: 120px!important;}
+}
+@media screen and (min-width: 1800px){
+   html{ font-size: 130px!important;}
+}
+@media screen and (min-width: 2000px){
+    html{ font-size: 140px!important;}
+}
+ @media screen and (min-width:2200px){
+    html{ font-size: 150px!important;}
+}
+ @media screen and (min-width:2500px){
+    html{ font-size: 170px!important;}
+}
+ @media screen and (min-width:2800px){
+    html{ font-size: 190px!important;}
+}
+ @media screen and (min-width:3200px){
+    html{ font-size: 220px!important;}
+}
+ @media screen and (min-width:4000px){
+    html{ font-size: 270px!important;}
 }
 
 /* 1366X768 rem
@@ -16,7 +35,7 @@ html{
     text-rendering: optimizeLegibility;
 }
 html,body{  
-    font-family:"Microsoft JhengHei","Microsoft YaHei","微软雅黑",sans-serif;    
+    font-family:Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3",Microsoft JhengHei,WenQuanYi Micro Hei,"Microsoft YaHei",sans-serif;    
     background-color: white;
     height: 100%;
     margin: 0 0;  
@@ -544,8 +563,9 @@ margin-top: 0.12rem;
     background-color: white;
 }
 #essayLeft{
-   /* padding-left:0.96rem;*/
-    width: 7.20rem;
+   /* padding-left:0.96rem;*/ 
+   width: 8.3rem;
+
 }
 #essayLeft li{
     font-size: 0.14rem;
@@ -698,14 +718,14 @@ margin-top: 0.12rem;
 }
 
 #essayText {
+    color:rgb(62, 62, 62);
     background-color: rgba(255, 255, 255,0.94);
     width: 100vw;/*900*/
     position: absolute;
     z-index: 4;
     display: flex;
     flex-direction: row-reverse;
-    font-size: 0.18rem;
-    font-weight: lighter;
+    font-size: 0.2rem;
     justify-content: center;
    
 }
@@ -792,6 +812,7 @@ margin-top: 0.12rem;
     position: absolute;
     column-count: 3;
     column-gap: 20px;
+    padding-bottom: 0.5rem;
 }
 .gallery-preview{
     outline: none!important;
