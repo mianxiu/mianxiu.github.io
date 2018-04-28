@@ -39,6 +39,9 @@ let writeContent = function () {
         switch (type) {
             case 'on':
                 $('#index').style.display = 'none'
+                $('#logo_other').style.display = 'block'
+                $('#allContext').style.marginTop = '2.4rem'
+                $('#background-box').style.display = 'none'
                 mp3PlayerType('min')
                 navHidden('on')
                 break;

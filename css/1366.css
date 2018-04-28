@@ -1,4 +1,5 @@
 @import url('./markdown.css');
+
 @media screen and (min-width: 1600px){
     html{ font-size: 120px!important;}
 }
@@ -32,7 +33,6 @@
 
 html{
     font-size: 100px;
-    text-rendering: optimizeLegibility;
 }
 html,body{  
     font-family:Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3",Microsoft JhengHei,WenQuanYi Micro Hei,"Microsoft YaHei",sans-serif;    
@@ -105,6 +105,7 @@ body{
     transition: transform 0.2s;
 }
 #navigation ul{
+
     display: flex;
     height: 1.20rem;
     flex-direction: row;
@@ -163,14 +164,41 @@ body{
     color: white;
 }
 
-
-/* height: 350rem;*/
-#allContext{
-    margin-top: 1.20rem;
-    background-color:rgb(255, 255, 255); 
-
+#logo_nav{
+    position: absolute;
+    width: 150px;
+    height: 90px;
+    display: block;
 }
 
+/* height: 350rem;*/
+
+#allContext{
+    margin-top: 1.2rem;
+    background-color:rgb(255, 255, 255);
+}
+#allContext{
+    opacity: 0;
+    animation: opacityTwo 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes opacityTwo{
+    from{opacity: 0;margin-top: 1.2rem;}
+    to{opacity: 1;margin-top: 2.4rem;}
+}
+
+
+#logo_other{
+    display: none;
+    position: absolute;
+    left: 0;
+    margin-top: -2.2rem;
+    margin-left: -1rem;
+}
+#logo_other > a{
+    display: block;
+    transform: scale(0.5, 0.5);
+}
 
 /*---------首页动画+内容--------------*/
 #h{
@@ -213,7 +241,7 @@ margin-top: 0.12rem;
     position: absolute;
 }
 
-#logo::after{
+#img::after{
     display: block;
     position: absolute;
     content: '';
@@ -537,15 +565,6 @@ margin-top: 0.12rem;
 }
 /**/
 /**/
-#allContext{
-    opacity: 0;
-    animation: opacityTwo ease 1s;
-    animation-fill-mode: forwards;
-}
-@keyframes opacityTwo{
-    from{opacity: 0}
-    to{opacity: 1}
-}
 
 
 /*eassay 随笔----------------*/
@@ -564,14 +583,13 @@ margin-top: 0.12rem;
 }
 #essayLeft{
    /* padding-left:0.96rem;*/ 
-   width: 8.3rem;
+   width: 7.2rem;
 
 }
 #essayLeft li{
     font-size: 0.14rem;
     list-style: none; 
     padding-bottom: 0.28rem;
-    border-bottom: 0.01rem solid rgba(0, 0, 0, 0.03);
     margin-bottom:0.30rem;
     
 }
@@ -598,10 +616,10 @@ margin-top: 0.12rem;
 }
 
 #essayLeft > ul:nth-child(1) > li:nth-child(1){
-    margin-top: 0.40rem;
+    margin-top: 0.0rem;
 }
 .essay-title {
-    font-size:0.24rem;
+    font-size:0.28rem;
     letter-spacing:0rem;
     cursor: pointer;
     margin-top: 0;
@@ -711,14 +729,15 @@ margin-top: 0.12rem;
 #essayRight{
     display: none;
     position: fixed;
-    width: 1.96rem;
+    width: 3rem;
     height: 4.00rem;
     background-color: #f7f7f7;
     margin-left: 8.60rem;
+    top: 2rem
 }
 
 #essayText {
-    color:rgb(62, 62, 62);
+    
     background-color: rgba(255, 255, 255,0.94);
     width: 100vw;/*900*/
     position: absolute;
@@ -729,7 +748,9 @@ margin-top: 0.12rem;
     justify-content: center;
    
 }
-
+ div.essay-context > p{
+    color:rgb(106, 106, 106);
+}
 #essayText h3{
     margin-top: 2.4em;
 }
@@ -794,10 +815,13 @@ margin-top: 0.12rem;
 
 /*gallery*/
 @media screen and (min-width: 1600px){
-    #gallery{ column-count: 4!important;}
+    #gallery{ column-count: 5!important;}
 }
 @media screen and (min-width: 1800px){
-    #gallery{ column-count: 5!important;}
+    #gallery{ column-count:7!important;}
+}
+@media screen and (min-width: 2000px){
+    #gallery{ column-count:8!important;}
 }
 #gallery{
     min-height: 3.45rem;
@@ -810,8 +834,10 @@ margin-top: 0.12rem;
     min-width: 10.92rem;
     padding-top: 0.2rem;
     position: absolute;
-    column-count: 3;
-    column-gap: 20px;
+    column-count: 4;
+    column-gap: 0px;
+    column-fill: balance;
+    column-rule:0;
     padding-bottom: 0.5rem;
 }
 .gallery-preview{
@@ -822,9 +848,7 @@ margin-top: 0.12rem;
 .gallery-link{
     cursor: zoom-in;
     display:inline-block;
-    margin-bottom: 20px;
     position: relative;
-    box-shadow: 0 0 0px 1px #f6f6f6;
 }
 .gallery-overlay{
     display: block;
