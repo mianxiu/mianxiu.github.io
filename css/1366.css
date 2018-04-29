@@ -132,7 +132,6 @@ body{
     display: flex;
     padding-top: 0.40rem;
     flex-direction: column;
-    
     align-items: center;
 }
 
@@ -164,42 +163,40 @@ body{
     color: white;
 }
 
-#logo_nav{
-    position: absolute;
-    width: 150px;
-    height: 90px;
-    display: block;
-}
-
 /* height: 350rem;*/
 
 #allContext{
     margin-top: 1.2rem;
     background-color:rgb(255, 255, 255);
 }
-#allContext{
-    opacity: 0;
-    animation: opacityTwo 1s;
-    animation-fill-mode: forwards;
-}
-@keyframes opacityTwo{
-    from{opacity: 0;margin-top: 1.2rem;}
-    to{opacity: 1;margin-top: 2.4rem;}
-}
 
+
+@keyframes logo_other{
+from{opacity: 0;}
+to{opacity: 1;}
+}
 
 #logo_other{
-    display: none;
+    opacity: 1;
     position: absolute;
-    left: 0;
-    margin-top: -2.2rem;
-    margin-left: -1rem;
-}
-#logo_other > a{
+    right: 0;
+    animation: logo_other 0.6s;
+    z-index: 100;
+    margin-top: -1.48rem;
     display: block;
     transform: scale(0.5, 0.5);
+    
 }
-
+#logo_other > span:nth-child(1){
+    font-size: .4rem;
+    font-weight: bold;
+}
+#logo_other > span:nth-child(2){
+    font-size: 0.3rem;
+    font-weight: lighter;
+    display: block;
+    color: #e7e7e7;
+}
 /*---------首页动画+内容--------------*/
 #h{
     height: 100%;
@@ -255,7 +252,6 @@ margin-top: 0.12rem;
     font-size: 0.16rem;
 }
 #name{
-    margin-top: 0.24rem;
     font-weight: bold;
 }
 #year{
@@ -589,8 +585,8 @@ margin-top: 0.12rem;
 #essayLeft li{
     font-size: 0.14rem;
     list-style: none; 
-    padding-bottom: 0.28rem;
-    margin-bottom:0.30rem;
+    padding-bottom: 0.5rem;
+    margin-bottom:0.5rem;
     
 }
 
@@ -599,10 +595,11 @@ margin-top: 0.12rem;
 }
 #essayLeft > ul > li{
     display: flex;
+    flex-flow: column-reverse;
 }
 #essayLeft > ul > li h3{
     line-height: .28rem;
-    margin-top: 0.3em;
+    margin-top: 0.6em;
     margin-bottom: 0em;
 }
 #essayLeft > ul > li:hover h3 {
@@ -641,6 +638,7 @@ margin-top: 0.12rem;
 .essay-context{
     width: 6.80rem;
     margin-top: 0.20rem;
+    margin-bottom: .2rem
 }
 #essayText > div > h3.essay-title{
     margin-top: 0.30rem;
@@ -656,10 +654,10 @@ margin-top: 0.12rem;
 .preview-img{
     background-size:cover;
     background-color: red;
-    margin-right: 0.40rem;
-    min-width:3.40rem;
-    height: 1.20rem;
+    min-width:7.2rem;
+    height: 2rem;
     background-position: center; 
+    margin-top: .2rem;
 }
 .summary{
     display: none;
@@ -701,7 +699,10 @@ margin-top: 0.12rem;
     margin-left: 0.20rem;
     width: 1.60rem;
 }
-
+._tags > em {
+    margin-right: .05rem;
+    color: #0cb691;
+}
 
 
 ._updated{
@@ -737,7 +738,6 @@ margin-top: 0.12rem;
 }
 
 #essayText {
-    
     background-color: rgba(255, 255, 255,0.94);
     width: 100vw;/*900*/
     position: absolute;
@@ -746,10 +746,11 @@ margin-top: 0.12rem;
     flex-direction: row-reverse;
     font-size: 0.2rem;
     justify-content: center;
+    margin-bottom: .2rem;
    
 }
  div.essay-context > p{
-    color:rgb(106, 106, 106);
+    color:rgb(90, 90, 90);
 }
 #essayText h3{
     margin-top: 2.4em;
@@ -815,18 +816,15 @@ margin-top: 0.12rem;
 
 /*gallery*/
 @media screen and (min-width: 1600px){
-    #gallery{ column-count: 5!important;}
+    #gallery{ column-count: 4!important;}
 }
 @media screen and (min-width: 1800px){
-    #gallery{ column-count:7!important;}
+    #gallery{ column-count:5!important;}
 }
-@media screen and (min-width: 2000px){
-    #gallery{ column-count:8!important;}
-}
+
 #gallery{
     min-height: 3.45rem;
     background-color: rgb(255, 255, 255);
-    display: block;
     flex-direction: row;
     flex-wrap: wrap;
     font-size: 0;
@@ -834,16 +832,16 @@ margin-top: 0.12rem;
     min-width: 10.92rem;
     padding-top: 0.2rem;
     position: absolute;
-    column-count: 4;
+    column-count: 3;
     column-gap: 0px;
-    column-fill: balance;
-    column-rule:0;
+    column-span: all;
     padding-bottom: 0.5rem;
+    
 }
 .gallery-preview{
     outline: none!important;
     width: 100%;
-    
+    display: inline-block;
 }
 .gallery-link{
     cursor: zoom-in;
@@ -852,7 +850,7 @@ margin-top: 0.12rem;
 }
 .gallery-overlay{
     display: block;
-    background-color: rgba(0, 0, 0, 0.445);
+    background-color: #fcab1dad;
     height: 100%;
     width: 100%;
     opacity: 0;

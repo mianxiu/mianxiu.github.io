@@ -13,7 +13,8 @@ function UA(){
             mp3Player();
             nav()
             navGetAjax()
-            triangle()          
+            triangle()    
+            logo_other()      
         }       
     }
 }
@@ -99,12 +100,38 @@ function playListAry() {
     let playList = []
     let playPath = domin + '/music/'
 
-    for (const l of $('#playList>ol').children) {
-        playList.push(playPath + l.innerText + '.mp3')
+    //for (const l of $('#playList>ol').children) {
+    //    playList.push(playPath + l.innerText + '.mp3')
+    //}
+    for(let l =0;l<$('#playList>ol').children.length;l++){
+        playList.push(playPath + $('#playList>ol').children[l].innerText + '.mp3')
     }
     return playList
 }
 
+
+    /**
+     * 输入数组[],返回一个随机数组
+     * randomNum-[min,max]
+     * @param {array} array 
+     * @param {array} randomNum
+     */
+    function getRandom(array, randomNum) {
+        /**
+     * -输入区间，返回随机数
+     * @param {*} min 
+     * @param {*} max 
+     */
+        function getRandomArbitrary(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        let a_ = []
+        for (let i = 0; i < array.length; i++) {
+            a_.push(array[i] + getRandomArbitrary(randomNum[0], randomNum[1]) * 20)
+        }
+        return a_
+    }
 
 
 /**
