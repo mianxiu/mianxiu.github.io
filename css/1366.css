@@ -171,6 +171,7 @@ body{
 }
 
 
+
 @keyframes logo_other{
 from{opacity: 0;}
 to{opacity: 1;}
@@ -830,13 +831,13 @@ margin-top: 0.12rem;
     font-size: 0;
     max-width: 2000px;
     min-width: 10.92rem;
-    padding-top: 0.2rem;
+    padding-top: 0.3rem;
     position: absolute;
     column-count: 3;
     column-gap: 0px;
-    column-span: all;
     padding-bottom: 0.5rem;
-    
+    transform: translateY(0);
+    transition: transform 0.3s;
 }
 .gallery-preview{
     outline: none!important;
@@ -844,31 +845,29 @@ margin-top: 0.12rem;
     display: inline-block;
 }
 .gallery-link{
-    cursor: zoom-in;
     display:inline-block;
     position: relative;
+    animation: gallery-overlay 0.4s;
 }
-.gallery-overlay{
-    display: block;
-    background-color: #fcab1dad;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: opacity 0.2s;
-    position: absolute;
-}
-.gallery-link:hover > div.gallery-overlay{
-    opacity: 1;
+.gallery-none{
+    display: none!important;
 }
 
-.gallery-text{
-    color: white;
-    display: block;
-    height: 20px;
-    font-size: 20px;
-    font-weight: lighter;
-    padding: .40rem .40rem;
-    text-align: left;
+@keyframes gallery-overlay{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+.gallery-overlay{ 
+    color: rgb(255, 255, 255);
+    display: none;
+    background-color: #181818d3;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    animation: gallery-overlay 0.4s;
+    position: absolute;
+
+
 }
 
 .gallery-num{
@@ -879,6 +878,67 @@ margin-top: 0.12rem;
     position: absolute;
     font-size: 14px;
     color: #ffffffb3;
-    padding: 4px 4px;
+    padding: .04rem .04rem;
     text-align: center;
+}
+
+
+.gallery-title,.gallery-tags,.gallery-description{
+    padding: 0 .1rem;
+}
+.gallery-title{
+    margin:.4rem .2rem .2rem .2rem;
+    font-size: 22px;
+    text-align: left;
+}
+
+.gallery-description{
+    display: none;
+    font-size:22px;
+    text-align: left;
+    font-weight: lighter;
+}
+
+.gallery-tags{
+ 
+}
+.gallery-tag{
+    color: white;
+    font-size: 16px; 
+    padding: 6px 6px;
+    margin: 4px 4px;
+    border: 1px solid rgba(221, 221, 221, 0.17);
+    border-radius: 5px;
+}
+
+.gallery-tag:hover{
+    background-color:#ff990180;
+}
+.gallery-tag > em {
+    padding: 2px 2px;  
+}
+
+.gallery-toggle-tags{
+    font-size: 16px;
+    margin-top: -.8rem;
+    position: absolute;
+    
+}
+
+.toggle-tag{
+    color:rgb(162, 162, 162);
+    font-size: 16px; 
+    padding: 6px 6px;
+    margin: 4px 4px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 5px;
+   
+}
+.toggle-tag > em{
+    color: #0cb691;
+    margin-right: .05rem;
+}
+
+.toggle-tag > .c{
+
 }

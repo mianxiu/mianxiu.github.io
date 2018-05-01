@@ -59,6 +59,8 @@ let writeContent = function () {
             break;
         case 'gallery':
             hidden('on')
+            gallery_overlay()
+            gallery_tag()
             break;
         case 'essay':
             hidden('on')
@@ -393,7 +395,7 @@ window.addEventListener('popstate', (e) => {
 
 
 // 返回首页
-function logo_other(){
+function logo_other() {
     $('#logo_other').addEventListener('click', () => {
         $('#rule').innerHTML = ''
         $('#index').style.display = 'block'
@@ -402,4 +404,69 @@ function logo_other(){
         navHidden('off')
         triangle()
     })
+}
+
+
+
+//  画廊遮罩层
+function gallery_overlay() {
+    // css hover冒泡有时无效
+    $('#gallery').addEventListener('mouseenter', () => {
+        console.log('222')
+        for (let i = 0; i < $All('.gallery-link').length; i++) {
+            $All('.gallery-link')[i].addEventListener('mouseenter', event => {
+                event.target.children[0].style.display = 'block'
+            })
+            $All('.gallery-link')[i].addEventListener('mouseleave', event => {
+                event.target.children[0].style.display = 'none'
+            })
+        }
+    })
+}
+
+function gallery_tag() {
+    // match tags
+    let g = $('.gallery-toggle-tags')
+    for (let el of $All('.gallery-link')) {
+        el.addEventListener('click', event => {
+            let toggleTag = function (elInnerText) {
+                // elInnertext is .gallery-tag's innertext
+                for (let e of $All('.gallery-link')) {
+                    if (!new RegExp(elInnerText, 'gm').test(e.getAttribute('data-tag'))) {
+                        e.classList.add('gallery-none')
+                    }
+                }
+                if (!new RegExp(elInnerText, 'gm').test(g.getAttribute('data-toggle-tag'))) {
+                    $('#gallery').style.transform = 'translateY(.5rem)'
+                    g.innerHTML += '<span class="toggle-tag"><em>#</em>' + elInnerText.replace(/#/, '') + '<span class="c"></span></span>'
+                    g.setAttribute('data-toggle-tag', g.getAttribute('data-toggle-tag') + elInnerText)
+                }
+            }
+
+            if (event.target.className === 'gallery-tag') {
+                // 筛选tag
+                toggleTag(event.target.innerText)
+
+            } else if (event.target.tagName === 'EM') {
+                toggleTag(event.target.parentNode.innerText)
+            }
+        })
+    }
+
+    // toggle tags
+    g.addEventListener('click', event => {
+        if (event.target.className === 'toggle-tag') {
+            g.setAttribute('data-toggle-tag', g.getAttribute('data-toggle-tag').replace(new RegExp(event.target.innerText, 'gm'), ''))
+            for (let e of $All('.gallery-link')) {
+                if (new RegExp(g.getAttribute('data-toggle-tag'), 'gm').test(e.getAttribute('data-tag')) || g.getAttribute('data-toggle-tag') === 'undefined') {
+                    e.classList.remove('gallery-none')
+                }
+            }
+            event.target.remove()
+            if (g.getAttribute('data-toggle-tag') === '') {
+                $('#gallery').style = ''
+            }
+        }
+    })
+
 }
