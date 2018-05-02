@@ -22,7 +22,7 @@
     html{ font-size: 220px!important;}
 }
  @media screen and (min-width:4000px){
-    html{ font-size: 270px!important;}
+    html{ font-size: 280px!important;}
 }
 
 /* 1366X768 rem
@@ -182,7 +182,7 @@ to{opacity: 1;}
     position: absolute;
     right: 0;
     animation: logo_other 0.6s;
-    z-index: 100;
+    z-index: 4;
     margin-top: -1.48rem;
     display: block;
     transform: scale(0.5, 0.5);
@@ -720,12 +720,6 @@ margin-top: 0.12rem;
     height: 0.19rem;
     display: flex;
 }
-.date::before{
-  /*  content: url('/public/icon/essay/date.svg');*/
-}
-._tags::before{
-   /* content: url('/public/icon/essay/folder.svg');*/
-}
 
 
 #essayRight{
@@ -829,11 +823,12 @@ margin-top: 0.12rem;
     flex-direction: row;
     flex-wrap: wrap;
     font-size: 0;
-    max-width: 2000px;
+    max-width: 20rem;
     min-width: 10.92rem;
     padding-top: 0.3rem;
     position: absolute;
     column-count: 3;
+    column-span: all;
     column-gap: 0px;
     padding-bottom: 0.5rem;
     transform: translateY(0);
@@ -860,14 +855,15 @@ margin-top: 0.12rem;
 .gallery-overlay{ 
     color: rgb(255, 255, 255);
     display: none;
-    background-color: #181818d3;
+   /* */
     height: 100%;
     width: 100%;
     opacity: 1;
     animation: gallery-overlay 0.4s;
     position: absolute;
 
-
+background-image: url("../icon/gallery/overlay.png");
+background-color: #353535b3;
 }
 
 .gallery-num{
@@ -880,6 +876,7 @@ margin-top: 0.12rem;
     color: #ffffffb3;
     padding: .04rem .04rem;
     text-align: center;
+    right: 0;
 }
 
 
@@ -887,58 +884,93 @@ margin-top: 0.12rem;
     padding: 0 .1rem;
 }
 .gallery-title{
-    margin:.4rem .2rem .2rem .2rem;
+    margin:.2rem .1rem 20px .1rem;
     font-size: 22px;
     text-align: left;
 }
 
 .gallery-description{
-    display: none;
-    font-size:22px;
+    margin: 0rem .1rem 20px .1rem;
+    display: block;
+    opacity: .7;
+    font-size:16px;
     text-align: left;
     font-weight: lighter;
 }
 
 .gallery-tags{
- 
+    white-space:nowrap;
 }
 .gallery-tag{
     color: white;
     font-size: 16px; 
-    padding: 6px 6px;
-    margin: 4px 4px;
-    border: 1px solid rgba(221, 221, 221, 0.17);
+    padding: .06rem .06rem;
+    margin: .04rem .04rem;
+    border: .01rem solid rgba(221, 221, 221, 0.17);
     border-radius: 5px;
 }
 
 .gallery-tag:hover{
-    background-color:#ff990180;
+    background-color:#ffffff4d;
 }
 .gallery-tag > em {
     padding: 2px 2px;  
 }
 
 .gallery-toggle-tags{
-    font-size: 16px;
-    margin-top: -.8rem;
+    display: flex;
+    font-size: .16rem;
+    margin-top: -.6rem;
     position: absolute;
-    
+    white-space: nowrap;
 }
 
 .toggle-tag{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
     color:rgb(162, 162, 162);
-    font-size: 16px; 
-    padding: 6px 6px;
-    margin: 4px 4px;
-    border: 1px solid rgb(221, 221, 221);
-    border-radius: 5px;
+    font-size: .16rem; 
+    padding: .04rem .08rem;
+    margin: .04rem .04rem .04rem 0;
+    border: .01rem solid rgb(221, 221, 221);
+    border-radius: .05rem;
    
 }
-.toggle-tag > em{
-    color: #0cb691;
-    margin-right: .05rem;
+
+
+.toggle-tag::after{
+    content: url("../icon/gallery/delete.svg");
+    width: .14rem;
+    height: .14rem;
+    display: block;
+    justify-content: center;
+    align-content: center;
+    transform: scale(.45,.45);
+    position: relative;
+    margin-left: 10px;
 }
 
-.toggle-tag > .c{
+#galleryContext > div{  
+    
+}
 
+.gallery-imgs{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: white;
+}
+.gallery-img{
+    border: 1px solid rgb(194, 194, 194);
+    display: initial; 
+    max-width: 100vmin;
+    max-height: 100vh;
+    margin-bottom: .2rem;
 }

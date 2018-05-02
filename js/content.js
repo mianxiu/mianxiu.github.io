@@ -66,9 +66,6 @@ let writeContent = function () {
             hidden('on')
             essayAjax()
             break;
-        case 'about':
-            hidden('on')
-            break;
     }
 }
 
@@ -342,7 +339,7 @@ function essayAjax() {
     })
 
 
-
+    //
     let writeEssay = function () {
         document.documentElement.scrollTop = 0
         $('#essay').style.display = 'none'
@@ -365,7 +362,13 @@ function essayAjax() {
             $('#logo_other').style.display = ''
             document.documentElement.scrollTop = originScroll
         })
+
+        history.pushState(1,'','')
+        window.addEventListener('popstate',event=>{
+            $('#essayClose').click()
+        })
     }
+
 
     //分页
     $('#pages').addEventListener('click', e => {
@@ -389,6 +392,7 @@ function essayAjax() {
 
 }
 
+
 window.addEventListener('popstate', (e) => {
     var currentState = history.state;
 })
@@ -406,13 +410,10 @@ function logo_other() {
     })
 }
 
-
-
 //  画廊遮罩层
 function gallery_overlay() {
     // css hover冒泡有时无效
     $('#gallery').addEventListener('mouseenter', () => {
-        console.log('222')
         for (let i = 0; i < $All('.gallery-link').length; i++) {
             $All('.gallery-link')[i].addEventListener('mouseenter', event => {
                 event.target.children[0].style.display = 'block'
@@ -420,6 +421,8 @@ function gallery_overlay() {
             $All('.gallery-link')[i].addEventListener('mouseleave', event => {
                 event.target.children[0].style.display = 'none'
             })
+
+            //
         }
     })
 }
@@ -427,22 +430,24 @@ function gallery_overlay() {
 function gallery_tag() {
     // match tags
     let g = $('.gallery-toggle-tags')
+    let toggleTag = function (elInnerText) {
+        // elInnertext is .gallery-tag's innertext
+        for (let e of $All('.gallery-link')) {
+            if (!new RegExp(elInnerText, 'gm').test(e.getAttribute('data-tag'))) {
+                e.classList.add('gallery-none')
+            }
+        }
+        if (!new RegExp(elInnerText, 'gm').test(g.getAttribute('data-toggle-tag'))) {
+            $('#gallery').style.transform = 'translateY(.5rem)'
+            g.innerHTML += '<span class="toggle-tag">' + elInnerText.replace(/#/, '') + '</span>'
+            g.setAttribute('data-toggle-tag', g.getAttribute('data-toggle-tag') + elInnerText)
+        }
+    }
+
+    // 监听点击
     for (let el of $All('.gallery-link')) {
         el.addEventListener('click', event => {
-            let toggleTag = function (elInnerText) {
-                // elInnertext is .gallery-tag's innertext
-                for (let e of $All('.gallery-link')) {
-                    if (!new RegExp(elInnerText, 'gm').test(e.getAttribute('data-tag'))) {
-                        e.classList.add('gallery-none')
-                    }
-                }
-                if (!new RegExp(elInnerText, 'gm').test(g.getAttribute('data-toggle-tag'))) {
-                    $('#gallery').style.transform = 'translateY(.5rem)'
-                    g.innerHTML += '<span class="toggle-tag"><em>#</em>' + elInnerText.replace(/#/, '') + '<span class="c"></span></span>'
-                    g.setAttribute('data-toggle-tag', g.getAttribute('data-toggle-tag') + elInnerText)
-                }
-            }
-
+            
             if (event.target.className === 'gallery-tag') {
                 // 筛选tag
                 toggleTag(event.target.innerText)
@@ -450,13 +455,37 @@ function gallery_tag() {
             } else if (event.target.tagName === 'EM') {
                 toggleTag(event.target.parentNode.innerText)
             }
+            else if (/gallery-overlay|gallery-title|gallery-description|gallery-tags/gm.test( event.target.className)) {
+                let dataHref = /gallery-title|gallery-description|gallery-tags/gm.test( event.target.className) ? event.target.parentNode.parentNode.getAttribute('data-href') : event.target.parentNode.getAttribute('data-href') 
+                let context = function (event) {
+                    $('#galleryContext > div').innerHTML += this.responseText
+                }
+
+                ajax(dataHref + '/context.html', context)
+                document.documentElement.scrollTop = 0;
+                history.replaceState(null, null, dataHref + '/')
+                $('#gallery').style.display = 'none'
+
+
+
+                // 后退监听
+                history.pushState(1,'','')
+                let back = function (event){
+                    $('#galleryContext > div').innerHTML = ''
+                    $('#gallery').style.display = ''
+                    history.replaceState(null, null,'/')
+                }
+                window.addEventListener('popstate',back,false)
+            }
         })
     }
+
+ 
 
     // toggle tags
     g.addEventListener('click', event => {
         if (event.target.className === 'toggle-tag') {
-            g.setAttribute('data-toggle-tag', g.getAttribute('data-toggle-tag').replace(new RegExp(event.target.innerText, 'gm'), ''))
+            g.setAttribute('data-toggle-tag', g.getAttribute('data-toggle-tag').replace(new RegExp('#' + event.target.innerText, 'gm'), ''))
             for (let e of $All('.gallery-link')) {
                 if (new RegExp(g.getAttribute('data-toggle-tag'), 'gm').test(e.getAttribute('data-tag')) || g.getAttribute('data-toggle-tag') === 'undefined') {
                     e.classList.remove('gallery-none')
