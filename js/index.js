@@ -191,3 +191,47 @@ function mobile(){
     
 }
 
+
+
+
+//2 更改播放器样式
+/**change mp3Player type
+ *-normal and min
+ * @param {*} type 
+ */
+function mp3PlayerType(type) {
+    switch (type) {
+        case 'normal':
+            $('#mp3CSS').href = './css/mp3Player_normal.css'
+            break;
+        case 'min':
+            $('#mp3CSS').href = './css/mp3Player_min.css'
+            break;
+    }
+}
+
+
+/**-是url
+ *-run是函数
+ *-默认传入this.responseText
+ * @param {*} url 
+ * @param {*} run 
+ */
+function ajax(url, run) {
+    var oReq = new XMLHttpRequest();
+
+
+    oReq.responseType = ''
+    oReq.open("get", url, true);
+    console.log(oReq.status)
+
+    $('#ajaxProgress').style = 'height:100vh;background-color:rgba(0,0,0,0.5);'
+    oReq.onprogress = function () {
+        console.log('LOADING', oReq.status);
+
+        $('#ajaxProgress').style = 'height:0vh;background-color:rgba(0,0,0,0);'
+    }
+    oReq.onload = run;
+    oReq.send(null);
+
+}

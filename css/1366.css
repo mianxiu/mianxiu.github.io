@@ -641,6 +641,10 @@ margin-top: 0.12rem;
     margin-top: 0.20rem;
     margin-bottom: .2rem
 }
+
+.essay-context > img {
+    width: 100vmin;
+}
 #essayText > div > h3.essay-title{
     margin-top: 0.30rem;
     margin-bottom: 0.10rem;
