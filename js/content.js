@@ -1,4 +1,12 @@
 let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('font-size').replace('px'))
+// 关闭按钮
+listenEassyClose = function(){
+    let back = function () {
+        console.log('close')
+        history.go(-1)
+    }
+    $('#essayClose').addEventListener('click', back, false)
+}
 // logo_other
 function logo_other() {
     $('#logo_other').addEventListener('click', () => {
@@ -96,12 +104,8 @@ let writeEssay = function () {
 }
 
 function essayAjax() {
-    // 关闭按钮
-    $('#essayClose').addEventListener('click', () => {
-        history.back()
-        //  history.replaceState({ name: 'essay' }, "mianxiu's blog", '/')
-    })
 
+    //  history.replaceState({ name: 'essay' }, "mianxiu's blog", '/')
     let originScroll = 0
     $('#essayLeft').addEventListener('click', e => {
         if (e.target.tagName === 'H3') {
@@ -120,6 +124,7 @@ function essayAjax() {
                 type: 'forward'
             }
 
+           
             history.pushState(state, ePostH3, './essay/' + ePostDate + '/' + ePostH3 + '/')
         }
     })
@@ -267,11 +272,11 @@ window.addEventListener("popstate", event => {
                 document.documentElement.scrollTop = history.state.scrollTop
                 break;
             case 'essayContext':
-            // 前进动作
+                // 前进动作
                 ajax(window.location.href + '/context.html', writeEssay)
                 break;
             case 'galleryContext':
-                ajax(window.location.href + '/context.html', function(){
+                ajax(window.location.href + '/context.html', function () {
                     $('#galleryContext > div').innerHTML += this.responseText
                 })
                 $('#gallery').style.display = 'none'

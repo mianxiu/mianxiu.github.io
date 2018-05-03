@@ -14,7 +14,8 @@ function UA(){
             nav()
             navGetAjax()
             triangle()    
-            logo_other()      
+            logo_other()
+            listenEassyClose()
         }       
     }
 }
