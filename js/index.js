@@ -16,6 +16,7 @@ function UA(){
             triangle()    
             logo_other()
             listenEassyClose()
+            hljs.initHighlightingOnLoad();
         }       
     }
 }

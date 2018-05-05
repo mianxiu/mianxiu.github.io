@@ -11,25 +11,27 @@ a{
 a:hover{
     color: #fcab1d;
 }
-code{
+code.code{
+    font-size: 16px;
     background-color: #d4e7e9;
-    padding: 2px 4px;
+    padding: 2px 8px;
     color: #6da8d5;
     border-radius: 2px;
-    font-family: sans serif;
+    font-family: 'sans serif';
+    font-weight: lighter;
+    margin: 0 6px;
 }
+
 pre{
-    background-color: rgb(0,36,81);
-    padding:20px 20px;
-    border-radius: 4px;
+    padding:0.2rem 0.4rem .4rem .4rem!important;
+    border-radius: .12rem;
     border: 1px solid #001939;
-    color: #c8daf0;
-    font-family: sans serif;
+    font-family: 'sans serif';
     font-size: 18px;
-    display: block;
     white-space:pre-wrap;
 
 }
+
 pre > p {
     padding: 0 10px;
     margin: 0 0;

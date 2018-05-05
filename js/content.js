@@ -13,6 +13,7 @@ function logo_other() {
         $('#rule').innerHTML = ''
         $('#index').style.display = 'block'
         $('#background-box').style.display = 'block'
+        $('#logo_other').style.display = ''
         mp3PlayerType('normal')
         navHidden('off')
         triangle()
@@ -99,8 +100,10 @@ let writeEssay = function () {
     $('#main').style = 'display:flex;justify-content:center;height:100vh;'
     $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog"
     $('#logo_other').style.display = 'none'
-
-
+    // 高亮
+     for (let i of document.querySelectorAll('pre')) {
+            hljs.highlightBlock(i)
+        }
 }
 
 function essayAjax() {
@@ -206,6 +209,7 @@ function gallery_tag() {
                 let dataHref = /gallery-title|gallery-description|gallery-tags/gm.test(event.target.className) ? event.target.parentNode.parentNode.getAttribute('data-href') : event.target.parentNode.getAttribute('data-href')
                 let context = function (event) {
                     $('#galleryContext > div').innerHTML += this.responseText
+                    $('title').innerText = dataHref.split('/').pop() + ' | Mianxiu\'s Blog...'
                 }
                 let state = {
                     name: 'galleryContext',
@@ -213,8 +217,11 @@ function gallery_tag() {
                 }
                 ajax(dataHref + '/context.html', context)
                 $('#gallery').style.display = 'none'
+                $('#logo_other').style.display = 'none'
+      
                 history.pushState(state, null, dataHref + '/')
                 document.documentElement.scrollTop = 0;
+                
             }
         })
     }
@@ -262,14 +269,16 @@ window.addEventListener("popstate", event => {
                 $('#navigation').style.filter = 'blur(0px)'
                 $('#essayText>div').innerHTML = ''
                 $('#main').style = ''
-                $('title').innerText = "Mianxiu's blog"
+                $('title').innerText = 'Mianxiu\'s blog'
                 $('#logo_other').style.display = ''
                 document.documentElement.scrollTop = history.state.scrollTop
                 break;
             case 'gallery':
                 $('#gallery').style.display = ''
                 $('#galleryContext > div').innerHTML = ''
+                $('#logo_other').style.display = ''
                 document.documentElement.scrollTop = history.state.scrollTop
+                $('title').innerText = 'Mianxiu\'s Blog...'
                 break;
             case 'essayContext':
                 // 前进动作
@@ -277,14 +286,17 @@ window.addEventListener("popstate", event => {
                 break;
             case 'galleryContext':
                 ajax(window.location.href + '/context.html', function () {
-                    $('#galleryContext > div').innerHTML += this.responseText
+                    $('#galleryContext > div').innerHTML += this.responseText         
                 })
                 $('#gallery').style.display = 'none'
+                $('#logo_other').style.display = 'none'
                 document.documentElement.scrollTop = 0
+                $('title').innerText = decodeURI(window.location.href.slice(0,-1).split('/').pop()) + ' | Mianxiu\'s Blog...'
                 break;
         }
     } else {
         $('#logo_other').click()
+        $('title').innerText = 'Mianxiu\'s Blog...'
         history.pushState({ name: 'home' }, '', '')
     }
 

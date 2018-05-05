@@ -1,0 +1,32 @@
+<div class="_banner" style="background-image:url('宽高相等的自适应图片展示CSS.md_banner.png');"></div>
+<h3 class="essay-title">宽高相等的自适应图片展示页面CSS</h3>
+<span class="_date">May 5, 2018</span>
+<span class="_tags"><em>#</em>#BLOG搭建的记录</span>
+<div class="essay-context"><p>要做个画廊页面</p>
+<h3>column-count</h3>
+<p>一开始在瀑布流、网格流之间摇摆不定。看了几个主流的设计类、CG类网站，突然找到TJ大神的摄影站 <a href="http://tjholowaychuk.com" target="_blank">tjholowaychuk</a> ,就决定是瀑布流了。看了下网站的CSS，发现是用<code class="code">column-count</code>来布局。一边写一边查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-count" target="_blank">column-count | MDN</a> </p>
+<p>效果可以，但如果图片质量不高，并且量大的时候，观感大副下降。</p>
+<img src="宽高相等的自适应图片展示CSS.md_140327.png" alt="">
+<h3>width:calc(100% / 5)</h3>
+<p><a href="https://www.artstation.com" target="_blank">Artstation</a>的网格流中规中矩。不过对于我po的图来说，很合适。把预览图改为<code class="code">background-image</code>，每个方格用<code class="code">width:calc( 100% / grid-num )</code>。但有却一个问题,格子的宽高无法相等？google了下,和又看了下A站的CSS，发现竟然用伪元素<code class="code">::before</code>的<code class="code">margin-top:100%</code>来撑开。😂</p>
+<pre><code>
+.gallery-link{
+    width: calc(100% / 5);
+    display:inline-block;
+    position: relative;
+    animation: gallery-overlay 0.4s;
+    overflow: hidden;
+    background-position: center;
+    background-clip: content-box;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: cover;
+}
+.gallery-link::before{
+    content: '';
+    display: block;
+    margin-top: 100%;
+}
+</code></pre>
+<p>至此问题解决。</p>
+</div>

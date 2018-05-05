@@ -2,6 +2,7 @@
     position: fixed;
     left: 0;
     transform: translateY(3.50rem);
+    top: 0;
 }
 #mp3Player{
    margin-top: .54rem;

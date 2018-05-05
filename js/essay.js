@@ -13,6 +13,10 @@
         document.querySelector('#essayClose').style.transform = ''  
         window.location.href = '/'
         })
+        // 高亮
+        for (let i of document.querySelectorAll('pre')) {
+            hljs.highlightBlock(i)
+        }
     }
     oReq.responseType = ''
     oReq.open("get", './context.html', true);
