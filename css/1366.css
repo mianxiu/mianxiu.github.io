@@ -593,6 +593,7 @@ margin-top: 0.12rem;
 
 #essayLeft > ul {
     font-size: 0;
+    padding: 0!important;
 }
 #essayLeft > ul > li{
     display: flex;
