@@ -1,4 +1,5 @@
 @import url('./markdown.css');
+@import url('./mixxopost.css');
 
 @media screen and (min-width: 1600px){
     html{ font-size: 120px!important;}
@@ -35,11 +36,13 @@ html{
     font-size: 100px;
 }
 html,body{  
-    font-family:Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3",Microsoft JhengHei,WenQuanYi Micro Hei,"Microsoft YaHei",sans-serif;    
-    background-color: white;
+    font-family:"Segoe UI","Hiragino Sans GB","Hiragino Sans GB W3",Microsoft JhengHei,WenQuanYi Micro Hei,"Microsoft YaHei",sans-serif;    
     height: 100%;
     margin: 0 0;  
     
+}
+.html-color {
+   /* background-color: rgb(44, 44, 44); */
 }
 hr{
     margin: 0.4rem 0rem;
@@ -183,7 +186,7 @@ to{opacity: 1;}
     right: 0;
     animation: logo_other 0.6s;
     z-index: 4;
-    margin-top: -1.48rem;
+    margin-top: -1.5rem;
     display: block;
     transform: scale(0.5, 0.5);
     
@@ -595,23 +598,26 @@ margin-top: 0.12rem;
     font-size: 0;
     padding: 0!important;
 }
+
 #essayLeft > ul > li{
     display: flex;
     flex-flow: column-reverse;
 }
-#essayLeft > ul > li h3{
+#essayLeft > ul > li h1{
     line-height: .28rem;
     margin-top: 0.6em;
     margin-bottom: 0em;
 }
-#essayLeft > ul > li:hover h3 {
+#essayLeft > ul > li:hover h1 {
     
 }
 
 
-#essayText > div:nth-child(1) > h3:nth-child(1),#essayText > div:nth-child(1) > h3:nth-child(2){
+#essayText > div:nth-child(1) > h1:nth-child(1),#essayText > div:nth-child(1) > h1:nth-child(2){
     font-size: 1.68em;
     font-weight: 600;
+    width: 100vw;
+    max-width: 7.6rem;
 }
 
 #essayLeft > ul:nth-child(1) > li:nth-child(1){
@@ -635,27 +641,46 @@ margin-top: 0.12rem;
     overflow: hidden;
 }
 #essayText > div:nth-child(1) > p{
-    font-size: 0.18rem;
-}
-.essay-context{
-    width: 6.80rem;
-    margin-top: 0.20rem;
-    margin-bottom: .2rem
+    font-size: 0.16rem;
 }
 
-.essay-context > img {
-    width: 100vmin;
+#essayText > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-#essayText > div > h3.essay-title{
+
+.essay-context{
+    max-width: 7.6rem;
+    min-width:2.4rem;
+    margin-top: 0.18rem;
+    margin-bottom: .2rem;   
+    width: 100vw;
+}
+
+
+.essay-context > img {
+    width: 100%;
+
+}
+#essayText > div > h1.essay-title{
     margin-top: 0.30rem;
     margin-bottom: 0.10rem;
 }
 
-._banner + h3 + span + span + div.essay-context,
-._banner + h3,
-._banner + h3 + span._date
+
+._banner + h1 + span + span + div.essay-context,
+._banner + h1,
+._banner + h1 + span._date,
+#essayText > div > span._date
 {
-    margin-left: calc(50vw - 3.40rem);
+    width: 100vw;
+    max-width: 7.6rem;
+  /*  margin-left: calc(50vw - 4rem); */
+}
+#essayText > div > span._date + span._tags{
+    margin-top: -0.21rem;
+    margin-left: -3.4rem;
 }
 .preview-img{
     background-size:cover;
@@ -687,6 +712,11 @@ margin-top: 0.12rem;
     background-position: center;
     background-color:rgb(241, 241, 241);
     
+}
+._banner::after{
+    content: '';
+    display: block;
+    margin-top: 3rem;
 }
 
 ._youtube{
@@ -746,7 +776,7 @@ margin-top: 0.12rem;
     z-index: 4;
     display: flex;
     flex-direction: row-reverse;
-    font-size: 0.2rem;
+    font-size: 0.16rem;
     justify-content: center;
     margin-bottom: .2rem;
    
@@ -754,9 +784,7 @@ margin-top: 0.12rem;
  div.essay-context > p{
     color:rgb(90, 90, 90);
 }
-#essayText h3{
-    margin-top: 2.4em;
-}
+
 
 #essayClose{
     background-color: rgba(255, 255, 255, 0.39);
@@ -830,20 +858,18 @@ margin-top: 0.12rem;
 }
 #gallery{
     min-height: 3.45rem;
-    background-color: rgb(255, 255, 255);
     flex-direction: row;
     flex-wrap: wrap;
     font-size: 0;
-    max-width: 20rem;
-    min-width: 10.92rem;
+    width: 100vw;
     padding-top: 0.3rem;
-    position: relative; 
+    position: absolute; 
     column-span: all;
     column-gap: 0px;
     padding-bottom: 0.5rem;
     transform: translateY(0);
     transition: transform 0.3s;
-    
+    margin-left: calc((10.92rem - 100vw) / 2); 
 }
 .gallery-preview{
     outline: none!important;
@@ -989,10 +1015,10 @@ background-color: #353535b3;
     top: 0;
     left: 0;
     z-index: 5;
-    background-color: white;
+    margin-top: .28rem;
 }
 .gallery-img{
-    border: 1px solid rgb(227, 227, 227);
+    box-shadow: 0 0 10px rgb(29, 29, 29);
     display: initial; 
     max-width: 100vmin;
     max-height: 100vh;
@@ -1008,12 +1034,13 @@ background-color: #353535b3;
     width: 30%;
     display: block;
     height: 2rem;
-    background-color: rgb(255, 255, 255);
 }
 .gallery-context-title{
+    color: white;
     font-size: .24rem;
 }
 .gallery-context-description{
+    color: white;
     font-size: .20rem;
     font-weight: lighter;
 }
@@ -1025,6 +1052,7 @@ background-color: #353535b3;
 }
 
 .gallery-previous,.gallery-next{
+    transform: scale(.7);
     padding: .1rem .4rem;
     width: .2rem;
     margin-top: calc(50vh - .15rem);

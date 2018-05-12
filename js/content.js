@@ -1,15 +1,22 @@
 let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('font-size').replace('px'))
 // 关闭按钮
+// 添加hash会写入多余history,该值用与记数=>308行
+let historylength = ''
 listenEassyClose = function(){
     let back = function () {
         console.log('close')
-        history.go(-1)
+        if(historylength!==''){
+            history.go(historylength - history.length - 2)
+        }else{
+            history.go(-1)
+        }      
     }
     $('#essayClose').addEventListener('click', back, false)
 }
 // logo_other
 function logo_other() {
     $('#logo_other').addEventListener('click', () => {
+        $('html').classList.remove('html-color')
         $('#rule').innerHTML = ''
         $('#index').style.display = 'block'
         $('#background-box').style.display = 'block'
@@ -17,6 +24,7 @@ function logo_other() {
         mp3PlayerType('normal')
         navHidden('off')
         triangle()
+        
     })
 }
 
@@ -55,6 +63,7 @@ let writeContent = function () {
             triangle()
             break;
         case 'gallery':
+            $('html').classList.add('html-color')
             hidden('on')
             gallery_overlay()
             gallery_tag()
@@ -111,15 +120,15 @@ function essayAjax() {
     //  history.replaceState({ name: 'essay' }, "mianxiu's blog", '/')
     let originScroll = 0
     $('#essayLeft').addEventListener('click', e => {
-        if (e.target.tagName === 'H3') {
+        if (e.target.tagName === 'H1') {
             originScroll = document.documentElement.scrollTop
             let eP = e.target.parentNode
             //标题
-            let ePostH3 = eP.children[2].innerText
+            let ePostH1 = eP.children[2].innerText
             //日期
             let date = new Date(eP.children[0].innerText)
             let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 10 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
-            ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH3) + '/context.html', writeEssay)
+            ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH1) + '/context.html', writeEssay)
             // url斜杠！！！
             let state = {
                 name: 'essayContext',
@@ -128,7 +137,7 @@ function essayAjax() {
             }
 
            
-            history.pushState(state, ePostH3, './essay/' + ePostDate + '/' + ePostH3 + '/')
+            history.pushState(state, ePostH1, './essay/' + ePostDate + '/' + ePostH1 + '/')
         }
     })
 
@@ -259,9 +268,9 @@ window.addEventListener("popstate", event => {
     if (history.state !== null) {
         switch (history.state.name) {
             case 'home':
-                $('#logo_other').click()
-                history.pushState({ name: 'home' }, '', '')
-                break;
+              //  $('#logo_other').click()
+              //  history.pushState({ name: 'home' }, '', '')
+             //   break;
             case 'essay':
                 $('#essayClose').style.transform = ''
                 $('#essay').style.display = ''
@@ -271,6 +280,7 @@ window.addEventListener("popstate", event => {
                 $('#main').style = ''
                 $('title').innerText = 'Mianxiu\'s blog'
                 $('#logo_other').style.display = ''
+                $('html').classList.remove('html-color')
                 document.documentElement.scrollTop = history.state.scrollTop
                 break;
             case 'gallery':
@@ -279,6 +289,7 @@ window.addEventListener("popstate", event => {
                 $('#logo_other').style.display = ''
                 document.documentElement.scrollTop = history.state.scrollTop
                 $('title').innerText = 'Mianxiu\'s Blog...'
+                $('html').classList.add('html-color')
                 break;
             case 'essayContext':
                 // 前进动作
@@ -292,17 +303,22 @@ window.addEventListener("popstate", event => {
                 $('#logo_other').style.display = 'none'
                 document.documentElement.scrollTop = 0
                 $('title').innerText = decodeURI(window.location.href.slice(0,-1).split('/').pop()) + ' | Mianxiu\'s Blog...'
-                break;
+                break;              
         }
-    } else {
-        $('#logo_other').click()
-        $('title').innerText = 'Mianxiu\'s Blog...'
-        history.pushState({ name: 'home' }, '', '')
+    } else if(/#fn/g.test(window.location.href) ){  
+        console.log('fn-don\'t' + historylength) 
+        if(historylength ===''){
+            historylength = history.length
+        }
     }
-
-    //if(history.state.type === 'forward'){
-    //    ajax(window.location.href + '/context.html',writeEssay)
-    //}
+    else{
+        
+     //   console.log('fn')
+     //   $('#logo_other').click()
+     //   $('title').innerText = 'Mianxiu\'s Blog...'
+     //   $('html').classList.remove('html-color')
+     //   history.pushState({ name: 'home' }, '', '')
+    }
 
 });
 

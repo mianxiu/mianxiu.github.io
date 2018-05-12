@@ -1,34 +1,68 @@
 /**/
 h1{}
-h2{}
-h3{}
+.essay-context h2{
+    margin-top: .44rem;
+}
+.essay-context h3{
+    font-size: .24rem;
+}
 h4{}
 a{
     text-decoration-line: none;
-    color: #70a0db;
+    color: #ff861e;
     transition: color 0.2s;
 }
 a:hover{
-    color: #fcab1d;
+    
+}
+code{
+    font-family: 'Consola,sans serif!important';
 }
 code.code{
-    font-size: 16px;
-    background-color: #d4e7e9;
-    padding: 2px 8px;
-    color: #6da8d5;
-    border-radius: 2px;
-    font-family: 'sans serif';
+    font-size: .14rem;
+    background-color: #cee1ff;
+    padding: 0px 8px;
+    color: #368acb;
+    border-radius: 8px;
     font-weight: lighter;
-    margin: 0 6px;
+    
+}
+ol.fn-ol::before{
+    content: '';
+    display: block;
+    background-color: rgb(231, 231, 231);
+    height: .05rem;
+    width: .6rem;
+    margin: .4rem 0 .15rem -.16rem;
+}
+ol.fn-ol{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.14rem;
+    padding-left: .16rem;
+}
+ol.fn-ol a.fnref {
+    font-size:0.12rem;
+    margin-left: .1rem;
+    
+}
+.foot-note > a{
+    font-weight: 600;
 }
 
+
+@media screen and (min-width: 7.6rem){
+    pre{
+        border-radius: .06rem!important;
+    }
+}
 pre{
-    padding:0.2rem 0.4rem .4rem .4rem!important;
-    border-radius: .12rem;
-    border: 1px solid #001939;
-    font-family: 'sans serif';
-    font-size: 18px;
+    padding:0rem 0.2rem .2rem .2rem !important;
+    border-radius: 0rem;
+    border: 1px solid #001939; 
+    font-size: .14rem;
     white-space:pre-wrap;
+    line-height: 0;
+    line-height: 1.2em;
 
 }
 

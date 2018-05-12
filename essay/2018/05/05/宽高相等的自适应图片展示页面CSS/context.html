@@ -1,14 +1,13 @@
 <div class="_banner" style="background-image:url('宽高相等的自适应图片展示CSS.md_banner.png');"></div>
-<h3 class="essay-title">宽高相等的自适应图片展示页面CSS</h3>
+<h1 class="essay-title">宽高相等的自适应图片展示页面CSS</h1>
 <span class="_date">May 5, 2018</span>
-<span class="_tags"><em>#</em>#BLOG搭建的记录</span>
+<span class="_tags"><em>#</em>BLOG搭建的记录</span>
 <div class="essay-context"><p>要做个画廊页面</p>
-<h3>column-count</h3>
-<p>一开始在瀑布流、网格流之间摇摆不定。看了几个主流的设计类、CG类网站，突然找到TJ大神的摄影站 <a href="http://tjholowaychuk.com" target="_blank">tjholowaychuk</a> ,就决定是瀑布流了。看了下网站的CSS，发现是用<code class="code">column-count</code>来布局。一边写一边查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-count" target="_blank">column-count | MDN</a> </p>
-<p>效果可以，但如果图片质量不高，并且量大的时候，观感大副下降。</p>
+<h2>column-count</h2>
+<p>一开始在瀑布流、网格流之间摇摆不定。看了几个主流的设计类、CG类网站，突然找到TJ大神的摄影站 <a href="http://tjholowaychuk.com" target="_blank">tjholowaychuk</a> ,就决定是瀑布流了。看了下网站的CSS，发现是用<code class="code">column-count</code>来布局。一边写一边查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-count" target="_blank">column-count | MDN</a>。缺点是如果图片质量不高，并且量大的时候，排版反倒混乱。</p>
 <img src="宽高相等的自适应图片展示CSS.md_140327.png" alt="">
-<h3>width:calc(100% / 5)</h3>
-<p><a href="https://www.artstation.com" target="_blank">Artstation</a>的网格流中规中矩。不过对于我po的图来说，很合适。把预览图改为<code class="code">background-image</code>，每个方格用<code class="code">width:calc( 100% / grid-num )</code>。但有却一个问题,格子的宽高无法相等？google了下,和又看了下A站的CSS，发现竟然用伪元素<code class="code">::before</code>的<code class="code">margin-top:100%</code>来撑开。😂</p>
+<h2>width:calc(100% / 5)</h2>
+<p><a href="https://www.artstation.com" target="_blank">Artstation</a>CG站的网格流中规中矩，适合我po的图(涂鸦...)。预览图从<code class="code">img</code>标签改为<code class="code">background-image:url()</code>，每个方格用<code class="code">width:calc( 100% / grid-num )</code>平分。出现问题：格子的宽高无法相等。又看了下A站的CSS，是用伪元素<code class="code">::before</code>的<code class="code">margin-top:100%</code>来撑开。至此问题解决。</p>
 <pre><code>
 .gallery-link{
     width: calc(100% / 5);
@@ -19,7 +18,6 @@
     background-position: center;
     background-clip: content-box;
     background-repeat: no-repeat;
-    overflow: hidden;
     background-size: cover;
 }
 .gallery-link::before{
@@ -28,5 +26,31 @@
     margin-top: 100%;
 }
 </code></pre>
-<p>至此问题解决。</p>
+<h2>marginleft:calc() 居中</h2>
+<p>由于我想要页面满屏显示，但我用ajax来获取二级页面，不可避免的css会被顶层样式影响，例</p>
+<pre><code>
+    &lt;div id="main">
+        &lt;div id="gallery">
+            &lt;!--ajax-->
+        &lt;/div>
+    &lt;/div>
+</code></pre>
+<pre><code>
+html{
+    font-size:100px;
+    display:flex;
+    justify-content: center;
+}
+#main{
+    width:10.92rem;
+}
+</code></pre>
+<p>在一级宽度小于二级这种情况下，<code class="code">#gallery</code>设置<code class="code">position:absolute; width:100vw</code>后因为<code class="code">#main</code>影响产生左边距,利用<code class="code">calc</code>可以很方便的去除使div居中。</p>
+<img src="宽高相等的自适应图片展示CSS.md_calc.jpg" alt="">
+<pre><code>
+    #gallery{
+        width:100vw;
+        margin-left: calc((10.92rem - 100vw) / 2); 
+    }
+</code></pre>
 </div>
