@@ -1,3 +1,77 @@
-.mixxo-post{
-    
-}
+#mixxo-post {
+  margin-bottom: 40px; }
+  #mixxo-post > section.mixxo-post {
+    width: 100%;
+    background: white;
+    border: 1px solid #ededed;
+    transition: all .3s; }
+    #mixxo-post > section.mixxo-post > section.mixxo-user-info {
+      display: flex;
+      flex-direction: row;
+      border-bottom: 1px dashed #ededed;
+      overflow: hidden; }
+      #mixxo-post > section.mixxo-post > section.mixxo-user-info > div {
+        height: 36px;
+        width: 33.33%;
+        padding: 10px 20px; }
+    #mixxo-post > section.mixxo-post > section.mixxo-comments #mp-comment {
+      z-index: 1;
+      position: relative;
+      padding: 20px;
+      background: 0 0;
+      border: 0;
+      color: #262626;
+      font-size: 0.14rem;
+      min-height: 18px;
+      height: auto;
+      outline: 0;
+      resize: none;
+      overflow: auto;
+      word-wrap: break-word;
+      transition: min-height .3s; }
+      #mixxo-post > section.mixxo-post > section.mixxo-comments #mp-comment::before {
+        content: attr(data-placeholder);
+        position: absolute;
+        display: block; }
+    #mixxo-post > section.mixxo-post > section.mixxo-comments label {
+      color: #b9b9b9;
+      margin-top: 10px;
+      font-size: 0.14rem;
+      position: absolute;
+      padding: 0 20px; }
+    #mixxo-post > section.mixxo-post > section:nth-child(3) {
+      text-align: right; }
+
+.mp-comment-minHeight {
+  min-height: 36px; }
+
+.mp-label-trans {
+  transform: scale(0.8) translateY(-10px); }
+
+.mp-ui-pt {
+  padding-top: 10px; }
+
+.mp-label {
+  line-height: 36px;
+  color: #999999;
+  font-size: .14rem;
+  position: absolute;
+  transform-origin: left;
+  transition: transform .2s;
+  cursor: text; }
+
+.mp-info {
+  height: 36px;
+  outline: 0;
+  border: 0;
+  width: 100%;
+  transition: padding .2s; }
+
+#mp-post {
+  width: 80px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border: 0; }
+
+/*# sourceMappingURL=mixxopost.css.map */

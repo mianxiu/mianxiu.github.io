@@ -113,6 +113,8 @@ let writeEssay = function () {
      for (let i of document.querySelectorAll('pre')) {
             hljs.highlightBlock(i)
         }
+
+        mixxoPost.mpAnimation();
 }
 
 function essayAjax() {

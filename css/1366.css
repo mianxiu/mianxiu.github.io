@@ -186,7 +186,7 @@ to{opacity: 1;}
     right: 0;
     animation: logo_other 0.6s;
     z-index: 4;
-    margin-top: -1.5rem;
+    margin-top: -1.55rem;
     display: block;
     transform: scale(0.5, 0.5);
     
@@ -1018,7 +1018,6 @@ background-color: #353535b3;
     margin-top: .28rem;
 }
 .gallery-img{
-    box-shadow: 0 0 10px rgb(29, 29, 29);
     display: initial; 
     max-width: 100vmin;
     max-height: 100vh;
@@ -1069,4 +1068,10 @@ background-color: #353535b3;
 }
 .gallery-next{
     right: 0; 
+}
+
+/*评论系统*/
+#mixxo-post{
+    max-width: 7.6rem;
+    width: 96vw;
 }

@@ -6,7 +6,7 @@
     oReq.onload = function () {
 
         document.documentElement.scrollTop = 0
-        document.querySelector('#essayText>div').innerHTML = this.responseText
+        document.querySelector('#essay-response').innerHTML = this.responseText
         document.querySelector('#essayClose').style.transform = 'scale(1,1)'
         document.querySelector('#main').style = 'display:flex;justify-content:center;height:100vh;'
         document.querySelector('#essayClose').addEventListener('click', () => {
@@ -17,6 +17,7 @@
         for (let i of document.querySelectorAll('pre')) {
             hljs.highlightBlock(i)
         }
+        mixxoPost.mpAnimation();
     }
     oReq.responseType = ''
     oReq.open("get", './context.html', true);
