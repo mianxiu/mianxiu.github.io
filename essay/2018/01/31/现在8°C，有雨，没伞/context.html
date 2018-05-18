@@ -17,15 +17,16 @@
 <p>不能。</p>
 <p>一天过得好快。好快。</p>
 <p>睡了。</p>
-</div><div id="mixxo-post"><section class="mixxo-post">
+</div><div id="mixxo-post"><section class="mixxo-post" type="comment">
+<span class="mp-reply-tips"></span>
     <section class="mixxo-user-info">
         <div>
-            <label class="mp-label" for="mp-name">昵称</label>
-            <input id="mp-name" class="mp-info" name="name" autocomplete="off" type="text">
+            <label class="mp-label" for="mp-nick">昵称</label>
+            <input id="mp-nick" class="mp-info" name="name" autocomplete="off" type="text">
         </div>
         <div>
-            <label class="mp-label" for="mp-email">邮箱</label>
-            <input id="mp-email" class="mp-info" name="email" autocomplete="off" type="text">
+            <label class="mp-label" for="mp-mail">邮箱</label>
+            <input id="mp-mail" class="mp-info" name="mail" autocomplete="off" type="text">
         </div>
         <div>
             <label class="mp-label" for="mp-website">网站</label>
@@ -33,13 +34,15 @@
         </div>
     </section>
     <section class="mixxo-comments">
-            <div data-placeholder="留言..." contenteditable="true" id="mp-comment"></div>
-            <label for="mp-comment">1000</label>
+            <div data-placeholder="" contenteditable="true" id="mp-comment"></div>
+            <label for="mp-comment"><span></span></label>
     </section>
-    <section>
+    <section class="mixxo-footer">
     <button type="button" id="mp-post">回复</button>
     </section>
-    <section class="user-comments">
-
-    </section>
-</section></div>
+</section>
+<div class="mixxo-user-comments">
+        <div id="mp-comments-panel"><div id="mp-comments-num"><span></span>Comments</div></div>
+        <ul id="mp-post-lists"></ul>
+</div>
+<div id="mp-overlay"></div></div>

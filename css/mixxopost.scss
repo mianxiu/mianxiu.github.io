@@ -1,0 +1,303 @@
+$global-width:7.6rem; //留言框宽度，后期需要把主宽架放`文章页内`
+
+$mp-info-height:36px;
+$radius:6px;
+
+// reply
+#mixxo-post{
+.mixxo-post-reply{
+    z-index: 2;
+    max-width: 80vw;
+    position: fixed;
+    left: 0;
+    top:0;
+    margin-top: 20vh;
+    border:0;
+    margin-left: calc((100vw - 80vw)/2);
+    box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.36);
+    transition: width .2s,height .2s;
+    }
+}
+.mp-overlay{
+    z-index:1;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    
+}
+
+// 次优先级
+section.mixxo-post {
+    border-radius: $radius;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    border: 1px solid #ededed; 
+    transition: box-shadow .3s;
+    overflow: hidden;
+}
+
+
+#mixxo-post{
+    margin-bottom:40px;
+    max-width: $global-width;
+    width: 96vw;
+ > section.mixxo-post {
+
+    > .mp-reply-tips{
+        display: none;
+        color: #5a5a5a;
+        padding: .2rem;
+        margin-bottom: 0;
+        background-color: #f8f8f8;
+
+        .mpr-footer{
+            display: none;
+        }
+    }
+    > section.mixxo-user-info{
+        display: flex;
+       // flex-direction: row;
+        flex-direction: column;
+        border-bottom: 1px dashed #ededed;
+        overflow: hidden;
+
+        > div{
+            height:$mp-info-height;
+          //  width: 33.33%;
+            padding:10px 20px;
+        }
+    }
+
+    > section.mixxo-comments {
+        $font-size:.14rem;
+        #mp-comment{
+            z-index: 1;
+            position: relative;
+            padding:20px;
+            background: 0 0;
+            border: 0;
+            color: #262626;
+            font-size: $font-size;  
+            min-height: 48px;
+            height: auto;
+            outline: 0;
+            resize: none;
+            overflow: auto;
+            word-wrap: break-word; 
+            transition: min-height .3s;
+
+            &::before{
+                color: #e2e2e2;
+                content: attr(data-placeholder);
+                position: absolute;
+                display: block
+            }
+
+        }
+        label{
+            color: #8c8c8c;
+            margin-top: 10px;
+            font-size: .12rem;
+            position: absolute;
+            padding: 0 20px;
+
+            span{       
+                color: #cbcbcb;
+            }
+        }
+
+     } 
+    > section.mixxo-footer {
+        text-align: right;
+        }
+    }
+}
+
+// 后写的默认比前优先级高
+@media screen and (min-width: 800px){
+    #mixxo-post{
+        .mixxo-post-reply{
+            max-width: 60vw;
+            margin-left: calc((100vw - 60vw)/2);    
+            }
+        }
+}
+
+@media screen and (min-width: 600px){
+    #mixxo-post{
+        > section.mixxo-post {
+            > section.mixxo-user-info{
+                flex-direction: row;
+                > div{
+                    width: 33.33%;
+                }
+            }
+        }
+    }
+}
+
+.mixxo-user-comments{
+   > #mp-post-lists{
+       padding-left: 0;
+       > .mp-post-li{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    #mp-comments-panel{
+        display: flex;
+        align-items: center;
+        margin: .3rem 0;
+        font-weight: bold;
+        justify-content: space-between;
+        #mp-comments-num{    
+            font-size: .2rem;
+            span{
+                margin-right: .1rem;
+            }
+        } 
+        .mp-admin-panel{
+            overflow: hidden;
+            border: 1px solid #e8e8e8;
+            background-color: #f7f7f7;
+            font-size: .14rem;
+            font-weight: normal;
+            height: 30px;
+            width: 30px;
+            border-radius: 1rem;
+            color: #a4a4a4;
+            transition: border .2s,width .2s,color .2s,background-color .2s;
+
+            &:hover{
+                background-color:#50d396;
+                color: white;
+                border: 1px solid #32b879;
+                width: 86px;
+            }
+
+            > span{
+                display: block;
+                width: 86px;
+                margin-top: .04rem;
+                margin-left: .06rem;
+            }
+        }
+    }
+   
+}
+
+.mp-reply{
+    list-style: none;
+    margin-left: .14rem;
+}
+
+.mp-post-body,.mp-reply-tips{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: .2rem;
+     .headimg {
+        $px:40px;
+        display: block;
+        min-width: $px;
+        min-height: $px;
+        max-width: $px;
+        max-height: $px;
+        background-color: #ee5e5e;
+        border-radius : 10rem;
+        margin-right: .2rem;    
+    }
+    div {
+        $margin: .05rem;
+        $font-size:.14rem;
+        .mpr-header{
+            margin-bottom: $margin;
+            .mpr-nick {
+                font-weight: 600;
+
+                .mp-writer{
+                    padding: 0px 6px 2px;
+                    border-radius: .9rem;
+                    font-size: .12rem;
+                    margin: 0 8px;
+                    background-color: #fcab1d;
+                    color: white;
+                }
+            }
+
+            .mpr-date{
+                padding-left: .1rem;
+                font-weight: lighter;
+                font-size: $font-size;
+                color: #878787;
+            }
+        }
+        .mpr-body{
+            font-size: $font-size;
+            span {
+                color: #9c9c9c;
+            }
+        }
+        .mpr-footer{
+            color: #b7b7b7;
+            font-size: $font-size;
+            font-weight: lighter;
+            margin: $margin 0;
+            
+            span{
+                &:hover{
+                    color: #19b997;
+                }
+            }
+            .mpr-delete{
+                margin-left: .1rem;
+                &:hover{
+                    color: #b91919;    
+                }
+            }
+        }
+    }
+
+}
+
+
+
+
+
+.mp-comment-minHeight {
+    min-height: 64px!important;
+}
+
+.mp-label-trans{
+    transform: scale(.8) translateY(-10px);
+}
+.mp-ui-pt{
+    padding-top: 10px;
+}
+.mp-label{
+    line-height: 36px;
+    color: rgb(153, 153, 153);
+    font-size: .14rem;
+    position: absolute;
+    transform-origin: left;
+    transition: transform .2s;
+    cursor: text;
+}
+.mp-info{
+    height: $mp-info-height;
+    outline: 0;
+    border: 0;
+    width: 100%;
+    transition: padding .2s;
+}
+
+#mp-post{
+    width: 80px;
+    height: 36px;
+    background-color: rgb(0, 0, 0);  
+    color: white;
+    border: 0;
+    outline: none;
+}

@@ -161,7 +161,7 @@ function nav() {
         navBlock.style.marginLeft = (navQuarterW * (o + 1) - (0.48 * navQuarterW)) + 'px'
     })
 
-    navUl.addEventListener('click', (e) => {
+    navUl.addEventListener('click', e => {
         for (p of navSpan) {
             p.style = ''
         }

@@ -18,6 +18,7 @@
             hljs.highlightBlock(i)
         }
         mixxoPost.mpAnimation();
+        mixxoPost.getComments(window.location.pathname)
     }
     oReq.responseType = ''
     oReq.open("get", './context.html', true);
