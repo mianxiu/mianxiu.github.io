@@ -1,7 +1,7 @@
 $global-width:7.6rem; //留言框宽度，后期需要把主宽架放`文章页内`
 
 $mp-info-height:36px;
-$radius:6px;
+$radius:.06rem;
 
 // reply
 #mixxo-post{
@@ -90,9 +90,10 @@ section.mixxo-post {
             transition: min-height .3s;
 
             &::before{
+                cursor: text;
                 color: #e2e2e2;
                 content: attr(data-placeholder);
-                position: absolute;
+               // position: absolute;
                 display: block
             }
 
@@ -194,7 +195,9 @@ section.mixxo-post {
     margin-left: .14rem;
 }
 
-.mp-post-body,.mp-reply-tips{
+
+// 留言列表样式 
+.mp-post-body,.mp-reply-tips,.mp-delete-confirm{
     display: flex;
     flex-direction: row;
     margin-bottom: .2rem;
@@ -207,7 +210,8 @@ section.mixxo-post {
         max-height: $px;
         background-color: #ee5e5e;
         border-radius : 10rem;
-        margin-right: .2rem;    
+        margin-right: .2rem;
+        background-size: cover; 
     }
     div {
         $margin: .05rem;
@@ -252,6 +256,7 @@ section.mixxo-post {
                 }
             }
             .mpr-delete{
+                display: none;
                 margin-left: .1rem;
                 &:hover{
                     color: #b91919;    
@@ -263,7 +268,43 @@ section.mixxo-post {
 }
 
 
-
+.mp-delete-confirm{
+    width: 50vw;
+    padding: .2rem;
+    position: fixed;
+    top: 20vh;
+    display: none;
+    left: 0;
+    z-index: 2;
+    border-radius: .1rem;
+    background-color: white;
+    margin-left: calc((100vw - 50vw)/2);
+    div {
+     width: 100%;
+     .mpr-footer{
+       > div{
+        text-align: right;
+        font-weight: 700;
+        margin-top: .3rem;
+            span.mpr-cancel {
+                margin-right: .1rem;
+            }
+            span.mpr-delete{
+                margin-left: 0;
+                background-color: #fa2959;
+                color: #ffffffeb;   
+                padding: .06rem .1rem;
+                border-radius: 1rem;
+            
+                &:hover{
+                    color: #ffffffeb;
+                    background-color: #be2549;
+                }
+            }
+        }
+    }
+  }
+}
 
 
 .mp-comment-minHeight {
@@ -300,4 +341,34 @@ section.mixxo-post {
     color: white;
     border: 0;
     outline: none;
+    &:hover{
+        background-color: #32b879;
+        transition: background-color .1s;
+    }
+}
+
+@keyframes mpSuccesstTip{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-1rem);}
+    99%{transform:translateY(.6rem);}
+}
+.mp-success{
+    display: none;
+}
+.mp-success-tips{
+    display: flex;
+    animation-duration: 1.4s;
+    animation-name: mpSuccesstTip;
+    animation-timing-function:ease-in-out;
+    align-items: center;
+    justify-content:center;
+    color: white;
+    z-index: 999;
+    border-radius: .5rem;
+    left: calc((100vw - 20vw) / 2);
+    bottom: -.8rem;
+    position: fixed;
+    height: 60px;
+    width: 20vw;
+    background-color: #000000be;
 }

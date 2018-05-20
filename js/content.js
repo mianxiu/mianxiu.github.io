@@ -79,7 +79,6 @@ let writeContent = function () {
 
 //导航,ajax
 function navGetAjax() {
-
     $('#navigation ul').addEventListener('click', function (e) {
         if (e.target.tagName === 'A') {
             for (let i of $All('#navigation a')) {
@@ -114,7 +113,13 @@ let writeEssay = function () {
             hljs.highlightBlock(i)
         }
 
-        mixxoPost.mpAnimation();
+        mixxoPost.init({
+            appId:'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
+            appKey:'hp80QRKBtn8fT48ImaCJxqFE',
+            adminNick:'mianxiu',
+            md5CDN:'',
+            gravatarCDN:''
+        })
 }
 
 function essayAjax() {

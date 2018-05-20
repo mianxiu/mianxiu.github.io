@@ -1,15 +1,18 @@
 
 
-//域名的正则，用于匹配歌曲
-//new RegExp(/.*mianxiu\.github\.io\//)
-var musicRegex = new RegExp(/.*./)
-//根目录
-var URL = window.location.href.split(/\//)
-var domin = URL[0] + '//' + URL[2]
-var musicPath = domin + '/music/'
 
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
+
+    //域名的正则，用于匹配歌曲
+    //new RegExp(/.*mianxiu\.github\.io\//)
+    var musicRegex = new RegExp(/.*./)
+    //根目录
+    var URL = window.location.href.split(/\//)
+    var domin = URL[0] + '//' + URL[2]
+    var musicPath = domin + '/music/'
+
+
     let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('font-size').replace('px'))
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 

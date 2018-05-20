@@ -17,8 +17,14 @@
         for (let i of document.querySelectorAll('pre')) {
             hljs.highlightBlock(i)
         }
-        mixxoPost.mpAnimation();
-        mixxoPost.getComments(window.location.pathname)
+
+        mixxoPost.init({
+            appId:'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
+            appKey:'hp80QRKBtn8fT48ImaCJxqFE',
+            adminNick:'mianxiu',
+            md5CDN:'',
+            gravatarCDN:''
+        })
     }
     oReq.responseType = ''
     oReq.open("get", './context.html', true);

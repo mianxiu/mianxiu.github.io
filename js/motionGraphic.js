@@ -76,15 +76,10 @@ function triangle() {
 
     }
 
-
-
-
     G = triangleAndGetData('#gray', [[47, 73, 176, 297, 377, 209], '#f2f2f2', 'fill', 'none', 0, [0, 0]])
 
 
-
-
-    //1稍微的不规则移动点
+    // 1 稍微的不规则移动点
     let p_0 = [60, 15, 155, 248, 404, 241]
     let p = getRandom([60, 15, 155, 248, 404, 241], [-1, 1])
     let p_t = p_0.slice()
@@ -132,7 +127,7 @@ function triangle() {
 
 
 
-    //2跟随鼠标的parallax动画
+    // 2 跟随鼠标的parallax动画
     function mouseTriangle() {
         clientW = document.body.clientWidth
         clientH = document.body.clientHeight

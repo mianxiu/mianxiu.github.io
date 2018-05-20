@@ -20,7 +20,7 @@
   width: 100%; }
 
 section.mixxo-post {
-  border-radius: 6px;
+  border-radius: 0.06rem;
   width: 100%;
   background: white;
   border: 1px solid #ededed;
@@ -63,9 +63,9 @@ section.mixxo-post {
     word-wrap: break-word;
     transition: min-height .3s; }
     #mixxo-post > section.mixxo-post > section.mixxo-comments #mp-comment::before {
+      cursor: text;
       color: #e2e2e2;
       content: attr(data-placeholder);
-      position: absolute;
       display: block; }
   #mixxo-post > section.mixxo-post > section.mixxo-comments label {
     color: #8c8c8c;
@@ -128,11 +128,11 @@ section.mixxo-post {
   list-style: none;
   margin-left: .14rem; }
 
-.mp-post-body, .mp-reply-tips {
+.mp-post-body, .mp-reply-tips, .mp-delete-confirm {
   display: flex;
   flex-direction: row;
   margin-bottom: .2rem; }
-  .mp-post-body .headimg, .mp-reply-tips .headimg {
+  .mp-post-body .headimg, .mp-reply-tips .headimg, .mp-delete-confirm .headimg {
     display: block;
     min-width: 40px;
     min-height: 40px;
@@ -140,38 +140,69 @@ section.mixxo-post {
     max-height: 40px;
     background-color: #ee5e5e;
     border-radius: 10rem;
-    margin-right: .2rem; }
-  .mp-post-body div .mpr-header, .mp-reply-tips div .mpr-header {
+    margin-right: .2rem;
+    background-size: cover; }
+  .mp-post-body div .mpr-header, .mp-reply-tips div .mpr-header, .mp-delete-confirm div .mpr-header {
     margin-bottom: 0.05rem; }
-    .mp-post-body div .mpr-header .mpr-nick, .mp-reply-tips div .mpr-header .mpr-nick {
+    .mp-post-body div .mpr-header .mpr-nick, .mp-reply-tips div .mpr-header .mpr-nick, .mp-delete-confirm div .mpr-header .mpr-nick {
       font-weight: 600; }
-      .mp-post-body div .mpr-header .mpr-nick .mp-writer, .mp-reply-tips div .mpr-header .mpr-nick .mp-writer {
+      .mp-post-body div .mpr-header .mpr-nick .mp-writer, .mp-reply-tips div .mpr-header .mpr-nick .mp-writer, .mp-delete-confirm div .mpr-header .mpr-nick .mp-writer {
         padding: 0px 6px 2px;
         border-radius: .9rem;
         font-size: .12rem;
         margin: 0 8px;
         background-color: #fcab1d;
         color: white; }
-    .mp-post-body div .mpr-header .mpr-date, .mp-reply-tips div .mpr-header .mpr-date {
+    .mp-post-body div .mpr-header .mpr-date, .mp-reply-tips div .mpr-header .mpr-date, .mp-delete-confirm div .mpr-header .mpr-date {
       padding-left: .1rem;
       font-weight: lighter;
       font-size: 0.14rem;
       color: #878787; }
-  .mp-post-body div .mpr-body, .mp-reply-tips div .mpr-body {
+  .mp-post-body div .mpr-body, .mp-reply-tips div .mpr-body, .mp-delete-confirm div .mpr-body {
     font-size: 0.14rem; }
-    .mp-post-body div .mpr-body span, .mp-reply-tips div .mpr-body span {
+    .mp-post-body div .mpr-body span, .mp-reply-tips div .mpr-body span, .mp-delete-confirm div .mpr-body span {
       color: #9c9c9c; }
-  .mp-post-body div .mpr-footer, .mp-reply-tips div .mpr-footer {
+  .mp-post-body div .mpr-footer, .mp-reply-tips div .mpr-footer, .mp-delete-confirm div .mpr-footer {
     color: #b7b7b7;
     font-size: 0.14rem;
     font-weight: lighter;
     margin: 0.05rem 0; }
-    .mp-post-body div .mpr-footer span:hover, .mp-reply-tips div .mpr-footer span:hover {
+    .mp-post-body div .mpr-footer span:hover, .mp-reply-tips div .mpr-footer span:hover, .mp-delete-confirm div .mpr-footer span:hover {
       color: #19b997; }
-    .mp-post-body div .mpr-footer .mpr-delete, .mp-reply-tips div .mpr-footer .mpr-delete {
+    .mp-post-body div .mpr-footer .mpr-delete, .mp-reply-tips div .mpr-footer .mpr-delete, .mp-delete-confirm div .mpr-footer .mpr-delete {
+      display: none;
       margin-left: .1rem; }
-      .mp-post-body div .mpr-footer .mpr-delete:hover, .mp-reply-tips div .mpr-footer .mpr-delete:hover {
+      .mp-post-body div .mpr-footer .mpr-delete:hover, .mp-reply-tips div .mpr-footer .mpr-delete:hover, .mp-delete-confirm div .mpr-footer .mpr-delete:hover {
         color: #b91919; }
+
+.mp-delete-confirm {
+  width: 50vw;
+  padding: .2rem;
+  position: fixed;
+  top: 20vh;
+  display: none;
+  left: 0;
+  z-index: 2;
+  border-radius: .1rem;
+  background-color: white;
+  margin-left: calc((100vw - 50vw)/2); }
+  .mp-delete-confirm div {
+    width: 100%; }
+    .mp-delete-confirm div .mpr-footer > div {
+      text-align: right;
+      font-weight: 700;
+      margin-top: .3rem; }
+      .mp-delete-confirm div .mpr-footer > div span.mpr-cancel {
+        margin-right: .1rem; }
+      .mp-delete-confirm div .mpr-footer > div span.mpr-delete {
+        margin-left: 0;
+        background-color: #fa2959;
+        color: #ffffffeb;
+        padding: .06rem .1rem;
+        border-radius: 1rem; }
+        .mp-delete-confirm div .mpr-footer > div span.mpr-delete:hover {
+          color: #ffffffeb;
+          background-color: #be2549; }
 
 .mp-comment-minHeight {
   min-height: 64px !important; }
@@ -205,5 +236,35 @@ section.mixxo-post {
   color: white;
   border: 0;
   outline: none; }
+  #mp-post:hover {
+    background-color: #32b879;
+    transition: background-color .1s; }
+
+@keyframes mpSuccesstTip {
+  0% {
+    transform: translateY(0); }
+  50% {
+    transform: translateY(-1rem); }
+  99% {
+    transform: translateY(0.6rem); } }
+.mp-success {
+  display: none; }
+
+.mp-success-tips {
+  display: flex;
+  animation-duration: 1.4s;
+  animation-name: mpSuccesstTip;
+  animation-timing-function: ease-in-out;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 999;
+  border-radius: .5rem;
+  left: calc((100vw - 20vw) / 2);
+  bottom: -.8rem;
+  position: fixed;
+  height: 60px;
+  width: 20vw;
+  background-color: #000000be; }
 
 /*# sourceMappingURL=mixxopost.css.map */

@@ -40,17 +40,6 @@ function $All(dom) {
 }
 
 
-function r() {
-    var a = ['这是什么', '不会是真的吧', '开个玩乐', '无用功', '惨~~', 'surprise!!!', '........']
-    getRandomInt = function (min, max) {
-        min = Math.ceil(min)
-        max = Math.floor(max)
-        return Math.floor((Math.random() * (max - min)) + min)
-    }
-    $('button.k').innerText = a[getRandomInt(1, 5)]
-}
-
-
 /**
  * 输入DOM对象，返回相对父元素的索引值
  * @param {*} childNode 
@@ -185,12 +174,6 @@ function nav() {
         }
     }
 
-}
-
-
-//
-function mobile(){
-    
 }
 
 

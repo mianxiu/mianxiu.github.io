@@ -797,6 +797,7 @@ margin-top: 0.12rem;
     background-image: url('/icon/essay/close.svg');
     transform: scale(0,0);
     transition:transform 0.4s;
+    border-radius: .08rem;
 }
 
 
