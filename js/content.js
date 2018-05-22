@@ -1,33 +1,30 @@
+let styleDisplay = function (selector, type) {
+    if (selector.length !== undefined) {
+        selector.map(el => {
+            el.style.display = type
+        })
+    } else {
+        selector.style.display = type
+    }
+}
+
+
+
 let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('font-size').replace('px'))
 // 关闭按钮
 // 添加hash会写入多余history,该值用与记数=>308行
 let historylength = ''
-listenEassyClose = function(){
+listenEassyClose = function () {
     let back = function () {
         console.log('close')
-        if(historylength!==''){
+        if (historylength !== '') {
             history.go(historylength - history.length - 2)
-        }else{
+        } else {
             history.go(-1)
-        }      
+        }
     }
     $('#essayClose').addEventListener('click', back, false)
 }
-// logo_other
-function logo_other() {
-    $('#logo_other').addEventListener('click', () => {
-        $('html').classList.remove('html-color')
-        $('#rule').innerHTML = ''
-        $('#index').style.display = 'block'
-        $('#background-box').style.display = 'block'
-        $('#logo_other').style.display = ''
-        mp3PlayerType('normal')
-        navHidden('off')
-        triangle()
-        
-    })
-}
-
 
 //写入内容
 let writeContent = function () {
@@ -39,19 +36,20 @@ let writeContent = function () {
     let hidden = function (type) {
         switch (type) {
             case 'on':
-                $('#index').style.display = 'none'
-                $('#logo_other').style.display = 'block'
+                styleDisplay([$('#index'), $('#background-box')], 'none')
+                styleDisplay($('#logo_other'), 'block')
                 $('#allContext').style.marginTop = '1.2rem'
-                $('#background-box').style.display = 'none'
                 mp3PlayerType('min')
                 navHidden('on')
                 break;
             case 'off':
-                $('#index').style.display = 'block'
+                styleDisplay($('#index'), 'block')
                 mp3PlayerType('normal')
                 navHidden('off')
         }
     }
+
+
     let data_id = $('#rule').dataset.id
     let state = {
         name: data_id
@@ -77,49 +75,31 @@ let writeContent = function () {
     }
 }
 
-//导航,ajax
-function navGetAjax() {
-    $('#navigation ul').addEventListener('click', function (e) {
-        if (e.target.tagName === 'A') {
-            for (let i of $All('#navigation a')) {
-                i.className = ''
-            }
-            e.target.className = 'nav-active'
-            let u = e.target.innerText.toLowerCase()
-            //window.history.replaceState(null,null,'/'+u)  
-            //添加自定义data属性
-            $('#rule').dataset.id = u
-            u === 'home' ? writeContent() : ajax(u + '/index.html', writeContent)
-        }
-    })
-}
-
-
 
 //3 essay列表---------------------------------------------------------------------------
 //获取内容
 let writeEssay = function () {
     document.documentElement.scrollTop = 0
-    $('#essay').style.display = 'none'
+    styleDisplay([$('#logo_other'), $('#essay')], 'none')
     $('#essayText').style = 'height:100vh;width:100vw;'
     $('#navigation').style.filter = 'blur(0.04rem)'
     $('#essayText>div').innerHTML = this.responseText
     $('#essayClose').style.transform = 'scale(1,1)'
     $('#main').style = 'display:flex;justify-content:center;height:100vh;'
     $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog"
-    $('#logo_other').style.display = 'none'
-    // 高亮
-     for (let i of document.querySelectorAll('pre')) {
-            hljs.highlightBlock(i)
-        }
 
-        mixxoPost.init({
-            appId:'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
-            appKey:'hp80QRKBtn8fT48ImaCJxqFE',
-            adminNick:'mianxiu',
-            md5CDN:'',
-            gravatarCDN:''
-        })
+    // 高亮
+    for (let i of document.querySelectorAll('pre')) {
+        hljs.highlightBlock(i)
+    }
+
+    mixxoPost.init({
+        appId: 'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
+        appKey: 'hp80QRKBtn8fT48ImaCJxqFE',
+        adminNick: 'mianxiu',
+        frameWidth: '7.6rem'
+
+    })
 }
 
 function essayAjax() {
@@ -143,7 +123,7 @@ function essayAjax() {
                 type: 'forward'
             }
 
-           
+
             history.pushState(state, ePostH1, './essay/' + ePostDate + '/' + ePostH1 + '/')
         }
     })
@@ -180,13 +160,11 @@ function gallery_overlay() {
     $('#gallery').addEventListener('mouseenter', () => {
         for (let i = 0; i < $All('.gallery-link').length; i++) {
             $All('.gallery-link')[i].addEventListener('mouseenter', event => {
-                event.target.children[0].style.display = 'block'
+                styleDisplay(event.target.children[0], 'block')
             })
             $All('.gallery-link')[i].addEventListener('mouseleave', event => {
-                event.target.children[0].style.display = 'none'
+                styleDisplay(event.target.children[0], 'none')
             })
-
-            //
         }
     })
 
@@ -223,21 +201,31 @@ function gallery_tag() {
             // 详细页面
             else if (/gallery-overlay|gallery-title|gallery-description|gallery-tags/gm.test(event.target.className)) {
                 let dataHref = /gallery-title|gallery-description|gallery-tags/gm.test(event.target.className) ? event.target.parentNode.parentNode.getAttribute('data-href') : event.target.parentNode.getAttribute('data-href')
+
                 let context = function (event) {
                     $('#galleryContext > div').innerHTML += this.responseText
                     $('title').innerText = dataHref.split('/').pop() + ' | Mianxiu\'s Blog...'
+
+                    mixxoPost.init({
+                        appId: 'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
+                        appKey: 'hp80QRKBtn8fT48ImaCJxqFE',
+                        adminNick: 'mianxiu',
+                        flexDirection: 'column'
+                    })
+
+                    addScroll()
                 }
+
                 let state = {
                     name: 'galleryContext',
                     scrollTop: document.documentElement.scrollTop
                 }
                 ajax(dataHref + '/context.html', context)
-                $('#gallery').style.display = 'none'
-                $('#logo_other').style.display = 'none'
-      
+                styleDisplay([$('#gallery'), $('#logo_other')], 'none')
+
                 history.pushState(state, null, dataHref + '/')
                 document.documentElement.scrollTop = 0;
-                
+
             }
         })
     }
@@ -258,7 +246,66 @@ function gallery_tag() {
         }
     })
 
+
+
+
+
+    // galleryRight 绑定
+    let isScroll = function (deltaY, selector) {
+        let s = 100;
+        let d = Number(window.getComputedStyle($('.gallery-page'), null).height.replace(/px/g, ''))
+        let c = document.body.offsetHeight
+        let y = window.getComputedStyle(selector, null).transform.split(',')[5] === undefined ? 0 : Number(window.getComputedStyle(selector, null).transform.split(',')[5].replace(/\)/g, ''))
+        let h = Number(window.getComputedStyle(selector, null).height.replace(/px/g, ''))
+        if (window.getComputedStyle(selector, null).position === 'fixed') {
+            if (deltaY < 0) {
+                selector.style.transform = y - s < 0 ? '' : `translateY(${y+=s}px)`
+            } else {
+                if (c < h) {
+                    selector.style.transform = (c - h - d > y - s) && c < h ? `translateY(${c-h-d}px)` : `translateY(${y-=s}px)`
+                }
+            }
+        }
+
+    }
+
+
+    let addScroll = function () {
+        let galleryRight = $('.gallery-right')
+
+        //
+        let stopScroll = function (event) {
+            event.preventDefault()
+        }
+
+        let galleryRighHandle = function (event) {
+            isScroll(event.deltaY, galleryRight)
+        }
+
+   
+        galleryRight.addEventListener('mouseenter', event => {
+            let p = window.getComputedStyle(galleryRight, null).position
+            console.log(p)
+  
+
+            if (p === 'fixed') {
+                galleryRight.addEventListener('wheel', galleryRighHandle, false)
+                $('html').addEventListener('wheel', stopScroll, false)
+            }
+        })
+
+        galleryRight.addEventListener('mouseleave', event => {
+            console.log('leave')
+            galleryRight.removeEventListener('wheel', galleryRighHandle,false)
+            $('html').removeEventListener('wheel', stopScroll, false)
+        })
+        
+    }
+
+
+
 }
+
 
 
 
@@ -270,14 +317,16 @@ function gallery_tag() {
  * 当前页面层级为0,后退触发-1页面的stateObj,前进触发+1层
  */
 
-history.pushState({ name: 'home' }, '', '')
+history.pushState({
+    name: 'home'
+}, '', '')
 window.addEventListener("popstate", event => {
     if (history.state !== null) {
         switch (history.state.name) {
             case 'home':
-              //  $('#logo_other').click()
-              //  history.pushState({ name: 'home' }, '', '')
-             //   break;
+                  $('#logo_other').click()
+                  history.pushState({ name: 'home' }, '', '')
+                   break;
             case 'essay':
                 $('#essayClose').style.transform = ''
                 $('#essay').style.display = ''
@@ -304,28 +353,26 @@ window.addEventListener("popstate", event => {
                 break;
             case 'galleryContext':
                 ajax(window.location.href + '/context.html', function () {
-                    $('#galleryContext > div').innerHTML += this.responseText         
+                    $('#galleryContext > div').innerHTML += this.responseText
                 })
-                $('#gallery').style.display = 'none'
-                $('#logo_other').style.display = 'none'
+
+                styleDisplay([$('#gallery'), $('#logo_other')], 'none')
                 document.documentElement.scrollTop = 0
-                $('title').innerText = decodeURI(window.location.href.slice(0,-1).split('/').pop()) + ' | Mianxiu\'s Blog...'
-                break;              
+                $('title').innerText = decodeURI(window.location.href.slice(0, -1).split('/').pop()) + ' | Mianxiu\'s Blog...'
+                break;
         }
-    } else if(/#fn/g.test(window.location.href) ){  
-        console.log('fn-don\'t' + historylength) 
-        if(historylength ===''){
+    } else if (/#fn/g.test(window.location.href)) {
+        console.log('fn-don\'t' + historylength)
+        if (historylength === '') {
             historylength = history.length
         }
-    }
-    else{
-        
-     //   console.log('fn')
-     //   $('#logo_other').click()
-     //   $('title').innerText = 'Mianxiu\'s Blog...'
-     //   $('html').classList.remove('html-color')
-     //   history.pushState({ name: 'home' }, '', '')
+    } else {
+
+        //   console.log('fn')
+        //   $('#logo_other').click()
+        //   $('title').innerText = 'Mianxiu\'s Blog...'
+        //   $('html').classList.remove('html-color')
+        //   history.pushState({ name: 'home' }, '', '')
     }
 
 });
-

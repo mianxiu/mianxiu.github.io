@@ -4,7 +4,7 @@ $mp-info-height:36px;
 $radius:.06rem;
 
 // reply
-#mixxo-post{
+#mixxopost{
 .mixxo-post-reply{
     z-index: 2;
     max-width: 80vw;
@@ -40,7 +40,7 @@ section.mixxo-post {
 }
 
 
-#mixxo-post{
+#mixxopost{
     margin-bottom:40px;
     max-width: $global-width;
     width: 96vw;
@@ -119,7 +119,7 @@ section.mixxo-post {
 
 // 后写的默认比前优先级高
 @media screen and (min-width: 800px){
-    #mixxo-post{
+    #mixxopost{
         .mixxo-post-reply{
             max-width: 60vw;
             margin-left: calc((100vw - 60vw)/2);    
@@ -128,7 +128,7 @@ section.mixxo-post {
 }
 
 @media screen and (min-width: 600px){
-    #mixxo-post{
+    #mixxopost{
         > section.mixxo-post {
             > section.mixxo-user-info{
                 flex-direction: row;
@@ -372,3 +372,18 @@ section.mixxo-post {
     width: 20vw;
     background-color: #000000be;
 }
+
+.mp-next-hidden{
+    display: none;
+}
+#mp-next-page{
+    text-align: center;
+    border: 1px solid #ececec;
+    padding: .08rem;
+    color: #b0b0b0;
+    border-radius: .06rem;
+    &:hover{
+        background-color: #fcfcfc;
+    }
+}
+

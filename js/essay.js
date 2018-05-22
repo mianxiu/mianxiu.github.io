@@ -22,8 +22,7 @@
             appId:'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
             appKey:'hp80QRKBtn8fT48ImaCJxqFE',
             adminNick:'mianxiu',
-            md5CDN:'',
-            gravatarCDN:''
+            frameWidth:'7.6rem'
         })
     }
     oReq.responseType = ''

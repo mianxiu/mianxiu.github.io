@@ -141,24 +141,6 @@ function nav() {
         }
     })
 
-    //指示复位
-    let navA = $All('#navigation  a')
-    let navSpan = $All('.nav-span')
-
-    navUl.addEventListener('mouseleave', function () {
-        let o = getIndex($('.nav-active').parentNode)
-        navBlock.style.marginLeft = (navQuarterW * (o + 1) - (0.48 * navQuarterW)) + 'px'
-    })
-
-    navUl.addEventListener('click', e => {
-        for (p of navSpan) {
-            p.style = ''
-        }
-        if (e.target.tagName === 'A') {
-            navSpan[getIndex(e.target.parentNode)].style = 'opacity:1;margin-top:10px;'
-        }
-    })
-
 
     /*检测页面滚动*/
     window.onscroll = e=>{
@@ -220,3 +202,37 @@ function ajax(url, run) {
     oReq.send(null);
 
 }
+
+
+
+//导航,ajax
+function navGetAjax() {
+    $('#navigation ul').addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') {
+            for (let i of $All('#navigation a')) {
+                i.className = ''
+            }
+            e.target.className = 'nav-active'
+            let u = e.target.innerText.toLowerCase()
+            //window.history.replaceState(null,null,'/'+u)  
+            //添加自定义data属性
+            $('#rule').dataset.id = u
+            u === 'home' ? writeContent() : ajax(u + '/index.html', writeContent)
+        }
+    })
+}
+
+// logo_other 按钮
+function logo_other() {
+    $('#logo_other').addEventListener('click', () => {
+        $('html').classList.remove('html-color')
+        $('#rule').innerHTML = ''
+        $('#index').style.display = 'block'
+        $('#background-box').style.display = 'block'
+        $('#logo_other').style.display = ''
+        mp3PlayerType('normal')
+        navHidden('off')
+        triangle()
+    })
+}
+
