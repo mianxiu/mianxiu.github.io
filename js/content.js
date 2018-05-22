@@ -269,7 +269,7 @@ function gallery_tag() {
 
     }
 
-
+   
     let addScroll = function () {
         let galleryRight = $('.gallery-right')
 
@@ -282,24 +282,36 @@ function gallery_tag() {
             isScroll(event.deltaY, galleryRight)
         }
 
-   
+        let s1
         galleryRight.addEventListener('mouseenter', event => {
-            let p = window.getComputedStyle(galleryRight, null).position
-            console.log(p)
-  
-
+            let p = window.getComputedStyle(galleryRight, null).position       
             if (p === 'fixed') {
                 galleryRight.addEventListener('wheel', galleryRighHandle, false)
                 $('html').addEventListener('wheel', stopScroll, false)
             }
         })
 
-        galleryRight.addEventListener('mouseleave', event => {
-            console.log('leave')
+        galleryRight.addEventListener('mouseleave', event => {    
             galleryRight.removeEventListener('wheel', galleryRighHandle,false)
             $('html').removeEventListener('wheel', stopScroll, false)
+
+
+                  
         })
-        
+
+        // 用来 使galleryRight 复位
+        let clearStyle = ()=>{
+               let s = window.getComputedStyle(galleryRight, null).position
+                if(s === 'static'){
+                    galleryRight.style = ''
+                }
+
+                if(window.location.pathname === '/'){
+                    clearInterval(s1)
+                }
+        }
+        s1 = setInterval(clearStyle,1000)
+            
     }
 
 
