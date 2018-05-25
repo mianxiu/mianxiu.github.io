@@ -1,7 +1,5 @@
 @import url('./markdown.css');
-
 @import url('./mixxopost.css');
-
 @media screen and (min-width: 1600px) {
   html {
     font-size: 120px !important;
@@ -59,13 +57,13 @@
 
 html {
   font-size: 100px;
-  font-family: "Segoe UI","Hiragino Sans GB","Hiragino Sans GB W3",Microsoft JhengHei,WenQuanYi Micro Hei,"Microsoft YaHei",sans-serif;
+  font-family: "Segoe UI", "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft JhengHei, WenQuanYi Micro Hei, "Microsoft YaHei", sans-serif;
   height: 100%;
   margin: 0 0;
 }
 
 body {
-  font-family: "Segoe UI","Hiragino Sans GB","Hiragino Sans GB W3",Microsoft JhengHei,WenQuanYi Micro Hei,"Microsoft YaHei",sans-serif;
+  font-family: "Segoe UI", "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft JhengHei, WenQuanYi Micro Hei, "Microsoft YaHei", sans-serif;
   height: 100%;
   margin: 0 0;
 }
@@ -160,7 +158,7 @@ body {
   transition: margin-left 0.4s;
 }
 
-#navigation > ul li {
+#navigation>ul li {
   width: 1.30rem;
   display: flex;
   padding-top: 0.40rem;
@@ -174,15 +172,15 @@ body {
   margin-left: -0.40rem;
   color: #7f7f7f;
   opacity: 0;
-  transition: margin-top 0.2s,opacity 0.2s;
+  transition: margin-top 0.2s, opacity 0.2s;
 }
 
-#navigation > ul {
+#navigation>ul {
   li:hover div.nav-span {
     opacity: 1;
     margin-top: 0.10rem;
   }
-  > li {
+  >li {
     a {
       cursor: pointer;
       display: block;
@@ -209,12 +207,10 @@ body {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
-
 
 #logo_other {
   opacity: 1;
@@ -225,7 +221,7 @@ body {
   margin-top: -1.55rem;
   display: block;
   transform: scale(0.5, 0.5);
-  > span {
+  >span {
     &:nth-child(1) {
       font-size: .4rem;
       font-weight: bold;
@@ -255,7 +251,10 @@ body {
   margin-left: 4.00rem;
 }
 
-#triangle, #triangleRGB, #gray, #line {
+#triangle,
+#triangleRGB,
+#gray,
+#line {
   position: absolute;
 }
 
@@ -293,7 +292,9 @@ body {
   margin-left: 0.90rem;
 }
 
-#name, #year, #say {
+#name,
+#year,
+#say {
   font-size: 0.16rem;
 }
 
@@ -314,7 +315,9 @@ body {
   display: flex;
 }
 
-#github, #more, #mail {
+#github,
+#more,
+#mail {
   width: 0.30rem;
   height: 0.30rem;
 }
@@ -374,7 +377,8 @@ body {
   margin-left: 0.16rem;
   background-color: #fcab1d;
   > {
-    img, a {
+    img,
+    a {
       position: absolute;
       width: 0.30rem;
       height: 0.30rem;
@@ -419,8 +423,9 @@ body {
   }
 }
 
-#mail > {
-  img, a {
+#mail> {
+  img,
+  a {
     position: absolute;
     width: 0.30rem;
     height: 0.30rem;
@@ -456,83 +461,69 @@ body {
 }
 
 /*github*/
+
 @keyframes githubIcon_head {
   0% {
     transform: scale(1, 1);
   }
-
   50% {
     transform: scale(1, 1.1);
   }
-
   100% {
     transform: scale(1, 1);
   }
 }
-
 
 @keyframes githubIcon_L_1 {
   0% {
     transform: rotate(0deg);
   }
-
   50% {
     transform: rotate(30deg);
   }
-
   100% {
     transform: rotate(0deg);
   }
 }
-
 
 @keyframes githubIcon_L_2 {
   0% {
     transform: rotate(0deg);
   }
-
   50% {
     transform: rotate(60deg);
   }
-
   100% {
     transform: rotate(0deg);
   }
 }
-
 
 @keyframes githubIcon_L_3 {
   0% {
     transform: rotate(0deg);
   }
-
   50% {
     transform: rotate(-20deg);
   }
-
   100% {
     transform: rotate(0deg);
   }
 }
-
 
 @keyframes mouth {
   0% {
     transform: scale(0, 1);
     opacity: 1;
   }
-
   50% {
     transform: scale(1, 1);
     opacity: 1;
   }
-
   100% {
     transform: scale(0, 1);
     opacity: 1;
   }
 }
-
 
 #github:hover {
   #meow {
@@ -583,157 +574,121 @@ body {
   0% {
     transform: translatX(0, 0) rotate(0deg);
   }
-
   12.5% {
     transform: translate(0) rotate(45deg);
   }
-
   25% {
     transform: translate(0) rotate(45deg);
   }
-
   37.5% {
     ttransform: translate(0.04rem, 0) rotate(45deg);
   }
-
   50% {
     transform: translate(0.04rem, 0) rotate(45deg);
   }
-
   62.5% {
     transform: translate(0.04rem, -0.02rem) rotate(45deg);
   }
-
   75% {
     transform: translate(0.04rem, -0.02rem) rotate(45deg);
   }
-
   87.5% {
     transform: translate(0.04rem, -0.01rem) rotate(45deg);
   }
-
   100% {
     transform: translate(0, 0) rotate(0deg);
   }
 }
-
 
 @keyframes M_2 {
   0% {
     transform: translatX(0, 0) rotate(0deg);
   }
-
   12.5% {
     transform: translate(0) rotate(45deg);
   }
-
   25% {
     transform: translate(0) rotate(45deg);
   }
-
   37.5% {
     ttransform: translate(0, 0.04rem) rotate(45deg);
   }
-
   50% {
     transform: translate(0rem, 0.04rem) rotate(45deg);
   }
-
   62.5% {
     transform: translate(0.02rem, 0.04rem) rotate(45deg);
   }
-
   75% {
     transform: translate(0.02rem, 0.04rem) rotate(45deg);
   }
-
   87.5% {
     transform: translate(0.01rem, 0.04rem) rotate(45deg);
   }
-
   100% {
     transform: translate(0, 0) rotate(0deg);
   }
 }
-
 
 @keyframes M_3 {
   0% {
     transform: translatX(0, 0) rotate(0deg);
   }
-
   12.5% {
     transform: translate(0) rotate(45deg);
   }
-
   25% {
     transform: translate(0) rotate(45deg);
   }
-
   37.5% {
     ttransform: translate(-0.04rem, 0) rotate(45deg);
   }
-
   50% {
     transform: translate(-0.04rem, 0) rotate(45deg);
   }
-
   62.5% {
     transform: translate(-0.04rem, 0.02rem) rotate(45deg);
   }
-
   75% {
     transform: translate(-0.04rem, 0.02rem) rotate(45deg);
   }
-
   87.5% {
     transform: translate(-0.04rem, 0.01rem) rotate(45deg);
   }
-
   100% {
     transform: translate(0, 0) rotate(0deg);
   }
 }
 
-
 @keyframes M_4 {
   0% {
     transform: translatX(0, 0) rotate(0deg);
   }
-
   12.5% {
     transform: translate(0) rotate(45deg);
   }
-
   25% {
     transform: translate(0rem) rotate(45deg);
   }
-
   37.5% {
     ttransform: translate(0, -0.04rem) rotate(45deg);
   }
-
   50% {
     transform: translate(0rem, -0.04rem) rotate(45deg);
   }
-
   62.5% {
     transform: translate(-0.02rem, -0.04rem) rotate(45deg);
   }
-
   75% {
     transform: translate(-0.02rem, -0.04rem) rotate(45deg);
   }
-
   87.5% {
     transform: translate(-0.01rem, -0.04rem) rotate(45deg);
   }
-
   100% {
     transform: translate(0rem, 0rem) rotate(0deg);
   }
 }
-
 
 #more:hover {
   #M_1 {
@@ -755,43 +710,36 @@ body {
 }
 
 /*mail*/
+
 @keyframes block {
   0% {
     transform: scale(1, 1);
   }
-
   33% {
     transform: scale(0.5, 1.4);
   }
-
   66% {
     transform: scale(1.4, 0.5);
   }
-
   100% {
     transform: scale(1, 1);
   }
 }
-
 
 @keyframes line {
   0% {
     transform: scale(1, 1);
   }
-
   33% {
     transform: scale(1.4, 0.8);
   }
-
   66% {
     transform: scale(0.8, 1.4);
   }
-
   100% {
     transform: scale(1, 1);
   }
 }
-
 
 #mail:hover {
   #block {
@@ -809,6 +757,7 @@ body {
 }
 
 /*最后的post*/
+
 /*通过translateZ开启GPU较少旋转后的锯齿*/
 
 #lastPost {
@@ -827,7 +776,7 @@ body {
       opacity: 0.1;
     }
   }
-  > span:nth-child(3) {
+  >span:nth-child(3) {
     width: 2rem;
     display: block;
     position: absolute;
@@ -845,20 +794,21 @@ body {
 }
 
 /**/
+
 /**/
 
 /*eassay 随笔----------------*/
 
 #foot {
   position: absolute;
-  z-index: 5;
+  z-index: 9;
   transform: translateY(3.5rem);
 }
 
 #essay {
   display: flex;
   flex-direction: row;
-  position: absolute;
+ // position: absolute;
   justify-content: center;
   width: 10.92rem;
   background-color: white;
@@ -873,10 +823,10 @@ body {
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
   }
-  > ul {
+  >ul {
     font-size: 0;
     padding: 0 !important;
-    > li {
+    >li {
       display: flex;
       flex-flow: column-reverse;
       h1 {
@@ -889,8 +839,9 @@ body {
   }
 }
 
-#essayText > div:nth-child(1) > h1 {
-  &:nth-child(1), &:nth-child(2) {
+#essayText>div:nth-child(1)>h1 {
+  &:nth-child(1),
+  &:nth-child(2) {
     font-size: 1.68em;
     font-weight: 600;
     width: 100vw;
@@ -898,7 +849,7 @@ body {
   }
 }
 
-#essayLeft > ul:nth-child(1) > li:nth-child(1) {
+#essayLeft>ul:nth-child(1)>li:nth-child(1) {
   margin-top: 0.0rem;
 }
 
@@ -910,7 +861,7 @@ body {
   font-weight: 600;
 }
 
-#essayLeft > ul > li > p {
+#essayLeft>ul>li>p {
   font-weight: lighter;
   cursor: text;
   display: -webkit-box;
@@ -919,8 +870,8 @@ body {
   overflow: hidden;
 }
 
-#essayText > div {
-  &:nth-child(1) > p {
+#essayText>div {
+  &:nth-child(1)>p {
     font-size: 0.16rem;
   }
   display: flex;
@@ -934,19 +885,30 @@ body {
   margin-top: 0.18rem;
   margin-bottom: .2rem;
   width: 100vw;
-  > img {
+  >img {
     width: 100%;
+    outline: none !important;
+  }
+  >.essay-hr {
+    $border: 0.01rem solid #ededed;
+    border-top: $border;
+    border-bottom: $border;
+    margin: .6rem 7rem .6rem 0;
+    color: #c6c6c6;
+    font-weight: lighter;
+    padding: .2rem 0;
   }
 }
 
-#essayText > div > h1.essay-title {
+#essayText>div>h1.essay-title {
   margin-top: 0.30rem;
   margin-bottom: 0.10rem;
 }
 
-._banner + h1 {
-  + span {
-    + span + div.essay-context, &._date {
+._banner+h1 {
+  +span {
+    +span+div.essay-context,
+    &._date {
       width: 100vw;
       max-width: 7.6rem;
       /*  margin-left: calc(50vw - 4rem); */
@@ -957,11 +919,11 @@ body {
   /*  margin-left: calc(50vw - 4rem); */
 }
 
-#essayText > div > span._date {
+#essayText>div>span._date {
   width: 100vw;
   max-width: 7.6rem;
   /*  margin-left: calc(50vw - 4rem); */
-  + span._tags {
+  +span._tags {
     margin-top: -0.21rem;
     margin-left: -3.4rem;
   }
@@ -983,7 +945,7 @@ body {
   color: #aeaeae;
   font-size: 1.4em;
   font-weight: lighter;
-  > p {
+  >p {
     margin-top: 0;
   }
 }
@@ -1010,11 +972,14 @@ body {
   background-color: rgb(241, 241, 241);
 }
 
-._date, ._updated {
+._date,
+._updated {
   letter-spacing: 0.02rem;
 }
 
-._date, ._tags, ._updated {
+._date,
+._tags,
+._updated {
   font-size: 0.16rem;
   color: #bababa;
   font-weight: lighter;
@@ -1023,7 +988,7 @@ body {
 ._tags {
   margin-left: 0.20rem;
   width: 1.60rem;
-  > em {
+  >em {
     margin-right: .05rem;
     color: #0cb691;
   }
@@ -1038,7 +1003,8 @@ body {
   }
 }
 
-._date::before, ._tags::before {
+._date::before,
+._tags::before {
   width: 0.19rem;
   height: 0.19rem;
   display: flex;
@@ -1064,10 +1030,9 @@ body {
   flex-direction: row-reverse;
   font-size: 0.16rem;
   justify-content: center;
-  margin-bottom: .2rem;
 }
 
-div.essay-context > p {
+div.essay-context>p {
   color: rgb(90, 90, 90);
 }
 
@@ -1087,7 +1052,8 @@ div.essay-context > p {
 
 /*换页*/
 
-#pages > ul {
+#pages>ul {
+  padding-left: 0;
   display: flex;
   flex-direction: row;
   opacity: 1;
@@ -1100,7 +1066,7 @@ div.essay-context > p {
   color: white;
 }
 
-#pages > ul > li {
+#pages>ul>li {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1109,7 +1075,7 @@ div.essay-context > p {
   height: 0.30rem;
   border: 0.01rem solid black;
   margin-right: 0.10rem;
-  transition: background-color 0.5s,color 0.5s;
+  transition: background-color 0.5s, color 0.5s;
   &:hover {
     color: white;
     background-color: black;
@@ -1196,12 +1162,10 @@ div.essay-context > p {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
-
 
 .gallery-overlay {
   color: rgb(255, 255, 255);
@@ -1230,7 +1194,9 @@ div.essay-context > p {
   opacity: .5;
 }
 
-.gallery-title, .gallery-tags, .gallery-description {
+.gallery-title,
+.gallery-tags,
+.gallery-description {
   padding: 0 .1rem;
 }
 
@@ -1263,7 +1229,7 @@ div.essay-context > p {
   &:hover {
     background-color: #ffffff4d;
   }
-  > em {
+  >em {
     padding: 2px 2px;
   }
 }
@@ -1300,77 +1266,132 @@ div.essay-context > p {
   }
 }
 
-
-
-
 // 画廊详细 ____________________________________________________
-
-
 // 
 #galleryContext {
-    $transition: all .2s;
-    font-size: .2rem;
-    padding-top: .20px;
-    > div{
-        display: flex;
-        
-        flex-direction: column;     
-        .gallery-imgs{         
-            width: 100%;
-            transition: $transition;
-            
-                .gallery-img{
-                    width: 100%;
-            }       
-        }
-        .gallery-right{
-            padding: .2rem;
-            transition: $transition;
-            transform: translateY(0);
-            > .gallery-page{
-                position: fixed;
-                display: flex;
-                bottom: 0;
-                
-            img:nth-child(1){
-                margin-right: .1rem;
-                }
-                img{
-                width: 50%;
-                height: .2rem;
-                padding: .1rem 0;
-                margin: .1rem 0;
-                border: 1px solid #f2f2f2;
-            }
-        }
-
-        #mixxopost{
-            display: flex;
-            flex-direction: column-reverse;
-        }
+  $transition: all .2s;
+  font-size: .2rem;
+  padding-top: .20px;
+  >div {
+    display: flex;
+    flex-direction: column;
+    .gallery-imgs {
+      width: 100%;
+      transition: $transition;
+      .gallery-img {
+        width: 100%;
+        outline: none !important;
+      }
     }
-           
-    } 
+    .gallery-right {
+      padding: .2rem;
+      transition: $transition;
+      transform: translateY(0);
+      #mixxopost {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+    }
+  }
 }
 
 // 宽度大于1000px后
-@media screen and  (min-width:920px){
-    #galleryContext {
-      >  div{     
-            flex-direction: row;  
-            .gallery-imgs{      
-                padding-left: .12rem;   
-                width: 60%;
-                margin-right: .6rem;
-            }
-
-            .gallery-right{
-                transform: translateY(0);
-                right: 0;
-                position: fixed;
-                padding: 0 3%;
-                width: 32%;
-            }
-        }       
+@media screen and (min-width:920px) {
+  #galleryContext {
+    >div {
+      flex-direction: row;
+      .gallery-imgs {
+        border: .1rem solid #000000;
+        width: 60%;
+        margin-right: .6rem;
+      }
+      .gallery-right {
+        transform: translateY(0);
+        right: 0;
+        position: fixed;
+        padding: 0 6%;
+        width: 28%;
+      }
     }
+  }
+}
+
+.gallery-page {
+  justify-content: space-between;
+  position: fixed;
+  display: flex;
+  img:nth-child(1) {}
+  img {
+    background-color: white;
+    width: .5rem;
+    height: .2rem;
+    padding: .1rem 0;
+    margin: .1rem 0;
+    opacity: .5;
+    transition: opacity .2s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.footer {
+  $height: .8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .12rem;
+  position: absolute;
+  z-index: 9;
+  width: 100vw;
+  bottom: 0;
+  color: #757575;
+  height: $height;
+  background: black;
+  margin-bottom: -$height;
+
+  > div:nth-child(1){
+    margin-left: .4rem;
+  }
+  
+   div:nth-child(2){
+    margin-right: .4rem;
+    display: flex;
+    font-weight: bold;
+    > div{
+      margin-right: .2rem;
+      transition: all .2s;
+      &:hover{
+        color: rgb(238, 238, 238);
+        
+      }
+    }
+  }
+}
+
+
+.essay-context{
+  > .footer {
+    position: initial;
+  }
+}
+
+@media screen and (min-width:760px) {
+  .essay-context {
+    > .footer {
+      margin-left: calc((7.6rem - 100vw) / 2);
+    }
+  }
+}
+
+  #essayLeft {
+    > .footer {
+      position: initial;
+      margin-left: calc((7.2rem - 100vw) / 2);
+    }
+  }
+
+
+.hidden {
+  display: none;
 }

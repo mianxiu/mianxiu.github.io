@@ -180,17 +180,13 @@ function triangle() {
                     }
 
                     e.clientX > clientW / 2 ? (
-                        $('#gray').style.marginLeft = (clientW - e.clientX) * 0.05 / htmlFontSize + 'rem',
-                        $('#triangle').style.marginLeft = (e.clientX - clientW) * 0.02 / htmlFontSize + 'rem'
+                        $('#gray').style.transform = `translate(${(clientW - e.clientX) * 0.05 / htmlFontSize + 'rem,'+ (clientH - e.clientY) * 0.02 / htmlFontSize + 'rem'})`,
+                        $('#triangle').style.transform = `translate${(e.clientX - clientW) * 0.02 / htmlFontSize + 'rem,'+(e.clientY - clientH) * 0.005 / htmlFontSize + 'rem'})`
                     ) : (
-                            $('#gray').style.marginLeft = (clientW - e.clientX) * 0.05 / htmlFontSize + 'rem',
-                            $('#triangle').style.marginLeft = (e.clientX - clientW) * 0.02 / htmlFontSize + 'rem')
-                    e.clientY > clientH / 2 ? (
-                        $('#gray').style.marginTop = (clientH - e.clientY) * 0.02 / htmlFontSize + 'rem',
-                        $('#triangle').style.marginTop = (e.clientY - clientH) * 0.005 / htmlFontSize + 'rem'
-                    ) : (
-                            $('#gray').style.marginTop = (clientH - e.clientY) * 0.02 / htmlFontSize + 'rem',
-                            $('#triangle').style.marginTop = (e.clientY - clientH) * 0.005 / htmlFontSize + 'rem')
+                            $('#gray').style.transform = `translate(${(clientW - e.clientX) * 0.05 / htmlFontSize + 'rem,'+(clientH - e.clientY) * 0.02 / htmlFontSize + 'rem'})`,
+                            $('#triangle').style.transform = `translate(${(e.clientX - clientW) * 0.02 / htmlFontSize + 'rem,'+(e.clientY - clientH) * 0.005 / htmlFontSize + 'rem'})`
+                        )
+
                 }
 
                 if (a_.length > 100) {

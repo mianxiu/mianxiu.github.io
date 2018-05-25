@@ -230,6 +230,7 @@ function logo_other() {
         $('#index').style.display = 'block'
         $('#background-box').style.display = 'block'
         $('#logo_other').style.display = ''
+        $('.footer').classList.remove('hidden')   
         mp3PlayerType('normal')
         navHidden('off')
         triangle()

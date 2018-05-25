@@ -41,11 +41,13 @@ let writeContent = function () {
                 $('#allContext').style.marginTop = '1.2rem'
                 mp3PlayerType('min')
                 navHidden('on')
+                $('#footer').classList.add('hidden')
                 break;
-            case 'off':
+            case 'off': 
                 styleDisplay($('#index'), 'block')
                 mp3PlayerType('normal')
-                navHidden('off')
+                navHidden('off')            
+                break;
         }
     }
 
@@ -96,8 +98,7 @@ let writeEssay = function () {
     mixxoPost.init({
         appId: 'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
         appKey: 'hp80QRKBtn8fT48ImaCJxqFE',
-        adminNick: 'mianxiu',
-        frameWidth: '7.6rem'
+        adminNick: 'mianxiu'
 
     })
 }
@@ -336,7 +337,8 @@ window.addEventListener("popstate", event => {
     if (history.state !== null) {
         switch (history.state.name) {
             case 'home':
-                  $('#logo_other').click()
+                  $('#logo_other').click();
+                  $('#footer').classList.remove('hidden')    
                   history.pushState({ name: 'home' }, '', '')
                    break;
             case 'essay':
