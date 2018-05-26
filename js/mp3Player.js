@@ -1,8 +1,6 @@
-
-
-
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
+
 
     //域名的正则，用于匹配歌曲
     //new RegExp(/.*mianxiu\.github\.io\//)
@@ -14,7 +12,7 @@ function mp3Player() {
 
 
     let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('font-size').replace('px'))
-    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
 
     var playList = []
     var playPath = domin + '/music/'
@@ -82,7 +80,7 @@ function mp3Player() {
     }
     Playcontrol()
 
-    //
+
 
     //播放列表控制
     let playListOl = $('#playList>ol')
@@ -113,7 +111,16 @@ function mp3Player() {
             })
         })
 
+        //添加序号
 
+        function addPlayListIndex() {
+            let p = $('#playList')
+            p.setAttribute('num', p.children[0].children.length)
+            for (let i = 0; i < p.children[0].children.length; i++) {
+                p.children[0].children[i].setAttribute('num', i)
+            }
+        }
+        addPlayListIndex()
 
         //歌单滚动
         let pl = $('#playList ol')
@@ -121,20 +128,24 @@ function mp3Player() {
         //li的高度(包括margin)
         let playListLiHeight = $('#playList ol li').offsetHeight / htmlFontSize + parseInt(window.getComputedStyle($('#playList>ol>li'), null).marginBottom.replace(/px/, '')) / htmlFontSize
         $('#playList').addEventListener('wheel', function (e) {
+            
             g = Number($('#playList ol').style.marginTop.replace(/rem/, ''))
             if (e.deltaY < 0 && g !== 0) {
                 //up
                 pl.style.marginTop = g + playListLiHeight + 'rem';
-            } else if (e.deltaY > 0 && g !== Number((($All('#playList ol li').length - 1) * - playListLiHeight).toString())) {
+            } else if (e.deltaY > 0 && g !== Number((($All('#playList ol li').length - 1) * -playListLiHeight).toString())) {
                 //down
                 pl.style.marginTop = g - playListLiHeight + 'rem';
+                
+                
+                console.log(Number((($All('#playList ol li').length - 1) * -playListLiHeight).toString()))
             }
         })
 
         $('#playList').addEventListener('mouseleave', function (e) {
             //通过歌曲名获得歌曲索引，计算marginTop
             let songPath = musicPath + decodeURI($('#player').src.split(/\//)[4])
-            let initial_marginTop = playListAry().indexOf(songPath) * - playListLiHeight
+            let initial_marginTop = playListAry().indexOf(songPath) * -playListLiHeight
             // console.log(songPath)
             // console.log(playListAry())
             pl.style.marginTop = initial_marginTop + 'rem'
@@ -176,7 +187,10 @@ function mp3Player() {
     function iconMotions(oX1, oY1, toX1, toY2, C, fillStyle, upend) {
         let Ctx = C.getContext('2d')
         let reqA
-        let x1 = [], x2 = [], y1 = [], y2 = []
+        let x1 = [],
+            x2 = [],
+            y1 = [],
+            y2 = []
 
         //坐标参数
         //x1,y1 播放icon，x2
@@ -197,7 +211,8 @@ function mp3Player() {
 
         function drawMotion() {
 
-            let x = [], y = []
+            let x = [],
+                y = []
             reqA = requestAnimationFrame(drawMotion)
 
             for (p = 0; p < x1.length; p++) {
@@ -211,8 +226,7 @@ function mp3Player() {
                     x1[m] -= 1
                 } else if (x[m] < 0 && x1[m] <= x2[m]) {
                     x1[m] += 1
-                } else {
-                }
+                } else {}
             }
 
             //y
@@ -221,7 +235,7 @@ function mp3Player() {
                     y1[m] -= 1
                 } else if (y[m] < 0 && y1[m] <= y2[m]) {
                     y1[m] += 1
-                } else { }
+                } else {}
             }
 
             //取消监听,也许能释放cpu占用
@@ -304,8 +318,7 @@ function mp3Player() {
                 //歌曲播放时间
 
                 ((pd - pc) / 60).toFixed(2).replace(/\./, ':') === 'NaN' ?
-                    $('#timePass').innerText = 'loading'
-                    :
+                    $('#timePass').innerText = 'loading' :
                     $('#timePass').innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ':');
 
             })

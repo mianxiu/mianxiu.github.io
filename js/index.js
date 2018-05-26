@@ -17,6 +17,7 @@ function UA(){
             logo_other()
             listenEassyClose()
             hljs.initHighlightingOnLoad();
+
         }       
     }
 }
