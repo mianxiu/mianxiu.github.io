@@ -48,6 +48,9 @@ function mp3Player() {
         let gy1 = [0, 48, 28, 6, 6, 28, 20, 11]
         let gy2 = [15, 50, 44, 11, 6, 40, 36, 0]
 
+        iconMotions(gx1, gy1, gx2, gy2, canvasPC, ['black'], true)
+        iconMotions(gx1, gy1, gx2, gy2, canvasPCS, ['rgb(230,230,230)'], true)
+        iconMotions(gx1, gy1, gx2, gy2, canvasToline, ['red'], true)
 
         player.addEventListener('pause', function () {
             iconMotions(gx1, gy1, gx2, gy2, canvasPC, ['black'], true)
