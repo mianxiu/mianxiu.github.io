@@ -158,14 +158,14 @@ function triangle() {
                     if (b_[0] - b_[1] > 0) {
                         //settimeout是因为Firefox会因为值变化过快导致transition检测不到变化无法正常工作            
                         setTimeout(() => {
-                            $('#triangle').style.marginLeft = -(clientW - b_[1]) * 0.05 / htmlFontSize + 'rem'
-                            $('#gray').style.marginLeft = (clientW - b_[1]) * 0.02 / htmlFontSize + 'rem'
+                            $('#triangle').style.transform = `transformX(${-(clientW - b_[1]) * 0.05 / htmlFontSize + 'rem'})`
+                            $('#gray').style.transform = `transformX(${(clientW - b_[1]) * 0.02 / htmlFontSize + 'rem'})`
                         }, 300)
 
                     } else if (b_[0] - b_[1] < 0) {
                         setTimeout(() => {
-                            $('#triangle').style.marginLeft = (clientW - b_[1]) * 0.05 / htmlFontSize + 'rem'
-                            $('#gray').style.marginLeft = -(clientW - b_[1]) * 0.02 / htmlFontSize + 'rem'
+                            $('#triangle').style.transform = `transformX(${(clientW - b_[1]) * 0.05 / htmlFontSize + 'rem'})`
+                            $('#gray').style.transform = `transformX(${-(clientW - b_[1]) * 0.02 / htmlFontSize + 'rem'})`
                         }, 300)
                     }
 

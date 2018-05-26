@@ -1,11 +1,11 @@
-<div class="_banner" style="background-image:url('宽高相等的自适应图片展示CSS.md_banner.png');"></div>
+<div class="_banner" style="background-image:url(//img.mianxiu.me/image/essay/e17b61f5ccd0d836250e1f55b7013a28acfbb01c.png);"></div>
 <h1 class="essay-title">宽高相等的自适应图片展示页面CSS</h1>
 <span class="_date">May 5, 2018</span>
 <span class="_tags"><em>#</em>BLOG搭建的记录</span>
 <div class="essay-context"><p>要做个画廊页面</p>
 <h2>column-count</h2>
 <p>一开始在瀑布流、网格流之间摇摆不定。看了几个主流的设计类、CG类网站，突然找到TJ大神的摄影站 <a href="http://tjholowaychuk.com" target="_blank">tjholowaychuk</a> ,就决定是瀑布流了。看了下网站的CSS，发现是用<code class="code">column-count</code>来布局。一边写一边查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-count" target="_blank">column-count | MDN</a>。缺点是如果图片质量不高，并且量大的时候，排版反倒混乱。</p>
-<img src="宽高相等的自适应图片展示CSS.md_140327.png" alt="">
+<img src="//img.mianxiu.me/image/essay/1c5228323bb92739febecfab32131b73fb4f211a.png" alt="">
 <h2>width:calc(100% / 5)</h2>
 <p><a href="https://www.artstation.com" target="_blank">Artstation</a>CG站的网格流中规中矩，适合我po的图(涂鸦...)。预览图从<code class="code">img</code>标签改为<code class="code">background-image:url()</code>，每个方格用<code class="code">width:calc( 100% / grid-num )</code>平分。出现问题：格子的宽高无法相等。又看了下A站的CSS，是用伪元素<code class="code">::before</code>的<code class="code">margin-top:100%</code>来撑开。至此问题解决。</p>
 <pre><code>
@@ -46,7 +46,7 @@ html{
 }
 </code></pre>
 <p>在一级宽度小于二级这种情况下，<code class="code">#gallery</code>设置<code class="code">position:absolute; width:100vw</code>后因为<code class="code">#main</code>影响产生左边距,利用<code class="code">calc</code>可以很方便的去除使div居中。</p>
-<img src="宽高相等的自适应图片展示CSS.md_calc.jpg" alt="">
+<img src="//img.mianxiu.me/image/essay/e2bfa95a9aebbd4903f20be6f0e4b35de9a5df65.jpg" alt="">
 <pre><code>
     #gallery{
         width:100vw;
