@@ -655,7 +655,7 @@ body {
   .essay-context > .essay-hr {
     border-top: 0.01rem solid #ededed;
     border-bottom: 0.01rem solid #ededed;
-    margin: .6rem 7rem .6rem 0;
+    margin: .5rem 7rem .5rem 0;
     color: #c6c6c6;
     font-weight: lighter;
     padding: .2rem 0; }
@@ -770,7 +770,8 @@ body {
   justify-content: center; }
 
 div.essay-context > p {
-  color: #323232; }
+  color: #323232;
+  line-height: 1.4em; }
 
 #essayClose {
   background-color: rgba(255, 255, 255, 0.39);
@@ -989,13 +990,13 @@ div.essay-context > p {
     #galleryContext > div .gallery-imgs {
       border: .1rem solid #000000;
       width: 60%;
-      margin-right: .6rem; }
+      margin-left: .6rem; }
     #galleryContext > div .gallery-right {
       transform: translateY(0);
       right: 0;
       position: fixed;
       padding: 0 6%;
-      width: 28%; } }
+      width: 24%; } }
 .gallery-page {
   justify-content: space-between;
   position: fixed;

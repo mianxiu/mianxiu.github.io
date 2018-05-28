@@ -6,6 +6,14 @@ h1{}
 .essay-context h3{
     font-size: .24rem;
 }
+.essay-context img{
+    width: 100%;
+    min-height: 20px;
+    background-color: #fdfdfd;
+    transition: all .3s;
+}
+
+
 h4{}
 a{
     text-decoration-line: none;

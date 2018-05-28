@@ -895,7 +895,7 @@ body {
     $border: 0.01rem solid #ededed;
     border-top: $border;
     border-bottom: $border;
-    margin: .6rem 7rem .6rem 0;
+    margin: .5rem 7rem .5rem 0;
     color: #c6c6c6;
     font-weight: lighter;
     padding: .2rem 0;
@@ -1034,8 +1034,9 @@ body {
   justify-content: center;
 }
 
-div.essay-context>p {
+div.essay-context > p {
   color: #323232;
+  line-height: 1.4em;
 }
 
 #essayClose {
@@ -1305,14 +1306,14 @@ div.essay-context>p {
       .gallery-imgs {
         border: .1rem solid #000000;
         width: 60%;
-        margin-right: .6rem;
+        margin-left: .6rem;
       }
       .gallery-right {
         transform: translateY(0);
         right: 0;
         position: fixed;
         padding: 0 6%;
-        width: 28%;
+        width: 24%;
       }
     }
   }
