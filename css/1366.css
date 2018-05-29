@@ -988,7 +988,7 @@ div.essay-context > p {
   #galleryContext > div {
     flex-direction: row; }
     #galleryContext > div .gallery-imgs {
-      border: .1rem solid #000000;
+      border: .01rem solid #b8b8b8;
       width: 60%;
       margin-left: .6rem; }
     #galleryContext > div .gallery-right {
