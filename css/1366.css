@@ -971,15 +971,20 @@ div.essay-context > p {
     display: flex;
     flex-direction: column; }
     #galleryContext > div .gallery-imgs {
+      z-index: 1;
+      position: relative;
       width: 100%;
       transition: all 0.2s; }
       #galleryContext > div .gallery-imgs .gallery-img {
         width: 100%;
         outline: none !important; }
     #galleryContext > div .gallery-right {
+      z-index: 1;
       padding: .2rem;
       transition: all 0.2s;
-      transform: translateY(0); }
+      transform: translateY(0);
+      background-color: white;
+      box-shadow: 0 0 16px 0 #00000024; }
       #galleryContext > div .gallery-right #mixxopost {
         display: flex;
         flex-direction: column-reverse; }
@@ -988,18 +993,28 @@ div.essay-context > p {
   #galleryContext > div {
     flex-direction: row; }
     #galleryContext > div .gallery-imgs {
-      border: .01rem solid #b8b8b8;
       width: 60%;
       margin-left: .6rem; }
     #galleryContext > div .gallery-right {
       transform: translateY(0);
       right: 0;
       position: fixed;
-      padding: 0 6%;
+      padding: 0 2%;
+      height: 100vh;
+      top: 0;
       width: 24%; } }
+.gallery-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #efefef; }
+
 .gallery-page {
   justify-content: space-between;
   position: fixed;
+  z-index: 2;
   display: flex; }
   .gallery-page img {
     background-color: white;

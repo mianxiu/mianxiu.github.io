@@ -109,7 +109,7 @@
     font-weight: 400;
     font-size: .16rem;
     margin-bottom: .08rem;
-    
+    line-height: .22rem; 
 }
 #playList li:hover{
     cursor: pointer;

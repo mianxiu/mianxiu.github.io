@@ -21,7 +21,12 @@ a{
     transition: color 0.2s;
 }
 a:hover{
-    
+    outline: none!important;
+}
+.essay-context a > img:hover{
+    box-shadow: 0 0 10px 0 #ff861e;
+    outline: none!important;
+    border-radius: 10px;
 }
 code{
     font-family: 'Consola,sans serif!important';
