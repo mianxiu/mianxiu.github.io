@@ -4,9 +4,6 @@
 @media screen and (min-width: 1600px) {
   html {
     font-size: 120px !important; } }
-@media screen and (min-width: 1800px) {
-  html {
-    font-size: 128px !important; } }
 @media screen and (min-width: 2000px) {
   html {
     font-size: 140px !important; } }
@@ -36,9 +33,12 @@ html {
   height: 100%;
   margin: 0 0; }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
 body {
-  font-family: "Segoe UI", "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft JhengHei, WenQuanYi Micro Hei, "Microsoft YaHei", sans-serif;
-  height: 100%;
   margin: 0 0; }
 
 .html-color {
@@ -650,7 +650,6 @@ body {
   margin-bottom: .2rem;
   width: 100vw; }
   .essay-context > img {
-    width: 100%;
     outline: none !important; }
   .essay-context > .essay-hr {
     border-top: 0.01rem solid #ededed;
@@ -950,9 +949,16 @@ div.essay-context > p {
   color: #a2a2a2;
   font-size: .16rem;
   padding: .04rem .08rem;
-  margin: .04rem .04rem .04rem 0;
-  border: 0.01rem solid #dddddd;
+  margin: .04rem .04rem .04rem .2rem;
+  border: 1px solid #efefef;
+  cursor: pointer;
   border-radius: .05rem; }
+  .toggle-tag::before {
+    content: '#';
+    width: .14rem;
+    display: block;
+    justify-content: center;
+    align-content: center; }
   .toggle-tag::after {
     content: url("../icon/gallery/delete.svg");
     width: .14rem;
@@ -965,8 +971,8 @@ div.essay-context > p {
     margin-left: 10px; }
 
 #galleryContext {
-  font-size: .2rem;
-  padding-top: .20px; }
+  font-size: .18rem;
+  padding-top: 20px; }
   #galleryContext > div {
     display: flex;
     flex-direction: column; }
@@ -977,17 +983,23 @@ div.essay-context > p {
       transition: all 0.2s; }
       #galleryContext > div .gallery-imgs .gallery-img {
         width: 100%;
-        outline: none !important; }
-    #galleryContext > div .gallery-right {
+        outline: none !important;
+        box-shadow: 0 0 16px 0 #00000024; }
+    #galleryContext > div .gallery-right-background {
       z-index: 1;
+      position: static;
       padding: .2rem;
-      transition: all 0.2s;
-      transform: translateY(0);
+      -moz-padding-end: calc(.2rem + 17px);
       background-color: white;
       box-shadow: 0 0 16px 0 #00000024; }
-      #galleryContext > div .gallery-right #mixxopost {
-        display: flex;
-        flex-direction: column-reverse; }
+      #galleryContext > div .gallery-right-background .gallery-full-page {
+        display: none; }
+      #galleryContext > div .gallery-right-background .gallery-right {
+        transition: all 0.2s;
+        transform: translateY(0); }
+        #galleryContext > div .gallery-right-background .gallery-right #mixxopost {
+          display: flex;
+          flex-direction: column-reverse; }
 
 @media screen and (min-width: 920px) {
   #galleryContext > div {
@@ -995,37 +1007,97 @@ div.essay-context > p {
     #galleryContext > div .gallery-imgs {
       width: 60%;
       margin-left: .6rem; }
-    #galleryContext > div .gallery-right {
-      transform: translateY(0);
-      right: 0;
+      #galleryContext > div .gallery-imgs .gallery-page {
+        width: 74%; }
+      #galleryContext > div .gallery-imgs .gllery-page-show {
+        transform: translateY(0.46rem); }
+      #galleryContext > div .gallery-imgs .gallery-img {
+        margin-bottom: .6rem; }
+    #galleryContext > div .gallery-right-background {
+      z-index: 1;
       position: fixed;
+      right: 0;
       padding: 0 2%;
       height: 100vh;
       top: 0;
-      width: 24%; } }
+      width: 26%; }
+      #galleryContext > div .gallery-right-background .gallery-full-page {
+        display: flex;
+        justify-content: center;
+        width: .43rem;
+        height: .4rem;
+        background-color: #ffffff;
+        margin-left: -1rem;
+        position: absolute;
+        margin-top: .2rem; }
+        #galleryContext > div .gallery-right-background .gallery-full-page img {
+          width: 0.16rem; }
+      #galleryContext > div .gallery-right-background .gallery-right {
+        transform: translateY(0); } }
+.gallery-page {
+  height: 0.46rem;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  bottom: 0;
+  background-color: white;
+  box-shadow: 0 0 16px 0 #00000024;
+  width: 100%;
+  left: 0;
+  transition: all .2s; }
+  .gallery-page div {
+    cursor: pointer;
+    width: 100%;
+    font-size: .14rem;
+    display: flex;
+    align-items: center;
+    color: black; }
+    .gallery-page div span {
+      transition: all .2s; }
+      .gallery-page div span::before {
+        content: attr(data-title);
+        position: absolute;
+        margin-top: .18rem;
+        color: #9c9c9c; }
+    .gallery-page div img {
+      background-color: white;
+      width: 0.34rem;
+      height: .1rem;
+      transition: all .3s; }
+  .gallery-page div span::before {
+    opacity: 0; }
+  .gallery-page div:hover span {
+    margin: .04rem 0 .2rem 0; }
+    .gallery-page div:hover span::before {
+      background: white;
+      opacity: 1;
+      transition: all .3s; }
+  .gallery-page div:hover img {
+    margin: .04rem 0 .2rem 0; }
+  .gallery-page .gallery-next {
+    justify-content: flex-end; }
+    .gallery-page .gallery-next span::before {
+      right: 0.34rem; }
+
+.gallery-up {
+  background-color: #fcab1d;
+  display: flex;
+  color: white;
+  font-size: .12rem;
+  max-width: 0.46rem;
+  min-width: 0.46rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center; }
+
 .gallery-background {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: #efefef; }
-
-.gallery-page {
-  justify-content: space-between;
-  position: fixed;
-  z-index: 2;
-  display: flex; }
-  .gallery-page img {
-    background-color: white;
-    width: .5rem;
-    height: .2rem;
-    padding: .1rem 0;
-    margin: .1rem 0;
-    opacity: .5;
-    transition: opacity .2s; }
-    .gallery-page img:hover {
-      opacity: 1; }
+  background-color: #212121; }
 
 .footer {
   display: flex;
@@ -1063,6 +1135,6 @@ div.essay-context > p {
   margin-left: calc((7.2rem - 100vw) / 2); }
 
 .hidden {
-  display: none; }
+  display: none !important; }
 
 /*# sourceMappingURL=1366.css.map */

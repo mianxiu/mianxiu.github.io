@@ -46,8 +46,9 @@
 #progress{
     position: absolute;
     left: 0;
-    margin-top: .82rem;
-    width: .88rem;
+    z-index: 1;
+    margin-top: .74rem;
+    width: .86rem;
     height: .36rem;
     overflow:hidden;
     transition: width 0.2s;
@@ -62,10 +63,13 @@
     height: .06rem;
     background-color: rgb(230,230,230)
 }
-
+#audioProgressB-2{
+    background-color: rebeccapurple;
+    height: .06rem;
+}
 
 #mp3Player:hover #VP{
-    width:4.86rem;
+    width:5.9rem;
 }
 #VP{
     overflow: hidden;
@@ -73,7 +77,7 @@
     position: absolute;
     left: 0;
     padding:.14rem 0rem;
-    padding-left: .70rem;
+    padding-left: .86rem;
     border-top:.02rem solid black;
     border-right:.02rem solid black;
     border-bottom: .02rem solid black;

@@ -7,9 +7,9 @@ h1{}
     font-size: .24rem;
 }
 .essay-context img{
-    width: 100%;
+    max-width: 100%;
     min-height: 20px;
-    background-color: #fdfdfd;
+    background-color: #f1f1f1;\
     transition: all .3s;
 }
 
@@ -24,7 +24,7 @@ a:hover{
     outline: none!important;
 }
 .essay-context a > img:hover{
-    box-shadow: 0 0 10px 0 #ff861e;
+    box-shadow: 0 0 10px 0 #dddddd;
     outline: none!important;
     border-radius: 10px;
 }

@@ -75,6 +75,10 @@
     height: 0.06rem;
     background-color: rgb(230,230,230)
 }
+#audioProgressB-2{
+    background-color: rebeccapurple;
+    height: .06rem;
+}
 
 #timePass{
     width: 1.20rem;

@@ -14,7 +14,7 @@ let htmlFontSize = parseInt(getComputedStyle($('html'), null).getPropertyValue('
 // 关闭按钮
 // 添加hash会写入多余history,该值用与记数=>308行
 let historylength = ''
-listenEassyClose = function () {
+let listenEassyClose = function () {
     let back = function () {
         console.log('close')
         if (historylength !== '') {
@@ -43,10 +43,10 @@ let writeContent = function () {
                 navHidden('on')
                 $('#footer').classList.add('hidden')
                 break;
-            case 'off': 
+            case 'off':
                 styleDisplay($('#index'), 'block')
                 mp3PlayerType('normal')
-                navHidden('off')            
+                navHidden('off')
                 break;
         }
     }
@@ -156,6 +156,180 @@ function essayAjax() {
 
 //4 gallery ---------------------------------------------------------------------------
 //  画廊遮罩层
+
+let writeGallery = function (event) {
+    $('#galleryContext > div').innerHTML += this.responseText
+
+    mixxoPost.init({
+        appId: 'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
+        appKey: 'hp80QRKBtn8fT48ImaCJxqFE',
+        adminNick: 'mianxiu',
+        flexDirection: 'column'
+    })
+
+    let n = decodeURI(window.location.pathname).split('/')[5]
+    $('title').innerText = n + ' | Mianxiu\'s Blog...'
+
+
+    // galleryRight 绑定
+    let isScroll = function (deltaY, selector) {
+        function getHeight(selector) {
+            return Number(window.getComputedStyle(selector, null).height.replace(/px/g, '')) // 
+        }
+        let s = 100;
+        let d = getHeight($('.gallery-page'))
+        let c = document.body.offsetHeight // 屏幕高度
+        let y = window.getComputedStyle(selector, null).transform.split(',')[5] === undefined ? 0 : Number(window.getComputedStyle(selector, null).transform.split(',')[5].replace(/\)/g, ''))
+        let h = getHeight(selector)
+        let infoHeight = getHeight($('.gallery-context-info'))
+        let mixxoPostHeight = getHeight($('#mixxopost'))
+
+        if (window.getComputedStyle($('.gallery-right-background'), null).position === 'fixed') {
+            if (deltaY < 0) {
+                selector.style.transform = y - s < 0 ? '' : `translateY(${y+=s}px)`
+            } else {
+                if (c < h) {
+                    selector.style.transform = (c - h - d > y - s) && c < h ? `translateY(${c-h-d}px)` : `translateY(${y-=s}px)`
+                }
+            }
+        }
+
+    }
+
+    let stopScroll = function (event) {
+        event.preventDefault()
+    }
+    let removeScroll = function (type) {
+        //   
+        switch (type) {
+            case true:
+                $('html').removeEventListener('wheel', stopScroll, false)
+                break;
+            case false:
+                $('html').addEventListener('wheel', stopScroll, false)
+                break;
+        }
+    }
+
+    let addScroll = function () {
+        let galleryRightBackground = $('.gallery-right-background')
+        let galleryRight = $('.gallery-right')
+
+
+
+        let galleryRighHandle = function (event) {
+            isScroll(event.deltaY, galleryRight)
+        }
+
+        let s1
+        galleryRightBackground.addEventListener('mouseenter', event => {
+            let p = window.getComputedStyle(galleryRightBackground, null).position
+            if (p === 'fixed') {
+                galleryRightBackground.addEventListener('wheel', galleryRighHandle, false)
+                removeScroll(false)
+            }
+        })
+
+        galleryRightBackground.addEventListener('mouseleave', event => {
+            galleryRightBackground.removeEventListener('wheel', galleryRighHandle, false)
+            removeScroll(true)
+        })
+
+        // 用来 使galleryRight 复位
+        let clearStyle = () => {
+            let s = window.getComputedStyle(galleryRightBackground, null).position
+            if (s === 'static') {
+                galleryRight.style = ''
+            }
+            if (window.location.pathname === '/') {
+                clearInterval(s1)
+            }
+        }
+        s1 = setInterval(clearStyle, 1000)
+    }
+    addScroll()
+
+    // gallery-page 页面跳转
+    let c = $('#galleryContext')
+    let pre = c.getAttribute('previous-id')
+    let next = c.getAttribute('next-id')
+
+    let preNode = $('.gallery-previous > span')
+    let nextNode = $('.gallery-next > span')
+
+
+    let  Pre = document.getElementById(pre)
+    let Next = document.getElementById(next)
+    if(Pre!==null){
+        preNode.setAttribute('data-title',Pre.children[0].children[0].innerText)
+    }
+    if(Next!==null){
+        nextNode.setAttribute('data-title',Next.children[0].children[0].innerText)
+    }
+    
+    
+    let jumpPage = function (event) {
+        let reAjax = async (selectorId) => {
+            await history.back()
+            await setTimeout(() => {
+                document.getElementById(selectorId).children[0].click()
+            }, 10)
+            removeScroll(true)
+        }
+
+
+        switch (event.target.className) {
+            case 'gallery-previous':
+                reAjax(pre)
+                break;
+            case 'gallery-next':
+                reAjax(next)
+                break;
+            default:
+                if (/SPAN|IMG/gm.test(event.target.tagName)) {
+                    switch (event.target.parentNode.className) {
+                        case 'gallery-previous':
+                            reAjax(pre)
+                            break;
+                        case 'gallery-next':
+                            reAjax(next)
+                            break;
+                    }
+                }
+                break;
+        }
+    }
+
+    $All('.gallery-page > div').forEach(el => {
+        el.addEventListener('click', jumpPage)
+    })
+
+
+    // 判断是否有前一页/下一页
+    if (/null/gm.test(pre)) {
+        $('.gallery-previous').classList.add('hidden')
+    } else if (/null/gm.test(next)) {
+        $('.gallery-next').classList.add('hidden')
+    }
+
+    // 
+    $('#galleryContext > div').addEventListener('wheel',event=>{
+        console.log(event.target.className)
+        let a = $('.gallery-imgs')
+        let b = $('.gallery-background')
+        if(a.contains(event.target)||b.contains(event.target)){
+            if(event.deltaY > 0){
+                $('.gallery-page').classList.add('gllery-page-show')
+            }else{
+                $('.gallery-page').classList.remove('gllery-page-show')
+            }
+        }     
+    })
+}
+
+
+
+// 
 function gallery_overlay() {
     // css hover冒泡问题
     $('#gallery').addEventListener('mouseenter', () => {
@@ -191,6 +365,7 @@ function gallery_tag() {
 
     // tag & 详细页面
     for (let el of $All('.gallery-link')) {
+
         el.addEventListener('click', event => {
             originScroll = window.location.scrollTop
             if (event.target.className === 'gallery-tag') {
@@ -201,29 +376,31 @@ function gallery_tag() {
             }
             // 详细页面
             else if (/gallery-overlay|gallery-title|gallery-description|gallery-tags/gm.test(event.target.className)) {
-                let dataHref = /gallery-title|gallery-description|gallery-tags/gm.test(event.target.className) ? event.target.parentNode.parentNode.getAttribute('data-href') : event.target.parentNode.getAttribute('data-href')
-
-                let context = function (event) {
-                    $('#galleryContext > div').innerHTML += this.responseText
-                    $('title').innerText = dataHref.split('/').pop() + ' | Mianxiu\'s Blog...'
-
-                    mixxoPost.init({
-                        appId: 'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
-                        appKey: 'hp80QRKBtn8fT48ImaCJxqFE',
-                        adminNick: 'mianxiu',
-                        flexDirection: 'column'
-                    })
-
-                    addScroll()
-                }
-
+                let dataHref, dataId
                 let state = {
                     name: 'galleryContext',
                     scrollTop: document.documentElement.scrollTop
                 }
-                ajax(dataHref + '/context.html', context)
-                styleDisplay([$('#gallery'), $('#logo_other')], 'none')
 
+                // 点击判断
+                if (/gallery-title|gallery-description|gallery-tags/gm.test(event.target.className)) {
+                    dataHref = event.target.parentNode.parentNode.getAttribute('data-href')
+                    dataId = Number(event.target.parentNode.parentNode.getAttribute('data-id')) // 下一页
+                } else {
+                    dataHref = event.target.parentNode.getAttribute('data-href')
+                    dataId = Number(event.target.parentNode.getAttribute('data-id'))
+                }
+
+                // 设置跳转
+                let preId = (dataId - 1) < 0 ? 'null' : 'gallery-link-' + (dataId - 1)
+                let nextId = (dataId + 1) >= $All('.gallery-link').length ? 'null' : 'gallery-link-' + (dataId + 1)
+
+                $('#galleryContext').setAttribute('previous-id', preId)
+                $('#galleryContext').setAttribute('next-id', nextId)
+
+
+                ajax(dataHref + '/context.html', writeGallery)
+                styleDisplay([$('#gallery'), $('#logo_other')], 'none')
                 history.pushState(state, null, dataHref + '/')
                 document.documentElement.scrollTop = 0;
 
@@ -251,70 +428,6 @@ function gallery_tag() {
 
 
 
-    // galleryRight 绑定
-    let isScroll = function (deltaY, selector) {
-        let s = 100;
-        let d = Number(window.getComputedStyle($('.gallery-page'), null).height.replace(/px/g, ''))
-        let c = document.body.offsetHeight
-        let y = window.getComputedStyle(selector, null).transform.split(',')[5] === undefined ? 0 : Number(window.getComputedStyle(selector, null).transform.split(',')[5].replace(/\)/g, ''))
-        let h = Number(window.getComputedStyle(selector, null).height.replace(/px/g, ''))
-        if (window.getComputedStyle(selector, null).position === 'fixed') {
-            if (deltaY < 0) {
-                selector.style.transform = y - s < 0 ? '' : `translateY(${y+=s}px)`
-            } else {
-                if (c < h) {
-                    selector.style.transform = (c - h - d > y - s) && c < h ? `translateY(${c-h-d}px)` : `translateY(${y-=s}px)`
-                }
-            }
-        }
-
-    }
-
-   
-    let addScroll = function () {
-        let galleryRight = $('.gallery-right')
-
-        //
-        let stopScroll = function (event) {
-            event.preventDefault()
-        }
-
-        let galleryRighHandle = function (event) {
-            isScroll(event.deltaY, galleryRight)
-        }
-
-        let s1
-        galleryRight.addEventListener('mouseenter', event => {
-            let p = window.getComputedStyle(galleryRight, null).position       
-            if (p === 'fixed') {
-                galleryRight.addEventListener('wheel', galleryRighHandle, false)
-                $('html').addEventListener('wheel', stopScroll, false)
-            }
-        })
-
-        galleryRight.addEventListener('mouseleave', event => {    
-            galleryRight.removeEventListener('wheel', galleryRighHandle,false)
-            $('html').removeEventListener('wheel', stopScroll, false)
-
-
-                  
-        })
-
-        // 用来 使galleryRight 复位
-        let clearStyle = ()=>{
-               let s = window.getComputedStyle(galleryRight, null).position
-                if(s === 'static'){
-                    galleryRight.style = ''
-                }
-
-                if(window.location.pathname === '/'){
-                    clearInterval(s1)
-                }
-        }
-        s1 = setInterval(clearStyle,1000)
-            
-    }
-
 
 
 }
@@ -337,10 +450,12 @@ window.addEventListener("popstate", event => {
     if (history.state !== null) {
         switch (history.state.name) {
             case 'home':
-                  $('#logo_other').click();
-                  $('#footer').classList.remove('hidden')    
-                  history.pushState({ name: 'home' }, '', '')
-                   break;
+                $('#logo_other').click();
+                $('#footer').classList.remove('hidden')
+                history.pushState({
+                    name: 'home'
+                }, '', '')
+                break;
             case 'essay':
                 $('#essayClose').style.transform = ''
                 $('#essay').style.display = ''
@@ -366,9 +481,7 @@ window.addEventListener("popstate", event => {
                 ajax(window.location.href + '/context.html', writeEssay)
                 break;
             case 'galleryContext':
-                ajax(window.location.href + '/context.html', function () {
-                    $('#galleryContext > div').innerHTML += this.responseText
-                })
+                ajax(window.location.href + '/context.html', writeGallery)
 
                 styleDisplay([$('#gallery'), $('#logo_other')], 'none')
                 document.documentElement.scrollTop = 0
