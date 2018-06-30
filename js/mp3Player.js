@@ -112,7 +112,6 @@ function mp3Player() {
         })
 
         //添加序号
-
         function addPlayListIndex() {
             let p = $('#playList')
             p.setAttribute('num', p.children[0].children.length)
@@ -126,29 +125,30 @@ function mp3Player() {
         let pl = $('#playList ol')
         let g
         //li的高度(包括margin)
-        let playListLiHeight = $('#playList ol li').offsetHeight / htmlFontSize + parseInt(window.getComputedStyle($('#playList>ol>li'), null).marginBottom.replace(/px/, '')) / htmlFontSize
+        let playListLiHeight = $('#playList ol li').offsetHeight 
         $('#playList').addEventListener('wheel', function (e) {
-            
-            g = Number($('#playList ol').style.marginTop.replace(/rem/, ''))
-            if (e.deltaY < 0 && g !== 0) {
+            let olIndex = Number(pl.getAttribute('index'))
+            if (e.deltaY < 0 && olIndex!== 0) {
                 //up
-                pl.style.marginTop = g + playListLiHeight + 'rem';
-            } else if (e.deltaY > 0 && g !== Number((($All('#playList ol li').length - 1) * -playListLiHeight).toString())) {
+                pl.style.transform = 'translateY(' + - (playListLiHeight * olIndex - playListLiHeight ) + 'px)'
+                pl.setAttribute('index',Number(pl.getAttribute('index')) - 1)
+            } else if (e.deltaY > 0 && olIndex < Number($All('#playList > ol > li')[$All('#playList > ol > li').length - 1].getAttribute('num')) ) {
                 //down
-                pl.style.marginTop = g - playListLiHeight + 'rem';
-                
-                
-                console.log(Number((($All('#playList ol li').length - 1) * -playListLiHeight).toString()))
+                pl.style.transform = 'translateY(' + - (playListLiHeight * olIndex + playListLiHeight ) + 'px)'
+                pl.setAttribute('index',olIndex + 1)
             }
         })
 
         $('#playList').addEventListener('mouseleave', function (e) {
+            
             //通过歌曲名获得歌曲索引，计算marginTop
             let songPath = musicPath + decodeURI($('#player').src.split(/\//)[4])
             let initial_marginTop = playListAry().indexOf(songPath) * -playListLiHeight
+
+            pl.setAttribute('index',playListAry().indexOf(songPath))
             // console.log(songPath)
             // console.log(playListAry())
-            pl.style.marginTop = initial_marginTop + 'rem'
+            pl.style.transform = 'translateY(' + initial_marginTop + 'px)'
         })
 
         //------------------------------------------------------//
@@ -156,17 +156,13 @@ function mp3Player() {
         player.src = playListAry()[0]
         player.onended = function () {
             //歌曲切换效果
-            //
             let songPath = playPath + decodeURI($('#player').src.split(/\//)[4])
             let e = playListAry().indexOf(songPath)
-            // console.log(songPath)
-            // console.log(playList)
-            // console.log(e)
             if (e + 1 < playListAry().length) {
-                playListOl.style.marginTop = -(e + 1) * playListLiHeight + 'rem'
+                playListOl.style.transform = 'translateY(' + -(e + 1) * playListLiHeight + 'px)'
                 return player.src = playListAry()[e + 1]
             } else {
-                playListOl.style.marginTop = 0
+                playListOl.style.transform = 'translateY(0)'
                 return player.src = playListAry()[0]
             }
         }
@@ -288,21 +284,7 @@ function mp3Player() {
     //时间
     //toFixed()保留小数
     function AudioProgress() {
-        let canvasPB = $('#audioProgressB')
-        let canvasPCtxB = canvasPB.getContext("2d")
-        canvasPB.width = 120;
         player.onloadedmetadata = function () {
-
-            //加载歌曲后开始绘制
-            //黑色
-            canvasPCtxB.fillStyle = "black"
-            canvasPCtxB.fillRect(0, 0, 120, 6)
-            //黄色
-            canvasPCtxB.fillStyle = "rgb(252,171,29)"
-            canvasPCtxB.fillRect(0, 0, 12, 6)
-            //蓝色
-            canvasPCtxB.fillStyle = "rgb(112,160,219)"
-            canvasPCtxB.fillRect(12, 0, 12, 6)
 
             //减少层    
             player.addEventListener('timeupdate', function () {
@@ -310,7 +292,6 @@ function mp3Player() {
                 let Pwidth = parseInt(getComputedStyle($('#progress'), null).width.replace(/px/, ''));
                 let pd = player.duration
                 let i = pd / Pwidth
-
                 let pc = player.currentTime
                 //绘制进度条 
                 $('#audioProgressA').style = 'margin-left:' + pc / i / htmlFontSize + 'rem;width:' + (Pwidth - pc / i) / htmlFontSize + 'rem';

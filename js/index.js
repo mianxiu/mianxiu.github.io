@@ -143,7 +143,7 @@ function nav() {
     })
 
 
-    /*检测页面滚动*/
+   /*
     window.onscroll = e=>{
         let sH = document.documentElement.scrollHeight
         let sT = document.documentElement.scrollTop
@@ -156,6 +156,7 @@ function nav() {
             
         }
     }
+    */
 
 }
 

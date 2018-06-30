@@ -66,7 +66,7 @@
     overflow:hidden;
     transition: width 0.2s;
 }
-#audioProgressA,#audioProgressB,#timePass{
+#audioProgressA,#timePass{
     position: absolute;
 }
 #audioProgressA{
@@ -75,7 +75,7 @@
     height: 0.06rem;
     background-color: rgb(230,230,230)
 }
-#audioProgressB-2{
+#audioProgressB{
     background-color: rebeccapurple;
     height: .06rem;
 }
@@ -105,11 +105,12 @@
 }
 #playList::before{
     display: block;
+    z-index: 1;
     content: '';
     position: absolute;
-    margin-top: .28rem;
+    margin-top: .24rem;
     min-width: 40%;
-    height: .32rem;
+    height: .36rem;
     background:linear-gradient(0deg,white,rgba(255,255,255,0.5));
     transition: height 0.2s,margin-top 0.2s;   
     
@@ -118,15 +119,13 @@
     height: 4.2rem;
     list-style: none;
     margin: 0 0;
-    transition:margin-top 0.2s;
+    transition:transform 0.2s;
 }
 
 #playList li{
     line-height: .22rem;
     font-weight: 400;
-    font-size: .16rem;
-    margin-bottom: .08rem;
-    
+    font-size: .16rem;   
 }
 #playList li:hover{
     cursor: pointer;

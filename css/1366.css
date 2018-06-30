@@ -3,25 +3,29 @@
 @import url("./mixxopost.css");
 @media screen and (min-width: 1600px) {
   html {
-    font-size: 120px !important; } }
+    font-size: 112px !important; }
+    html body {
+      margin-top: -0.8rem; }
+      html body #footer {
+        margin-bottom: 0; } }
 @media screen and (min-width: 2000px) {
   html {
-    font-size: 140px !important; } }
+    font-size: 120px !important; } }
 @media screen and (min-width: 2200px) {
   html {
-    font-size: 148px !important; } }
+    font-size: 128px !important; } }
 @media screen and (min-width: 2500px) {
   html {
-    font-size: 168px !important; } }
+    font-size: 138px !important; } }
 @media screen and (min-width: 2800px) {
   html {
-    font-size: 190px !important; } }
+    font-size: 140px !important; } }
 @media screen and (min-width: 3200px) {
   html {
-    font-size: 220px !important; } }
+    font-size: 180px !important; } }
 @media screen and (min-width: 4000px) {
   html {
-    font-size: 280px !important; } }
+    font-size: 200px !important; } }
 /* 1366X768 rem
 */
 ::-webkit-scrollbar {
@@ -31,7 +35,8 @@ html {
   font-size: 100px;
   font-family: "Segoe UI", "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft JhengHei, WenQuanYi Micro Hei, "Microsoft YaHei", sans-serif;
   height: 100%;
-  margin: 0 0; }
+  margin: 0 0;
+  display: flex; }
 
 *,
 *::before,
@@ -96,7 +101,7 @@ body {
   width: 1.00vw;
   z-index: 2;
   background-color: #fff;
-  position: fixed;
+  position: absolute;
   transform: translateY(0rem);
   transition: transform 0.2s; }
   #navigation ul {
