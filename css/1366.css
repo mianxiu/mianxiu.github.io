@@ -7,7 +7,11 @@
     html body {
       margin-top: -0.8rem; }
       html body #footer {
-        margin-bottom: 0; } }
+        margin-bottom: 0; }
+    html #essayText div h1.essay-title {
+      margin-top: 1.1rem; }
+    html #essayText div ._banner + h1.essay-title {
+      margin-top: 0.3rem; } }
 @media screen and (min-width: 2000px) {
   html {
     font-size: 120px !important; } }

@@ -9,6 +9,17 @@
                 margin-bottom: 0;
             }
         }
+        #essayText{
+            div{
+                h1.essay-title{
+                    margin-top:1.1rem;
+                }
+
+                ._banner + h1.essay-title{
+                    margin-top:0.3rem;
+                }
+            }
+        }
     }
     
 }
