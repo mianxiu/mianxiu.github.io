@@ -5,9 +5,11 @@
   html {
     font-size: 112px !important; }
     html body {
-      margin-top: -0.8rem; }
+      margin-top: -1.4rem; }
       html body #footer {
         margin-bottom: 0; }
+    html #essayText div ._banner {
+      margin-top: 0.6rem; }
     html #essayText div h1.essay-title {
       margin-top: 1.1rem; }
     html #essayText div ._banner + h1.essay-title {
@@ -1019,7 +1021,7 @@ div.essay-context > p {
       #galleryContext > div .gallery-imgs .gallery-page {
         width: 74%; }
       #galleryContext > div .gallery-imgs .gllery-page-show {
-        transform: translateY(0.46rem); }
+        transform: translateY(0.47rem); }
       #galleryContext > div .gallery-imgs .gallery-img {
         margin-bottom: .6rem; }
     #galleryContext > div .gallery-right-background {
@@ -1039,8 +1041,10 @@ div.essay-context > p {
         margin-left: -1rem;
         position: absolute;
         margin-top: .2rem; }
-        #galleryContext > div .gallery-right-background .gallery-full-page img {
-          width: 0.16rem; }
+        #galleryContext > div .gallery-right-background .gallery-full-page::before {
+          content: url("/icon/gallery/full-page.svg");
+          width: 0.16rem;
+          margin-top: .1rem; }
       #galleryContext > div .gallery-right-background .gallery-right {
         transform: translateY(0); } }
 .gallery-page {
@@ -1145,5 +1149,16 @@ div.essay-context > p {
 
 .hidden {
   display: none !important; }
+
+@media screen and (min-width: 920px) {
+  .gallery-full-page-right {
+    transform: translateX(100%);
+    transition: all .2s; }
+
+  #galleryContext > div > .gallery-imgs > .gallery-full-page {
+    width: 100%; }
+
+  #galleryContext > div > .gallery-full-page-imgs {
+    width: 80%; } }
 
 /*# sourceMappingURL=1366.css.map */

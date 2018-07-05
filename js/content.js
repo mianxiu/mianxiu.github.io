@@ -249,7 +249,8 @@ let writeGallery = function (event) {
     }
     addScroll()
 
-    // gallery-page 页面跳转
+    // gallery 内详细函数 ————————————————————————————————————————————————————————————
+    // 1 gallery-page 页面跳转
     let c = $('#galleryContext')
     let pre = c.getAttribute('previous-id')
     let next = c.getAttribute('next-id')
@@ -305,14 +306,14 @@ let writeGallery = function (event) {
     })
 
 
-    // 判断是否有前一页/下一页
+    // 2 判断是否有前一页/下一页
     if (/null/gm.test(pre)) {
         $('.gallery-previous').classList.add('hidden')
     } else if (/null/gm.test(next)) {
         $('.gallery-next').classList.add('hidden')
     }
 
-    // 
+    // 3 页面跳转栏隐藏
     $('#galleryContext > div').addEventListener('wheel',event=>{
         console.log(event.target.className)
         let a = $('.gallery-imgs')
@@ -324,6 +325,26 @@ let writeGallery = function (event) {
                 $('.gallery-page').classList.remove('gllery-page-show')
             }
         }     
+    })
+
+    // 4 full page
+    $('.gallery-full-page').addEventListener('click',event=>{
+        
+        let a = $('.gallery-right-background')
+        let b = $('.gallery-page')
+        let c = $('.gallery-imgs')
+        let d = event.target.getAttribute('page-type')
+        if(d === 'normal'){
+            event.target.setAttribute('page-type','full')
+            a.classList.add('gallery-full-page-right')
+            b.classList.add('gallery-full-page')
+            c.classList.add('gallery-full-page-imgs')
+        }else if(d === 'full'){
+            event.target.setAttribute('page-type','normal')
+            a.classList.remove('gallery-full-page-right')
+            b.classList.remove('gallery-full-page')
+            c.classList.remove('gallery-full-page-imgs')
+        }    
     })
 }
 

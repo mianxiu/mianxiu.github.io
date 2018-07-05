@@ -1,16 +1,23 @@
 @import url('./markdown.css');
 @import url('./mixxopost.css');
+
+$footer-height: .8rem;
+
 @media screen and (min-width: 1600px) {
+    $body-margin:1.4rem;
     html {
         font-size: 112px !important;
         body {
-            margin-top: -0.8rem;
+            margin-top: - $body-margin;
             #footer{
                 margin-bottom: 0;
             }
         }
         #essayText{
             div{
+                ._banner{
+                    margin-top:$body-margin - $footer-height;
+                }
                 h1.essay-title{
                     margin-top:1.1rem;
                 }
@@ -1350,7 +1357,7 @@ $page-height:.46rem;
                     width: 74%;
                 }
                 .gllery-page-show {
-                    transform: translateY($page-height)
+                    transform: translateY($page-height + .01rem)
                 }
                 .gallery-img {
                     margin-bottom: .6rem;
@@ -1375,8 +1382,11 @@ $page-height:.46rem;
                   margin-left: -1rem;
                   position: absolute;
                   margin-top: .2rem;
-                    img{
+         
+                    &::before{
+                        content: url("/icon/gallery/full-page.svg");
                         width: 0.16rem;
+                        margin-top:.1rem;
                     }
                 }
                 
@@ -1486,7 +1496,7 @@ $page-height:.46rem;
 }
 
 .footer {
-    $height: .8rem;
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1496,9 +1506,9 @@ $page-height:.46rem;
     width: 100vw;
     bottom: 0;
     color: #757575;
-    height: $height;
+    height: $footer-height;
     background: black;
-    margin-bottom: -$height;
+    margin-bottom: -$footer-height;
     >div:nth-child(1) {
         margin-left: .4rem;
     }
@@ -1539,4 +1549,19 @@ $page-height:.46rem;
 
 .hidden {
     display: none !important;
+}
+
+@media screen and (min-width: 920px){
+    .gallery-full-page-right{
+        transform: translateX(100%);
+        transition:all .2s;
+    }
+    
+    #galleryContext > div > .gallery-imgs > .gallery-full-page{
+        width: 100%;
+    }
+    #galleryContext > div > .gallery-full-page-imgs{
+        width: 80%;
+    }
+    
 }
