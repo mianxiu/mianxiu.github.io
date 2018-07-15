@@ -88,7 +88,7 @@ let writeEssay = function () {
     $('#essayText>div').innerHTML = this.responseText
     $('#essayClose').style.transform = 'scale(1,1)'
     $('#main').style = 'display:flex;justify-content:center;height:100vh;'
-    $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog"
+    $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog" 
 
     // 高亮
     for (let i of document.querySelectorAll('pre')) {

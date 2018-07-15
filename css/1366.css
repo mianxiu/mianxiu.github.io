@@ -4,14 +4,12 @@
 @media screen and (min-width: 1600px) {
   html {
     font-size: 112px !important; }
-    html body {
-      margin-top: -1.4rem; }
-      html body #footer {
-        margin-bottom: 0; }
+    html body #footer {
+      margin-bottom: 0; }
     html #essayText div ._banner {
       margin-top: 0.6rem; }
     html #essayText div h1.essay-title {
-      margin-top: 1.1rem; }
+      margin-top: 1.4rem; }
     html #essayText div ._banner + h1.essay-title {
       margin-top: 0.3rem; } }
 @media screen and (min-width: 2000px) {
@@ -67,7 +65,6 @@ body {
   -ms-user-select: none;
   user-select: none;
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100vw;
   overflow-x: hidden;
@@ -837,13 +834,13 @@ div.essay-context > p {
 /*gallery*/
 @media screen and (min-width: 1700px) {
   .gallery-link {
-    width: calc(100% / 6) !important; } }
+    width: calc(100% / 7) !important; } }
 @media screen and (min-width: 2000px) {
   .gallery-link {
-    width: calc(100% / 7) !important; } }
+    width: calc(100% / 8) !important; } }
 @media screen and (min-width: 3000px) {
   .gallery-link {
-    width: calc(100% / 8) !important; } }
+    width: calc(100% / 9) !important; } }
 #gallery {
   min-height: 3.45rem;
   flex-direction: row;
@@ -982,18 +979,19 @@ div.essay-context > p {
     margin-left: 10px; }
 
 #galleryContext {
-  font-size: .18rem;
-  padding-top: 20px; }
+  font-size: .18rem; }
   #galleryContext > div {
     display: flex;
     flex-direction: column; }
     #galleryContext > div .gallery-imgs {
       z-index: 1;
       position: relative;
+      background-color: red;
       width: 100%;
       transition: all 0.2s; }
       #galleryContext > div .gallery-imgs .gallery-img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
         outline: none !important;
         box-shadow: 0 0 16px 0 #00000024; }
     #galleryContext > div .gallery-right-background {
@@ -1017,13 +1015,12 @@ div.essay-context > p {
     flex-direction: row; }
     #galleryContext > div .gallery-imgs {
       width: 60%;
-      margin-left: .6rem; }
+      height: calc(100vh - 0.46rem); }
       #galleryContext > div .gallery-imgs .gallery-page {
-        width: 74%; }
-      #galleryContext > div .gallery-imgs .gllery-page-show {
-        transform: translateY(0.47rem); }
-      #galleryContext > div .gallery-imgs .gallery-img {
-        margin-bottom: .6rem; }
+        width: 74%;
+        top: calc(100vh - 0.46rem); }
+      #galleryContext > div .gallery-imgs .gallery-img::nth-child(1) {
+        margin-top: 0.46rem; }
     #galleryContext > div .gallery-right-background {
       z-index: 1;
       position: fixed;
@@ -1047,34 +1044,40 @@ div.essay-context > p {
           margin-top: .1rem; }
       #galleryContext > div .gallery-right-background .gallery-right {
         transform: translateY(0); } }
+@media screen and (min-width: 1600px) {
+  #galleryContext > div .gallery-imgs {
+    width: 60%; }
+    #galleryContext > div .gallery-imgs .gallery-page {
+      width: 78%; }
+  #galleryContext > div .gallery-right-background {
+    width: 22%; } }
 .gallery-page {
   height: 0.46rem;
   justify-content: space-between;
   position: fixed;
   z-index: 1;
   display: flex;
-  bottom: 0;
-  background-color: white;
+  top: 0;
+  background-color: #191919;
   box-shadow: 0 0 16px 0 #00000024;
   width: 100%;
   left: 0;
-  transition: all .2s; }
+  transition: all .0  s; }
   .gallery-page div {
     cursor: pointer;
     width: 100%;
     font-size: .14rem;
     display: flex;
     align-items: center;
-    color: black; }
+    color: #4a4a4a; }
     .gallery-page div span {
       transition: all .2s; }
       .gallery-page div span::before {
         content: attr(data-title);
         position: absolute;
         margin-top: .18rem;
-        color: #9c9c9c; }
+        color: #737373; }
     .gallery-page div img {
-      background-color: white;
       width: 0.34rem;
       height: .1rem;
       transition: all .3s; }
@@ -1083,7 +1086,6 @@ div.essay-context > p {
   .gallery-page div:hover span {
     margin: .04rem 0 .2rem 0; }
     .gallery-page div:hover span::before {
-      background: white;
       opacity: 1;
       transition: all .3s; }
   .gallery-page div:hover img {
