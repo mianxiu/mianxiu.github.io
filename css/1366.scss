@@ -2,7 +2,7 @@
 @import url('./mixxopost.css');
 
 $footer-height: .8rem;
-
+$main-width:10.92rem;
 @media screen and (min-width: 1600px) {
     $body-margin:1.4rem;
     html {
@@ -130,7 +130,7 @@ body {
 
 #main {
     transition: transform 0.2s;
-    width: 10.92rem;
+    width: $main-width;
     min-height: 6.45rem;
     height: 0vh;
     /*background-color: rgb(255, 255, 255); */
@@ -833,7 +833,7 @@ body {
     display: flex;
     flex-direction: row; // position: absolute;
     justify-content: center;
-    width: 10.92rem;
+    width: $main-width;
     background-color: white;
 }
 
@@ -1314,10 +1314,14 @@ $page-height:.46rem; //page-next height
         .gallery-imgs {
             z-index: 1;
             position: relative;
-            
             background-color:red;
             width: 100%;
             transition: $transition;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             .gallery-img {
                 max-width: 100%;
                 max-height: 100%;
@@ -1349,16 +1353,38 @@ $page-height:.46rem; //page-next height
 }
 
 
-// 宽度大于1000px后
+// 宽度大于
+$imgs-width:70vw;
+$right-background-width:100vw - $imgs-width;
+@mixin page-img-css($marginTop,$url) {
+    display: flex;
+    justify-content: center;
+    width: .43rem;
+    height: .4rem;
+    background-color: #ffffff;
+    margin-left: -1rem;
+    position: absolute;
+    margin-top: $marginTop; 
+                    &::before{
+                        content: url(#{$url});
+                        width: 0.16rem;
+                        margin-top:.1rem;
+                    }
+
+} 
+   
+
 @media screen and (min-width:920px) {
     #galleryContext {
         >div {
             flex-direction: row;
             .gallery-imgs {
-                width: 60%;
+                position: absolute;
+                width: $imgs-width;   
                 height: calc(100vh - #{$page-height});
+                flex-direction: row;
                 .gallery-page {
-                    width: 74%;
+                    width: $imgs-width;
                     top:calc(100vh - #{$page-height});
                 }
 
@@ -1377,28 +1403,34 @@ $page-height:.46rem; //page-next height
                 padding: 0 2%;
                 height: 100vh;
                 top: 0;
-                width: 26%;
+                width: $right-background-width;
                 //overflow: hidden;
 
                 .gallery-full-page{
-                  display: flex;
-                  justify-content: center;
-                  width: .43rem;
-                  height: .4rem;
-                  background-color: #ffffff;
-                  margin-left: -1rem;
-                  position: absolute;
-                  margin-top: .2rem;
-         
-                    &::before{
-                        content: url("/icon/gallery/full-page.svg");
-                        width: 0.16rem;
-                        margin-top:.1rem;
-                    }
+                  @include  page-img-css(.2rem,"/icon/gallery/full-page.svg");    
                 }
-                
+                .img-pre{
+                    @include  page-img-css(.8rem,"/icon/gallery/up.svg");    
+                }
+                .img-next{
+                    @include  page-img-css(1.2rem,"/icon/gallery/down.svg");    
+                }
                 .gallery-right {
                     transform: translateY(0);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width:1092px) {
+    #galleryContext {
+        >div {
+            .gallery-imgs {
+                width: $imgs-width;
+                margin-left: calc((#{$main-width} - 100vw)/2);
+                .gallery-page {
+                    width: $imgs-width;
                 }
             }
         }
@@ -1409,13 +1441,14 @@ $page-height:.46rem; //page-next height
     #galleryContext {
         >div {
             .gallery-imgs {
-                width: 60%;
+                width: 78vw;
+                margin-left: calc((#{$main-width} - 100vw)/2);
                 .gallery-page {
-                    width: 78%;
+                    width: 78vw;
                 }
             }
             .gallery-right-background {
-                width: 22%;
+                width: 22vw;
             }
         }
     }
@@ -1582,7 +1615,8 @@ $page-height:.46rem; //page-next height
         width: 100%;
     }
     #galleryContext > div > .gallery-full-page-imgs{
-        width: 80%;
+        width: 100vw;
+        //margin-left: 0;
     }
     
 }

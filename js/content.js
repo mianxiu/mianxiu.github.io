@@ -200,7 +200,7 @@ let writeGallery = function (event) {
         event.preventDefault()
     }
     let removeScroll = function (type) {
-        //   
+ 
         switch (type) {
             case true:
                 $('html').removeEventListener('wheel', stopScroll, false)
@@ -313,19 +313,65 @@ let writeGallery = function (event) {
         $('.gallery-next').classList.add('hidden')
     }
 
-    // 3 页面跳转栏隐藏
-    $('#galleryContext > div').addEventListener('wheel',event=>{
-        console.log(event.target.className)
-        let a = $('.gallery-imgs')
-        let b = $('.gallery-background')
-        if(a.contains(event.target)||b.contains(event.target)){
-            if(event.deltaY > 0){
-                $('.gallery-page').classList.add('gllery-page-show')
-            }else{
-                $('.gallery-page').classList.remove('gllery-page-show')
-            }
-        }     
-    })
+    // 3 图片切换
+    let keyMap = {
+        'ArrowLeft':false,
+        'ArrowRight':false,
+        'ArrowDown':false
+    }
+
+    let imgsScroll = function(event){   
+        if($All('.gallery-imgs').length > 0){
+            let a = $('.gallery-imgs')
+            let b = $('.gallery-background')
+            let c = $All('.gallery-img')
+
+            a.setAttribute('max-imgs',c.length)
+
+            let aIndex = Number(a.getAttribute('img-index'))
+            let key = event.key
+   
+            console.log(key)
+            keyMap[key] = true;
+
+                if(keyMap['ArrowDown'] && keyMap['ArrowLeft']){
+                    console.log('2222')
+                    $('.gallery-previous').click()
+                }
+                else if(keyMap['ArrowDown'] && keyMap['ArrowRight']){
+                    $('.gallery-next').click()
+                }
+                else if(keyMap['ArrowLeft'] && aIndex - 1 > -1){
+                    a.setAttribute('img-index',aIndex - 1)
+                    c[aIndex].classList.add('hidden')
+                    c[aIndex - 1].classList.remove('hidden')
+                }
+                else if(keyMap['ArrowRight'] && aIndex + 1 < c.length){
+                    a.setAttribute('img-index',aIndex + 1)
+                    c[aIndex].classList.add('hidden')
+                    c[aIndex + 1].classList.remove('hidden')
+                }
+           
+        }   
+    }
+    
+    let clearKey = function(event){
+        keyMap[event.key] = false;
+    }
+    
+    let galleryContextDiv = $('#galleryContext > div')
+  
+    let galleryContextEvent = function(event){
+        console.log('out')
+        document.addEventListener('keydown',imgsScroll)
+        document.addEventListener('keyup',clearKey)
+    }
+
+    if(galleryContextDiv.getAttribute('event') === 'off'){
+        galleryContextDiv.addEventListener('mouseenter',galleryContextEvent)
+        galleryContextDiv.setAttribute('event','on')
+    }
+
 
     // 4 full page
     $('.gallery-full-page').addEventListener('click',event=>{
@@ -346,6 +392,12 @@ let writeGallery = function (event) {
             c.classList.remove('gallery-full-page-imgs')
         }    
     })
+
+    // 5 
+    $All('.gallery-img').forEach(el=>{
+        el.classList.add('hidden')
+    })
+    $All('.gallery-img')[0].classList.remove('hidden')
 }
 
 

@@ -1,8 +1,8 @@
 #foot{
     position: fixed;
     left: 0;
-    transform: translateY(4rem);
-    top: 0rem;
+    transform: translateY(-1.6rem);
+    bottom: 0;
 
 }
 #mp3Player{

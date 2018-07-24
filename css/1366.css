@@ -988,7 +988,11 @@ div.essay-context > p {
       position: relative;
       background-color: red;
       width: 100%;
-      transition: all 0.2s; }
+      transition: all 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; }
       #galleryContext > div .gallery-imgs .gallery-img {
         max-width: 100%;
         max-height: 100%;
@@ -1014,10 +1018,12 @@ div.essay-context > p {
   #galleryContext > div {
     flex-direction: row; }
     #galleryContext > div .gallery-imgs {
-      width: 60%;
-      height: calc(100vh - 0.46rem); }
+      position: absolute;
+      width: 70vw;
+      height: calc(100vh - 0.46rem);
+      flex-direction: row; }
       #galleryContext > div .gallery-imgs .gallery-page {
-        width: 74%;
+        width: 70vw;
         top: calc(100vh - 0.46rem); }
       #galleryContext > div .gallery-imgs .gallery-img::nth-child(1) {
         margin-top: 0.46rem; }
@@ -1028,7 +1034,7 @@ div.essay-context > p {
       padding: 0 2%;
       height: 100vh;
       top: 0;
-      width: 26%; }
+      width: 30vw; }
       #galleryContext > div .gallery-right-background .gallery-full-page {
         display: flex;
         justify-content: center;
@@ -1037,20 +1043,53 @@ div.essay-context > p {
         background-color: #ffffff;
         margin-left: -1rem;
         position: absolute;
-        margin-top: .2rem; }
+        margin-top: 0.2rem; }
         #galleryContext > div .gallery-right-background .gallery-full-page::before {
-          content: url("/icon/gallery/full-page.svg");
+          content: url(/icon/gallery/full-page.svg);
+          width: 0.16rem;
+          margin-top: .1rem; }
+      #galleryContext > div .gallery-right-background .img-pre {
+        display: flex;
+        justify-content: center;
+        width: .43rem;
+        height: .4rem;
+        background-color: #ffffff;
+        margin-left: -1rem;
+        position: absolute;
+        margin-top: 0.8rem; }
+        #galleryContext > div .gallery-right-background .img-pre::before {
+          content: url(/icon/gallery/up.svg);
+          width: 0.16rem;
+          margin-top: .1rem; }
+      #galleryContext > div .gallery-right-background .img-next {
+        display: flex;
+        justify-content: center;
+        width: .43rem;
+        height: .4rem;
+        background-color: #ffffff;
+        margin-left: -1rem;
+        position: absolute;
+        margin-top: 1.2rem; }
+        #galleryContext > div .gallery-right-background .img-next::before {
+          content: url(/icon/gallery/down.svg);
           width: 0.16rem;
           margin-top: .1rem; }
       #galleryContext > div .gallery-right-background .gallery-right {
         transform: translateY(0); } }
+@media screen and (min-width: 1092px) {
+  #galleryContext > div .gallery-imgs {
+    width: 70vw;
+    margin-left: calc((10.92rem - 100vw)/2); }
+    #galleryContext > div .gallery-imgs .gallery-page {
+      width: 70vw; } }
 @media screen and (min-width: 1600px) {
   #galleryContext > div .gallery-imgs {
-    width: 60%; }
+    width: 78vw;
+    margin-left: calc((10.92rem - 100vw)/2); }
     #galleryContext > div .gallery-imgs .gallery-page {
-      width: 78%; }
+      width: 78vw; }
   #galleryContext > div .gallery-right-background {
-    width: 22%; } }
+    width: 22vw; } }
 .gallery-page {
   height: 0.46rem;
   justify-content: space-between;
@@ -1161,6 +1200,6 @@ div.essay-context > p {
     width: 100%; }
 
   #galleryContext > div > .gallery-full-page-imgs {
-    width: 80%; } }
+    width: 100vw; } }
 
 /*# sourceMappingURL=1366.css.map */
