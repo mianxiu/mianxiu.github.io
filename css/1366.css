@@ -1,6 +1,9 @@
 @charset "UTF-8";
 @import url("./markdown.css");
 @import url("./mixxopost.css");
+@media screen and (min-width: 920px) {
+  #main {
+    margin-top: calc((100vh - 6.45rem - 0.8rem)/2); } }
 @media screen and (min-width: 1600px) {
   html {
     font-size: 112px !important; }
@@ -1015,67 +1018,70 @@ div.essay-context > p {
           flex-direction: column-reverse; }
 
 @media screen and (min-width: 920px) {
-  #galleryContext > div {
-    flex-direction: row; }
-    #galleryContext > div .gallery-imgs {
-      position: absolute;
-      width: 70vw;
-      height: calc(100vh - 0.46rem);
+  #galleryContext {
+    position: fixed;
+    top: 0; }
+    #galleryContext > div {
       flex-direction: row; }
-      #galleryContext > div .gallery-imgs .gallery-page {
+      #galleryContext > div .gallery-imgs {
+        position: absolute;
         width: 70vw;
-        top: calc(100vh - 0.46rem); }
-      #galleryContext > div .gallery-imgs .gallery-img::nth-child(1) {
-        margin-top: 0.46rem; }
-    #galleryContext > div .gallery-right-background {
-      z-index: 1;
-      position: fixed;
-      right: 0;
-      padding: 0 2%;
-      height: 100vh;
-      top: 0;
-      width: 30vw; }
-      #galleryContext > div .gallery-right-background .gallery-full-page {
-        display: flex;
-        justify-content: center;
-        width: .43rem;
-        height: .4rem;
-        background-color: #ffffff;
-        margin-left: -1rem;
-        position: absolute;
-        margin-top: 0.2rem; }
-        #galleryContext > div .gallery-right-background .gallery-full-page::before {
-          content: url(/icon/gallery/full-page.svg);
-          width: 0.16rem;
-          margin-top: .1rem; }
-      #galleryContext > div .gallery-right-background .img-pre {
-        display: flex;
-        justify-content: center;
-        width: .43rem;
-        height: .4rem;
-        background-color: #ffffff;
-        margin-left: -1rem;
-        position: absolute;
-        margin-top: 0.8rem; }
-        #galleryContext > div .gallery-right-background .img-pre::before {
-          content: url(/icon/gallery/up.svg);
-          width: 0.16rem;
-          margin-top: .1rem; }
-      #galleryContext > div .gallery-right-background .img-next {
-        display: flex;
-        justify-content: center;
-        width: .43rem;
-        height: .4rem;
-        background-color: #ffffff;
-        margin-left: -1rem;
-        position: absolute;
-        margin-top: 1.2rem; }
-        #galleryContext > div .gallery-right-background .img-next::before {
-          content: url(/icon/gallery/down.svg);
-          width: 0.16rem;
-          margin-top: .1rem; }
-      #galleryContext > div .gallery-right-background .gallery-right {
-        transform: translateY(0); } }
+        height: calc(100vh - 0.46rem);
+        flex-direction: row; }
+        #galleryContext > div .gallery-imgs .gallery-page {
+          width: 70vw;
+          top: calc(100vh - 0.46rem); }
+        #galleryContext > div .gallery-imgs .gallery-img::nth-child(1) {
+          margin-top: 0.46rem; }
+      #galleryContext > div .gallery-right-background {
+        z-index: 1;
+        position: fixed;
+        right: 0;
+        padding: 0 2%;
+        height: 100vh;
+        top: 0;
+        width: 30vw; }
+        #galleryContext > div .gallery-right-background .gallery-full-page {
+          display: flex;
+          justify-content: center;
+          width: .43rem;
+          height: .4rem;
+          background-color: #ffffff;
+          margin-left: -1rem;
+          position: absolute;
+          margin-top: 0.2rem; }
+          #galleryContext > div .gallery-right-background .gallery-full-page::before {
+            content: url(/icon/gallery/full-page.svg);
+            width: 0.16rem;
+            margin-top: .1rem; }
+        #galleryContext > div .gallery-right-background .img-pre {
+          display: flex;
+          justify-content: center;
+          width: .43rem;
+          height: .4rem;
+          background-color: #ffffff;
+          margin-left: -1rem;
+          position: absolute;
+          margin-top: 0.8rem; }
+          #galleryContext > div .gallery-right-background .img-pre::before {
+            content: url(/icon/gallery/up.svg);
+            width: 0.16rem;
+            margin-top: .1rem; }
+        #galleryContext > div .gallery-right-background .img-next {
+          display: flex;
+          justify-content: center;
+          width: .43rem;
+          height: .4rem;
+          background-color: #ffffff;
+          margin-left: -1rem;
+          position: absolute;
+          margin-top: 1.2rem; }
+          #galleryContext > div .gallery-right-background .img-next::before {
+            content: url(/icon/gallery/down.svg);
+            width: 0.16rem;
+            margin-top: .1rem; }
+        #galleryContext > div .gallery-right-background .gallery-right {
+          transform: translateY(0); } }
 @media screen and (min-width: 1092px) {
   #galleryContext > div .gallery-imgs {
     width: 70vw;
@@ -1154,7 +1160,7 @@ div.essay-context > p {
   background-color: #212121; }
 
 .footer {
-  display: flex;
+  display: none;
   justify-content: space-between;
   align-items: center;
   font-size: .12rem;
@@ -1188,9 +1194,6 @@ div.essay-context > p {
   position: initial;
   margin-left: calc((7.2rem - 100vw) / 2); }
 
-.hidden {
-  display: none !important; }
-
 @media screen and (min-width: 920px) {
   .gallery-full-page-right {
     transform: translateX(100%);
@@ -1200,6 +1203,12 @@ div.essay-context > p {
     width: 100%; }
 
   #galleryContext > div > .gallery-full-page-imgs {
-    width: 100vw; } }
+    width: 100vw; }
+
+  .hidden {
+    display: none !important; }
+
+  .footer {
+    display: flex; } }
 
 /*# sourceMappingURL=1366.css.map */

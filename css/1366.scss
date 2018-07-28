@@ -3,6 +3,12 @@
 
 $footer-height: .8rem;
 $main-width:10.92rem;
+@media screen and (min-width:920px){
+    #main {
+        margin-top: calc((100vh - 6.45rem - 0.8rem)/2);
+    }
+    
+}
 @media screen and (min-width: 1600px) {
     $body-margin:1.4rem;
     html {
@@ -136,6 +142,7 @@ body {
     /*background-color: rgb(255, 255, 255); */
     position: relative;
     z-index: 1;
+    
 }
 
 #background-box {
@@ -1327,6 +1334,7 @@ $page-height:.46rem; //page-next height
                 max-height: 100%;
                 outline: none !important;
                 @include gallery-shadow;
+              
             }
         }
         .gallery-right-background {
@@ -1376,6 +1384,8 @@ $right-background-width:100vw - $imgs-width;
 
 @media screen and (min-width:920px) {
     #galleryContext {
+        position: fixed;
+        top: 0;
         >div {
             flex-direction: row;
             .gallery-imgs {
@@ -1551,7 +1561,7 @@ $right-background-width:100vw - $imgs-width;
 
 .footer {
     
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
     font-size: .12rem;
@@ -1602,7 +1612,7 @@ $right-background-width:100vw - $imgs-width;
 }
 
 .hidden {
-    display: none !important;
+    
 }
 
 @media screen and (min-width: 920px){
@@ -1617,6 +1627,14 @@ $right-background-width:100vw - $imgs-width;
     #galleryContext > div > .gallery-full-page-imgs{
         width: 100vw;
         //margin-left: 0;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .footer {
+        display: flex;
     }
     
 }
