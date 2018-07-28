@@ -3,18 +3,19 @@
 @import url("./mixxopost.css");
 @media screen and (min-width: 920px) {
   #main {
-    margin-top: calc((100vh - 6.45rem - 0.8rem)/2); } }
+    margin-top: calc((100vh - 6.45rem - 0.8rem)/2); }
+
+  #essayText div ._banner {
+    margin-top: calc((6.45rem + 0.8rem - 100vh) / 2); }
+  #essayText div h1.essay-title {
+    margin-top: 1.4rem; }
+  #essayText div ._banner + h1.essay-title {
+    margin-top: 0.3rem; } }
 @media screen and (min-width: 1600px) {
   html {
     font-size: 112px !important; }
     html body #footer {
-      margin-bottom: 0; }
-    html #essayText div ._banner {
-      margin-top: 0.6rem; }
-    html #essayText div h1.essay-title {
-      margin-top: 1.4rem; }
-    html #essayText div ._banner + h1.essay-title {
-      margin-top: 0.3rem; } }
+      margin-bottom: 0; } }
 @media screen and (min-width: 2000px) {
   html {
     font-size: 120px !important; } }
@@ -1184,7 +1185,7 @@ div.essay-context > p {
       .footer div:nth-child(2) > div:hover {
         color: #eeeeee; }
 
-.essay-context > .footer {
+._banner + .essay-title + ._date + ._tags + .essay-context > .footer {
   position: initial; }
 
 @media screen and (min-width: 760px) {

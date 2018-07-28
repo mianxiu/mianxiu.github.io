@@ -83,7 +83,7 @@ let writeContent = function () {
 let writeEssay = function () {
     document.documentElement.scrollTop = 0
     styleDisplay([$('#logo_other'), $('#essay')], 'none')
-    $('#essayText').style = 'height:100vh;width:100vw;'
+    $('#essayText').style = 'min-height:100vh;width:100vw;'
     $('#navigation').style.filter = 'blur(0.04rem)'
     $('#essayText>div').innerHTML = this.responseText
     $('#essayClose').style.transform = 'scale(1,1)'
