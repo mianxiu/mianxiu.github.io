@@ -5,6 +5,9 @@
   #main {
     margin-top: calc((100vh - 6.45rem - 0.8rem)/2); }
 
+  #background-box {
+    margin-top: calc((100vh - 2.70rem - 0.8rem)/2); }
+
   #essayText div ._banner {
     margin-top: calc((6.45rem + 0.8rem - 100vh) / 2); }
   #essayText div h1.essay-title {
@@ -655,22 +658,6 @@ body {
   #essayText > div:nth-child(1) > p {
     font-size: 0.16rem; }
 
-.essay-context {
-  max-width: 7.6rem;
-  min-width: 2.4rem;
-  margin-top: 0.18rem;
-  margin-bottom: .2rem;
-  width: 100vw; }
-  .essay-context > img {
-    outline: none !important; }
-  .essay-context > .essay-hr {
-    border-top: 0.01rem solid #ededed;
-    border-bottom: 0.01rem solid #ededed;
-    margin: .5rem 7rem .5rem 0;
-    color: #c6c6c6;
-    font-weight: lighter;
-    padding: .2rem 0; }
-
 #essayText > div > h1.essay-title {
   margin-top: 0.30rem;
   margin-bottom: 0.10rem; }
@@ -717,7 +704,7 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 3.00rem;
+  height: 4.00rem;
   background-position: center;
   background-color: #f1f1f1; }
   ._banner::after {

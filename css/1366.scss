@@ -7,6 +7,9 @@ $main-width:10.92rem;
     #main {
         margin-top: calc((100vh - 6.45rem - 0.8rem)/2);     
     }
+    #background-box{
+        margin-top: calc((100vh - 2.70rem - 0.8rem)/2);
+    }
 
     #essayText{
         div{
@@ -910,25 +913,7 @@ body {
     align-items: center;
 }
 
-.essay-context {
-    max-width: 7.6rem;
-    min-width: 2.4rem;
-    margin-top: 0.18rem;
-    margin-bottom: .2rem;
-    width: 100vw;
-    >img {
-        outline: none !important;
-    }
-    >.essay-hr {
-        $border: 0.01rem solid #ededed;
-        border-top: $border;
-        border-bottom: $border;
-        margin: .5rem 7rem .5rem 0;
-        color: #c6c6c6;
-        font-weight: lighter;
-        padding: .2rem 0;
-    }
-}
+
 
 #essayText>div>h1.essay-title {
     margin-top: 0.30rem;
@@ -987,7 +972,7 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 3.00rem;
+    height: 4.00rem;
     background-position: center;
     background-color: rgb(241, 241, 241);
     &::after {
