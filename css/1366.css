@@ -798,9 +798,9 @@ div.essay-context > p {
   color: white; }
 
 #pages > ul > li {
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  display: flex;
   padding: 0 0;
   width: 0.30rem;
   height: 0.30rem;
@@ -977,12 +977,12 @@ div.essay-context > p {
     #galleryContext > div .gallery-imgs {
       z-index: 1;
       position: relative;
-      background-color: red;
+      background-color: #232323;
       width: 100%;
       transition: all 0.2s;
-      display: flex;
       justify-content: center;
       align-items: center;
+      display: flex;
       flex-direction: column; }
       #galleryContext > div .gallery-imgs .gallery-img {
         max-width: 100%;
@@ -1004,6 +1004,8 @@ div.essay-context > p {
         #galleryContext > div .gallery-right-background .gallery-right #mixxopost {
           display: flex;
           flex-direction: column-reverse; }
+      #galleryContext > div .gallery-right-background .keyboard-tip {
+        display: none; }
 
 @media screen and (min-width: 920px) {
   #galleryContext {
@@ -1013,11 +1015,11 @@ div.essay-context > p {
       flex-direction: row; }
       #galleryContext > div .gallery-imgs {
         position: absolute;
-        width: 70vw;
+        width: calc(100vw - 400px);
         height: calc(100vh - 0.46rem);
         flex-direction: row; }
         #galleryContext > div .gallery-imgs .gallery-page {
-          width: 70vw;
+          width: calc(100vw - 400px);
           top: calc(100vh - 0.46rem); }
         #galleryContext > div .gallery-imgs .gallery-img::nth-child(1) {
           margin-top: 0.46rem; }
@@ -1028,11 +1030,11 @@ div.essay-context > p {
         padding: 0 2%;
         height: 100vh;
         top: 0;
-        width: 30vw; }
+        width: 400px; }
         #galleryContext > div .gallery-right-background .gallery-full-page {
           display: flex;
           justify-content: center;
-          width: .43rem;
+          width: .4rem;
           height: .4rem;
           background-color: #ffffff;
           margin-left: -1rem;
@@ -1045,7 +1047,7 @@ div.essay-context > p {
         #galleryContext > div .gallery-right-background .img-pre {
           display: flex;
           justify-content: center;
-          width: .43rem;
+          width: .4rem;
           height: .4rem;
           background-color: #ffffff;
           margin-left: -1rem;
@@ -1058,7 +1060,7 @@ div.essay-context > p {
         #galleryContext > div .gallery-right-background .img-next {
           display: flex;
           justify-content: center;
-          width: .43rem;
+          width: .4rem;
           height: .4rem;
           background-color: #ffffff;
           margin-left: -1rem;
@@ -1069,21 +1071,59 @@ div.essay-context > p {
             width: 0.16rem;
             margin-top: .1rem; }
         #galleryContext > div .gallery-right-background .gallery-right {
-          transform: translateY(0); } }
+          transform: translateY(0); }
+        #galleryContext > div .gallery-right-background .keyboard-tip {
+          height: .46rem;
+          background-color: #f7f7f7;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          border-top: 1px solid #efefef; }
+          #galleryContext > div .gallery-right-background .keyboard-tip > ul {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            list-style: none;
+            flex-direction: row;
+            font-size: 12px; }
+            #galleryContext > div .gallery-right-background .keyboard-tip > ul li {
+              color: #bbbaba;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              margin: 0 4px; }
+              #galleryContext > div .gallery-right-background .keyboard-tip > ul li span.keyboard-tip-li {
+                color: #6f6f6f;
+                border: 1px solid #e0e0e0;
+                width: .24rem;
+                height: .24rem;
+                box-shadow: inset 0px -5px 0px 0px #f1f1f1;
+                text-align: center;
+                border-radius: 4px;
+                background-color: white;
+                margin: 0 2px; }
+              #galleryContext > div .gallery-right-background .keyboard-tip > ul li span.keyboard-tip-text {
+                padding-left: 2px; } }
 @media screen and (min-width: 1092px) {
   #galleryContext > div .gallery-imgs {
-    width: 70vw;
+    width: calc(100vw - 400px);
     margin-left: calc((10.92rem - 100vw)/2); }
     #galleryContext > div .gallery-imgs .gallery-page {
-      width: 70vw; } }
+      width: calc(100vw - 400px); } }
 @media screen and (min-width: 1600px) {
   #galleryContext > div .gallery-imgs {
-    width: 78vw;
+    width: calc(100vw - 400px);
     margin-left: calc((10.92rem - 100vw)/2); }
     #galleryContext > div .gallery-imgs .gallery-page {
-      width: 78vw; }
+      width: calc(100vw - 400px); }
   #galleryContext > div .gallery-right-background {
-    width: 22vw; } }
+    width: 400px; }
+    #galleryContext > div .gallery-right-background #mixxopost {
+      font-size: 16px; } }
 .gallery-page {
   height: 0.46rem;
   justify-content: space-between;
@@ -1114,30 +1154,56 @@ div.essay-context > p {
       width: 0.34rem;
       height: .1rem;
       transition: all .3s; }
-  .gallery-page div span::before {
-    opacity: 0; }
-  .gallery-page div:hover span {
+  .gallery-page div span {
     margin: .04rem 0 .2rem 0; }
-    .gallery-page div:hover span::before {
-      opacity: 1;
-      transition: all .3s; }
+  .gallery-page div img {
+    margin: .04rem 0 .2rem 0;
+    opacity: .3; }
   .gallery-page div:hover img {
-    margin: .04rem 0 .2rem 0; }
+    opacity: 1; }
   .gallery-page .gallery-next {
     justify-content: flex-end; }
     .gallery-page .gallery-next span::before {
-      right: 0.34rem; }
+      right: 1.26rem; }
 
-.gallery-up {
+.gallery-page-tip {
   background-color: #fcab1d;
-  display: flex;
   color: white;
   font-size: .12rem;
-  max-width: 0.46rem;
-  min-width: 0.46rem;
+  max-width: 0.92rem;
+  min-width: 0.92rem;
   width: 100%;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  display: flex; }
+  .gallery-page-tip .gallery-page-tip-num {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: #fffbf4;
+    overflow: hidden; }
+    .gallery-page-tip .gallery-page-tip-num ul {
+      height: 100%;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      transition: transform .2s; }
+      .gallery-page-tip .gallery-page-tip-num ul li {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 0.46rem; }
+  .gallery-page-tip .gallery-page-tip-sum {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: #ffe1ae; }
+    .gallery-page-tip .gallery-page-tip-sum::before {
+      content: '/';
+      display: block;
+      position: absolute;
+      margin-left: -.23rem;
+      color: #ffe1ae; }
 
 .gallery-background {
   position: fixed;

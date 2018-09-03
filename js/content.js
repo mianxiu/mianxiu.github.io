@@ -88,7 +88,7 @@ let writeEssay = function () {
     $('#essayText>div').innerHTML = this.responseText
     $('#essayClose').style.transform = 'scale(1,1)'
     $('#main').style = 'display:flex;justify-content:center;height:100vh;'
-    $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog" 
+    $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog"
 
     // 高亮
     for (let i of document.querySelectorAll('pre')) {
@@ -181,15 +181,13 @@ let writeGallery = function (event) {
         let c = document.body.offsetHeight // 屏幕高度
         let y = window.getComputedStyle(selector, null).transform.split(',')[5] === undefined ? 0 : Number(window.getComputedStyle(selector, null).transform.split(',')[5].replace(/\)/g, ''))
         let h = getHeight(selector)
-        let infoHeight = getHeight($('.gallery-context-info'))
-        let mixxoPostHeight = getHeight($('#mixxopost'))
 
         if (window.getComputedStyle($('.gallery-right-background'), null).position === 'fixed') {
             if (deltaY < 0) {
-                selector.style.transform = y - s < 0 ? '' : `translateY(${y+=s}px)`
+                selector.style.transform = y - s < 0 ? '' : `translateY(${y += s}px)`
             } else {
                 if (c < h) {
-                    selector.style.transform = (c - h - d > y - s) && c < h ? `translateY(${c-h-d}px)` : `translateY(${y-=s}px)`
+                    selector.style.transform = (c - h - d > y - s) && c < h ? `translateY(calc(${c - h - d}px - 0.46rem))` : `translateY(${y -= s}px)`
                 }
             }
         }
@@ -200,7 +198,7 @@ let writeGallery = function (event) {
         event.preventDefault()
     }
     let removeScroll = function (type) {
- 
+
         switch (type) {
             case true:
                 $('html').removeEventListener('wheel', stopScroll, false)
@@ -259,16 +257,16 @@ let writeGallery = function (event) {
     let nextNode = $('.gallery-next > span')
 
 
-    let  Pre = document.getElementById(pre)
+    let Pre = document.getElementById(pre)
     let Next = document.getElementById(next)
-    if(Pre!==null){
-        preNode.setAttribute('data-title',Pre.children[0].children[0].innerText)
+    if (Pre !== null) {
+        preNode.setAttribute('data-title', Pre.children[0].children[0].innerText)
     }
-    if(Next!==null){
-        nextNode.setAttribute('data-title',Next.children[0].children[0].innerText)
+    if (Next !== null) {
+        nextNode.setAttribute('data-title', Next.children[0].children[0].innerText)
     }
-    
-    
+
+
     let jumpPage = function (event) {
         let reAjax = async (selectorId) => {
             await history.back()
@@ -313,88 +311,106 @@ let writeGallery = function (event) {
         $('.gallery-next').classList.add('hidden')
     }
 
+
     // 3 图片切换
     let keyMap = {
-        'ArrowLeft':false,
-        'ArrowRight':false,
-        'ArrowDown':false
+        'ArrowLeft': false,
+        'ArrowRight': false,
+        'ArrowDown': false
     }
 
-    let imgsScroll = function(event){   
-        if($All('.gallery-imgs').length > 0){
+    // 写入页码
+    let tipNumHTML = ''
+    for (let i = 0; i < $All('.gallery-img').length; i++) {
+        tipNumHTML += `<li>${i + 1}</li>`
+    }
+    $('.gallery-page-tip-num').innerHTML += `<ul>${tipNumHTML}</ul>`
+
+
+    $('.gallery-imgs').setAttribute('max-imgs', $All('.gallery-img').length)
+    $('.gallery-page-tip-sum').innerText = $All('.gallery-img').length
+
+    let imgsScroll = function (event) {
+        if ($All('.gallery-imgs').length > 0) {
             let a = $('.gallery-imgs')
             let b = $('.gallery-background')
             let c = $All('.gallery-img')
-
-            a.setAttribute('max-imgs',c.length)
+            let d = $('.gallery-page-tip-num')
+            let e = $('.gallery-page-tip-num > ul')
 
             let aIndex = Number(a.getAttribute('img-index'))
+            let numIndex = Number(d.getAttribute('num-index'))
             let key = event.key
-   
+
             console.log(key)
+
+
             keyMap[key] = true;
 
-                if(keyMap['ArrowDown'] && keyMap['ArrowLeft']){
-                    console.log('2222')
-                    $('.gallery-previous').click()
-                }
-                else if(keyMap['ArrowDown'] && keyMap['ArrowRight']){
-                    $('.gallery-next').click()
-                }
-                else if(keyMap['ArrowLeft'] && aIndex - 1 > -1){
-                    a.setAttribute('img-index',aIndex - 1)
-                    c[aIndex].classList.add('hidden')
-                    c[aIndex - 1].classList.remove('hidden')
-                }
-                else if(keyMap['ArrowRight'] && aIndex + 1 < c.length){
-                    a.setAttribute('img-index',aIndex + 1)
-                    c[aIndex].classList.add('hidden')
-                    c[aIndex + 1].classList.remove('hidden')
-                }
-           
-        }   
-    }
-    
-    let clearKey = function(event){
-        keyMap[event.key] = false;
-    }
-    
-    let galleryContextDiv = $('#galleryContext > div')
-  
-    let galleryContextEvent = function(event){
-        console.log('out')
-        document.addEventListener('keydown',imgsScroll)
-        document.addEventListener('keyup',clearKey)
+            if (keyMap['ArrowDown'] && keyMap['ArrowLeft']) {
+                $('.gallery-previous').click()
+            }
+            else if (keyMap['ArrowDown'] && keyMap['ArrowRight']) {
+                $('.gallery-next').click()
+            }
+            else if (keyMap['ArrowLeft'] && aIndex - 1 > -1) {
+                a.setAttribute('img-index', aIndex - 1)
+                d.setAttribute('num-index', numIndex - 1)
+                e.style.transform = `translateY(-${(numIndex - 2) * 0.46}rem)`
+                c[aIndex].classList.add('hidden')
+                c[aIndex - 1].classList.remove('hidden')
+            }
+            else if (keyMap['ArrowRight'] && aIndex + 1 < c.length) {
+                a.setAttribute('img-index', aIndex + 1)
+                d.setAttribute('num-index', numIndex + 1)
+                e.style.transform = `translateY(-${numIndex * 0.46}rem)`
+                c[aIndex].classList.add('hidden')
+                c[aIndex + 1].classList.remove('hidden')
+            }
+
+        }
     }
 
-    if(galleryContextDiv.getAttribute('event') === 'off'){
-        galleryContextDiv.addEventListener('mouseenter',galleryContextEvent)
-        galleryContextDiv.setAttribute('event','on')
+    let clearKey = function (event) {
+        keyMap[event.key] = false;
+    }
+
+    let galleryContextDiv = $('#galleryContext > div')
+
+    let galleryContextEvent = function (event) {
+        console.log('out')
+        document.addEventListener('keydown', imgsScroll)
+        document.addEventListener('keyup', clearKey)
+    }
+
+    if (galleryContextDiv.getAttribute('event') === 'off') {
+        galleryContextDiv.addEventListener('mouseenter', galleryContextEvent)
+        galleryContextDiv.setAttribute('event', 'on')
     }
 
 
     // 4 full page
-    $('.gallery-full-page').addEventListener('click',event=>{
-        
+    $('.gallery-full-page').addEventListener('click', event => {
+
         let a = $('.gallery-right-background')
         let b = $('.gallery-page')
         let c = $('.gallery-imgs')
         let d = event.target.getAttribute('page-type')
-        if(d === 'normal'){
-            event.target.setAttribute('page-type','full')
+        if (d === 'normal') {
+            event.target.setAttribute('page-type', 'full')
             a.classList.add('gallery-full-page-right')
             b.classList.add('gallery-full-page')
             c.classList.add('gallery-full-page-imgs')
-        }else if(d === 'full'){
-            event.target.setAttribute('page-type','normal')
+        } else if (d === 'full') {
+            event.target.setAttribute('page-type', 'normal')
             a.classList.remove('gallery-full-page-right')
             b.classList.remove('gallery-full-page')
             c.classList.remove('gallery-full-page-imgs')
-        }    
+        }
     })
 
     // 5 
-    $All('.gallery-img').forEach(el=>{
+    $All('.gallery-img').forEach(el => {
         el.classList.add('hidden')
     })
     $All('.gallery-img')[0].classList.remove('hidden')
