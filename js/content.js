@@ -187,7 +187,7 @@ let writeGallery = function (event) {
                 selector.style.transform = y - s < 0 ? '' : `translateY(${y += s}px)`
             } else {
                 if (c < h) {
-                    selector.style.transform = (c - h - d > y - s) && c < h ? `translateY(calc(${c - h - d}px - 0.46rem))` : `translateY(${y -= s}px)`
+                    selector.style.transform = (c - h - d > y - s) && c < h ? `translateY(calc(${c - h - d}px - 0.8rem))` : `translateY(${y -= s}px)`
                 }
             }
         }

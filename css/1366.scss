@@ -1069,7 +1069,7 @@ div.essay-context>p {
     background-image: url('/icon/essay/close.svg');
     transform: scale(0, 0);
     transition: transform 0.4s;
-    border-radius: .08rem;
+    
 }
 
 /*换页*/
@@ -1311,7 +1311,7 @@ $page-height:.46rem; //page-next height
         .gallery-imgs {
             z-index: 1;
             position: relative;
-            background-color:#232323;
+            background-color:#131313;
             width: 100%;
             transition: $transition;
 
@@ -1421,17 +1421,18 @@ $imgs-width:calc(100vw - #{$right-background-width});
                     transform: translateY(0);
                 }
                 .keyboard-tip{
-                    height: .46rem;
+                    height: .8rem;
                     background-color: #f7f7f7;
                     width: 100%;
                     @include center();
+                    flex-direction: column;
                     position: absolute;
                     left: 0;
                     bottom: 0;
                     border-top: 1px solid #efefef;
                     >ul{
                         padding: 0;
-                        margin: 0;
+                        margin: 6px 0;
                         display: flex;
                         list-style: none;
                         flex-direction: row;
@@ -1441,7 +1442,7 @@ $imgs-width:calc(100vw - #{$right-background-width});
                             @include center();
                             margin:0 4px;
                             span.keyboard-tip-li{
-                                color: #6f6f6f;
+                                color: #828282;
                                 border: 1px solid #e0e0e0;
                                 width: .24rem;
                                 height: .24rem;

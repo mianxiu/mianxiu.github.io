@@ -781,8 +781,7 @@ div.essay-context > p {
   right: 0.50rem;
   background-image: url("/icon/essay/close.svg");
   transform: scale(0, 0);
-  transition: transform 0.4s;
-  border-radius: .08rem; }
+  transition: transform 0.4s; }
 
 /*换页*/
 #pages > ul {
@@ -977,7 +976,7 @@ div.essay-context > p {
     #galleryContext > div .gallery-imgs {
       z-index: 1;
       position: relative;
-      background-color: #232323;
+      background-color: #131313;
       width: 100%;
       transition: all 0.2s;
       justify-content: center;
@@ -1073,19 +1072,20 @@ div.essay-context > p {
         #galleryContext > div .gallery-right-background .gallery-right {
           transform: translateY(0); }
         #galleryContext > div .gallery-right-background .keyboard-tip {
-          height: .46rem;
+          height: .8rem;
           background-color: #f7f7f7;
           width: 100%;
           justify-content: center;
           align-items: center;
           display: flex;
+          flex-direction: column;
           position: absolute;
           left: 0;
           bottom: 0;
           border-top: 1px solid #efefef; }
           #galleryContext > div .gallery-right-background .keyboard-tip > ul {
             padding: 0;
-            margin: 0;
+            margin: 6px 0;
             display: flex;
             list-style: none;
             flex-direction: row;
@@ -1097,7 +1097,7 @@ div.essay-context > p {
               display: flex;
               margin: 0 4px; }
               #galleryContext > div .gallery-right-background .keyboard-tip > ul li span.keyboard-tip-li {
-                color: #6f6f6f;
+                color: #828282;
                 border: 1px solid #e0e0e0;
                 width: .24rem;
                 height: .24rem;
