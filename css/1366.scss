@@ -870,8 +870,8 @@ body {
             display: flex;
             flex-flow: column-reverse;
             h1 {
-                line-height: .28rem;
-                margin-top: 0.6em;
+                //line-height: .28rem;
+                margin-top: 0.4em;
                 margin-bottom: 0em;
             }
             &:hover h1 {}
@@ -944,10 +944,6 @@ body {
     width: 100vw;
     max-width: 7.6rem;
     /*  margin-left: calc(50vw - 4rem); */
-    +span._tags {
-        margin-top: -0.21rem;
-        margin-left: -3.4rem;
-    }
 }
 
 .preview-img {
@@ -962,12 +958,12 @@ body {
 }
 
 .summary {
-    display: none;
-    color: #aeaeae;
-    font-size: 1.4em;
+    display: flex;
+    color: #737373;
+    font-size: .20rem;
     font-weight: lighter;
     >p {
-        margin-top: 0;
+        margin-top: .4em;
     }
 }
 
@@ -995,25 +991,47 @@ body {
 
 ._date,
 ._updated {
-    letter-spacing: 0.02rem;
+   // letter-spacing: 0.02rem;
 }
 
 ._date,
 ._tags,
 ._updated {
+    text-transform: uppercase;
     font-size: 0.16rem;
     color: #bababa;
     font-weight: lighter;
 }
 
-._tags {
-    margin-left: 0.20rem;
-    width: 1.60rem;
-    >em {
-        margin-right: .05rem;
-        color: #0cb691;
+
+
+.essay-hr{
+    margin: .5rem 8rem .5rem 0;
+    display: flex;
+    align-items: center;
+    .essay-end-tip {
+        //width: 100%;
+        border-top: 0.01rem solid #ededed;
+        border-bottom: 0.01rem solid #ededed;
+        color: #c6c6c6;
+        font-weight: lighter;
+        padding: .2rem 0; 
     }
+        ._tags {
+            display: flex;
+            font-size:.14rem;
+            margin-left: 0.20rem;
+            width: 1.60rem;
+            >em {
+                margin-right: .05rem;
+                color: #0cb691;
+            }
+            >span{
+                display: block;
+            }
+        }
 }
+
 
 ._updated {
     display: none;
@@ -1650,7 +1668,7 @@ $imgs-width:calc(100vw - #{$right-background-width});
         }
     }
 }
-._banner + .essay-title + ._date + ._tags + .essay-context{
+._banner + .essay-title + ._date + .essay-context{
     >.footer {   
         position: initial;
     }

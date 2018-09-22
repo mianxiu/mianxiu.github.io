@@ -87,7 +87,7 @@ let writeEssay = function () {
     $('#navigation').style.filter = 'blur(0.04rem)'
     $('#essayText>div').innerHTML = this.responseText
     $('#essayClose').style.transform = 'scale(1,1)'
-    $('#main').style = 'display:flex;justify-content:center;height:100vh;'
+    $('#main').style = 'display:flex;justify-content:center;' // height:100vh;
     $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog"
 
     // 高亮
@@ -112,7 +112,7 @@ function essayAjax() {
             originScroll = document.documentElement.scrollTop
             let eP = e.target.parentNode
             //标题
-            let ePostH1 = eP.children[2].innerText
+            let ePostH1 = eP.children[1].innerText
             //日期
             let date = new Date(eP.children[0].innerText)
             let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 10 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())

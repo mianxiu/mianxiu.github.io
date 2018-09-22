@@ -8,7 +8,7 @@
         document.documentElement.scrollTop = 0
         document.querySelector('#essay-response').innerHTML = this.responseText
         document.querySelector('#essayClose').style.transform = 'scale(1,1)'
-        document.querySelector('#main').style = 'display:flex;justify-content:center;height:100vh;'
+        document.querySelector('#main').style = 'display:flex;justify-content:center;'// height:100vh;
         document.querySelector('#essayClose').addEventListener('click', () => {
         document.querySelector('#essayClose').style.transform = ''  
         window.location.href = '/'

@@ -44,6 +44,7 @@
 
 /*进度条*/
 #progress{
+    display: none;
     position: absolute;
     left: 0;
     z-index: 1;
@@ -60,10 +61,10 @@
 #audioProgressA{
     z-index: 1;
     height: .06rem;
-    background-color: rgb(230,230,230)
+    background-color: rgb(241, 241, 241)
 }
 #audioProgressB{
-    background-color: rebeccapurple;
+    background-color: rgb(134, 67, 179);
     height: .06rem;
 }
 
@@ -77,7 +78,7 @@
     left: 0;
     padding:.14rem 0rem;
     padding-left: .86rem;
-    box-shadow: 0 0 0 2px rgb(0, 0, 0);
+    box-shadow: 0 0 0 1px rgb(228, 228, 228);
     background-color: white;
     transition: width 0.4s;
 }
@@ -88,6 +89,11 @@
     overflow: hidden;
     width: 4.56rem;
     height: .50rem;
+}
+#playList::after{
+    content: 'END';
+    font-size: .14rem;
+
 }
 #playList::before{
     display: block;

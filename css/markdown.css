@@ -29,13 +29,7 @@
     margin: .2rem 0 .2rem 0;
     line-height: .24rem;
     border-bottom: 4px dashed #f3f3f3; }
-  .essay-context > .essay-hr {
-    border-top: 0.01rem solid #ededed;
-    border-bottom: 0.01rem solid #ededed;
-    margin: .5rem 7rem .5rem 0;
-    color: #c6c6c6;
-    font-weight: lighter;
-    padding: .2rem 0; }
+  
 
 a {
   text-decoration-line: none;
