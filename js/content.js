@@ -83,7 +83,7 @@ let writeContent = function () {
 let writeEssay = function () {
     document.documentElement.scrollTop = 0
     styleDisplay([$('#logo_other'), $('#essay')], 'none')
-    $('#essayText').style = 'min-height:100vh;width:100vw;'
+    $('#essayText').style = 'width:100vw;' // min-height:100vh;
     $('#navigation').style.filter = 'blur(0.04rem)'
     $('#essayText>div').innerHTML = this.responseText
     $('#essayClose').style.transform = 'scale(1,1)'
@@ -115,7 +115,8 @@ function essayAjax() {
             let ePostH1 = eP.children[1].innerText
             //日期
             let date = new Date(eP.children[0].innerText)
-            let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 10 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
+            console.log(date.getMonth())
+            let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 9 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
             ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH1) + '/context.html', writeEssay)
             // url斜杠！！！
             let state = {

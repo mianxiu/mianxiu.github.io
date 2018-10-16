@@ -1,7 +1,7 @@
 #foot{
     position: fixed;
     left: 0;
-    transform: translateY(-1.6rem);
+    transform: translateY(-180px);
     bottom: 0;
 
 }

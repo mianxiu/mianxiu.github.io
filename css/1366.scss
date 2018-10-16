@@ -7,7 +7,7 @@
     display: flex;
 }
 
-$footer-height: .8rem;
+$footer-height: 80px;
 $main-width:10.92rem;
 @media screen and (min-width:920px){
     #main {
@@ -974,7 +974,7 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 4.00rem;
+    height: 400px;
     background-position: center;
     background-color: rgb(241, 241, 241);
     &::after {

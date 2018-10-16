@@ -700,7 +700,7 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 4.00rem;
+  height: 400px;
   background-position: center;
   background-color: #f1f1f1; }
   ._banner::after {
@@ -1230,9 +1230,9 @@ div.essay-context > p {
   width: 100vw;
   bottom: 0;
   color: #757575;
-  height: 0.8rem;
+  height: 80px;
   background: black;
-  margin-bottom: -0.8rem; }
+  margin-bottom: -80px; }
   .footer > div:nth-child(1) {
     margin-left: .4rem; }
   .footer div:nth-child(2) {
