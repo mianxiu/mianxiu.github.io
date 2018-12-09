@@ -632,7 +632,7 @@ body {
 
 .preview {
   min-width: 7.2rem;
-  height: 2rem;
+  height: 200px;
   margin-top: .2rem;
   border-radius: 6px;
   box-shadow: 0 0 0 1px #efefef;
