@@ -614,8 +614,8 @@ body {
   #essayLeft li {
     font-size: 0.14rem;
     list-style: none;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.3rem;
     background-size: 100%;
     transition: margin-left .8s ease; }
   #essayLeft > ul {
@@ -632,7 +632,7 @@ body {
 
 .preview {
   min-width: 7.2rem;
-  height: 200px;
+  height: 140px;
   margin-top: .2rem;
   border-radius: 6px;
   box-shadow: 0 0 0 1px #efefef;
@@ -656,7 +656,7 @@ body {
   margin-top: 0.0rem; }
 
 .essay-title {
-  font-size: 0.28rem;
+  font-size: 0.22rem;
   letter-spacing: 0rem;
   cursor: pointer;
   margin-top: 0;
@@ -726,7 +726,7 @@ body {
 ._tags,
 ._updated {
   text-transform: uppercase;
-  font-size: 0.16rem;
+  font-size: 0.14rem;
   color: #bababa;
   font-weight: lighter; }
 
@@ -1241,7 +1241,7 @@ div.essay-context > p {
   bottom: 0;
   color: #757575;
   height: 80px;
-  background: black;
+  background: white;
   margin-bottom: -80px; }
   .footer > div:nth-child(1) {
     margin-left: .4rem; }
