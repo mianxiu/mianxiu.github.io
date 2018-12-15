@@ -855,9 +855,11 @@ body {
     background-color: white;
 }
 
+$essayLeftWidth:6.4rem;
+
 #essayLeft {
     /* padding-left:0.96rem;*/
-    width: 7.2rem;
+    width: $essayLeftWidth;
     li {
         font-size: 0.14rem;
         list-style: none;
@@ -881,7 +883,8 @@ body {
             &:hover{
                 .preview{
                     > .preview-img{
-                        transform: scale(1.08)
+                        transform: scale(1.08);
+                        filter: opacity(100%)
                     }
                 }
             }
@@ -890,14 +893,15 @@ body {
 }
 
 .preview{
-        min-width: 7.2rem;
+        min-width: $essayLeftWidth;
         height: 140px;
         margin-top: .2rem;
         border-radius: 6px;
         box-shadow: 0 0 0 1px #efefef;
-        background-color: #ff0000; 
+        background-color: #fafafa; 
         overflow: hidden;
     .preview-img {
+        filter: opacity(95%);
         display: flex;
         width: 100%;
         height: 100%;
@@ -1706,7 +1710,7 @@ $imgs-width:calc(100vw - #{$right-background-width});
 #essayLeft {
     >.footer {
         position: initial;
-        margin-left: calc((7.2rem - 100vw) / 2);
+        margin-left: calc((#{$essayLeftWidth} - 100vw) / 2);
     }
 }
 
