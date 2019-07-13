@@ -1,0 +1,51 @@
+<div class="_banner" style="background-image:url(//img.mianxiu.me/image/essay/.jpg);"></div>
+<h1 class="essay-title">七月 漫画 dotnetcore Hackintosh</h1>
+<span class="_date">Jul 13, 2019</span>
+
+<div class="essay-context"><p>简历做好了一个多月了，一个没投...</p>
+<h3>异兽魔都</h3>
+<span class="essay-img" img-alt="Dorohedoro"><img src="//img.mianxiu.me/image/essay/3a6cb9409997ecbe8300238c13ac1091c912000c.png"></span>
+<p>六月十多号的时候，在某个群看到有人发了一页漫画，没在意。过了一天又看到有别人问是什么来源，我也找来看。一发不可收拾，连看两遍。好久没有这种「我日」的心情了。然后去找了作者「林田 球」的各种资料、下载扫图漫画收藏等等。还画了几页漫画。</p>
+<h3>dotnetcore</h3>
+<p>为了收藏，管理漫画，需要一个本地的管理软件，然后找到了<a href="https://www.yacreader.com/" target="_blank">YACReader</a>。试了几天，发现功能是挺全，就是UI太丑了。思前想后（逃避现实），觉得自己写一个好。先快速出了几个UI稿，参考了Mojave、Eagle然后一边考虑用什么语言开发。想要兼顾文档充足、自带跨平台、性能强劲，最后选择了.net Core 3 & WPF。</p>
+<span class="essay-img" img-alt="YACReader"><img src="//img.mianxiu.me/image/essay/0b8104a6b2290fef5b8028163988d311441da4a7.png"></span>
+<span class="essay-img" img-alt="Prototype"><img src="//img.mianxiu.me/image/essay/519b4c6759508aeacef6e437daa2f77e14672a8d.png"></span>
+<h3>Hackintosh 黑苹果</h3>
+<p>要完整的实现设计效果，需要自定义标题栏，虽然自带跨平台，但不知道在OSX下的效果怎样——黑苹果。之前看AMD CPU 黑苹果有两种方案，修改内核&KVM。各有利弊，唯一的共同点就是都很对我来说无法实现的要求。KVM要性能好需要让GPU Passthrough,但需要2个GPU。修改内核的要打各种Kext，还只有10.13的版本才稳定点，我想要试下Mojave。恩...犹豫不决，然后看到了几个成功的单GPU实现方案，看起来好简单...</p>
+<h4>扑街的开头 ArchLinux + <a href="https://gitlab.com/YuriAlek/vfio#known-problems" target="_blank">Yuri-Single GPU passthrough</a></h4>
+<p>首先我的配置是:</p>
+<pre><code>
+CPU     Ryzen 1600X
+主板    MSI B350I PRO AC
+内存    十铨 2400 8G
+储存    SSD 256G + HDD 1T
+HDD划分了60G用来装
+</code></pre>
+<p>七月二三号的下午开始，下载镜像，覆盖了U盘上的PE制作启动盘，然后晚饭过后就开始装了。找了装Arch的教程，发现各种麻烦得要死的创建不同的分区，然后挂载为<code class="code">/mnt</code>、<code class="code">/home</code>。第一次弄，连分区后都不知道要保存，反复了两三次。换了几个教程后才解决。然后第一次安装后启动不了，重新分区、挂载、安装。第二次没设置root密码,创建子账户登录不了root账户。因为已经弄到快12点，想着最后一次，弄好就睡觉，跟着教程做,输入路径...把C盘给格了——PE已经被覆盖，桌面的资料虽然前个星期备份过，但...而且SSD数据无法恢复，只有个Arch的启动盘...算了，睡觉。</p>
+<p>第二天醒想到楼上写WIN10启动盘，发现开机到一半就死机了，然后无法启动。硬着头皮把Arch装在C盘来制作WIN PE。终于在下午2点装好了WIN10和Arch。</p>
+<h5>git clone</h5>
+<p>克隆了Repository后，执行下载OSX的脚本——无法启动。返回WIN10下载各种完整镜像改名替换也是无法使用。几个钟头过去了，重复clone,重复执行脚本，最后终于有一次成功下载。</p>
+<h5>VFIO</h5>
+<p>通过测试脚本发现我的硬件满足要求，除了显卡。教程7系和10系显卡都有成功案例。在千辛万苦的排除各种virt-manage问题后，执行最后的脚本————屏幕无输出。来回的测试了十几遍后，放弃。</p>
+<h4>看起来好像成功了一半？Ubuntu 18.04 + <a href="https://github.com/Bebove/macos-kvm" target="_blank">Bebove/macos-kvm</a></h4>
+<p>安装Ubuntu的时候非常顺利，不用分区，挂载<code class="code">/</code>后直接安装。继续git clone...下载镜像也很顺利，脚本启动也顺利的进入了OSX 10.13。然后换成Mojave,也是初步成功。然后打开virt-manager，哦，连接失败。</p>
+<p>还好这次淡定了些许，至少初步启动没问题。来来回回看教程，原来没装qemu 4.0。装了后还是打不开。重装系统，这次可以了。</p>
+<h5>要成功了？</h5>
+<p>还是最后的启动脚本，还是同样的无输出。接着弄了几遍，还是不行。浪费了两天，不过有个很卡的Mojave可以体验...试了最后一遍，virt-manager也无法启动了。</p>
+<h4>最后的 <a href="https://vanilla.amd-osx.com/conclusion.html" target="_blank">AMD OS X Vanilla Conclusion</a></h4>
+<p>放弃治疗的发现有个貌似很简单的方案，半个小时就做好了启动盘，测试了发现顺利进入Clover，不过安装需要连网。还好618买8m的网线，把电脑搬到客厅...因为ESP分区容量不够，需要最小200M。扩容无效后想起有个移动硬盘，虽然有几次连不上服务器无法安装，拔插网线后终于顺利的转好了。把硬盘塞进机箱，缺了条Sata线...JD下单。</p>
+<p>终于在今天体验了Mojave。</p>
+<span class="essay-img" img-alt="002"><img src="//img.mianxiu.me/image/essay/166c777145d950bdb2089024bb9cb9740b8c2e61.png"></span>
+<h3>丢失的资料</h3>
+<p>漫画后来的几页没了,唉...</p>
+</ol><div class="essay-hr"><div class="essay-end-tip">END</div><div class="essay-tag"><span class="_tags"><em>#</em><span>地上的坑</span></span></div></div>
+  <div id="mixxopost"></div><div class="footer">
+  <div>
+  © 2018 MIANXIU | POWERED BY <a href="" target="_blank">MIXXO</a>
+  </div>
+  <div>
+      <div>Archives</div>
+      <div>Links</div>
+      <div>About</div>
+  </div>
+  </div>
