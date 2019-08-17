@@ -1,3 +1,6 @@
+const appId ='cdiSO6I2YJfvtrOgB15lLyjF-MdYXbMMI'
+const appKey = 'WiBmXDULfQT6Rw8XyV5seqER'
+
 let styleDisplay = function (selector, type) {
     if (selector.length !== undefined) {
         selector.map(el => {
@@ -96,8 +99,8 @@ let writeEssay = function () {
     }
 
     mixxoPost.init({
-        appId: 'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
-        appKey: 'hp80QRKBtn8fT48ImaCJxqFE',
+        appId: appId,
+        appKey: appKey,
         adminNick: 'mianxiu'
 
     })
@@ -162,8 +165,8 @@ let writeGallery = function (event) {
     $('#galleryContext > div').innerHTML += this.responseText
 
     mixxoPost.init({
-        appId: 'cdiSO6I2YJfvtrOgB15lLyjF-MdYXbMMI',
-        appKey: 'WiBmXDULfQT6Rw8XyV5seqER',
+        appId: appId,
+        appKey: appKey,
         adminNick: 'mianxiu',
         flexDirection: 'column'
     })
