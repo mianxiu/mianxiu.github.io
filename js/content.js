@@ -162,8 +162,8 @@ let writeGallery = function (event) {
     $('#galleryContext > div').innerHTML += this.responseText
 
     mixxoPost.init({
-        appId: 'N8ILsvPRQiKpIOlRETRw0ShQ-gzGzoHsz',
-        appKey: 'hp80QRKBtn8fT48ImaCJxqFE',
+        appId: 'cdiSO6I2YJfvtrOgB15lLyjF-MdYXbMMI',
+        appKey: 'WiBmXDULfQT6Rw8XyV5seqER',
         adminNick: 'mianxiu',
         flexDirection: 'column'
     })
