@@ -820,7 +820,6 @@ div.essay-context > p {
   padding: 0 0;
   width: 0.30rem;
   height: 0.30rem;
-  border: 0.01rem solid black;
   margin-right: 0.10rem;
   transition: background-color 0.5s, color 0.5s; }
   #pages > ul > li:hover {
