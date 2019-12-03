@@ -844,8 +844,10 @@ body {
 #foot {
     position: absolute;
     z-index: 9;
-    transform: translateY(3.5rem);
-    -webkit-transform: translateY(2.3rem);
+    top:0;
+    transform: translateY(4.7rem);
+    
+    
 }
 
 #essay {
