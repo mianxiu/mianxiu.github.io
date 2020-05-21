@@ -1162,18 +1162,21 @@ div.essay-context>p {
 @media screen and (min-width: 1700px) {
     .gallery-link {
         width: calc(100% / 7) !important;
+        height: calc(100% / 7) !important;
     }
 }
 
 @media screen and (min-width: 2000px) {
     .gallery-link {
         width: calc(100% / 8) !important;
+        height: calc(100% / 9) !important;
     }
 }
 
 @media screen and (min-width: 3000px) {
     .gallery-link {
         width: calc(100% / 9) !important;
+        height: calc(100% / 9) !important;
     }
 }
 
@@ -1200,7 +1203,7 @@ div.essay-context>p {
 
 .gallery-link {
     width: calc(100% / 5);
-    display: inline-block;
+    display: inline-flex;
     position: relative;
     animation: gallery-overlay 0.4s;
     overflow: hidden;
@@ -1232,7 +1235,6 @@ div.essay-context>p {
 .gallery-overlay {
     color: rgb(255, 255, 255);
     display: none;
-    margin-top: -100%;
     height: 100%;
     width: 100%;
     opacity: 1;
@@ -1247,7 +1249,7 @@ div.essay-context>p {
     width: 15px;
     height: 15px;
     background-color: rgba(0, 0, 0, 0.822);
-    position: absolute;
+    //position: absolute;
     font-size: 14px;
     color: #ffffffb3;
     padding: .05rem .05rem;
