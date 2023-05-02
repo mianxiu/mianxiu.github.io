@@ -87,7 +87,7 @@ function mp3Player() {
   //滚动滚轮浏览歌曲
   function listView() {
     let stopScroll = function (event) {
-      event.preventDefault();
+      //event.preventDefault();
     };
     document.querySelector("#mp3Player").addEventListener("mouseenter", e => {
       document.querySelector("html").addEventListener("wheel", stopScroll, false);
