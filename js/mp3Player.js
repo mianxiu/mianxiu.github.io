@@ -88,6 +88,7 @@ function mp3Player() {
   function listView() {
     let stopScroll = function (event) {
       //event.preventDefault();
+      //
     };
     document.querySelector("#mp3Player").addEventListener("mouseenter", e => {
       document.querySelector("html").addEventListener("wheel", stopScroll, false);
