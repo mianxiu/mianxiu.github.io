@@ -62,17 +62,22 @@
 
 /*进度条*/
 #progress{
+    position: relative;
     margin-left: 2.60rem;
     width: 1.20rem;
     height: .36rem;
     overflow:hidden;
     transition: width 0.2s;
 }
-#audioProgressA,#timePass{
+#audioProgressA,#audioProgressB,#timePass{
     position: absolute;
 }
-#audioProgressA{
+#audioProgressA,#audioProgressB{
+    top: 0;
+    left: 0;
     width: 1.20rem;
+}
+#audioProgressA{
     z-index: 1;
     height: 0.06rem;
     background-color: rgb(230,230,230)
@@ -83,13 +88,16 @@
 }
 
 #timePass{
+    top: .08rem;
+    left: 0;
+    z-index: 2;
     width: 1.20rem;
     font-size: .12rem;
     
     text-align: right;
     line-height: .24rem;
     letter-spacing: 0.2rem;
-    margin-top: 1em
+    margin-top: 0;
 }
 
 
@@ -104,7 +112,7 @@
     text-overflow: clip;
     overflow: hidden;
     min-width: 50%;
-    height: .60rem;
+    height: .44rem;
 }
 #playList::before{
     display: block;
@@ -112,9 +120,9 @@
     pointer-events: none;
     content: '';
     position: absolute;
-    margin-top: .24rem;
+    margin-top: .22rem;
     min-width: 40%;
-    height: .36rem;
+    height: .22rem;
     background:linear-gradient(0deg,white,rgba(255,255,255,0.5));
     transition: height 0.2s,margin-top 0.2s;   
     

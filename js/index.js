@@ -12,6 +12,7 @@ function UA(){
         triangle()
         logo_other()
         listenEassyClose()
+        updateLastPost()
         restoreRoute()
         if (window.hljs) {
             hljs.initHighlightingOnLoad();
@@ -243,5 +244,68 @@ function logo_other() {
         triangle()
         history.replaceState({ name: 'home' }, '', '/')
     })
+}
+
+
+/**
+ * 从 Essay 和 Gallery 索引中找出最新发布日期并更新首页。
+ */
+async function updateLastPost() {
+    let loadIndex = async function (url) {
+        try {
+            let response = await fetch(url, { cache: 'no-cache' })
+            if (!response.ok) return null
+            return new DOMParser().parseFromString(await response.text(), 'text/html')
+        } catch (error) {
+            console.error('Unable to update last post:', url, error)
+            return null
+        }
+    }
+
+    let [essayDocument, galleryDocument] = await Promise.all([
+        loadIndex('/essay/index.html'),
+        loadIndex('/gallery/index.html')
+    ])
+    let posts = []
+
+    if (essayDocument) {
+        for (let item of essayDocument.querySelectorAll('#essayLeft > ul > li')) {
+            let dateNode = item.querySelector('._date')
+            let titleNode = item.querySelector('.essay-title')
+            let timestamp = dateNode ? Date.parse(dateNode.textContent.trim()) : NaN
+            if (titleNode && !Number.isNaN(timestamp)) {
+                posts.push({ type: 'ESSAY', title: titleNode.textContent.trim(), timestamp: timestamp })
+            }
+        }
+    }
+
+    if (galleryDocument) {
+        for (let item of galleryDocument.querySelectorAll('.gallery-link')) {
+            let path = item.getAttribute('data-href') || ''
+            let dateMatch = path.match(/gallery\/(\d{4})\/(\d{2})\/(\d{2})\//)
+            let titleNode = item.querySelector('.gallery-title')
+            if (dateMatch && titleNode) {
+                posts.push({
+                    type: 'GALLERY',
+                    title: titleNode.textContent.trim(),
+                    timestamp: new Date(Number(dateMatch[1]), Number(dateMatch[2]) - 1, Number(dateMatch[3])).getTime()
+                })
+            }
+        }
+    }
+
+    if (posts.length === 0) return
+
+    posts.sort((a, b) => b.timestamp - a.timestamp)
+    let latest = posts[0]
+    let latestDate = new Date(latest.timestamp)
+    let dateText = [
+        latestDate.getFullYear(),
+        String(latestDate.getMonth() + 1).padStart(2, '0'),
+        String(latestDate.getDate()).padStart(2, '0')
+    ].join('.')
+    let fields = $All('#lastPost > span')
+
+    fields[1].innerText = dateText
 }
 
