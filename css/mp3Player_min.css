@@ -98,6 +98,7 @@
 #playList::before{
     display: block;
     z-index: 1;
+    pointer-events: none;
     content: '';
     position: absolute;
     margin-top: .24rem;

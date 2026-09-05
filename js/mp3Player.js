@@ -25,6 +25,24 @@ function mp3Player() {
   source.connect(analyser);
   analyser.connect(audioCtx.destination);
 
+  async function playAudio() {
+    try {
+      if (audioCtx.state === "suspended") {
+        await audioCtx.resume();
+      }
+      $("#timePass").innerText = "loading";
+      await player.play();
+    } catch (error) {
+      $("#timePass").innerText = "error";
+      console.error("Audio playback failed:", error);
+    }
+  }
+
+  player.addEventListener("error", function () {
+    $("#timePass").innerText = "error";
+    console.error("Unable to load audio:", player.currentSrc);
+  });
+
   //------------------------------------------------------//
   //按钮播放/暂停+动画相关
   function Playcontrol() {
@@ -63,7 +81,7 @@ function mp3Player() {
         //绘制暂停按钮
         player.pause();
       } else if (player.paused == true) {
-        player.play();
+        playAudio();
       }
     };
   }
@@ -79,24 +97,22 @@ function mp3Player() {
 
   //单击播放
   pl.addEventListener("click", function (e) {
-    if (e.target.id !== "playList") {
-      player.src = playListAry()[getIndex(e.target)];
-    }
+    let item = e.target.closest("li");
+    if (!item || !pl.contains(item)) return;
+
+    player.src = playListAry()[getIndex(item)];
+    playAudio();
   });
 
   //滚动滚轮浏览歌曲
   function listView() {
-    let stopScroll = function (event) {
-      //event.preventDefault();
-      //
-    };
-    document.querySelector("#mp3Player").addEventListener("mouseenter", e => {
-      document.querySelector("html").addEventListener("wheel", stopScroll, false);
-
-      document.querySelector("#mp3Player").addEventListener("mouseleave", e => {
-        document.querySelector("html").removeEventListener("wheel", stopScroll, false);
-      });
-    });
+    document.querySelector("#mp3Player").addEventListener(
+      "wheel",
+      function (event) {
+        event.preventDefault();
+      },
+      { passive: false }
+    );
 
     //添加序号
     function addPlayListIndex() {
@@ -114,6 +130,8 @@ function mp3Player() {
     //li的高度(包括margin)
     let playListLiHeight = $("#playList ol li").offsetHeight;
     $("#playList").addEventListener("wheel", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
       let olIndex = Number(pl.getAttribute("index"));
       if (e.deltaY < 0 && olIndex !== 0) {
         //up
@@ -149,11 +167,12 @@ function mp3Player() {
       let e = playListAry().indexOf(songPath);
       if (e + 1 < playListAry().length) {
         playListOl.style.transform = "translateY(" + -(e + 1) * playListLiHeight + "px)";
-        return (player.src = playListAry()[e + 1]);
+        player.src = playListAry()[e + 1];
       } else {
         playListOl.style.transform = "translateY(0)";
-        return (player.src = playListAry()[0]);
+        player.src = playListAry()[0];
       }
+      playAudio();
     };
   }
   listView();

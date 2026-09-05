@@ -8,10 +8,12 @@
 }
 #visual{
     position: absolute;
-    margin-top: -0.90rem;
-    margin-left: -0.26rem;
-    transform: scale(0.5,0.5)
-    
+    top: .04rem;
+    left: .08rem;
+    margin: 0;
+    transform: scale(.35);
+    transform-origin: top left;
+    pointer-events: none;
 }
 
 
@@ -92,11 +94,12 @@
 
 
 #VP{
+    position: relative;
     margin-left: 10.1%;
 }
 
 #playList{
-    
+    box-sizing: border-box;
     border: 0rem solid royalblue;
     text-overflow: clip;
     overflow: hidden;
@@ -106,6 +109,7 @@
 #playList::before{
     display: block;
     z-index: 1;
+    pointer-events: none;
     content: '';
     position: absolute;
     margin-top: .24rem;
@@ -119,6 +123,7 @@
     height: 4.2rem;
     list-style: none;
     margin: 0 0;
+    padding-left: .72rem;
     transition:transform 0.2s;
 }
 
