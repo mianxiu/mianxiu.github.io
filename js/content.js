@@ -162,7 +162,7 @@ function essayAjax() {
 //  画廊遮罩层
 
 let writeGallery = function (event) {
-    $('#galleryContext > div').innerHTML += this.responseText
+    $('#galleryContext > div').innerHTML = this.responseText
 
     mixxoPost.init({
         appId: appId,
@@ -171,8 +171,8 @@ let writeGallery = function (event) {
         flexDirection: 'column'
     })
 
-    let n = decodeURI(window.location.pathname).split('/')[5]
-    $('title').innerText = n + ' | Mianxiu\'s Blog...'
+    let galleryTitle = $('.gallery-context-title').innerText
+    $('title').innerText = galleryTitle + ' | Mianxiu\'s Blog...'
 
 
     // galleryRight 绑定
@@ -272,11 +272,16 @@ let writeGallery = function (event) {
 
 
     let jumpPage = function (event) {
-        let reAjax = async (selectorId) => {
-            await history.back()
-            await setTimeout(() => {
-                document.getElementById(selectorId).children[0].click()
-            }, 10)
+        let reAjax = function (selectorId) {
+            let target = document.getElementById(selectorId)
+            if (!target) {
+                return
+            }
+            openGallery(
+                target.getAttribute('data-href'),
+                Number(target.getAttribute('data-id')),
+                { name: 'galleryContext', scrollTop: 0 }
+            )
             removeScroll(true)
         }
 
@@ -484,18 +489,7 @@ function gallery_tag() {
                     dataId = Number(event.target.parentNode.getAttribute('data-id'))
                 }
 
-                // 设置跳转
-                let preId = (dataId - 1) < 0 ? 'null' : 'gallery-link-' + (dataId - 1)
-                let nextId = (dataId + 1) >= $All('.gallery-link').length ? 'null' : 'gallery-link-' + (dataId + 1)
-
-                $('#galleryContext').setAttribute('previous-id', preId)
-                $('#galleryContext').setAttribute('next-id', nextId)
-
-
-                ajax(dataHref + '/context.html', writeGallery)
-                styleDisplay([$('#gallery'), $('#logo_other')], 'none')
-                history.pushState(state, null, dataHref + '/')
-                document.documentElement.scrollTop = 0;
+                openGallery(dataHref, dataId, state)
 
             }
         })
@@ -525,6 +519,54 @@ function gallery_tag() {
 
 }
 
+function openGallery(dataHref, dataId, state, replaceHistory = false) {
+    let preId = (dataId - 1) < 0 ? 'null' : 'gallery-link-' + (dataId - 1)
+    let nextId = (dataId + 1) >= $All('.gallery-link').length ? 'null' : 'gallery-link-' + (dataId + 1)
+
+    $('#galleryContext').setAttribute('previous-id', preId)
+    $('#galleryContext').setAttribute('next-id', nextId)
+    ajax('/' + dataHref + '/context.html', writeGallery)
+    styleDisplay([$('#gallery'), $('#logo_other')], 'none')
+
+    let url = '/#gallery=' + encodeURIComponent(dataHref)
+    let historyState = state || { name: 'galleryContext', scrollTop: 0 }
+    if (replaceHistory) {
+        history.replaceState(historyState, null, url)
+    } else {
+        history.pushState(historyState, null, url)
+    }
+    document.documentElement.scrollTop = 0
+}
+
+function restoreRoute() {
+    let match = window.location.hash.match(/^#gallery=(.+)$/)
+    if (!match) {
+        return
+    }
+
+    let dataHref
+    try {
+        dataHref = decodeURIComponent(match[1])
+    } catch (error) {
+        console.error('Invalid gallery route:', window.location.hash)
+        return
+    }
+
+    $('#rule').dataset.id = 'gallery'
+    ajax('/gallery/index.html', function () {
+        writeContent.call(this)
+        let link = Array.from($All('.gallery-link')).find(el => el.getAttribute('data-href') === dataHref)
+        if (!link) {
+            console.error('Gallery not found:', dataHref)
+            return
+        }
+        openGallery(dataHref, Number(link.getAttribute('data-id')), {
+            name: 'galleryContext',
+            scrollTop: 0
+        }, true)
+    })
+}
+
 
 
 
@@ -536,7 +578,7 @@ function gallery_tag() {
  * 当前页面层级为0,后退触发-1页面的stateObj,前进触发+1层
  */
 
-history.pushState({
+history.replaceState({
     name: 'home'
 }, '', '')
 window.addEventListener("popstate", event => {
@@ -545,9 +587,6 @@ window.addEventListener("popstate", event => {
             case 'home':
                 $('#logo_other').click();
                 $('#footer').classList.remove('hidden')
-                history.pushState({
-                    name: 'home'
-                }, '', '')
                 break;
             case 'essay':
                 $('#essayClose').style.transform = ''
@@ -571,14 +610,18 @@ window.addEventListener("popstate", event => {
                 break;
             case 'essayContext':
                 // 前进动作
-                ajax(window.location.href + '/context.html', writeEssay)
+                ajax(window.location.pathname.replace(/\/$/, '') + '/context.html', writeEssay)
                 break;
             case 'galleryContext':
-                ajax(window.location.href + '/context.html', writeGallery)
+                let galleryMatch = window.location.hash.match(/^#gallery=(.+)$/)
+                if (galleryMatch) {
+                    let galleryPath = decodeURIComponent(galleryMatch[1])
+                    ajax('/' + galleryPath + '/context.html', writeGallery)
+                    $('title').innerText = galleryPath.split('/').pop() + ' | Mianxiu\'s Blog...'
+                }
 
                 styleDisplay([$('#gallery'), $('#logo_other')], 'none')
                 document.documentElement.scrollTop = 0
-                $('title').innerText = decodeURI(window.location.href.slice(0, -1).split('/').pop()) + ' | Mianxiu\'s Blog...'
                 break;
         }
     } else if (/#fn/g.test(window.location.href)) {

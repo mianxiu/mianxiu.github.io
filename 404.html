@@ -1,2 +1,8 @@
-<div style="background-color:rgab(0,0,0,0.5)">404404404404404404404404404404404404404404404404404404</div>
+<div style="background-color:rgba(0,0,0,0.5)">404404404404404404404404404404404404404404404404404404</div>
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/KgucEibI79U?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<script>
+    const galleryPath = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
+    if (/^gallery\/\d{4}\/\d{2}\/\d{2}\/.+/.test(galleryPath)) {
+        window.location.replace('/#gallery=' + encodeURIComponent(galleryPath))
+    }
+</script>

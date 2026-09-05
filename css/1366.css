@@ -1,5 +1,5 @@
 @import url('./markdown.css');
- @import url('./mixxopost.css');
+ @import url('./min/mixxopost.min.css');
  @media screen and (min-width: 920px) {
 	 #main {
 		 margin-top: calc((100vh - 6.45rem - 0.8rem)/2);
@@ -1475,4 +1475,3 @@
 		 display: flex;
 	}
 }
- 

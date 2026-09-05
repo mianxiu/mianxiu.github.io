@@ -1,24 +1,21 @@
 
 function UA(){
-    ua = navigator.userAgent;
-    if(ua.match(/iPhone|Android/i)){
-        $('#pageCSS').href = './css/mobile.css'
-        /*mobile.js*/
-        window.onload = function(){
-            navGetAjax()
-            triangle()   
-        }      
-    }else{
-        window.onload = function(){        
+    const ua = navigator.userAgent;
+    const isMobile = /iPhone|iPad|Android/i.test(ua)
+
+    window.onload = function(){
+        if (!isMobile) {
             mp3Player();
             nav()
-            navGetAjax()
-            triangle()    
-            logo_other()
-            listenEassyClose()
+        }
+        navGetAjax()
+        triangle()
+        logo_other()
+        listenEassyClose()
+        restoreRoute()
+        if (window.hljs) {
             hljs.initHighlightingOnLoad();
-
-        }       
+        }
     }
 }
 UA()
@@ -192,15 +189,23 @@ function ajax(url, run) {
 
     oReq.responseType = ''
     oReq.open("get", url, true);
-    console.log(oReq.status)
-
     $('#ajaxProgress').style = 'height:100vh;background-color:rgba(0,0,0,0.5);'
-    oReq.onprogress = function () {
-        console.log('LOADING', oReq.status);
-
+    let finish = function () {
         $('#ajaxProgress').style = 'height:0vh;background-color:rgba(0,0,0,0);'
     }
-    oReq.onload = run;
+    oReq.onload = function () {
+        finish()
+        if (oReq.status >= 200 && oReq.status < 300) {
+            run.call(oReq)
+        } else {
+            console.error('Request failed:', oReq.status, url)
+        }
+    };
+    oReq.onerror = function () {
+        finish()
+        console.error('Network error:', url)
+    }
+    oReq.ontimeout = finish
     oReq.send(null);
 
 }
@@ -236,6 +241,7 @@ function logo_other() {
         mp3PlayerType('normal')
         navHidden('off')
         triangle()
+        history.replaceState({ name: 'home' }, '', '/')
     })
 }
 

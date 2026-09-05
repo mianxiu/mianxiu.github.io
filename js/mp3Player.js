@@ -285,9 +285,14 @@ function mp3Player() {
 
         //歌曲播放时间
 
-        ((pd - pc) / 60).toFixed(2).replace(/\./, ":") === "NaN"
-          ? ($("#timePass").innerText = "loading")
-          : ($("#timePass").innerText = ((pd - pc) / 60).toFixed(2).replace(/\./, ":"));
+        let remaining = Math.max(0, Math.floor(pd - pc));
+        if (Number.isNaN(remaining)) {
+          $("#timePass").innerText = "loading";
+        } else {
+          let minutes = Math.floor(remaining / 60);
+          let seconds = String(remaining % 60).padStart(2, "0");
+          $("#timePass").innerText = minutes + ":" + seconds;
+        }
       });
     };
   }
