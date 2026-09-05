@@ -4,6 +4,7 @@ function UA(){
     const isMobile = /iPhone|iPad|Android/i.test(ua)
 
     window.onload = function(){
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear()
         if (!isMobile) {
             mp3Player();
             nav()
