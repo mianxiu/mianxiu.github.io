@@ -286,34 +286,52 @@ function mp3Player() {
     }
   }
 
-  //进度条,根据#progress的width自动变更
-  //时间
-  //toFixed()保留小数
+  // 使用逐帧刷新，让进度条保持连续移动。
   function AudioProgress() {
-    player.onloadedmetadata = function () {
-      //减少层
-      player.addEventListener("timeupdate", function () {
-        //动态检测进度条长度
-        let Pwidth = parseInt(getComputedStyle($("#progress"), null).width.replace(/px/, ""));
-        let pd = player.duration;
-        let i = pd / Pwidth;
-        let pc = player.currentTime;
-        //绘制进度条
-        $("#audioProgressA").style =
-          "margin-left:" + pc / i / htmlFontSize + "rem;width:" + (Pwidth - pc / i) / htmlFontSize + "rem";
+    let progressFrame = null;
 
-        //歌曲播放时间
+    function renderProgress() {
+      let duration = player.duration;
+      let currentTime = player.currentTime;
 
-        let remaining = Math.max(0, Math.floor(pd - pc));
-        if (Number.isNaN(remaining)) {
-          $("#timePass").innerText = "loading";
-        } else {
-          let minutes = Math.floor(remaining / 60);
-          let seconds = String(remaining % 60).padStart(2, "0");
-          $("#timePass").innerText = minutes + ":" + seconds;
-        }
-      });
-    };
+      if (!Number.isFinite(duration) || duration <= 0) {
+        $("#timePass").innerText = "loading";
+        return;
+      }
+
+      let playedRatio = Math.min(1, Math.max(0, currentTime / duration));
+      $("#audioProgressA").style.transform = "scaleX(" + (1 - playedRatio) + ")";
+
+      let remaining = Math.max(0, Math.floor(duration - currentTime));
+      let minutes = Math.floor(remaining / 60);
+      let seconds = String(remaining % 60).padStart(2, "0");
+      $("#timePass").innerText = minutes + ":" + seconds;
+    }
+
+    function animateProgress() {
+      renderProgress();
+      if (!player.paused && !player.ended) {
+        progressFrame = requestAnimationFrame(animateProgress);
+      }
+    }
+
+    function startProgress() {
+      cancelAnimationFrame(progressFrame);
+      animateProgress();
+    }
+
+    function stopProgress() {
+      cancelAnimationFrame(progressFrame);
+      progressFrame = null;
+      renderProgress();
+    }
+
+    player.addEventListener("loadedmetadata", renderProgress);
+    player.addEventListener("timeupdate", renderProgress);
+    player.addEventListener("seeked", renderProgress);
+    player.addEventListener("play", startProgress);
+    player.addEventListener("pause", stopProgress);
+    player.addEventListener("ended", stopProgress);
   }
   AudioProgress();
 
