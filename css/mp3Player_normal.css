@@ -139,6 +139,9 @@
 }
 
 #playList li{
+    height: .22rem;
+    overflow: hidden;
+    white-space: nowrap;
     line-height: .22rem;
     font-weight: 400;
     font-size: .16rem;   

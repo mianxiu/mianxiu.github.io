@@ -127,22 +127,25 @@ function mp3Player() {
     //歌单滚动
     let pl = $("#playList ol");
     let g;
-    //li的高度(包括margin)
-    let playListLiHeight = $("#playList ol li").offsetHeight;
+    // 保留小数行高，并在布局切换后重新读取，避免逐行滚动累计偏移。
+    function playListLiHeight() {
+      let style = getComputedStyle($("#playList ol li"));
+      return parseFloat(style.lineHeight) + parseFloat(style.marginTop) + parseFloat(style.marginBottom);
+    }
     $("#playList").addEventListener("wheel", function (e) {
       e.preventDefault();
       e.stopPropagation();
       let olIndex = Number(pl.getAttribute("index"));
       if (e.deltaY < 0 && olIndex !== 0) {
         //up
-        pl.style.transform = "translateY(" + -(playListLiHeight * olIndex - playListLiHeight) + "px)";
+        pl.style.transform = "translateY(" + -playListLiHeight() * (olIndex - 1) + "px)";
         pl.setAttribute("index", Number(pl.getAttribute("index")) - 1);
       } else if (
         e.deltaY > 0 &&
         olIndex < Number($All("#playList > ol > li")[$All("#playList > ol > li").length - 1].getAttribute("num"))
       ) {
         //down
-        pl.style.transform = "translateY(" + -(playListLiHeight * olIndex + playListLiHeight) + "px)";
+        pl.style.transform = "translateY(" + -playListLiHeight() * (olIndex + 1) + "px)";
         pl.setAttribute("index", olIndex + 1);
       }
     });
@@ -150,7 +153,7 @@ function mp3Player() {
     $("#playList").addEventListener("mouseleave", function (e) {
       //通过歌曲名获得歌曲索引，计算marginTop
       let songPath = musicPath + decodeURI($("#player").src.split(/\//)[4]);
-      let initial_marginTop = playListAry().indexOf(songPath) * -playListLiHeight;
+      let initial_marginTop = playListAry().indexOf(songPath) * -playListLiHeight();
 
       pl.setAttribute("index", playListAry().indexOf(songPath));
       // console.log(songPath)
@@ -166,7 +169,7 @@ function mp3Player() {
       let songPath = playPath + decodeURI($("#player").src.split(/\//)[4]);
       let e = playListAry().indexOf(songPath);
       if (e + 1 < playListAry().length) {
-        playListOl.style.transform = "translateY(" + -(e + 1) * playListLiHeight + "px)";
+        playListOl.style.transform = "translateY(" + -(e + 1) * playListLiHeight() + "px)";
         player.src = playListAry()[e + 1];
       } else {
         playListOl.style.transform = "translateY(0)";
