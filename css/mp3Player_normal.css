@@ -109,6 +109,7 @@
 }
 
 #playList{
+    position: relative;
     box-sizing: border-box;
     border: 0rem solid royalblue;
     text-overflow: clip;
@@ -122,11 +123,11 @@
     pointer-events: none;
     content: '';
     position: absolute;
-    margin-top: .22rem;
-    min-width: 40%;
+    bottom: 0;
+    left: .72rem;
+    right: 0;
     height: .22rem;
     background:linear-gradient(0deg,white,rgba(255,255,255,0.5));
-    transition: height 0.2s,margin-top 0.2s;   
     
 }
 #playList ol {
