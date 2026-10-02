@@ -221,7 +221,7 @@ async function initMobileApp() {
                 bannerHTML = banner.outerHTML
                 banner.remove()
             }
-            root.innerHTML = '<div class="m-detail' + (banner ? ' m-has-banner' : '') + '">' + bannerHTML + '<main class="m-article">' + doc.body.innerHTML + '</main>' + toolbar(post, next) + commentPanel() + '</div>'
+            root.innerHTML = '<div class="m-detail' + (banner ? ' m-has-banner' : '') + '">' + bannerHTML + '<main class="m-article">' + doc.body.innerHTML + toolbar(post, next) + '</main>' + commentPanel() + '</div>'
             root.querySelectorAll('pre code').forEach(el => { if (window.hljs) hljs.highlightBlock(el) })
         }
         initComments(post)
@@ -244,10 +244,11 @@ async function initMobileApp() {
         stopTriangle = () => {}
         root.scrollTop = 0
         document.body.classList.remove('m-overlay-open')
-        window.scrollTo(0, 0)
         document.title = "Mianxiu's Blog"
         let route = location.hash.slice(1)
         if (!route && location.pathname.startsWith('/essay/')) route = 'essay=' + encodeURIComponent(decodeURI(location.pathname).replace(/^\//, '').replace(/\/$/, ''))
+        document.documentElement.classList.toggle('m-document-scroll', route === 'essay' || route.startsWith('essay='))
+        window.scrollTo(0, 0)
         root.innerHTML = '<p class="m-loading" role="status">Loading…</p>'
         try {
             if (/^(gallery|essay)=/.test(route)) {

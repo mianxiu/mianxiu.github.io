@@ -1,9 +1,19 @@
 /* Figma mobile layouts. Loaded after desktop CSS, only below 768px. */
-html { display: block; font-size: 100px; height: 100%; overflow: hidden; }
+html { display: block; font-size: 100px; height: 100%; overflow: hidden; background: #fff; color-scheme: only light; }
 body { display: block; width: 100%; height: 100%; overflow: hidden; font-size: 12px; background: white; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
 body > #main, body > #background-box, body > #footer, body > #ajaxProgress { display: none !important; }
 #foot, #mp3Player { display: none !important; }
-#mobileApp { position: fixed; top: var(--m-viewport-top, 0px); left: 0; width: 100%; height: var(--m-viewport-height, 100dvh); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+#mobileApp { position: fixed; top: var(--m-viewport-top, 0px); left: 0; width: 100%; height: var(--m-viewport-height, 100dvh); background: #fff; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+/* Safari's browser chrome follows document scrolling, not a fixed inner scroller. */
+html.m-document-scroll { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+html.m-document-scroll body { height: auto; min-height: 100svh; overflow: visible; }
+html.m-document-scroll #mobileApp { position: relative; top: auto; height: auto; min-height: 100svh; overflow: visible; overscroll-behavior: auto; }
+html.m-document-scroll:has(body.m-overlay-open) { overflow: hidden; }
+html.m-document-scroll .m-detail { height: auto; min-height: 100svh; display: block; overflow: visible; }
+html.m-document-scroll .m-detail > main { overflow: visible; }
+/* Full-bleed image reaches the top safe area; Safari owns its native chrome blur. */
+html.m-document-scroll .m-detail-banner { position: relative; height: calc(clamp(64px, 18svh, 120px) + env(safe-area-inset-top, 0px)); }
+html.m-document-scroll .m-comments-panel { position: fixed; top: calc(var(--m-viewport-top, 0px) + min(119px, 15dvh)); bottom: auto; height: calc(var(--m-viewport-height, 100dvh) - min(119px, 15dvh)); }
 #mobileApp *, #mobileApp *::before, #mobileApp *::after { box-sizing: border-box; }
 #mobileApp button { font: inherit; border: 0; background: transparent; color: inherit; padding: 0; cursor: pointer; }
 #mobileApp a { text-decoration: none; color: inherit; }
@@ -46,7 +56,7 @@ body > #main, body > #background-box, body > #footer, body > #ajaxProgress { dis
 .m-menu-close { position: absolute; top: calc(35px + env(safe-area-inset-top, 0px)); left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
 .m-menu-close img { transform: rotate(90deg); }
 body.m-overlay-open { overflow: hidden; }
-.m-essay-list { margin: 0 calc(43 / 375 * 100%); padding-bottom: 34px; }
+.m-essay-list { margin: 0 calc(43 / 375 * 100%); padding-bottom: max(34px, env(safe-area-inset-bottom, 0px)); }
 .m-essay-card { display: flex; flex-direction: column; margin-bottom: 24px; min-height: 48px; }
 .m-essay-card time, .m-article > ._date { color: rgba(0,0,0,.3); font-size: 9px; line-height: 12px; font-weight: 300; }
 .m-essay-card h2 { font-size: 12px; line-height: 17px; margin: 6px 0 7px; font-weight: 400; }
@@ -70,6 +80,7 @@ body.m-overlay-open { overflow: hidden; }
 .m-next { padding: 10px !important; margin-right: 3px; }
 .m-article { padding: calc(24px + env(safe-area-inset-top, 0px)) calc(44 / 375 * 100%) 24px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
 .m-has-banner .m-article { padding-top: 18px; }
+.m-article > .m-detail-bar { margin: 24px calc(-44 / 375 * 100vw) -24px calc(-42 / 375 * 100vw); }
 .m-article > .essay-title { margin: 0 0 7px; font-size: 12px; line-height: 16px; }
 .m-article > ._date { display: block; margin-bottom: 17px; }
 .m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
