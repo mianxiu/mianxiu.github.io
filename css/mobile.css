@@ -1,27 +1,29 @@
 /* Figma mobile layouts. Loaded after desktop CSS, only below 768px. */
-html { display: block; font-size: 100px; height: auto; }
-body { display: block; width: 100%; font-size: 12px; background: white; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
+html { display: block; font-size: 100px; height: 100%; overflow: hidden; }
+body { display: block; width: 100%; height: 100%; overflow: hidden; font-size: 12px; background: white; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
 body > #main, body > #background-box, body > #footer, body > #ajaxProgress { display: none !important; }
 #foot, #mp3Player { display: none !important; }
-#mobileApp { width: 100%; min-height: 100svh; overflow-x: clip; }
+#mobileApp { position: fixed; top: var(--m-viewport-top, 0px); left: 0; width: 100%; height: var(--m-viewport-height, 100dvh); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
 #mobileApp *, #mobileApp *::before, #mobileApp *::after { box-sizing: border-box; }
 #mobileApp button { font: inherit; border: 0; background: transparent; color: inherit; padding: 0; cursor: pointer; }
 #mobileApp a { text-decoration: none; color: inherit; }
 #mobileApp img { display: block; }
 #mobileApp button:focus-visible, #mobileApp a:focus-visible, #mobileApp summary:focus-visible { outline: 2px solid #6c9fdb; outline-offset: 4px; }
 #mobileApp [hidden] { display: none !important; }
-.m-home { min-height: max(812px, 100svh); position: relative; overflow: hidden; }
-.m-home-menu { position: absolute; top: 72px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
-.m-home-nav { position: absolute; top: 165px; left: calc(43 / 375 * 100%); display: grid; gap: 20px; font-size: 20px; line-height: 26px; font-weight: 600; }
-.m-home-nav::before { content: ''; position: absolute; top: 8px; left: calc(-43 / 375 * 100vw); height: 14px; width: 4px; background: black; }
-.m-home-card { position: absolute; top: 303px; left: calc(43 / 375 * 100%); width: 361px; height: 203px; background: #fcfcfc; }
-.m-last { position: absolute; top: 314px; left: calc(43 / 375 * 100%); display: flex; gap: 7px; padding: 3px 0 0 27px; height: 39px; font-size: 14px; line-height: 14px; }
+.m-home { height: 100%; position: relative; overflow: hidden; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.m-home-stage { position: absolute; top: env(safe-area-inset-top, 0px); left: 0; width: calc(100% / var(--m-home-scale, 1)); height: 640px; transform: scale(var(--m-home-scale, 1)); transform-origin: top left; }
+.m-home-menu { position: absolute; top: 32px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
+.m-home-nav { position: absolute; top: 125px; left: calc(43 / 375 * 100%); display: grid; gap: 20px; font-size: 20px; line-height: 26px; font-weight: 600; }
+.m-home-nav::before { content: ''; position: absolute; top: 8px; left: calc(-43 / 375 * 100vw / var(--m-home-scale, 1)); height: 14px; width: 4px; background: black; }
+.m-home-card { position: absolute; top: 263px; left: calc(43 / 375 * 100%); width: 361px; height: 203px; background: #fcfcfc; }
+.m-last { position: absolute; top: 274px; left: calc(43 / 375 * 100%); display: flex; gap: 7px; padding: 3px 0 0 27px; height: 39px; font-size: 14px; line-height: 14px; }
 .m-last::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 15px; background: #fc1d1d; }
 .m-last time { font-weight: 300; color: #888; }
 .m-last small { display: block; margin-top: 3px; opacity: .1; font-size: 12px; }
-.m-triangle { position: absolute; top: 224.973px; left: calc(212 / 375 * 100% - 1px); pointer-events: none; }
-.m-squiggle { position: absolute; top: 485px; left: calc(256 / 375 * 100%); pointer-events: none; }
-.m-profile { position: absolute; top: 490px; left: calc(52 / 375 * 100%); font-size: 14px; line-height: 15px; font-weight: 300; }
+.m-triangle { position: absolute; top: 184.973px; left: calc(212 / 375 * 100% - 1px); pointer-events: none; }
+.m-triangle svg { display: block; }
+.m-squiggle { position: absolute; top: 445px; left: calc(256 / 375 * 100%); pointer-events: none; }
+.m-profile { position: absolute; top: 450px; left: calc(52 / 375 * 100%); font-size: 14px; line-height: 15px; font-weight: 300; }
 .m-avatar { width: 58px; height: 58px; position: relative; overflow: hidden; mask: url('/assets/mobile/avatar-mask.svg') center / 58px 58px no-repeat; }
 .m-avatar img { width: 84.141px; height: 84.141px; position: absolute; left: -11.437px; top: -7.352px; }
 .m-profile strong { display: block; font-size: 18px; line-height: 22px; margin-top: 15px; font-weight: 700; }
@@ -30,7 +32,7 @@ body > #main, body > #background-box, body > #footer, body > #ajaxProgress { dis
 .m-social { display: flex; gap: 23px; margin-top: 28px; }
 .m-social a, .m-social button { display: block; position: relative; width: 28px; height: 28px; }
 .m-social .m-social-glyph { position: absolute; inset: 0; width: 28px; height: 28px; pointer-events: none; }
-.m-copyright { position: absolute; bottom: 15px; left: calc(43 / 375 * 100%); color: #b3b3b3; font-size: 9px; }
+.m-copyright { position: absolute; bottom: calc(15px + env(safe-area-inset-bottom, 0px)); left: calc(43 / 375 * 100%); color: #b3b3b3; font-size: 9px; }
 .m-header { height: 119px; position: relative; display: flex; align-items: flex-start; justify-content: flex-end; padding: 73px calc(43 / 375 * 100%) 0; }
 .m-header .m-menu-toggle { position: absolute; top: 70px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
 .m-brand { font-size: 15px !important; font-weight: 700 !important; line-height: 20px; }
@@ -38,10 +40,10 @@ body > #main, body > #background-box, body > #footer, body > #ajaxProgress { dis
 .m-header:has(.m-page-heading) { justify-content: flex-start; }
 .m-header:has(.m-page-heading) .m-menu-toggle { display: none; }
 .m-page-heading { font-size: 18px !important; font-weight: 600 !important; }
-.m-menu-layer { position: fixed; inset: 0; z-index: 100; }
+.m-menu-layer { position: fixed; top: var(--m-viewport-top, 0px); left: 0; right: 0; height: var(--m-viewport-height, 100dvh); z-index: 100; }
 .m-menu-shade { position: absolute; inset: 0; background: rgba(0,0,0,.16) !important; width: 100%; height: 100%; }
-.m-menu { background: white; position: relative; height: 346px; display: flex; flex-direction: column; gap: 32px; padding: 155px calc(43 / 375 * 100%) 0; font-size: 18px; line-height: 24px; font-weight: 600; }
-.m-menu-close { position: absolute; top: 75px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
+.m-menu { background: white; position: relative; height: min(calc(346px + env(safe-area-inset-top, 0px)), 100%); overflow-y: auto; display: flex; flex-direction: column; gap: 32px; padding: calc(115px + env(safe-area-inset-top, 0px)) calc(43 / 375 * 100%) 32px; font-size: 18px; line-height: 24px; font-weight: 600; }
+.m-menu-close { position: absolute; top: calc(35px + env(safe-area-inset-top, 0px)); left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
 .m-menu-close img { transform: rotate(90deg); }
 body.m-overlay-open { overflow: hidden; }
 .m-essay-list { margin: 0 calc(43 / 375 * 100%); padding-bottom: 34px; }
@@ -57,13 +59,17 @@ body.m-overlay-open { overflow: hidden; }
 .m-gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .m-gallery-grid a { aspect-ratio: 1; overflow: hidden; }
 .m-gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
-.m-gallery-images { padding: 53px 0 103px; display: flex; flex-direction: column; gap: 8px; }
-.m-gallery-images img { width: 100%; height: auto; }
-.m-detail-bar { position: fixed; bottom: 0; left: 0; right: 0; height: calc(95px + env(safe-area-inset-bottom)); padding: 18px 29px calc(45px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 24px; background: white; z-index: 30; font-size: 12px; }
+.m-detail { position: relative; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+.m-detail-banner { flex: 0 0 auto; height: clamp(64px, 18dvh, 120px); background-size: cover; background-position: center; }
+.m-detail > main { flex: 1 1 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.m-gallery-images { padding: calc(24px + env(safe-area-inset-top, 0px)) 0 16px; display: flex; flex-direction: column; gap: 8px; }
+.m-gallery-images img { width: 100%; height: auto; flex: 0 0 auto; }
+.m-detail-bar { flex: 0 0 auto; padding: 10px max(29px, env(safe-area-inset-right, 0px)) max(10px, env(safe-area-inset-bottom, 0px)) max(29px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 24px; background: white; z-index: 30; font-size: 12px; }
 .m-detail-bar .m-back { flex: 1; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.m-comment-button { display: flex; align-items: center; gap: 8px; font-weight: 700 !important; min-height: 32px; }
+.m-comment-button { display: flex; align-items: center; gap: 8px; font-weight: 700 !important; min-height: 44px; }
 .m-next { padding: 10px !important; margin-right: 3px; }
-.m-article { padding: 54px calc(44 / 375 * 100%) 110px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
+.m-article { padding: calc(24px + env(safe-area-inset-top, 0px)) calc(44 / 375 * 100%) 24px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
+.m-has-banner .m-article { padding-top: 18px; }
 .m-article > .essay-title { margin: 0 0 7px; font-size: 12px; line-height: 16px; }
 .m-article > ._date { display: block; margin-bottom: 17px; }
 .m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
@@ -91,10 +97,10 @@ body.m-overlay-open { overflow: hidden; }
 .m-about section { margin-top: 58px; }
 .m-computer-placeholder { height: 170px; border: 1px solid #f2f2f2; background: repeating-linear-gradient(to bottom,#fbfbfb 0px,#fbfbfb 25px,white 25px,white 48px); }
 .m-links { display: flex; flex-direction: column; gap: 28px; }
-.m-comments-panel { position: fixed; top: 119px; inset-inline: 0; bottom: 0; background: white; z-index: 60; display: flex; flex-direction: column; }
-.m-comments-panel > header { height: 81px; padding: 23px 43px 20px 23px; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
+.m-comments-panel { position: absolute; top: min(119px, 15%); inset-inline: 0; bottom: 0; background: white; z-index: 60; display: flex; flex-direction: column; }
+.m-comments-panel > header { height: 81px; padding: 23px max(43px, env(safe-area-inset-right, 0px)) 20px max(23px, env(safe-area-inset-left, 0px)); display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
 .m-comments-panel > header button { padding: 5px !important; }
-.m-comments-scroll { overflow-y: auto; overscroll-behavior: contain; padding: 0 23px 34px; flex: 1; }
+.m-comments-scroll { overflow-y: auto; overscroll-behavior: contain; padding: 0 max(23px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(23px, env(safe-area-inset-left, 0px)); flex: 1; min-height: 0; }
 #mobileApp #mixxopost { margin: 0; width: 100%; }
 #mobileApp .mixxo-post { border-radius: 0; margin: 20px 0 0; padding: 0; font-size: 10px; }
 #mobileApp .mixxo-user-info { flex-direction: column !important; }
@@ -116,4 +122,15 @@ body.m-overlay-open { overflow: hidden; }
 #mobileApp .mixxo-footer label { font-size: 10px; }
 .m-loading, .m-error { font-size: 14px; margin: 80px 43px; }
 .m-error a, .m-error button { display: inline-block; padding: 16px 0 !important; margin-right: 24px; }
+@media (orientation: landscape) and (max-height: 450px) {
+    .m-home-stage { width: 100%; height: 100%; transform: none; }
+    .m-home-menu { top: 16px; }
+    .m-home-nav { top: 75px; }
+    .m-home-nav::before { left: calc(-43 / 375 * 100vw); }
+    .m-home-card { top: 170px; height: 130px; }
+    .m-last { top: 185px; }
+    .m-triangle { top: 85px; left: 24%; opacity: .35; }
+    .m-profile { top: 30px; left: 58%; }
+    .m-squiggle { top: 245px; left: 49%; }
+}
 @media (prefers-reduced-motion: reduce) { #mobileApp * { animation: none !important; scroll-behavior: auto !important; } }

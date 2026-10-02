@@ -1,10 +1,45 @@
 /* Mobile views from the Figma design, backed by the site's existing content. */
+function mobileViewportMetrics(viewport, layoutHeight, safeTop = 0, safeBottom = 0) {
+    // Pinch zoom is not a browser-toolbar resize: keep the layout zoomable.
+    const unzoomed = viewport && Math.abs(viewport.scale - 1) < 0.01
+    const height = Math.max(1, unzoomed ? viewport.height : layoutHeight)
+    return {
+        height,
+        top: unzoomed ? Math.max(0, viewport.offsetTop) : 0,
+        homeScale: Math.min(1, Math.max(0.1, (height - safeTop - safeBottom - 40) / 640))
+    }
+}
+
+function mobileTriangleStep(current, target, delta) {
+    const amount = 1 - Math.exp(-Math.max(0, Math.min(delta, 64)) / 900)
+    current.forEach((value, i) => { current[i] = value + (target[i] - value) * amount })
+    return current
+}
+
 async function initMobileApp() {
     const root = document.createElement('div')
     root.id = 'mobileApp'
     document.body.append(root)
     const cache = new Map()
     const state = { essays: [], galleries: [], page: 1, commentsOpen: false, renderId: 0 }
+    let stopTriangle = () => {}
+    let viewportFrame = 0
+    function syncViewport() {
+        const homeStyle = root.querySelector('.m-home') && getComputedStyle(root.querySelector('.m-home'))
+        const metrics = mobileViewportMetrics(window.visualViewport, window.innerHeight,
+            parseFloat(homeStyle?.paddingTop) || 0, parseFloat(homeStyle?.paddingBottom) || 0)
+        root.style.setProperty('--m-viewport-height', metrics.height + 'px')
+        root.style.setProperty('--m-viewport-top', metrics.top + 'px')
+        root.style.setProperty('--m-home-scale', metrics.homeScale)
+    }
+    function scheduleViewport() {
+        if (viewportFrame) return
+        viewportFrame = requestAnimationFrame(() => { viewportFrame = 0; syncViewport() })
+    }
+    window.addEventListener('resize', scheduleViewport, { passive: true })
+    window.visualViewport?.addEventListener('resize', scheduleViewport, { passive: true })
+    window.visualViewport?.addEventListener('scroll', scheduleViewport, { passive: true })
+    syncViewport()
     const asset = name => '/assets/mobile/' + name
     const escape = text => String(text).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]))
     const icon = (name, cls = '') => '<img class="' + cls + '" src="' + asset(name) + '" alt="">'
@@ -48,13 +83,78 @@ async function initMobileApp() {
         const latest = [...state.essays, ...state.galleries].sort((a, b) => b.timestamp - a.timestamp)[0]
         const date = latest ? new Date(latest.timestamp) : new Date()
         const last = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('.')
-        return '<div class="m-home"><button class="m-home-menu" data-action="menu" aria-label="打开菜单">' + icon('menu.svg') + '</button>' +
+        return '<div class="m-home"><div class="m-home-stage"><button class="m-home-menu" data-action="menu" aria-label="打开菜单">' + icon('menu.svg') + '</button>' +
             '<nav class="m-home-nav"><a href="#gallery">GALLERY</a><a href="#essay">ESSAY</a></nav>' +
             '<div class="m-home-card"></div><section class="m-last"><span>LAST<br>POST</span><div><time>' + last + '</time><small>「 2018 」.dilemma</small></div></section>' +
             '<div class="m-triangle">' + icon('triangle.svg') + '</div><div class="m-squiggle">' + icon('squiggle.svg') + '</div>' +
             '<section class="m-profile"><div class="m-avatar"><img src="' + asset('avatar.png') + '" alt="mianxiu"></div><strong>mianxiu</strong><div>1994</div><p>something was wrong...</p>' +
             '<div class="m-social"><a href="https://github.com/mianxiu" aria-label="GitHub">' + socialIcon('blue.svg', ['githubIcon/L_1.svg', 'githubIcon/L_2.svg', 'githubIcon/head.svg', 'githubIcon/L_3.svg', 'githubIcon/body.svg']) + '</a><button data-action="menu" aria-label="更多">' + socialIcon('yellow.svg', ['more/1.svg', 'more/2.svg']) + '</button><a href="mailto:mianxiu@mianxiu.me" aria-label="电子邮件">' + socialIcon('red.svg', ['mail/block.svg', 'mail/line.svg']) + '</a></div></section>' +
-            '<footer class="m-copyright">© ' + new Date().getFullYear() + ' MIANXIU | POWERED BY MIXXO</footer></div>'
+            '</div><footer class="m-copyright">© ' + new Date().getFullYear() + ' MIANXIU | POWERED BY MIXXO</footer></div>'
+    }
+
+    async function animateTriangle() {
+        const holder = root.querySelector('.m-triangle')
+        if (!holder) return
+        try {
+            const doc = await load(asset('triangle.svg'))
+            if (!holder.isConnected) return
+            const svg = doc.querySelector('svg')?.cloneNode(true)
+            if (!svg) return
+            svg.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'))
+            svg.setAttribute('aria-hidden', 'true')
+            holder.replaceChildren(svg)
+            const outline = svg.querySelector('path[stroke]')
+            const shadow = svg.querySelector('path[fill]')
+            // Keep the original mobile silhouette; deform its three vertices like PC.
+            const coordinates = outline.getAttribute('d').match(/-?\d*\.?\d+/g).map(Number).slice(0, 6)
+            const current = coordinates.slice()
+            let target = coordinates.slice(), last = 0, nextTarget = 0, frame = 0
+            let pointerX = 0, pointerY = 0
+            const reduced = matchMedia('(prefers-reduced-motion: reduce)')
+            const home = holder.closest('.m-home')
+            const move = event => {
+                const rect = home.getBoundingClientRect()
+                pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 8
+                pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 5
+            }
+            const reset = () => { pointerX = 0; pointerY = 0 }
+            function tick(time) {
+                if (!holder.isConnected || document.hidden || reduced.matches) { frame = 0; return }
+                const delta = Math.min(64, last ? time - last : 16)
+                last = time
+                if (time >= nextTarget) {
+                    target = coordinates.map(value => value + (Math.random() - 0.5) * 8)
+                    nextTarget = time + 1800 + Math.random() * 1200
+                }
+                mobileTriangleStep(current, target, delta)
+                outline.setAttribute('d', `M${current[0]} ${current[1]}L${current[2]} ${current[3]}L${current[4]} ${current[5]}Z`)
+                outline.setAttribute('transform', `translate(${pointerX} ${pointerY})`)
+                shadow.setAttribute('transform', `translate(${-pointerX * 0.4} ${-pointerY * 0.4})`)
+                frame = requestAnimationFrame(tick)
+            }
+            const resume = () => {
+                cancelAnimationFrame(frame)
+                frame = 0; last = 0
+                if (reduced.matches) {
+                    outline.setAttribute('d', `M${coordinates[0]} ${coordinates[1]}L${coordinates[2]} ${coordinates[3]}L${coordinates[4]} ${coordinates[5]}Z`)
+                    outline.removeAttribute('transform'); shadow.removeAttribute('transform')
+                } else if (!document.hidden) frame = requestAnimationFrame(tick)
+            }
+            home.addEventListener('pointermove', move, { passive: true })
+            home.addEventListener('pointerleave', reset)
+            home.addEventListener('pointerup', reset)
+            document.addEventListener('visibilitychange', resume)
+            reduced.addEventListener('change', resume)
+            stopTriangle = () => {
+                cancelAnimationFrame(frame)
+                document.removeEventListener('visibilitychange', resume)
+                reduced.removeEventListener('change', resume)
+                home.removeEventListener('pointermove', move)
+                home.removeEventListener('pointerleave', reset)
+                home.removeEventListener('pointerup', reset)
+            }
+            resume()
+        } catch (error) { console.warn('Mobile triangle animation unavailable', error) }
     }
 
     function menu() {
@@ -110,10 +210,18 @@ async function initMobileApp() {
         const post = posts[index] || { path, type, title: doc.querySelector('.essay-title, .gallery-context-title')?.textContent.trim() || path.split('/').pop() }
         const next = index >= 0 ? posts[index + 1] : null
         if (type === 'gallery') {
-            root.innerHTML = '<main class="m-gallery-images">' + Array.from(doc.querySelectorAll('.gallery-img')).map(el => '<img src="' + escape(el.getAttribute('src')) + '" alt="' + escape(post.title) + '">').join('') + '</main>' + toolbar(post, next) + commentPanel()
+            root.innerHTML = '<div class="m-detail"><main class="m-gallery-images">' + Array.from(doc.querySelectorAll('.gallery-img')).map(el => '<img src="' + escape(el.getAttribute('src')) + '" alt="' + escape(post.title) + '">').join('') + '</main>' + toolbar(post, next) + commentPanel() + '</div>'
         } else {
             doc.querySelectorAll('#mixxopost, .footer, script').forEach(el => el.remove())
-            root.innerHTML = '<main class="m-article">' + doc.body.innerHTML + '</main>' + toolbar(post, next) + commentPanel()
+            const banner = doc.querySelector('._banner')
+            let bannerHTML = ''
+            if (banner) {
+                banner.className = 'm-detail-banner'
+                banner.setAttribute('aria-hidden', 'true')
+                bannerHTML = banner.outerHTML
+                banner.remove()
+            }
+            root.innerHTML = '<div class="m-detail' + (banner ? ' m-has-banner' : '') + '">' + bannerHTML + '<main class="m-article">' + doc.body.innerHTML + '</main>' + toolbar(post, next) + commentPanel() + '</div>'
             root.querySelectorAll('pre code').forEach(el => { if (window.hljs) hljs.highlightBlock(el) })
         }
         initComments(post)
@@ -132,6 +240,9 @@ async function initMobileApp() {
     async function render() {
         const id = ++state.renderId
         state.commentsOpen = false
+        stopTriangle()
+        stopTriangle = () => {}
+        root.scrollTop = 0
         document.body.classList.remove('m-overlay-open')
         window.scrollTo(0, 0)
         document.title = "Mianxiu's Blog"
@@ -159,6 +270,9 @@ async function initMobileApp() {
                 root.innerHTML = header('About') + '<main class="m-about"><h2>我</h2>' + doc.body.innerHTML + '<section><h2>Computer</h2><div class="m-computer-placeholder" aria-label="设备信息待补充"></div></section></main>'
             } else if (route === 'links') root.innerHTML = header('Link') + '<main class="m-links"><a href="https://github.com/mianxiu">GitHub · mianxiu</a><a href="mailto:mianxiu@mianxiu.me">mianxiu@mianxiu.me</a></main>'
             else root.innerHTML = home()
+            if (id !== state.renderId) return
+            syncViewport()
+            if (root.querySelector('.m-home')) animateTriangle()
             root.querySelectorAll('img.m-preview').forEach(img => img.addEventListener('error', () => img.remove(), { once: true }))
         } catch (error) {
             if (id === state.renderId) root.innerHTML = header() + '<div class="m-error"><p>内容暂时无法加载。</p><button data-action="retry">重试</button><a href="#">返回首页</a></div>'
