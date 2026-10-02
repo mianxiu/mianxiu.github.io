@@ -1,6 +1,12 @@
 
 // ajax同目录内容
 (() => {
+    window.matchMedia('(max-width: 767px)').addEventListener('change', () => location.reload())
+    if (window.matchMedia('(max-width: 767px)').matches) {
+        const path = decodeURI(location.pathname).replace(/^\//, '').replace(/\/$/, '')
+        location.replace('/#essay=' + encodeURIComponent(path))
+        return
+    }
     document.querySelector('title').innerText = decodeURI(window.location.href.split(/\//)[7])+" | Mianxiu's blog"
     var oReq = new XMLHttpRequest();
     oReq.onload = function () {

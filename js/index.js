@@ -4,6 +4,21 @@ function UA(){
     const isMobile = /iPhone|iPad|Android/i.test(ua)
 
     window.onload = function(){
+        window.matchMedia('(max-width: 767px)').addEventListener('change', () => location.reload())
+        if (window.matchMedia('(max-width: 767px)').matches) {
+            initMobileApp()
+            return
+        }
+        const mobileEssayRoute = location.hash.match(/^#essay=(.+)$/)
+        if (mobileEssayRoute) {
+            try {
+                const path = decodeURIComponent(mobileEssayRoute[1])
+                if (/^essay\/\d{4}\/\d{2}\/\d{2}\/[^/]+$/.test(path)) {
+                    location.replace('/' + path + '/')
+                    return
+                }
+            } catch (error) { console.error('Invalid essay route', error) }
+        }
         document.getElementById('copyrightYear').textContent = new Date().getFullYear()
         if (!isMobile) {
             mp3Player();
