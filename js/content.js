@@ -164,6 +164,11 @@ function essayAjax() {
 let writeGallery = function (event) {
     $('#galleryContext > div').innerHTML = this.responseText
 
+    let keyboardTip = $('#galleryContext .keyboard-tip')
+    if (keyboardTip) {
+        keyboardTip.insertAdjacentHTML('beforeend', '<ul><li><span class="keyboard-tip-li keyboard-tip-esc">Esc</span><span class="keyboard-tip-text">返回上一级</span></li></ul>')
+    }
+
     mixxoPost.init({
         appId: appId,
         appKey: appKey,
@@ -571,6 +576,33 @@ function restoreRoute() {
 
 
 
+// Esc 按页面层级返回，而不是返回可能属于另一个作品的历史记录。
+document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape' || event.repeat || event.isComposing) return
+    if (event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable="true"]')) return
+    if (!$('#gallery')) return
+
+    event.preventDefault()
+    let fullPage = $('#galleryContext [page-type="full"]')
+    if (fullPage) {
+        fullPage.click()
+    } else if ($('#galleryContext .gallery-imgs')) {
+        history.pushState({ name: 'gallery', scrollTop: 0 }, '', '/#gallery')
+        showGalleryList(0)
+    } else {
+        $('#logo_other').click()
+    }
+})
+
+function showGalleryList(scrollTop) {
+    $('#gallery').style.display = ''
+    $('#galleryContext > div').innerHTML = ''
+    $('#logo_other').style.display = ''
+    document.documentElement.scrollTop = scrollTop || 0
+    $('title').innerText = 'Mianxiu\'s Blog...'
+    $('html').classList.add('html-color')
+}
+
 // history API 操作
 /**
  * 不同页面(或层级)通过stateObj写入唯一值,like state = {name:essay,scroll:current num},state = {name:essayContext}
@@ -601,12 +633,7 @@ window.addEventListener("popstate", event => {
                 document.documentElement.scrollTop = history.state.scrollTop
                 break;
             case 'gallery':
-                $('#gallery').style.display = ''
-                $('#galleryContext > div').innerHTML = ''
-                $('#logo_other').style.display = ''
-                document.documentElement.scrollTop = history.state.scrollTop
-                $('title').innerText = 'Mianxiu\'s Blog...'
-                $('html').classList.add('html-color')
+                showGalleryList(history.state.scrollTop)
                 break;
             case 'essayContext':
                 // 前进动作

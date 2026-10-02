@@ -1285,6 +1285,11 @@
 		 background-color: white;
 		 margin: 0 2px;
 	}
+	 #galleryContext > div .gallery-right-background .keyboard-tip > ul li span.keyboard-tip-esc {
+		 width: auto;
+		 min-width: 0.24rem;
+		 padding: 0 5px;
+	 }
 	 #galleryContext > div .gallery-right-background .keyboard-tip > ul li span.keyboard-tip-text {
 		 padding-left: 2px;
 	}
