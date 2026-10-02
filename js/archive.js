@@ -39,13 +39,13 @@ function initDesktopArchive() {
         document.body.classList.toggle('desktop-archive-open', active)
         if (!active) return
         panel.scrollTop = 0
-        const header = '<header><h1>Archive</h1><button data-archive-close aria-label="返回首页">返回首页</button></header>'
+        const header = '<header><button class="archive-heading" data-archive-close aria-label="返回首页">Archive</button></header>'
         panel.innerHTML = header + '<p role="status">Loading…</p>'
         try {
             const all = await posts()
             if (id !== revision) return
             const years = [...new Set(all.map(post => new Date(post.timestamp).getFullYear()))]
-            panel.innerHTML = header + years.map((year, i) => '<details ' + (i < 2 ? 'open' : '') + '><summary>' + year + '</summary><ul>' + all.filter(post => new Date(post.timestamp).getFullYear() === year).map(post => '<li><a href="' + escape(post.href) + '">' + escape(post.title) + '</a><time>' + new Date(post.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase() + '</time></li>').join('') + '</ul></details>').join('')
+            panel.innerHTML = header + '<main>' + years.map((year, i) => '<details ' + (i < 2 ? 'open' : '') + '><summary>' + year + '<img src="/assets/mobile/more.svg" alt=""></summary><ul>' + all.filter(post => new Date(post.timestamp).getFullYear() === year).map(post => '<li><a href="' + escape(post.href) + '">' + escape(post.title) + '</a><time>' + new Date(post.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase() + '</time></li>').join('') + '</ul></details>').join('') + '</main>'
         } catch (error) {
             if (id === revision) panel.innerHTML = header + '<p>归档加载失败，请刷新重试。</p>'
             console.error(error)

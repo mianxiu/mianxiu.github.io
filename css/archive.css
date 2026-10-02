@@ -1,15 +1,20 @@
 body.desktop-archive-open > #main, body.desktop-archive-open > #background-box, body.desktop-archive-open > #footer { display: none; }
 body.desktop-archive-open { background: #fff; }
-#desktopArchive { position: fixed; inset: 0; overflow-y: auto; background: #fff; z-index: 10; padding: 48px clamp(32px, 7vw, 120px); font-size: 16px; user-select: text; }
+#desktopArchive { position: fixed; inset: 0; overflow-y: auto; background: #fff; z-index: 10; font-size: 12px; user-select: text; }
 #desktopArchive[hidden] { display: none; }
-#desktopArchive header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
-#desktopArchive h1 { margin: 0; font-size: 24px; }
-#desktopArchive button { border: 0; padding: 12px; background: transparent; font: inherit; cursor: pointer; }
-#desktopArchive details { margin-bottom: 32px; }
-#desktopArchive summary { cursor: pointer; font-size: 22px; font-weight: 700; }
-#desktopArchive ul { list-style: none; padding: 0; margin: 28px 0; }
-#desktopArchive li { display: flex; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
-#desktopArchive a { color: #000; text-decoration: none; overflow-wrap: anywhere; }
+#desktopArchive header { height: 119px; padding: 73px calc(43 / 375 * 100%) 0; }
+#desktopArchive button { border: 0; padding: 0; background: transparent; color: #000; font: inherit; cursor: pointer; }
+#desktopArchive .archive-heading { font-size: 18px; font-weight: 600; line-height: 24px; }
+#desktopArchive main { padding: 29px calc(43 / 375 * 100%) 60px; }
+#desktopArchive details { margin-bottom: 28px; }
+#desktopArchive summary { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 18px; font-weight: 700; line-height: 24px; list-style: none; }
+#desktopArchive summary::-webkit-details-marker { display: none; }
+#desktopArchive summary img { display: block; width: 14px; height: 14px; }
+#desktopArchive details[open] summary img { visibility: hidden; }
+#desktopArchive ul { list-style: none; padding: 0 17px 0 23px; margin: 32px 0 0; }
+#desktopArchive li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; line-height: 17px; margin-bottom: 16px; }
+#desktopArchive a { min-width: 0; color: #000; text-decoration: none; overflow-wrap: anywhere; }
 #desktopArchive a:hover { text-decoration: underline; }
-#desktopArchive time { color: #aaa; white-space: nowrap; font-size: 14px; }
+#desktopArchive time { color: #b3b3b3; white-space: nowrap; font-size: 10px; font-weight: 300; }
+#desktopArchive button:focus-visible, #desktopArchive a:focus-visible, #desktopArchive summary:focus-visible { outline: 2px solid #6c9fdb; outline-offset: 4px; }
 #footer a { color: inherit; text-decoration: none; }

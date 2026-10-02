@@ -22,6 +22,7 @@ async function initMobileApp() {
     document.body.append(root)
     const cache = new Map()
     const state = { essays: [], galleries: [], page: 1, commentsOpen: false, renderId: 0 }
+    const themeColor = document.querySelector('meta[name="theme-color"]')
     let stopTriangle = () => {}
     let viewportFrame = 0
     function syncViewport() {
@@ -247,7 +248,13 @@ async function initMobileApp() {
         document.title = "Mianxiu's Blog"
         let route = location.hash.slice(1)
         if (!route && location.pathname.startsWith('/essay/')) route = 'essay=' + encodeURIComponent(decodeURI(location.pathname).replace(/^\//, '').replace(/\/$/, ''))
-        document.documentElement.classList.toggle('m-document-scroll', route === 'essay' || route.startsWith('essay='))
+        const documentScroll = route === 'essay' || route.startsWith('essay=')
+        document.documentElement.classList.toggle('m-document-scroll', documentScroll)
+        // Keep the white home theme, but don't request opaque browser chrome on essays.
+        if (themeColor) {
+            if (documentScroll) themeColor.remove()
+            else if (!themeColor.isConnected) document.head.append(themeColor)
+        }
         window.scrollTo(0, 0)
         root.innerHTML = '<p class="m-loading" role="status">Loading…</p>'
         try {

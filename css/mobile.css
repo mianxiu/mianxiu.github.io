@@ -5,13 +5,13 @@ body > #main, body > #background-box, body > #footer, body > #ajaxProgress { dis
 #foot, #mp3Player { display: none !important; }
 #mobileApp { position: fixed; top: var(--m-viewport-top, 0px); left: 0; width: 100%; height: var(--m-viewport-height, 100dvh); background: #fff; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
 /* Safari's browser chrome follows document scrolling, not a fixed inner scroller. */
-html.m-document-scroll { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+html.m-document-scroll { height: auto; min-height: 100%; overflow: visible; }
 html.m-document-scroll body { height: auto; min-height: 100svh; overflow: visible; }
-html.m-document-scroll #mobileApp { position: relative; top: auto; height: auto; min-height: 100svh; overflow: visible; overscroll-behavior: auto; }
+html.m-document-scroll #mobileApp { position: static; height: auto; min-height: 100svh; background: transparent; overflow: visible; overscroll-behavior: auto; }
 html.m-document-scroll:has(body.m-overlay-open) { overflow: hidden; }
 html.m-document-scroll .m-detail { height: auto; min-height: 100svh; display: block; overflow: visible; }
 html.m-document-scroll .m-detail > main { overflow: visible; }
-/* Full-bleed image reaches the top safe area; Safari owns its native chrome blur. */
+/* No fixed edge or clipping wrapper: Safari owns the obscured browser-UI areas. */
 html.m-document-scroll .m-detail-banner { position: relative; height: calc(clamp(64px, 18svh, 120px) + env(safe-area-inset-top, 0px)); }
 html.m-document-scroll .m-comments-panel { position: fixed; top: calc(var(--m-viewport-top, 0px) + min(119px, 15dvh)); bottom: auto; height: calc(var(--m-viewport-height, 100dvh) - min(119px, 15dvh)); }
 #mobileApp *, #mobileApp *::before, #mobileApp *::after { box-sizing: border-box; }
