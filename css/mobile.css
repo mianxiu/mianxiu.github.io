@@ -71,13 +71,15 @@ body.m-overlay-open { overflow: hidden; }
 .m-comment-button { display: flex; align-items: center; gap: 8px; font-weight: 700 !important; min-height: 44px; }
 .m-next { padding: 10px !important; margin-right: 3px; }
 .m-article { padding: 54px calc(44 / 375 * 100%) 24px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
+/* Align only the article banner; leave the verified document shell unchanged. */
+.m-article:has(> ._banner) { padding-top: 0; }
 .m-article > .m-detail-bar { margin: 24px calc(-44 / 375 * 100vw) -24px calc(-42 / 375 * 100vw); }
 /* Desktop metadata uses viewport widths; size it to the padded article instead. */
 #mobileApp .m-article > .essay-title, #mobileApp .m-article > ._date { width: auto; }
 .m-article > .essay-title { margin: 0 0 7px; font-size: 12px; line-height: 16px; }
 .m-article > ._date { display: block; margin-bottom: 17px; }
 .m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
-/* Deliberately retain the first release's inherited banner pseudo-element/top gap. */
+.m-article ._banner::after { content: none; }
 .m-article .essay-context { width: auto; margin: 0; }
 .m-article .essay-context p { margin: 0 0 16px; color: #777; font-size: 12px; line-height: 16px; }
 .m-article h2, .m-article h3, .m-article h4, .m-article h5, .m-article h6 { font-size: 12px; line-height: 18px; margin: 0 0 16px; }
