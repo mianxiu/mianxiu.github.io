@@ -81,12 +81,19 @@ body.m-overlay-open { overflow: hidden; }
 .m-article > .m-detail-bar { margin: 24px calc(-44 / 375 * 100vw) -24px calc(-42 / 375 * 100vw); font-size: calc(12px * var(--m-article-font-scale)); }
 /* Desktop metadata uses viewport widths; size it to the padded article instead. */
 #mobileApp .m-article > .essay-title, #mobileApp .m-article > ._date { width: auto; }
-.m-article > .essay-title { margin: 0 0 7px; font-size: calc(12px * var(--m-article-font-scale)); line-height: calc(16px * var(--m-article-font-scale)); }
+.m-article > .essay-title { margin: 0 0 10px; font-size: 18px; line-height: 26px; overflow-wrap: anywhere; }
 .m-article > ._date { display: block; margin-bottom: 17px; color: rgba(0,0,0,.3); font-size: calc(9px * var(--m-article-font-scale)); line-height: calc(12px * var(--m-article-font-scale)); font-weight: 300; }
 .m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
 .m-article ._banner::after { content: none; }
 /* Preserve Markdown hierarchy and colors while reducing all article text together. */
 .m-article .essay-context { width: auto; min-width: 0; margin: 0; font-size: calc(16px * var(--m-article-font-scale)); line-height: normal; overflow-wrap: anywhere; }
+.m-article .essay-context :is(h1, h2, h3, h4, h5, h6) { line-height: 1.35; }
+.m-article .essay-context h1 { font-size: 30px; }
+.m-article .essay-context h2 { font-size: 23px; }
+.m-article .essay-context h3 { font-size: 18px; }
+.m-article .essay-context h4 { font-size: 16px; }
+.m-article .essay-context h5 { font-size: 14px; }
+.m-article .essay-context h6 { font-size: 12px; }
 #mobileApp .essay-context a { color: #ff861e; }
 .m-article img { max-width: 100%; height: auto; }
 .m-article .essay-context pre { max-width: 100%; overflow-x: auto; overflow-wrap: normal; font-size: calc(14px * var(--m-article-font-scale)); }

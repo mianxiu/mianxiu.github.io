@@ -59,18 +59,22 @@ assert.match(mobileSource, /stopTriangle\(\)\s*\n\s*stopTriangle = \(\) => \{\}\
 console.log('Mobile loading uses the inline home triangles, centered at reduced size with shared animation and accessible status.')
 assert.match(mobileCSS, /\.m-article\s*\{[^}]*--m-article-font-scale: \.875;/)
 assert.match(mobileCSS, /\.m-article \.essay-context\s*\{[^}]*min-width: 0;[^}]*font-size: calc\(16px \* var\(--m-article-font-scale\)\);[^}]*overflow-wrap: anywhere;/)
-for (const selector of ['.m-article > .essay-title', '.m-article > ._date', '.m-article > .m-detail-bar', '.m-article .essay-context pre', '.m-article .essay-end-tip', '.m-article .essay-hr ._tags']) {
+for (const selector of ['.m-article > ._date', '.m-article > .m-detail-bar', '.m-article .essay-context pre', '.m-article .essay-end-tip', '.m-article .essay-hr ._tags']) {
     const rule = new RegExp('(?:^|\\n)' + selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*\\{([^}]*)\\}')
     assert.match(mobileCSS.match(rule)[1], /font-size: calc\(\d+px \* var\(--m-article-font-scale\)\)/)
 }
 assert.doesNotMatch(mobileCSS, /\.m-article \.essay-context p\s*\{|\.m-article h[1-6][^{]*\{/)
+assert.match(mobileCSS, /\.m-article > \.essay-title\s*\{[^}]*font-size: 18px; line-height: 26px;/)
+for (const [level, size] of [[1, 30], [2, 23], [3, 18], [4, 16], [5, 14], [6, 12]]) {
+    assert.ok(mobileCSS.includes('.m-article .essay-context h' + level + ' { font-size: ' + size + 'px; }'))
+}
 assert.match(mobileCSS, /#mobileApp \.essay-context a\s*\{\s*color: #ff861e;/)
 assert.match(mobileCSS, /\.m-article \.essay-context pre\s*\{[^}]*overflow-x: auto;[^}]*overflow-wrap: normal;/)
 assert.match(mobileCSS, /\.m-article \.essay-context blockquote::after\s*\{[^}]*right: 10px;/)
 assert.match(mobileCSS, /\.m-article \.essay-context \._youtube\s*\{[^}]*width: 100%;[^}]*aspect-ratio: 16 \/ 9;/)
 assert.match(mobileSource, /querySelectorAll\('\.essay-context pre'\)\.forEach\(el => \{ if \(window\.hljs\) hljs\.highlightBlock\(el\)/)
 assert.doesNotMatch(mobileSource, /querySelectorAll\('pre code'\)/)
-console.log('Mobile article text scales down uniformly while retaining Markdown hierarchy, colors and full-block highlighting.')
+console.log('Mobile articles keep smaller body text with larger page and Markdown headings, shared colors and highlighting.')
 assert.match(mobileSource, /<time class="_date">/)
 assert.match(mobileSource, /<h2 class="essay-title">/)
 assert.match(mobileSource, /<div class="summary m-summary"><p>/)
@@ -92,6 +96,21 @@ assert.doesNotMatch(mobileSource, /visualViewport\?\.addEventListener\('scroll'/
 assert.equal(context.mobileRouteForLocation({ hash: '', pathname: '/' }), '')
 assert.equal(context.mobileRouteForLocation({ hash: '#essay', pathname: '/' }), 'essay')
 assert.equal(context.mobileRouteForLocation({ hash: '', pathname: '/essay/2020/11/14/test/' }), 'essay=essay%2F2020%2F11%2F14%2Ftest')
+const percentPath = 'essay/2021/04/04/性能强劲的电脑 70%-90%完全体'
+const percentURL = context.mobileContentURL(percentPath)
+assert.ok(percentURL.includes('70%25-90%25'))
+assert.equal(decodeURIComponent(percentURL), '/' + percentPath + '/context.html')
+assert.equal(new URL(percentURL, 'https://mianxiu.me').search, '')
+assert.match(mobileSource, /load\(mobileContentURL\(path\)\)/)
+assert.doesNotMatch(mobileSource, /load\('\/' \+ path \+ '\/context\.html'\)/)
+for (const title of ['中文 空格', 'literal %25', 'title #hash?query&value', 'plain-title']) {
+    const path = 'essay/2021/04/04/' + title
+    const url = new URL(context.mobileContentURL(path), 'https://mianxiu.me')
+    assert.equal(decodeURIComponent(url.pathname), '/' + path + '/context.html')
+    assert.equal(url.search, '')
+    assert.equal(url.hash, '')
+}
+console.log('Article content URLs encode literal percent signs, spaces, Chinese and reserved title characters without changing routes.')
 console.log('Document shell: stable first-release flow, locally sized home, locally aligned banner and inline article toolbar passed.')
 const indexHTML = fs.readFileSync(require('node:path').join(__dirname, '../index.html'), 'utf8')
 const aboutHTML = fs.readFileSync(require('node:path').join(__dirname, '../about/index.html'), 'utf8')

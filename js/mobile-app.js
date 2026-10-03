@@ -23,6 +23,11 @@ function mobileRouteForLocation(pageLocation) {
     return route
 }
 
+function mobileContentURL(path) {
+    // Route values are decoded names, not URLs: encode each segment, including literal %.
+    return '/' + path.split('/').map(segment => encodeURIComponent(segment)).join('/') + '/context.html'
+}
+
 function mobileLoadingMarkup() {
     // Inline the home silhouette so the loading indicator needs no additional request.
     return '<div class="m-loading" role="status" aria-live="polite" aria-busy="true"><span class="m-loading-label">正在加载</span><div class="m-loading-triangle"><svg aria-hidden="true" viewBox="0 0 277.993 236.527" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M117.993 228.527L72.9929 40.0268L277.993 236.527L117.993 228.527Z" fill="#F3F3F3"/><path d="M66.9929 216.027L0.992927 1.52683L247.493 216.027H66.9929Z" stroke="black"/></svg></div></div>'
@@ -223,7 +228,7 @@ async function initMobileApp() {
 
     async function detail(type, path, renderId) {
         if (!new RegExp('^' + type + '/\\d{4}/\\d{2}/\\d{2}/[^/]+$').test(path)) throw new Error('无效的内容地址')
-        const doc = await load('/' + path + '/context.html')
+        const doc = await load(mobileContentURL(path))
         if (renderId !== state.renderId) return
         const posts = type === 'gallery' ? state.galleries : state.essays
         const index = posts.findIndex(post => post.path === path)
