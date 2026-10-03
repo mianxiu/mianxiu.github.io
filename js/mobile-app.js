@@ -23,6 +23,11 @@ function mobileRouteForLocation(pageLocation) {
     return route
 }
 
+function mobileLoadingMarkup() {
+    // Inline the home silhouette so the loading indicator needs no additional request.
+    return '<div class="m-loading" role="status" aria-live="polite" aria-busy="true"><span class="m-loading-label">正在加载</span><div class="m-loading-triangle"><svg aria-hidden="true" viewBox="0 0 277.993 236.527" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M117.993 228.527L72.9929 40.0268L277.993 236.527L117.993 228.527Z" fill="#F3F3F3"/><path d="M66.9929 216.027L0.992927 1.52683L247.493 216.027H66.9929Z" stroke="black"/></svg></div></div>'
+}
+
 async function initMobileApp() {
     const root = document.createElement('div')
     root.id = 'mobileApp'
@@ -100,13 +105,18 @@ async function initMobileApp() {
             '</div><footer class="m-copyright">© ' + new Date().getFullYear() + ' MIANXIU | POWERED BY MIXXO</footer></div>'
     }
 
-    async function animateTriangle() {
-        const holder = root.querySelector('.m-triangle')
+    function showLoading() {
+        stopTriangle()
+        root.innerHTML = mobileLoadingMarkup()
+        animateTriangle(root.querySelector('.m-loading-triangle'), false)
+    }
+
+    async function animateTriangle(holder = root.querySelector('.m-triangle'), interactive = true) {
         if (!holder) return
         try {
-            const doc = await load(asset('triangle.svg'))
+            const inlineSvg = holder.querySelector('svg')
+            const svg = inlineSvg || (await load(asset('triangle.svg'))).querySelector('svg')?.cloneNode(true)
             if (!holder.isConnected) return
-            const svg = doc.querySelector('svg')?.cloneNode(true)
             if (!svg) return
             svg.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'))
             svg.setAttribute('aria-hidden', 'true')
@@ -119,7 +129,7 @@ async function initMobileApp() {
             let target = coordinates.slice(), last = 0, nextTarget = 0, frame = 0
             let pointerX = 0, pointerY = 0
             const reduced = matchMedia('(prefers-reduced-motion: reduce)')
-            const home = holder.closest('.m-home')
+            const home = interactive ? holder.closest('.m-home') : null
             const move = event => {
                 const rect = home.getBoundingClientRect()
                 pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 8
@@ -137,7 +147,9 @@ async function initMobileApp() {
                 mobileTriangleStep(current, target, delta)
                 outline.setAttribute('d', `M${current[0]} ${current[1]}L${current[2]} ${current[3]}L${current[4]} ${current[5]}Z`)
                 outline.setAttribute('transform', `translate(${pointerX} ${pointerY})`)
-                shadow.setAttribute('transform', `translate(${-pointerX * 0.4} ${-pointerY * 0.4})`)
+                const driftX = interactive ? 0 : (current[0] - coordinates[0]) * 0.6
+                const driftY = interactive ? 0 : (current[1] - coordinates[1]) * 0.6
+                shadow.setAttribute('transform', `translate(${-pointerX * 0.4 - driftX} ${-pointerY * 0.4 - driftY})`)
                 frame = requestAnimationFrame(tick)
             }
             const resume = () => {
@@ -148,18 +160,18 @@ async function initMobileApp() {
                     outline.removeAttribute('transform'); shadow.removeAttribute('transform')
                 } else if (!document.hidden) frame = requestAnimationFrame(tick)
             }
-            home.addEventListener('pointermove', move, { passive: true })
-            home.addEventListener('pointerleave', reset)
-            home.addEventListener('pointerup', reset)
+            home?.addEventListener('pointermove', move, { passive: true })
+            home?.addEventListener('pointerleave', reset)
+            home?.addEventListener('pointerup', reset)
             document.addEventListener('visibilitychange', resume)
             reduced.addEventListener('change', resume)
             stopTriangle = () => {
                 cancelAnimationFrame(frame)
                 document.removeEventListener('visibilitychange', resume)
                 reduced.removeEventListener('change', resume)
-                home.removeEventListener('pointermove', move)
-                home.removeEventListener('pointerleave', reset)
-                home.removeEventListener('pointerup', reset)
+                home?.removeEventListener('pointermove', move)
+                home?.removeEventListener('pointerleave', reset)
+                home?.removeEventListener('pointerup', reset)
             }
             resume()
         } catch (error) { console.warn('Mobile triangle animation unavailable', error) }
@@ -253,7 +265,7 @@ async function initMobileApp() {
         document.title = "Mianxiu's Blog"
         const route = mobileRouteForLocation(location)
         window.scrollTo(0, 0)
-        root.innerHTML = '<p class="m-loading" role="status">Loading…</p>'
+        showLoading()
         try {
             if (/^(gallery|essay)=/.test(route)) {
                 const split = route.indexOf('=')
@@ -277,11 +289,16 @@ async function initMobileApp() {
             } else if (route === 'links') root.innerHTML = header('Link') + '<main class="m-links"><a href="https://github.com/mianxiu">GitHub · mianxiu</a><a href="mailto:mianxiu@mianxiu.me">mianxiu@mianxiu.me</a></main>'
             else root.innerHTML = home()
             if (id !== state.renderId) return
+            stopTriangle()
+            stopTriangle = () => {}
             syncViewport()
             if (root.querySelector('.m-home')) animateTriangle()
             root.querySelectorAll('img.m-preview').forEach(img => img.addEventListener('error', () => img.remove(), { once: true }))
         } catch (error) {
-            if (id === state.renderId) root.innerHTML = header() + '<div class="m-error"><p>内容暂时无法加载。</p><button data-action="retry">重试</button><a href="#">返回首页</a></div>'
+            if (id === state.renderId) {
+                stopTriangle()
+                root.innerHTML = header() + '<div class="m-error"><p>内容暂时无法加载。</p><button data-action="retry">重试</button><a href="#">返回首页</a></div>'
+            }
             console.error(error)
         }
     }
@@ -308,7 +325,7 @@ async function initMobileApp() {
     })
     window.addEventListener('hashchange', render)
     window.addEventListener('popstate', render)
-    root.innerHTML = '<p class="m-loading" role="status">Loading…</p>'
+    showLoading()
     try {
         const [essayDoc, galleryDoc] = await Promise.all([load('/essay/index.html'), load('/gallery/index.html')])
         state.essays = readEssays(essayDoc)
@@ -319,6 +336,7 @@ async function initMobileApp() {
         })
         await render()
     } catch (error) {
+        stopTriangle()
         root.innerHTML = '<div class="m-error">内容加载失败，请刷新页面重试。</div>'
         console.error(error)
     }
