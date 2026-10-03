@@ -1,6 +1,6 @@
 # User-requested release workflow
 
 - Automatically commit and push completed, verified site changes to GitHub, as requested by the user. Preserve unrelated changes.
-- Until the user explicitly asks to remove it, update the version information in `about/index.html` for every site update and report that version in the final reply.
-- Use an increasing release identifier (`YYYYMMDD-NN`). Keep the mobile CSS and JS query-string versions in `index.html` equal to the About release version. The mobile About view also displays the resource versions referenced by the current page for cache diagnosis.
+- The user has ended the temporary About diagnostics: do not add release information, resource versions, update notes, or diagnostic links to About unless explicitly requested again. Routine final replies no longer need to report a release identifier.
+- Keep mobile CSS and JS cache-busting query-string versions in `index.html` synchronized and advance them when publishing resource changes; these versions are internal, not displayed in About.
 - Do not claim that desktop browser responsive testing verifies iOS Safari's native status-bar or toolbar blur; it requires matching iOS Simulator or real-device testing.

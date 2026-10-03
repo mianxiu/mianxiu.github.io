@@ -56,14 +56,16 @@ assert.equal(context.mobileRouteForLocation({ hash: '', pathname: '/essay/2020/1
 console.log('Document shell: stable first-release flow, locally sized home, locally aligned banner and inline article toolbar passed.')
 const indexHTML = fs.readFileSync(require('node:path').join(__dirname, '../index.html'), 'utf8')
 const aboutHTML = fs.readFileSync(require('node:path').join(__dirname, '../about/index.html'), 'utf8')
-const releaseVersion = aboutHTML.match(/网站版本：(\d{8}-\d{2})/)[1]
-assert.ok(indexHTML.includes('/css/mobile.css?v=' + releaseVersion))
-assert.ok(indexHTML.includes('/js/mobile-app.js?v=' + releaseVersion))
+const cssVersion = indexHTML.match(/\/css\/mobile\.css\?v=(\d{8}-\d{2})/)[1]
+const jsVersion = indexHTML.match(/\/js\/mobile-app\.js\?v=(\d{8}-\d{2})/)[1]
+assert.equal(cssVersion, jsVersion)
+assert.doesNotMatch(aboutHTML, /site-version|网站版本|本次更新|diagnostics\/ios/)
+assert.doesNotMatch(mobileSource, /当前页面资源版本|CSS：|JS：/)
 assert.match(indexHTML, /name="viewport" content="width=device-width, initial-scale=1\.0, viewport-fit=cover"/)
 assert.doesNotMatch(indexHTML, /name="theme-color"/)
 assert.doesNotMatch(mobileSource, /themeColor|createElement\('meta'\)/)
 assert.match(mobileSource, /load\('\/about\/index\.html\?v=' \+ encodeURIComponent\(jsVersion\)\)/)
-console.log('About release version matches CSS and JS resource versions: ' + releaseVersion)
+console.log('About is free of temporary diagnostics; internal CSS/JS cache versions match.')
 const baselineIndex = fs.readFileSync(require('node:path').join(__dirname, '../diagnostics/ios-first/index.html'), 'utf8')
 const baselineCSS = fs.readFileSync(require('node:path').join(__dirname, '../diagnostics/ios-first/mobile.css'), 'utf8')
 const baselineDesktopCSS = fs.readFileSync(require('node:path').join(__dirname, '../diagnostics/ios-first/desktop.css'), 'utf8')
@@ -86,6 +88,5 @@ assert.match(nativeIndex, /<meta name="viewport"[^>]*viewport-fit=cover/)
 assert.doesNotMatch(nativeIndex, /html\s*\{|querySelector\('meta\[name="viewport"\]'\)/)
 assert.match(nativeIndex, /repeating-linear-gradient/)
 assert.match(nativeSource, /article\.replaceChildren/)
-const nativeVersion = nativeIndex.match(/独立对照版本：(\d{8}-\d{2})/)[1]
-assert.ok(aboutHTML.includes('/diagnostics/ios-native/?v=' + nativeVersion))
+assert.match(nativeIndex, /独立对照版本：\d{8}-\d{2}/)
 console.log('Independent Safari control has no app shell, fixed chrome or nested scrolling.')
