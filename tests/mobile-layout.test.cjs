@@ -60,8 +60,8 @@ const aboutHTML = fs.readFileSync(require('node:path').join(__dirname, '../about
 const releaseVersion = aboutHTML.match(/网站版本：(\d{8}-\d{2})/)[1]
 assert.ok(indexHTML.includes('/css/mobile.css?v=' + releaseVersion))
 assert.ok(indexHTML.includes('/js/mobile-app.js?v=' + releaseVersion))
-assert.match(indexHTML, /name="viewport" content="width=device-width, initial-scale=1\.0"/)
-assert.doesNotMatch(indexHTML, /viewport-fit|name="theme-color"/)
+assert.match(indexHTML, /name="viewport" content="width=device-width, initial-scale=1\.0, viewport-fit=cover"/)
+assert.doesNotMatch(indexHTML, /name="theme-color"/)
 assert.doesNotMatch(mobileSource, /themeColor|createElement\('meta'\)/)
 assert.match(mobileSource, /load\('\/about\/index\.html\?v=' \+ encodeURIComponent\(jsVersion\)\)/)
 console.log('About release version matches CSS and JS resource versions: ' + releaseVersion)
