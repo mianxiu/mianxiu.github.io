@@ -80,11 +80,18 @@ body.m-overlay-open { overflow: hidden; }
 .m-article > ._date { display: block; margin-bottom: 17px; }
 .m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
 .m-article ._banner::after { content: none; }
-.m-article .essay-context { width: auto; margin: 0; }
-.m-article .essay-context p { margin: 0 0 16px; color: #777; font-size: 12px; line-height: 16px; }
-.m-article h2, .m-article h3, .m-article h4, .m-article h5, .m-article h6 { font-size: 12px; line-height: 18px; margin: 0 0 16px; }
+/* Reuse the PC Markdown typography and palette; only constrain narrow-screen layout. */
+.m-article .essay-context { width: auto; min-width: 0; margin: 0; font-size: 16px; line-height: normal; overflow-wrap: anywhere; }
+#mobileApp .essay-context a { color: #ff861e; }
 .m-article img { max-width: 100%; height: auto; }
-.m-article pre { overflow-x: auto; font-size: 11px; }
+.m-article .essay-context pre { max-width: 100%; overflow-x: auto; overflow-wrap: normal; }
+.m-article .essay-context iframe, .m-article .essay-context video { max-width: 100%; }
+.m-article .essay-context ._youtube { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+/* The PC closing quote has a 700px offset, so anchor both marks to the quote on mobile. */
+.m-article .essay-context blockquote { position: relative; }
+.m-article .essay-context blockquote::before, .m-article .essay-context blockquote::after { margin: 0; line-height: 1; pointer-events: none; }
+.m-article .essay-context blockquote::before { top: -20px; left: 10px; }
+.m-article .essay-context blockquote::after { bottom: -20px; right: 10px; }
 .m-article .essay-hr { margin: 24px 0; }
 .m-article .essay-end-tip { width: 30px; flex-shrink: 0; padding: 5px 0; font-size: 10px; line-height: 14px; text-align: center; }
 .m-article .essay-hr ._tags { margin-left: 26px; font-size: 10px; width: auto; color: #d4d4d4; }

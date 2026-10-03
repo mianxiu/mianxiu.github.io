@@ -227,7 +227,8 @@ async function initMobileApp() {
             }
             // Keep the first release's banner placement for the real-device comparison.
             root.innerHTML = '<main class="m-article">' + doc.body.innerHTML + toolbar(post, next) + '</main>' + commentPanel()
-            root.querySelectorAll('pre code').forEach(el => { if (window.hljs) hljs.highlightBlock(el) })
+            // Match PC: apply the shared highlight theme to the entire code block.
+            root.querySelectorAll('.essay-context pre').forEach(el => { if (window.hljs) hljs.highlightBlock(el) })
         }
         initComments(post)
         document.title = post.title + " | Mianxiu's Blog"
