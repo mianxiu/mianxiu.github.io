@@ -3,6 +3,8 @@
 This temporary diagnostic page restores the mobile app, index script, mobile CSS,
 desktop base CSS and HTML shell from commit `9f584a9`. Only resource URLs,
 favicon URL and the initial document title are adjusted for the diagnostic path.
+Relative imports and icon URLs in the copied desktop CSS are resolved against
+the original `/css/` location, not the diagnostic directory.
 The first release's top gap, fixed article toolbar and default viewport are
 deliberately retained so that this is a baseline, not a proposed fix.
 

@@ -22,7 +22,11 @@ async function initMobileApp() {
     document.body.append(root)
     const cache = new Map()
     const state = { essays: [], galleries: [], page: 1, commentsOpen: false, renderId: 0 }
-    const themeColor = document.querySelector('meta[name="theme-color"]')
+    // An article opened directly must start with the first release's plain head.
+    // Add the white browser theme only after rendering a non-article route.
+    const themeColor = document.querySelector('meta[name="theme-color"]') || document.createElement('meta')
+    themeColor.name = 'theme-color'
+    themeColor.content = '#ffffff'
     let stopTriangle = () => {}
     let viewportFrame = 0
     function syncViewport() {
@@ -247,7 +251,7 @@ async function initMobileApp() {
         if (!route && location.pathname.startsWith('/essay/')) route = 'essay=' + encodeURIComponent(decodeURI(location.pathname).replace(/^\//, '').replace(/\/$/, ''))
         const documentScroll = route === 'essay' || route.startsWith('essay=')
         document.documentElement.classList.toggle('m-document-scroll', documentScroll)
-        // Keep the white home theme, but don't request opaque browser chrome on essays.
+        // Keep the home theme separate from the first release's article environment.
         if (themeColor) {
             if (documentScroll) themeColor.remove()
             else if (!themeColor.isConnected) document.head.append(themeColor)

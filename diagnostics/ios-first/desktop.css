@@ -1,5 +1,5 @@
-@import url('./markdown.css');
- @import url('./min/mixxopost.min.css');
+@import url('/css/markdown.css');
+ @import url('/css/min/mixxopost.min.css');
  @media screen and (min-width: 920px) {
 	 #main {
 		 margin-top: calc((100vh - 6.45rem - 0.8rem)/2);
@@ -1036,7 +1036,7 @@
 	 opacity: 1;
 	 animation: gallery-overlay 0.4s;
 	 position: absolute;
-	 background-image: url("../icon/gallery/overlay.png");
+	 background-image: url("/icon/gallery/overlay.png");
 	 background-color: #353535b3;
 }
  .gallery-mutil-img {
@@ -1112,7 +1112,7 @@
 	 align-content: center;
 }
  .toggle-tag::after {
-	 content: url("../icon/gallery/delete.svg");
+	 content: url("/icon/gallery/delete.svg");
 	 width: 0.14rem;
 	 height: 0.14rem;
 	 display: block;
