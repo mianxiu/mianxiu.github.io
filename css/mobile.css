@@ -57,7 +57,10 @@ body.m-overlay-open { overflow: hidden; }
 .m-essay-card .m-preview { width: 100%; height: 80px; margin-top: 22px; object-fit: cover; border-radius: 5px; }
 .m-essay-card .m-summary { display: block; font-size: 22px; line-height: 30px; }
 .m-essay-card .m-summary p { margin: 10px 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.m-pagination { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 12px; }
+.m-pagination { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; font-size: 12px; }
+.m-pagination [data-action="prev-page"] { grid-column: 1; justify-self: start; }
+.m-pagination > span { grid-column: 2; }
+.m-pagination [data-action="next-page"] { grid-column: 3; justify-self: end; }
 .m-pagination button { display: flex; align-items: center; gap: 12px; min-height: 44px; }
 .m-pagination button:disabled { opacity: .2; cursor: default; }
 .m-essay-list .m-pagination { margin-top: 8px; gap: 14px; font-size: 14px; line-height: 20px; }

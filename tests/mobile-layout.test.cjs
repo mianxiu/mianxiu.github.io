@@ -85,6 +85,22 @@ assert.match(mobileCSS, /\.m-essay-list \.m-pagination\s*\{[^}]*font-size: 14px;
 assert.match(mobileCSS, /\.m-essay-card \.m-summary p\s*\{[^}]*-webkit-line-clamp: 2;/)
 assert.doesNotMatch(mobileCSS, /\.m-essay-card(?: time| p| h2)[^{]*\{[^}]*(?:font-weight|color):/)
 console.log('Mobile essay lists enlarge dates, titles, summaries and pagination with matching spacing and two-line summaries.')
+// Render the production list template for boundary pages without starting the app.
+const listSandbox = { state: { page: 1 }, header: () => '', icon: () => '', routeFor: () => '', escape: value => value }
+const listStart = mobileSource.indexOf('    function listEssays(posts) {')
+const listEnd = mobileSource.indexOf('\n    function listGallery()', listStart)
+assert.ok(listStart >= 0 && listEnd > listStart)
+vm.runInNewContext(mobileSource.slice(listStart, listEnd), listSandbox)
+assert.match(listSandbox.listEssays([]), /data-action="prev-page" hidden disabled/)
+for (const page of [2, 9]) {
+    listSandbox.state.page = page
+    assert.doesNotMatch(listSandbox.listEssays([]), /data-action="prev-page" (?:hidden|disabled)/)
+    assert.ok(listSandbox.listEssays([]).includes('<span>' + page + ' / 9</span>'))
+}
+assert.match(listSandbox.listEssays([]), /data-action="next-page" disabled/)
+assert.match(mobileCSS, /\.m-pagination\s*\{[^}]*display: grid;[^}]*grid-template-columns: minmax\(0, 1fr\) auto minmax\(0, 1fr\);/)
+assert.match(mobileCSS, /\.m-pagination > span\s*\{\s*grid-column: 2;/)
+console.log('Pagination hides previous on page one while keeping the page number centered and next aligned right.')
 assert.doesNotMatch(mobileSource, /banner\.remove\(\)|bannerHTML/)
 assert.match(mobileSource, /doc\.body\.innerHTML \+ toolbar\(post, next\) \+ '<\/main>'/)
 assert.doesNotMatch(mobileSource, /m-document-scroll|root\.style\.setProperty|--m-viewport-(height|top)|offsetTop/)
