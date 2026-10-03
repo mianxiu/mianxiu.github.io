@@ -78,7 +78,7 @@ console.log('Mobile articles keep smaller body text with larger page and Markdow
 assert.match(mobileSource, /<time class="_date">/)
 assert.match(mobileSource, /<h2 class="essay-title">/)
 assert.match(mobileSource, /<div class="summary m-summary"><p>/)
-assert.match(mobileCSS, /\.m-essay-card\s*\{[^}]*margin-bottom: 28px;[^}]*font-size: 16px;[^}]*line-height: 22px;[^}]*overflow-wrap: anywhere;/)
+assert.match(mobileCSS, /\.m-essay-card\s*\{[^}]*margin-bottom: 56px;[^}]*font-size: 16px;[^}]*line-height: 22px;[^}]*overflow-wrap: anywhere;/)
 assert.match(mobileCSS, /\.m-essay-card \._date\s*\{\s*font-size: 16px; line-height: 22px;/)
 assert.match(mobileCSS, /\.m-essay-card h2\s*\{\s*font-size: 24px; line-height: 32px; margin: 10px 0 0;/)
 assert.match(mobileCSS, /\.m-essay-card \.m-summary\s*\{[^}]*font-size: 22px; line-height: 30px;/)
