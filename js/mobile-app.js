@@ -5,7 +5,6 @@ function mobileViewportMetrics(viewport, layoutHeight, safeTop = 0, safeBottom =
     const height = Math.max(1, unzoomed ? viewport.height : layoutHeight)
     return {
         height,
-        top: unzoomed ? Math.max(0, viewport.offsetTop) : 0,
         homeScale: Math.min(1, Math.max(0.1, (height - safeTop - safeBottom - 40) / 640))
     }
 }
@@ -24,14 +23,7 @@ function mobileRouteForLocation(pageLocation) {
     return route
 }
 
-function mobileDocumentScrollRoute(route) {
-    return route === 'essay' || route.startsWith('essay=')
-}
-
 async function initMobileApp() {
-    // Set the route before attaching the shell or awaiting any content requests.
-    document.documentElement.classList.toggle('m-document-scroll',
-        mobileDocumentScrollRoute(mobileRouteForLocation(location)))
     const root = document.createElement('div')
     root.id = 'mobileApp'
     document.body.append(root)
@@ -40,12 +32,14 @@ async function initMobileApp() {
     let stopTriangle = () => {}
     let viewportFrame = 0
     function syncViewport() {
-        const homeStyle = root.querySelector('.m-home') && getComputedStyle(root.querySelector('.m-home'))
+        // Only the home composition fits the viewport; the document shell stays untouched.
+        const home = root.querySelector('.m-home')
+        if (!home) return
+        const homeStyle = getComputedStyle(home)
         const metrics = mobileViewportMetrics(window.visualViewport, window.innerHeight,
             parseFloat(homeStyle?.paddingTop) || 0, parseFloat(homeStyle?.paddingBottom) || 0)
-        root.style.setProperty('--m-viewport-height', metrics.height + 'px')
-        root.style.setProperty('--m-viewport-top', metrics.top + 'px')
-        root.style.setProperty('--m-home-scale', metrics.homeScale)
+        home.style.setProperty('--m-home-height', metrics.height + 'px')
+        home.style.setProperty('--m-home-scale', metrics.homeScale)
     }
     function scheduleViewport() {
         if (viewportFrame) return
@@ -53,7 +47,6 @@ async function initMobileApp() {
     }
     window.addEventListener('resize', scheduleViewport, { passive: true })
     window.visualViewport?.addEventListener('resize', scheduleViewport, { passive: true })
-    window.visualViewport?.addEventListener('scroll', scheduleViewport, { passive: true })
     syncViewport()
     const asset = name => '/assets/mobile/' + name
     const escape = text => String(text).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]))
@@ -232,8 +225,8 @@ async function initMobileApp() {
             if (banner) {
                 banner.setAttribute('aria-hidden', 'true')
             }
-            // Restore the first mobile version's document flow; only remove its top gap.
-            root.innerHTML = '<main class="m-article' + (banner ? ' m-has-banner' : '') + '">' + doc.body.innerHTML + toolbar(post, next) + '</main>' + commentPanel()
+            // Keep the first release's banner placement for the real-device comparison.
+            root.innerHTML = '<main class="m-article">' + doc.body.innerHTML + toolbar(post, next) + '</main>' + commentPanel()
             root.querySelectorAll('pre code').forEach(el => { if (window.hljs) hljs.highlightBlock(el) })
         }
         initComments(post)
@@ -258,8 +251,6 @@ async function initMobileApp() {
         document.body.classList.remove('m-overlay-open')
         document.title = "Mianxiu's Blog"
         const route = mobileRouteForLocation(location)
-        const documentScroll = mobileDocumentScrollRoute(route)
-        document.documentElement.classList.toggle('m-document-scroll', documentScroll)
         window.scrollTo(0, 0)
         root.innerHTML = '<p class="m-loading" role="status">Loading…</p>'
         try {

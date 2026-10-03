@@ -1,25 +1,18 @@
 /* Figma mobile layouts. Loaded after desktop CSS, only below 768px. */
-html { display: block; font-size: 100px; height: auto; overflow: visible; background: transparent; color-scheme: normal; }
-body { display: block; width: 100%; height: auto; overflow: visible; font-size: 12px; background: transparent; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
+html { display: block; font-size: 100px; height: auto; }
+body { display: block; width: 100%; font-size: 12px; background: white; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
 body > #main, body > #background-box, body > #footer, body > #ajaxProgress { display: none !important; }
 #foot, #mp3Player { display: none !important; }
-#mobileApp { position: static; width: 100%; height: auto; min-height: 100svh; background: #fff; overflow: visible; }
-/* Paint white on the content, not the document canvas, as in V2EX's mobile shell. */
-html.m-document-scroll { height: auto; background: transparent; overflow: visible; color-scheme: normal; }
-html.m-document-scroll body { height: auto; background: transparent; overflow: visible; }
-/* Only non-document routes use the viewport-sized app shell. */
-html:not(.m-document-scroll) { height: 100%; overflow: hidden; background: #fff; color-scheme: only light; }
-html:not(.m-document-scroll) body { height: 100%; overflow: hidden; background: #fff; }
-html:not(.m-document-scroll) #mobileApp { position: fixed; top: var(--m-viewport-top, 0px); left: 0; height: var(--m-viewport-height, 100dvh); min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
-html.m-document-scroll:has(body.m-overlay-open) { overflow: hidden; }
-html.m-document-scroll .m-comments-panel { position: fixed; top: calc(var(--m-viewport-top, 0px) + min(119px, 15dvh)); bottom: auto; height: calc(var(--m-viewport-height, 100dvh) - min(119px, 15dvh)); }
+/* First-release document shell: never swap root scrolling modes between routes. */
+#mobileApp { width: 100%; min-height: 100svh; overflow-x: clip; }
+html:has(body.m-overlay-open) { overflow: hidden; }
 #mobileApp *, #mobileApp *::before, #mobileApp *::after { box-sizing: border-box; }
 #mobileApp button { font: inherit; border: 0; background: transparent; color: inherit; padding: 0; cursor: pointer; }
 #mobileApp a { text-decoration: none; color: inherit; }
 #mobileApp img { display: block; }
 #mobileApp button:focus-visible, #mobileApp a:focus-visible, #mobileApp summary:focus-visible { outline: 2px solid #6c9fdb; outline-offset: 4px; }
 #mobileApp [hidden] { display: none !important; }
-.m-home { height: 100%; position: relative; overflow: hidden; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.m-home { height: var(--m-home-height, 100svh); position: relative; overflow: hidden; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 .m-home-stage { position: absolute; top: env(safe-area-inset-top, 0px); left: 0; width: calc(100% / var(--m-home-scale, 1)); height: 640px; transform: scale(var(--m-home-scale, 1)); transform-origin: top left; }
 .m-home-menu { position: absolute; top: 32px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
 .m-home-nav { position: absolute; top: 125px; left: calc(43 / 375 * 100%); display: grid; gap: 20px; font-size: 20px; line-height: 26px; font-weight: 600; }
@@ -49,7 +42,7 @@ html.m-document-scroll .m-comments-panel { position: fixed; top: calc(var(--m-vi
 .m-header:has(.m-page-heading) { justify-content: flex-start; }
 .m-header:has(.m-page-heading) .m-menu-toggle { display: none; }
 .m-page-heading { font-size: 18px !important; font-weight: 600 !important; }
-.m-menu-layer { position: fixed; top: var(--m-viewport-top, 0px); left: 0; right: 0; height: var(--m-viewport-height, 100dvh); z-index: 100; }
+.m-menu-layer { position: fixed; inset: 0; z-index: 100; }
 .m-menu-shade { position: absolute; inset: 0; background: rgba(0,0,0,.16) !important; width: 100%; height: 100%; }
 .m-menu { background: white; position: relative; height: min(calc(346px + env(safe-area-inset-top, 0px)), 100%); overflow-y: auto; display: flex; flex-direction: column; gap: 32px; padding: calc(115px + env(safe-area-inset-top, 0px)) calc(43 / 375 * 100%) 32px; font-size: 18px; line-height: 24px; font-weight: 600; }
 .m-menu-close { position: absolute; top: calc(35px + env(safe-area-inset-top, 0px)); left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
@@ -68,24 +61,23 @@ body.m-overlay-open { overflow: hidden; }
 .m-gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .m-gallery-grid a { aspect-ratio: 1; overflow: hidden; }
 .m-gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
-.m-detail { position: relative; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+.m-detail { position: relative; min-height: 100svh; display: flex; flex-direction: column; }
 .m-detail-banner { flex: 0 0 auto; height: clamp(64px, 18dvh, 120px); background-size: cover; background-position: center; }
-.m-detail > main { flex: 1 1 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.m-detail > main { flex: 1 1 auto; }
 .m-gallery-images { padding: calc(24px + env(safe-area-inset-top, 0px)) 0 16px; display: flex; flex-direction: column; gap: 8px; }
 .m-gallery-images img { width: 100%; height: auto; flex: 0 0 auto; }
 .m-detail-bar { flex: 0 0 auto; padding: 10px max(29px, env(safe-area-inset-right, 0px)) max(10px, env(safe-area-inset-bottom, 0px)) max(29px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 24px; background: white; z-index: 30; font-size: 12px; }
 .m-detail-bar .m-back { flex: 1; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .m-comment-button { display: flex; align-items: center; gap: 8px; font-weight: 700 !important; min-height: 44px; }
 .m-next { padding: 10px !important; margin-right: 3px; }
-.m-article { padding: calc(24px + env(safe-area-inset-top, 0px)) calc(44 / 375 * 100%) 24px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
-.m-article.m-has-banner { padding-top: 0; }
+.m-article { padding: 54px calc(44 / 375 * 100%) 24px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
 .m-article > .m-detail-bar { margin: 24px calc(-44 / 375 * 100vw) -24px calc(-42 / 375 * 100vw); }
 /* Desktop metadata uses viewport widths; size it to the padded article instead. */
 #mobileApp .m-article > .essay-title, #mobileApp .m-article > ._date { width: auto; }
 .m-article > .essay-title { margin: 0 0 7px; font-size: 12px; line-height: 16px; }
 .m-article > ._date { display: block; margin-bottom: 17px; }
 .m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
-.m-article ._banner::after { content: none; }
+/* Deliberately retain the first release's inherited banner pseudo-element/top gap. */
 .m-article .essay-context { width: auto; margin: 0; }
 .m-article .essay-context p { margin: 0 0 16px; color: #777; font-size: 12px; line-height: 16px; }
 .m-article h2, .m-article h3, .m-article h4, .m-article h5, .m-article h6 { font-size: 12px; line-height: 18px; margin: 0 0 16px; }
@@ -110,7 +102,7 @@ body.m-overlay-open { overflow: hidden; }
 .m-about section { margin-top: 58px; }
 .m-computer-placeholder { height: 170px; border: 1px solid #f2f2f2; background: repeating-linear-gradient(to bottom,#fbfbfb 0px,#fbfbfb 25px,white 25px,white 48px); }
 .m-links { display: flex; flex-direction: column; gap: 28px; }
-.m-comments-panel { position: absolute; top: min(119px, 15%); inset-inline: 0; bottom: 0; background: white; z-index: 60; display: flex; flex-direction: column; }
+.m-comments-panel { position: fixed; top: min(119px, 15dvh); inset-inline: 0; bottom: 0; background: white; z-index: 60; display: flex; flex-direction: column; }
 .m-comments-panel > header { height: 81px; padding: 23px max(43px, env(safe-area-inset-right, 0px)) 20px max(23px, env(safe-area-inset-left, 0px)); display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
 .m-comments-panel > header button { padding: 5px !important; }
 .m-comments-scroll { overflow-y: auto; overscroll-behavior: contain; padding: 0 max(23px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(23px, env(safe-area-inset-left, 0px)); flex: 1; min-height: 0; }
