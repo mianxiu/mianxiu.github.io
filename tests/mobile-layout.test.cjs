@@ -65,16 +65,14 @@ for (const selector of ['.m-article > ._date', '.m-article > .m-detail-bar', '.m
 }
 assert.doesNotMatch(mobileCSS, /\.m-article \.essay-context p\s*\{|\.m-article h[1-6][^{]*\{/)
 assert.match(mobileCSS, /\.m-article > \.essay-title\s*\{[^}]*font-size: 18px; line-height: 26px;/)
-for (const [level, size] of [[1, 30], [2, 23], [3, 18], [4, 16], [5, 14], [6, 12]]) {
-    assert.ok(mobileCSS.includes('.m-article .essay-context h' + level + ' { font-size: ' + size + 'px; }'))
-}
+assert.doesNotMatch(mobileCSS, /\.m-article \.essay-context (?:h[1-6]|:is\(h1, h2, h3, h4, h5, h6\))\s*\{/)
 assert.match(mobileCSS, /#mobileApp \.essay-context a\s*\{\s*color: #ff861e;/)
 assert.match(mobileCSS, /\.m-article \.essay-context pre\s*\{[^}]*overflow-x: auto;[^}]*overflow-wrap: normal;/)
 assert.match(mobileCSS, /\.m-article \.essay-context blockquote::after\s*\{[^}]*right: 10px;/)
 assert.match(mobileCSS, /\.m-article \.essay-context \._youtube\s*\{[^}]*width: 100%;[^}]*aspect-ratio: 16 \/ 9;/)
 assert.match(mobileSource, /querySelectorAll\('\.essay-context pre'\)\.forEach\(el => \{ if \(window\.hljs\) hljs\.highlightBlock\(el\)/)
 assert.doesNotMatch(mobileSource, /querySelectorAll\('pre code'\)/)
-console.log('Mobile articles keep smaller body text with larger page and Markdown headings, shared colors and highlighting.')
+console.log('Mobile articles keep the larger page title but original body heading sizes, shared colors and highlighting.')
 assert.match(mobileSource, /<time class="_date">/)
 assert.match(mobileSource, /<h2 class="essay-title">/)
 assert.match(mobileSource, /<div class="summary m-summary"><p>/)
