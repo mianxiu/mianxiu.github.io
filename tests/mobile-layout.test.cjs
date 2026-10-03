@@ -81,6 +81,13 @@ assert.match(mobileSource, /<div class="summary m-summary"><p>/)
 assert.match(mobileCSS, /\.m-essay-card\s*\{[^}]*margin-bottom: 56px;[^}]*font-size: 16px;[^}]*line-height: 22px;[^}]*overflow-wrap: anywhere;/)
 assert.match(mobileCSS, /\.m-essay-card h2\s*\{\s*margin: 10px 0 0;/)
 assert.match(mobileCSS, /\.m-essay-card \.m-summary\s*\{[^}]*font-size: 22px; line-height: 30px;/)
+const desktopCSS = fs.readFileSync(require('node:path').join(__dirname, '../css/1366.css'), 'utf8')
+const desktopFontFamily = desktopCSS.match(/(?:^|\n)\s*html\s*\{[^}]*font-family:\s*([^;]+);/)[1]
+const mobileSummaryRule = mobileCSS.match(/\.m-essay-card \.m-summary\s*\{([^}]+)\}/)[1]
+assert.equal(mobileSummaryRule.match(/font-family:\s*([^;]+);/)[1], desktopFontFamily)
+assert.match(mobileSummaryRule, /font-weight: 100;/)
+assert.match(desktopCSS, /(?:^|\n)\s*\.summary\s*\{[^}]*font-weight: lighter;/)
+console.log('Mobile list summaries use the desktop font family and computed weight without changing size or spacing.')
 assert.match(mobileCSS, /\.m-essay-card \.m-preview\s*\{[^}]*height: 80px; margin-top: 22px;/)
 assert.match(mobileCSS, /\.m-essay-list \.m-pagination\s*\{[^}]*font-size: 14px; line-height: 20px;/)
 assert.match(mobileCSS, /\.m-essay-card \.m-summary p\s*\{[^}]*-webkit-line-clamp: 2;/)

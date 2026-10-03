@@ -56,7 +56,8 @@ body.m-overlay-open { overflow: hidden; }
 .m-essay-card h2, .m-article > .essay-title { font-size: 24px; line-height: 32px; }
 .m-essay-card h2 { margin: 10px 0 0; }
 .m-essay-card .m-preview { width: 100%; height: 80px; margin-top: 22px; object-fit: cover; border-radius: 5px; }
-.m-essay-card .m-summary { display: block; font-size: 22px; line-height: 30px; }
+/* Match the desktop summary font fallback and its computed lighter weight. */
+.m-essay-card .m-summary { display: block; font-family: "Segoe UI", "Hiragino Sans GB", "Hiragino Sans GB W3", Microsoft JhengHei, WenQuanYi Micro Hei, "Microsoft YaHei", sans-serif; font-weight: 100; font-size: 22px; line-height: 30px; }
 .m-essay-card .m-summary p { margin: 10px 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .m-pagination { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; font-size: 12px; }
 .m-pagination [data-action="prev-page"] { grid-column: 1; justify-self: start; }
