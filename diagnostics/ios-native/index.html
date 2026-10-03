@@ -2,16 +2,12 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safari 独立文章对照 · 20261003-05</title>
-    <script>
-        if (new URLSearchParams(location.search).get('fit') === 'cover') {
-            document.querySelector('meta[name="viewport"]').content += ', viewport-fit=cover';
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <title>Safari 独立文章对照 · 20261003-06</title>
     <style>
-        html { background: #fff; }
         body { margin: 0; color: #111; font: 12px/1.5 system-ui, sans-serif; }
+        #article, .diagnostic-info { background: #fff; }
         * { box-sizing: border-box; }
         ._banner { height: 120px; background-size: cover; background-position: center; }
         .essay-title, ._date, .essay-context, .diagnostic-info { margin: 18px 11.2%; }
@@ -30,14 +26,13 @@
 <body>
     <main id="article" aria-label="文章对照"><p class="error">正在加载文章…</p></main>
     <section class="diagnostic-info">
-        <p>独立对照版本：20261003-05。没有首页容器、桌面样式、固定栏或内层滚动。</p>
+        <p>独立对照版本：20261003-06。静态 cover viewport、透明文档背景，没有首页容器、桌面样式、固定栏或内层滚动。</p>
         <p id="viewport-mode"></p>
-        <p><a href="?v=20261003-05">普通 viewport</a> · <a href="?v=20261003-05&amp;fit=cover">viewport-fit=cover</a></p>
         <p>继续滚到下面的彩色区，再往回滚。观察顶部与底部是否透出颜色，不只观察白色文章背景。</p>
     </section>
     <section class="edge-probe" aria-label="上下边缘颜色对照">
         <p>彩色对照区：滚动时观察状态栏与 Safari 底栏后面的颜色。</p>
     </section>
-    <script src="article.js?v=20261003-05"></script>
+    <script src="article.js?v=20261003-06"></script>
 </body>
 </html>

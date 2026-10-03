@@ -1,14 +1,16 @@
 /* Figma mobile layouts. Loaded after desktop CSS, only below 768px. */
-html { display: block; font-size: 100px; height: 100%; overflow: hidden; background: #fff; color-scheme: only light; }
-body { display: block; width: 100%; height: 100%; overflow: hidden; font-size: 12px; background: white; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
+html { display: block; font-size: 100px; height: auto; overflow: visible; background: transparent; color-scheme: normal; }
+body { display: block; width: 100%; height: auto; overflow: visible; font-size: 12px; background: transparent; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
 body > #main, body > #background-box, body > #footer, body > #ajaxProgress { display: none !important; }
 #foot, #mp3Player { display: none !important; }
-#mobileApp { position: fixed; top: var(--m-viewport-top, 0px); left: 0; width: 100%; height: var(--m-viewport-height, 100dvh); background: #fff; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
-/* Safari's browser chrome follows document scrolling, not a fixed inner scroller. */
+#mobileApp { position: static; width: 100%; height: auto; min-height: 100svh; background: #fff; overflow: visible; }
+/* Paint white on the content, not the document canvas, as in V2EX's mobile shell. */
 html.m-document-scroll { height: auto; background: transparent; overflow: visible; color-scheme: normal; }
-html.m-document-scroll body { height: auto; overflow: visible; }
-/* First-version shell: document scrolling, horizontal clipping only. */
-html.m-document-scroll #mobileApp { position: static; height: auto; min-height: 100svh; background: transparent; overflow-x: clip; overflow-y: visible; overscroll-behavior: auto; }
+html.m-document-scroll body { height: auto; background: transparent; overflow: visible; }
+/* Only non-document routes use the viewport-sized app shell. */
+html:not(.m-document-scroll) { height: 100%; overflow: hidden; background: #fff; color-scheme: only light; }
+html:not(.m-document-scroll) body { height: 100%; overflow: hidden; background: #fff; }
+html:not(.m-document-scroll) #mobileApp { position: fixed; top: var(--m-viewport-top, 0px); left: 0; height: var(--m-viewport-height, 100dvh); min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
 html.m-document-scroll:has(body.m-overlay-open) { overflow: hidden; }
 html.m-document-scroll .m-comments-panel { position: fixed; top: calc(var(--m-viewport-top, 0px) + min(119px, 15dvh)); bottom: auto; height: calc(var(--m-viewport-height, 100dvh) - min(119px, 15dvh)); }
 #mobileApp *, #mobileApp *::before, #mobileApp *::after { box-sizing: border-box; }
@@ -78,6 +80,8 @@ body.m-overlay-open { overflow: hidden; }
 .m-article { padding: calc(24px + env(safe-area-inset-top, 0px)) calc(44 / 375 * 100%) 24px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
 .m-article.m-has-banner { padding-top: 0; }
 .m-article > .m-detail-bar { margin: 24px calc(-44 / 375 * 100vw) -24px calc(-42 / 375 * 100vw); }
+/* Desktop metadata uses viewport widths; size it to the padded article instead. */
+#mobileApp .m-article > .essay-title, #mobileApp .m-article > ._date { width: auto; }
 .m-article > .essay-title { margin: 0 0 7px; font-size: 12px; line-height: 16px; }
 .m-article > ._date { display: block; margin-bottom: 17px; }
 .m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }

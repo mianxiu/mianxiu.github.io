@@ -16,17 +16,27 @@ function mobileTriangleStep(current, target, delta) {
     return current
 }
 
+function mobileRouteForLocation(pageLocation) {
+    let route = pageLocation.hash.slice(1)
+    if (!route && pageLocation.pathname.startsWith('/essay/')) {
+        route = 'essay=' + encodeURIComponent(decodeURI(pageLocation.pathname).replace(/^\//, '').replace(/\/$/, ''))
+    }
+    return route
+}
+
+function mobileDocumentScrollRoute(route) {
+    return route === 'essay' || route.startsWith('essay=')
+}
+
 async function initMobileApp() {
+    // Set the route before attaching the shell or awaiting any content requests.
+    document.documentElement.classList.toggle('m-document-scroll',
+        mobileDocumentScrollRoute(mobileRouteForLocation(location)))
     const root = document.createElement('div')
     root.id = 'mobileApp'
     document.body.append(root)
     const cache = new Map()
     const state = { essays: [], galleries: [], page: 1, commentsOpen: false, renderId: 0 }
-    // An article opened directly must start with the first release's plain head.
-    // Add the white browser theme only after rendering a non-article route.
-    const themeColor = document.querySelector('meta[name="theme-color"]') || document.createElement('meta')
-    themeColor.name = 'theme-color'
-    themeColor.content = '#ffffff'
     let stopTriangle = () => {}
     let viewportFrame = 0
     function syncViewport() {
@@ -247,15 +257,9 @@ async function initMobileApp() {
         root.scrollTop = 0
         document.body.classList.remove('m-overlay-open')
         document.title = "Mianxiu's Blog"
-        let route = location.hash.slice(1)
-        if (!route && location.pathname.startsWith('/essay/')) route = 'essay=' + encodeURIComponent(decodeURI(location.pathname).replace(/^\//, '').replace(/\/$/, ''))
-        const documentScroll = route === 'essay' || route.startsWith('essay=')
+        const route = mobileRouteForLocation(location)
+        const documentScroll = mobileDocumentScrollRoute(route)
         document.documentElement.classList.toggle('m-document-scroll', documentScroll)
-        // Keep the home theme separate from the first release's article environment.
-        if (themeColor) {
-            if (documentScroll) themeColor.remove()
-            else if (!themeColor.isConnected) document.head.append(themeColor)
-        }
         window.scrollTo(0, 0)
         root.innerHTML = '<p class="m-loading" role="status">Loading…</p>'
         try {
