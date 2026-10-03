@@ -36,3 +36,10 @@ const mobileSource = fs.readFileSync(require('node:path').join(__dirname, '../js
 assert.doesNotMatch(mobileSource, /banner\.remove\(\)|bannerHTML/)
 assert.match(mobileSource, /doc\.body\.innerHTML \+ toolbar\(post, next\) \+ '<\/main>'/)
 console.log('Article edges: first-version document flow, zero banner top gap and inline comment toolbar passed.')
+const indexHTML = fs.readFileSync(require('node:path').join(__dirname, '../index.html'), 'utf8')
+const aboutHTML = fs.readFileSync(require('node:path').join(__dirname, '../about/index.html'), 'utf8')
+const releaseVersion = aboutHTML.match(/网站版本：(\d{8}-\d{2})/)[1]
+assert.ok(indexHTML.includes('/css/mobile.css?v=' + releaseVersion))
+assert.ok(indexHTML.includes('/js/mobile-app.js?v=' + releaseVersion))
+assert.match(mobileSource, /load\('\/about\/index\.html\?v=' \+ encodeURIComponent\(jsVersion\)\)/)
+console.log('About release version matches CSS and JS resource versions: ' + releaseVersion)

@@ -270,7 +270,10 @@ async function initMobileApp() {
                 const html = await archive()
                 if (id === state.renderId) root.innerHTML = html
             } else if (route === 'about') {
-                const doc = await load('/about/index.html')
+                const cssVersion = new URL(document.querySelector('link[href*="/css/mobile.css"]').href).searchParams.get('v') || '未标记'
+                const jsVersion = new URL(document.querySelector('script[src*="/js/mobile-app.js"]').src).searchParams.get('v') || '未标记'
+                const doc = await load('/about/index.html?v=' + encodeURIComponent(jsVersion))
+                doc.body.insertAdjacentHTML('beforeend', '<p>当前页面资源版本<br>CSS：' + escape(cssVersion) + '<br>JS：' + escape(jsVersion) + '</p>')
                 if (id !== state.renderId) return
                 root.innerHTML = header('About') + '<main class="m-about"><h2>我</h2>' + doc.body.innerHTML + '<section><h2>Computer</h2><div class="m-computer-placeholder" aria-label="设备信息待补充"></div></section></main>'
             } else if (route === 'links') root.innerHTML = header('Link') + '<main class="m-links"><a href="https://github.com/mianxiu">GitHub · mianxiu</a><a href="mailto:mianxiu@mianxiu.me">mianxiu@mianxiu.me</a></main>'
