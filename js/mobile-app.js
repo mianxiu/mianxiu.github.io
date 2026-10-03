@@ -173,7 +173,7 @@ async function initMobileApp() {
     }
 
     function listEssays(posts) {
-        return header() + '<main class="m-essay-list">' + posts.map(post => '<a class="m-essay-card" href="' + routeFor(post) + '"><time>' + dateText(post.timestamp) + '</time><h2>' + escape(post.title) + '</h2>' + (post.image ? '<img class="m-preview" src="' + escape(post.image) + '" alt="" loading="lazy">' : '<p>' + escape(post.summary) + '</p>') + '</a>').join('') +
+        return header() + '<main class="m-essay-list">' + posts.map(post => '<a class="m-essay-card" href="' + routeFor(post) + '"><time class="_date">' + dateText(post.timestamp) + '</time><h2 class="essay-title">' + escape(post.title) + '</h2>' + (post.image ? '<img class="m-preview" src="' + escape(post.image) + '" alt="" loading="lazy">' : '<div class="summary m-summary"><p>' + escape(post.summary) + '</p></div>') + '</a>').join('') +
             '<nav class="m-pagination"><button data-action="prev-page" ' + (state.page === 1 ? 'disabled' : '') + '>previous</button><span>' + state.page + ' / 9</span><button data-action="next-page" ' + (state.page === 9 ? 'disabled' : '') + '>next ' + icon('back.svg', 'm-next-icon') + '</button></nav></main>'
     }
 
