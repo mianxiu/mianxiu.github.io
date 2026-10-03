@@ -1,0 +1,119 @@
+/* Figma mobile layouts. Loaded after desktop CSS, only below 768px. */
+html { display: block; font-size: 100px; height: auto; }
+body { display: block; width: 100%; font-size: 12px; background: white; color: black; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: text; }
+body > #main, body > #background-box, body > #footer, body > #ajaxProgress { display: none !important; }
+#foot, #mp3Player { display: none !important; }
+#mobileApp { width: 100%; min-height: 100svh; overflow-x: clip; }
+#mobileApp *, #mobileApp *::before, #mobileApp *::after { box-sizing: border-box; }
+#mobileApp button { font: inherit; border: 0; background: transparent; color: inherit; padding: 0; cursor: pointer; }
+#mobileApp a { text-decoration: none; color: inherit; }
+#mobileApp img { display: block; }
+#mobileApp button:focus-visible, #mobileApp a:focus-visible, #mobileApp summary:focus-visible { outline: 2px solid #6c9fdb; outline-offset: 4px; }
+#mobileApp [hidden] { display: none !important; }
+.m-home { min-height: max(812px, 100svh); position: relative; overflow: hidden; }
+.m-home-menu { position: absolute; top: 72px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
+.m-home-nav { position: absolute; top: 165px; left: calc(43 / 375 * 100%); display: grid; gap: 20px; font-size: 20px; line-height: 26px; font-weight: 600; }
+.m-home-nav::before { content: ''; position: absolute; top: 8px; left: calc(-43 / 375 * 100vw); height: 14px; width: 4px; background: black; }
+.m-home-card { position: absolute; top: 303px; left: calc(43 / 375 * 100%); width: 361px; height: 203px; background: #fcfcfc; }
+.m-last { position: absolute; top: 314px; left: calc(43 / 375 * 100%); display: flex; gap: 7px; padding: 3px 0 0 27px; height: 39px; font-size: 14px; line-height: 14px; }
+.m-last::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 15px; background: #fc1d1d; }
+.m-last time { font-weight: 300; color: #888; }
+.m-last small { display: block; margin-top: 3px; opacity: .1; font-size: 12px; }
+.m-triangle { position: absolute; top: 224.973px; left: calc(212 / 375 * 100% - 1px); pointer-events: none; }
+.m-squiggle { position: absolute; top: 485px; left: calc(256 / 375 * 100%); pointer-events: none; }
+.m-profile { position: absolute; top: 490px; left: calc(52 / 375 * 100%); font-size: 14px; line-height: 15px; font-weight: 300; }
+.m-avatar { width: 58px; height: 58px; position: relative; overflow: hidden; mask: url('/assets/mobile/avatar-mask.svg') center / 58px 58px no-repeat; }
+.m-avatar img { width: 84.141px; height: 84.141px; position: absolute; left: -11.437px; top: -7.352px; }
+.m-profile strong { display: block; font-size: 18px; line-height: 22px; margin-top: 15px; font-weight: 700; }
+.m-profile > div:not(.m-avatar):not(.m-social) { margin-top: 0; }
+.m-profile p { margin: 0; }
+.m-social { display: flex; gap: 23px; margin-top: 28px; }
+.m-social a, .m-social button { display: block; position: relative; width: 28px; height: 28px; }
+.m-social .m-social-glyph { position: absolute; inset: 0; width: 28px; height: 28px; pointer-events: none; }
+.m-copyright { position: absolute; bottom: 15px; left: calc(43 / 375 * 100%); color: #b3b3b3; font-size: 9px; }
+.m-header { height: 119px; position: relative; display: flex; align-items: flex-start; justify-content: flex-end; padding: 73px calc(43 / 375 * 100%) 0; }
+.m-header .m-menu-toggle { position: absolute; top: 70px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
+.m-brand { font-size: 15px !important; font-weight: 700 !important; line-height: 20px; }
+.m-brand span { font-weight: 300; color: #bababa; }
+.m-header:has(.m-page-heading) { justify-content: flex-start; }
+.m-header:has(.m-page-heading) .m-menu-toggle { display: none; }
+.m-page-heading { font-size: 18px !important; font-weight: 600 !important; }
+.m-menu-layer { position: fixed; inset: 0; z-index: 100; }
+.m-menu-shade { position: absolute; inset: 0; background: rgba(0,0,0,.16) !important; width: 100%; height: 100%; }
+.m-menu { background: white; position: relative; height: 346px; display: flex; flex-direction: column; gap: 32px; padding: 155px calc(43 / 375 * 100%) 0; font-size: 18px; line-height: 24px; font-weight: 600; }
+.m-menu-close { position: absolute; top: 75px; left: calc(43 / 375 * 100% - 9px); padding: 9px !important; }
+.m-menu-close img { transform: rotate(90deg); }
+body.m-overlay-open { overflow: hidden; }
+.m-essay-list { margin: 0 calc(43 / 375 * 100%); padding-bottom: 34px; }
+.m-essay-card { display: flex; flex-direction: column; margin-bottom: 24px; min-height: 48px; }
+.m-essay-card time, .m-article > ._date { color: rgba(0,0,0,.3); font-size: 9px; line-height: 12px; font-weight: 300; }
+.m-essay-card h2 { font-size: 12px; line-height: 17px; margin: 6px 0 7px; font-weight: 400; }
+.m-essay-card .m-preview { width: 100%; height: 70px; object-fit: cover; border-radius: 4px; }
+.m-essay-card p { margin: 0; color: #afafaf; font-size: 12px; line-height: 17px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.m-pagination { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 12px; }
+.m-pagination button { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+.m-pagination button:disabled { opacity: .2; cursor: default; }
+.m-next-icon { transform: scaleX(-1); }
+.m-gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.m-gallery-grid a { aspect-ratio: 1; overflow: hidden; }
+.m-gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
+.m-gallery-images { padding: 53px 0 103px; display: flex; flex-direction: column; gap: 8px; }
+.m-gallery-images img { width: 100%; height: auto; }
+.m-detail-bar { position: fixed; bottom: 0; left: 0; right: 0; height: calc(95px + env(safe-area-inset-bottom)); padding: 18px 29px calc(45px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 24px; background: white; z-index: 30; font-size: 12px; }
+.m-detail-bar .m-back { flex: 1; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.m-comment-button { display: flex; align-items: center; gap: 8px; font-weight: 700 !important; min-height: 32px; }
+.m-next { padding: 10px !important; margin-right: 3px; }
+.m-article { padding: 54px calc(44 / 375 * 100%) 110px calc(42 / 375 * 100%); font-size: 12px; line-height: 16px; user-select: text; }
+.m-article > .essay-title { margin: 0 0 7px; font-size: 12px; line-height: 16px; }
+.m-article > ._date { display: block; margin-bottom: 17px; }
+.m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
+.m-article .essay-context { width: auto; margin: 0; }
+.m-article .essay-context p { margin: 0 0 16px; color: #777; font-size: 12px; line-height: 16px; }
+.m-article h2, .m-article h3, .m-article h4, .m-article h5, .m-article h6 { font-size: 12px; line-height: 18px; margin: 0 0 16px; }
+.m-article img { max-width: 100%; height: auto; }
+.m-article pre { overflow-x: auto; font-size: 11px; }
+.m-article .essay-hr { margin: 24px 0; }
+.m-article .essay-end-tip { width: 30px; flex-shrink: 0; padding: 5px 0; font-size: 10px; line-height: 14px; text-align: center; }
+.m-article .essay-hr ._tags { margin-left: 26px; font-size: 10px; width: auto; color: #d4d4d4; }
+.m-article .essay-hr ._tags > em { color: #53dca3; }
+.m-article table { display: block; overflow-x: auto; }
+.m-archive, .m-about, .m-links { padding: 29px calc(43 / 375 * 100%) 60px; }
+.m-archive details { margin-bottom: 28px; }
+.m-archive summary { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 18px; line-height: 24px; list-style: none; cursor: pointer; }
+.m-archive summary::-webkit-details-marker { display: none; }
+.m-archive details[open] summary img { visibility: hidden; }
+.m-archive ul { margin: 32px 0 0; padding: 0 17px 0 23px; list-style: none; }
+.m-archive li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; line-height: 17px; margin-bottom: 16px; }
+.m-archive li a { min-width: 0; overflow-wrap: anywhere; }
+.m-archive time { color: #b3b3b3; white-space: nowrap; font-size: 10px; font-weight: 300; }
+.m-about h2 { font-size: 18px; line-height: 24px; margin: 0 0 20px; }
+.m-about p { font-size: 12px; line-height: 16px; margin: 0 0 28px; }
+.m-about section { margin-top: 58px; }
+.m-computer-placeholder { height: 170px; border: 1px solid #f2f2f2; background: repeating-linear-gradient(to bottom,#fbfbfb 0px,#fbfbfb 25px,white 25px,white 48px); }
+.m-links { display: flex; flex-direction: column; gap: 28px; }
+.m-comments-panel { position: fixed; top: 119px; inset-inline: 0; bottom: 0; background: white; z-index: 60; display: flex; flex-direction: column; }
+.m-comments-panel > header { height: 81px; padding: 23px 43px 20px 23px; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
+.m-comments-panel > header button { padding: 5px !important; }
+.m-comments-scroll { overflow-y: auto; overscroll-behavior: contain; padding: 0 23px 34px; flex: 1; }
+#mobileApp #mixxopost { margin: 0; width: 100%; }
+#mobileApp .mixxo-post { border-radius: 0; margin: 20px 0 0; padding: 0; font-size: 10px; }
+#mobileApp .mixxo-user-info { flex-direction: column !important; }
+#mobileApp #mixxopost .mixxo-user-info > div { width: 100% !important; border-bottom: 1px dashed #ededed; border-right: 0; height: 35px; padding: 0 16px; }
+#mobileApp .mp-info, #mobileApp .mp-label { font-size: 10px; height: 34px; line-height: 34px; }
+#mobileApp .mixxo-user-comments { margin: 0; }
+#mobileApp #mp-comments-panel { display: none; }
+#mobileApp #mp-post-lists { padding: 0; margin: 0; }
+#mobileApp .mp-post-body { margin-bottom: 24px; }
+#mobileApp .mp-post-body .headimg { min-width: 36px; min-height: 36px; max-width: 36px; max-height: 36px; margin-right: 11px; }
+#mobileApp .mpr-nick { font-size: 12px; font-weight: 400; }
+#mobileApp .mpr-header .mpr-date { font-size: 8px; padding-left: 8px; }
+#mobileApp .mpr-header .mp-writer { font-size: 8px; padding: 0 4px; margin: 0 3px; }
+#mobileApp .mpr-body { font-size: 10px; line-height: 16px; }
+#mobileApp .mpr-footer { font-size: 12px; }
+#mobileApp .mp-reply { margin: 0; padding-left: 47px; }
+#mobileApp #mixxopost #mp-comment { min-height: 58px; font-size: 10px; padding: 12px 16px; }
+#mobileApp #mp-post { width: 70px; height: 27px; font-size: 10px; background: black; color: white; }
+#mobileApp .mixxo-footer label { font-size: 10px; }
+.m-loading, .m-error { font-size: 14px; margin: 80px 43px; }
+.m-error a, .m-error button { display: inline-block; padding: 16px 0 !important; margin-right: 24px; }
+@media (prefers-reduced-motion: reduce) { #mobileApp * { animation: none !important; scroll-behavior: auto !important; } }
