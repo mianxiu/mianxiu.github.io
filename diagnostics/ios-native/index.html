@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari 独立文章对照 · 20261003-05</title>
+    <script>
+        if (new URLSearchParams(location.search).get('fit') === 'cover') {
+            document.querySelector('meta[name="viewport"]').content += ', viewport-fit=cover';
+        }
+    </script>
+    <style>
+        html { background: #fff; }
+        body { margin: 0; color: #111; font: 12px/1.5 system-ui, sans-serif; }
+        * { box-sizing: border-box; }
+        ._banner { height: 120px; background-size: cover; background-position: center; }
+        .essay-title, ._date, .essay-context, .diagnostic-info { margin: 18px 11.2%; }
+        .essay-title { font-size: 12px; }
+        ._date { display: block; color: #aaa; }
+        .essay-context { color: #777; }
+        .essay-context p { margin: 0 0 16px; }
+        .essay-context h2 { color: #111; font-size: 12px; }
+        img { max-width: 100%; height: auto; }
+        pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+        .edge-probe { min-height: 1800px; background: repeating-linear-gradient(#70a0db 0 180px, #fcab1d 180px 360px, #fc1d1d 360px 540px); }
+        .edge-probe p { margin: 0; padding: 64px 24px; font-size: 16px; }
+        .error { margin: 24px; }
+    </style>
+</head>
+<body>
+    <main id="article" aria-label="文章对照"><p class="error">正在加载文章…</p></main>
+    <section class="diagnostic-info">
+        <p>独立对照版本：20261003-05。没有首页容器、桌面样式、固定栏或内层滚动。</p>
+        <p id="viewport-mode"></p>
+        <p><a href="?v=20261003-05">普通 viewport</a> · <a href="?v=20261003-05&amp;fit=cover">viewport-fit=cover</a></p>
+        <p>继续滚到下面的彩色区，再往回滚。观察顶部与底部是否透出颜色，不只观察白色文章背景。</p>
+    </section>
+    <section class="edge-probe" aria-label="上下边缘颜色对照">
+        <p>彩色对照区：滚动时观察状态栏与 Safari 底栏后面的颜色。</p>
+    </section>
+    <script src="article.js?v=20261003-05"></script>
+</body>
+</html>
