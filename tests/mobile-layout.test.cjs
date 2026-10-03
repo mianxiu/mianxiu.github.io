@@ -41,9 +41,8 @@ assert.match(mobileCSS, /\.m-article\s*\{\s*padding: 54px/)
 assert.match(mobileCSS, /\.m-article:has\(> \._banner\)\s*\{\s*padding-top: 0;/)
 assert.match(mobileCSS, /\.m-article\s+\._banner::after\s*\{\s*content: none;/)
 assert.doesNotMatch(mobileCSS, /\.m-article\s+\._banner\s*\{[^}]*position:\s*(?:fixed|sticky)/)
-assert.match(mobileCSS, /\.m-article\s+\._banner\s*\{[^}]*height: clamp\(180px, 52vw, 240px\);/)
-assert.match(mobileCSS, /\.m-article\s+\._banner::before\s*\{[^}]*position: absolute;[^}]*max\(72px, env\(safe-area-inset-top, 0px\)\)[^}]*background-image: inherit;/)
-assert.doesNotMatch(mobileCSS, /\.m-article\s+\._banner::before\s*\{[^}]*(?:position:\s*(?:fixed|sticky)|transform|backdrop-filter)/)
+assert.match(mobileCSS, /\.m-article\s+\._banner\s*\{[^}]*height: 120px;/)
+assert.doesNotMatch(mobileCSS, /\.m-article\s+\._banner::before/)
 const mobileSource = fs.readFileSync(require('node:path').join(__dirname, '../js/mobile-app.js'), 'utf8')
 assert.doesNotMatch(mobileSource, /banner\.remove\(\)|bannerHTML/)
 assert.match(mobileSource, /doc\.body\.innerHTML \+ toolbar\(post, next\) \+ '<\/main>'/)
@@ -74,7 +73,7 @@ assert.match(baselineIndex, /name="viewport" content="width=device-width, initia
 assert.doesNotMatch(baselineIndex, /viewport-fit|name="theme-color"/)
 assert.match(baselineCSS, /\.m-article\s*\{\s*padding: 54px/)
 assert.doesNotMatch(baselineCSS, /#mobileApp\s*\{[^}]*position: fixed/)
-for (const selector of ['html', 'body', '#mobileApp']) {
+for (const selector of ['html', 'body', '#mobileApp', '.m-article ._banner']) {
     const rule = new RegExp('(?:^|\\n)' + selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*\\{([^}]*)\\}')
     assert.equal(mobileCSS.match(rule)[1], baselineCSS.match(rule)[1], 'Original rule retained: ' + selector)
 }

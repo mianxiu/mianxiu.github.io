@@ -78,9 +78,7 @@ body.m-overlay-open { overflow: hidden; }
 #mobileApp .m-article > .essay-title, #mobileApp .m-article > ._date { width: auto; }
 .m-article > .essay-title { margin: 0 0 7px; font-size: 12px; line-height: 16px; }
 .m-article > ._date { display: block; margin-bottom: 17px; }
-.m-article ._banner { position: relative; margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: clamp(180px, 52vw, 240px); background-size: cover; background-position: center; }
-/* Extend the same image upward without shifting layout or fixing it to the viewport. */
-.m-article ._banner::before { content: ''; position: absolute; inset: calc(-1 * max(72px, env(safe-area-inset-top, 0px))) 0 0; background-image: inherit; background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; }
+.m-article ._banner { margin: 0 calc(-44 / 375 * 100vw) 18px calc(-42 / 375 * 100vw); height: 120px; background-size: cover; background-position: center; }
 .m-article ._banner::after { content: none; }
 .m-article .essay-context { width: auto; margin: 0; }
 .m-article .essay-context p { margin: 0 0 16px; color: #777; font-size: 12px; line-height: 16px; }
