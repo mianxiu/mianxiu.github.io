@@ -215,14 +215,11 @@ async function initMobileApp() {
         } else {
             doc.querySelectorAll('#mixxopost, .footer, script').forEach(el => el.remove())
             const banner = doc.querySelector('._banner')
-            let bannerHTML = ''
             if (banner) {
-                banner.className = 'm-detail-banner'
                 banner.setAttribute('aria-hidden', 'true')
-                bannerHTML = banner.outerHTML
-                banner.remove()
             }
-            root.innerHTML = '<div class="m-detail' + (banner ? ' m-has-banner' : '') + '">' + bannerHTML + '<main class="m-article">' + doc.body.innerHTML + toolbar(post, next) + '</main>' + commentPanel() + '</div>'
+            // Restore the first mobile version's document flow; only remove its top gap.
+            root.innerHTML = '<main class="m-article' + (banner ? ' m-has-banner' : '') + '">' + doc.body.innerHTML + toolbar(post, next) + '</main>' + commentPanel()
             root.querySelectorAll('pre code').forEach(el => { if (window.hljs) hljs.highlightBlock(el) })
         }
         initComments(post)
