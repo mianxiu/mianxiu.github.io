@@ -1,3 +1,58 @@
+// Schedule player visuals only while playing and actually visible.
+function createPlayerAnimation(player, element, draw, interval = 0, onStop = () => {}) {
+  let frame = null, active = false, lastPaint = null;
+  const stylesheet = document.querySelector("#mp3CSS");
+  function pause() {
+    active = false;
+    cancelAnimationFrame(frame);
+    frame = null;
+    lastPaint = null;
+    onStop();
+  }
+  function tick(time) {
+    frame = null;
+    if (!element.isConnected) { destroy(); return; }
+    if (!active || player.paused || player.ended || player.error || document.hidden) { pause(); return; }
+    if (lastPaint === null || time - lastPaint >= interval) {
+      lastPaint = time;
+      draw();
+    }
+    frame = requestAnimationFrame(tick);
+  }
+  function sync() {
+    if (!element.isConnected) { destroy(); return; }
+    if (player.paused || player.ended || player.error || document.hidden || !element.getClientRects().length) {
+      pause();
+    } else if (!active) {
+      active = true;
+      frame = requestAnimationFrame(tick);
+    }
+  }
+  const observer = new MutationObserver(sync);
+  for (let parent = element.parentElement; parent; parent = parent.parentElement) {
+    observer.observe(parent, { attributes: true, attributeFilter: ["style", "class", "hidden"] });
+  }
+  const events = ["play", "pause", "ended", "emptied", "error"];
+  events.forEach(name => player.addEventListener(name, sync));
+  document.addEventListener("visibilitychange", sync);
+  window.addEventListener("resize", sync);
+  window.addEventListener("pagehide", pause);
+  window.addEventListener("pageshow", sync);
+  if (stylesheet) stylesheet.addEventListener("load", sync);
+  function destroy() {
+    pause();
+    observer.disconnect();
+    events.forEach(name => player.removeEventListener(name, sync));
+    document.removeEventListener("visibilitychange", sync);
+    window.removeEventListener("resize", sync);
+    window.removeEventListener("pagehide", pause);
+    window.removeEventListener("pageshow", sync);
+    if (stylesheet) stylesheet.removeEventListener("load", sync);
+  }
+  sync();
+  return { sync, destroy };
+}
+
 //1. mp3播放器--------------------------------------------------------------------------------
 function mp3Player() {
   //域名的正则，用于匹配歌曲
@@ -291,50 +346,36 @@ function mp3Player() {
 
   // 使用逐帧刷新，让进度条保持连续移动。
   function AudioProgress() {
-    let progressFrame = null;
+    const progress = $("#audioProgressA");
+    const timeLabel = $("#timePass");
+    function setTime(text) {
+      if (timeLabel.textContent !== text) timeLabel.textContent = text;
+    }
 
     function renderProgress() {
+      if (document.hidden || !progress.isConnected || !progress.getClientRects().length) return;
+      if (player.error) { setTime("error"); return; }
       let duration = player.duration;
       let currentTime = player.currentTime;
 
       if (!Number.isFinite(duration) || duration <= 0) {
-        $("#timePass").innerText = "loading";
+        setTime("loading");
         return;
       }
 
       let playedRatio = Math.min(1, Math.max(0, currentTime / duration));
-      $("#audioProgressA").style.transform = "scaleX(" + (1 - playedRatio) + ")";
+      progress.style.transform = "scaleX(" + (1 - playedRatio) + ")";
 
       let remaining = Math.max(0, Math.floor(duration - currentTime));
       let minutes = Math.floor(remaining / 60);
       let seconds = String(remaining % 60).padStart(2, "0");
-      $("#timePass").innerText = minutes + ":" + seconds;
-    }
-
-    function animateProgress() {
-      renderProgress();
-      if (!player.paused && !player.ended) {
-        progressFrame = requestAnimationFrame(animateProgress);
-      }
-    }
-
-    function startProgress() {
-      cancelAnimationFrame(progressFrame);
-      animateProgress();
-    }
-
-    function stopProgress() {
-      cancelAnimationFrame(progressFrame);
-      progressFrame = null;
-      renderProgress();
+      setTime(minutes + ":" + seconds);
     }
 
     player.addEventListener("loadedmetadata", renderProgress);
     player.addEventListener("timeupdate", renderProgress);
     player.addEventListener("seeked", renderProgress);
-    player.addEventListener("play", startProgress);
-    player.addEventListener("pause", stopProgress);
-    player.addEventListener("ended", stopProgress);
+    createPlayerAnimation(player, progress, renderProgress, 0, renderProgress);
   }
   AudioProgress();
 
@@ -344,11 +385,9 @@ function mp3Player() {
     let canvas = $("#visual");
     let canvasCtx = canvas.getContext("2d");
     //canvas画布大小
-    WIDTH = canvas.width;
-    HEIGHT = canvas.height;
 
     analyser.minDecibels = -90;
-    analyser.maxDecibles = -10;
+    analyser.maxDecibels = -10;
 
     //时域数据？
     //analyser读取的数据都是连续的
@@ -363,22 +402,20 @@ function mp3Player() {
 
     function draw() {
       analyser.getByteFrequencyData(dataArray);
-      //requestAnimationFrame可以在浏览器页面不刷新是重复绘制页面
-      //页面完成时可以考虑把宽度写定值,降低性能要求
-      //减少canvas API调用
-      requestAnimationFrame(draw);
-      canvasCtx.clearRect(0, 0, 200, 100);
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       var barHeight,
         x = 0;
 
       //绘制
-      for (i = 0; i < bufferLength; i++) {
+      for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i];
         canvasCtx.fillRect(x, Math.floor(100 - barHeight / 4), 8, 100);
         x += 10;
       }
     }
-    draw();
+    createPlayerAnimation(player, canvas, draw, 1000 / 30, () => {
+      if (player.paused || player.ended) canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+    });
   }
 
   visual();
