@@ -4,7 +4,7 @@ body.desktop-archive-open { background: #fff; }
 #desktopArchive[hidden] { display: none; }
 #desktopArchive header { height: 119px; padding: 73px calc(43 / 375 * 100%) 0; }
 #desktopArchive button { border: 0; padding: 0; background: transparent; color: #000; font: inherit; cursor: pointer; }
-/* Use the desktop essay title/date sizes, including large-screen rem scaling. */
+/* Keep the heading sizes; article titles share the date size and rem scaling. */
 #desktopArchive .archive-heading { font-size: .22rem; font-weight: 600; line-height: .30rem; }
 #desktopArchive main { padding: 29px calc(43 / 375 * 100%) 60px; }
 #desktopArchive details { margin-bottom: 28px; }
@@ -14,7 +14,7 @@ body.desktop-archive-open { background: #fff; }
 #desktopArchive details[open] summary img { visibility: hidden; }
 #desktopArchive ul { list-style: none; padding: 0 17px 0 23px; margin: 32px 0 0; }
 #desktopArchive li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; line-height: .30rem; margin-bottom: 16px; }
-#desktopArchive a { min-width: 0; color: #000; text-decoration: none; overflow-wrap: anywhere; font-size: .22rem; }
+#desktopArchive a { min-width: 0; color: #000; text-decoration: none; overflow-wrap: anywhere; font-size: .14rem; }
 #desktopArchive a:hover { text-decoration: underline; }
 #desktopArchive time { color: #b3b3b3; white-space: nowrap; font-size: .14rem; line-height: .20rem; font-weight: 300; }
 #desktopArchive button:focus-visible, #desktopArchive a:focus-visible, #desktopArchive summary:focus-visible { outline: 2px solid #6c9fdb; outline-offset: 4px; }

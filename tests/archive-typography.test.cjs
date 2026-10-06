@@ -17,10 +17,11 @@ function fontSize(body) {
 }
 const title = fontSize(rule(desktop, '.essay-title'))
 const date = fontSize(rule(desktop, '._date, ._tags, ._updated'))
-for (const selector of ['#desktopArchive .archive-heading', '#desktopArchive summary', '#desktopArchive a']) {
+for (const selector of ['#desktopArchive .archive-heading', '#desktopArchive summary']) {
     assert.deepEqual(fontSize(rule(archive, selector)), title)
 }
 assert.deepEqual(fontSize(rule(archive, '#desktopArchive time')), date)
+assert.deepEqual(fontSize(rule(archive, '#desktopArchive a')), fontSize(rule(archive, '#desktopArchive time')))
 assert.match(rule(archive, '#desktopArchive li'), /line-height: .30rem;/)
 assert.match(rule(archive, '#desktopArchive time'), /white-space: nowrap;/)
 assert.match(rule(archive, '#desktopArchive a'), /min-width: 0;[^}]*overflow-wrap: anywhere;/)
@@ -31,4 +32,5 @@ const index = read('index.html')
 assert.match(index, /href="\/css\/archive\.css\?v=\d{8}-\d{2}" media="\(min-width: 768px\)"/)
 assert.match(read('css/mobile.css'), /\.m-archive summary[^}]*font-size: 18px;/)
 assert.match(read('css/mobile.css'), /\.m-archive time[^}]*font-size: 10px;/)
-console.log('Desktop Archive uses essay-list title/date rem sizes, wraps long titles and preserves mobile typography.')
+assert.deepEqual(fontSize(rule(read('css/mobile.css'), '.m-archive li a')), fontSize(rule(read('css/mobile.css'), '.m-archive time')))
+console.log('Archive article titles match date sizes on desktop and mobile; headings, icons, wrapping and spacing stay unchanged.')

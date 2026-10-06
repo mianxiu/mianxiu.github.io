@@ -116,7 +116,7 @@ body.m-overlay-open { overflow: hidden; }
 .m-archive details[open] summary img { visibility: hidden; }
 .m-archive ul { margin: 32px 0 0; padding: 0 17px 0 23px; list-style: none; }
 .m-archive li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; line-height: 17px; margin-bottom: 16px; }
-.m-archive li a { min-width: 0; overflow-wrap: anywhere; }
+.m-archive li a { min-width: 0; overflow-wrap: anywhere; font-size: 10px; }
 .m-archive time { color: #b3b3b3; white-space: nowrap; font-size: 10px; font-weight: 300; }
 .m-about h2 { font-size: 18px; line-height: 24px; margin: 0 0 20px; }
 .m-about p { font-size: 12px; line-height: 16px; margin: 0 0 28px; }
