@@ -8,8 +8,13 @@ for (const preview of Object.values(manifest)) {
     assert.ok(preview.width > 0 && preview.height > 0)
     const svg = Buffer.from(preview.preview.split(',')[1], 'base64').toString()
     assert.ok(svg.includes('width="' + preview.width + '"'))
-    assert.match(svg, /href="data:image\/png;base64,/)
+    assert.match(svg, /href="data:image\/jpeg;base64,/)
+    assert.doesNotMatch(svg, /<filter|feGaussianBlur/, 'the blur must be baked, not a live filter')
 }
+const generator = fs.readFileSync('scripts/build-image-placeholders.py', 'utf8')
+assert.match(generator, /Image\.Resampling\.BICUBIC/)
+assert.match(generator, /ImageFilter\.GaussianBlur\(radius=12\)/)
+assert.doesNotMatch(generator, /Resampling\.NEAREST/)
 const fullURL = 'https://img.mianxiu.me/image/essay/70cef56996b5e212b03288816cac5cb64ddba8a1.jpg'
 const preview = manifest[fullURL].preview
 const flush = () => new Promise(resolve => setImmediate(resolve))
@@ -78,5 +83,5 @@ async function harness(nodes) {
     assert.equal(added.getAttribute('src'), preview, 'removed route stays untouched')
     assert.match(fs.readFileSync('index.html', 'utf8'), /defer src="\/js\/image-placeholders\.js\?v=/)
     assert.match(fs.readFileSync('js/essay.js', 'utf8'), /mosaics\.src = '\/js\/image-placeholders\.js\?v=/)
-    console.log('Source mosaics: dimensions, shared manifest, load/error/cache/lazy, observer loops, new sources and removed routes passed.')
+    console.log('Frosted source previews: baked blur, dimensions, shared manifest, load/error/cache/lazy, observer loops, new sources and removed routes passed.')
 })().catch(error => { console.error(error); process.exitCode = 1 })

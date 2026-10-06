@@ -1,4 +1,4 @@
-"""Generate tiny, source-derived mosaics. Run again after adding site images.
+"""Generate tiny, source-derived frosted previews. Run again after adding site images.
 
 Requires Pillow. Full-size remote images are read into memory, never committed.
 Use --proxy http://127.0.0.1:7897 only if your network needs a proxy.
@@ -14,7 +14,7 @@ import re
 from urllib.parse import unquote, urlsplit
 from urllib.request import ProxyHandler, build_opener
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageFilter, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -68,13 +68,17 @@ def main():
                 original.seek(0)  # GIF placeholders use the first frame; playback stays original.
                 image = ImageOps.exif_transpose(original).convert('RGB')
                 width, height = image.size
-                small = image.resize((16, max(1, round(16 * height / width))), Image.Resampling.BOX)
-                mosaic = small.resize((256, max(1, round(256 * height / width))), Image.Resampling.NEAREST)
+                small = image.resize((24, max(1, round(24 * height / width))), Image.Resampling.BOX)
+                # Bake the soft blur and subtle white veil into the tiny asset.
+                # No live backdrop/filter layer or per-frame work on either device type.
+                blurred = small.resize((256, max(1, round(256 * height / width))), Image.Resampling.BICUBIC)
+                blurred = blurred.filter(ImageFilter.GaussianBlur(radius=12))
+                blurred = Image.blend(blurred, Image.new('RGB', blurred.size, 'white'), .08)
                 output = BytesIO()
-                mosaic.save(output, format='PNG', optimize=True)
-                png = 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode('ascii')
+                blurred.save(output, format='JPEG', quality=65, optimize=True)
+                jpeg = 'data:image/jpeg;base64,' + base64.b64encode(output.getvalue()).decode('ascii')
                 # Keep the original intrinsic dimensions for img layout, without wrappers.
-                svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><image width="{width}" height="{height}" href="{png}"/></svg>'
+                svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><image width="{width}" height="{height}" href="{jpeg}"/></svg>'
                 return source, {'width': width, 'height': height, 'preview': 'data:image/svg+xml;base64,' + base64.b64encode(svg.encode()).decode('ascii')}
         except Exception as error:
             print('Skipped:', source, str(error), flush=True)
@@ -84,7 +88,7 @@ def main():
         entries = dict((key, value) for key, value in pool.map(generate, sources) if value)
     destination = ROOT / 'assets' / 'image-placeholders.json'
     destination.write_text(json.dumps(entries, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
-    print(f'Generated {len(entries)}/{len(sources)} source mosaics, {destination.stat().st_size:,} bytes')
+    print(f'Generated {len(entries)}/{len(sources)} frosted previews, {destination.stat().st_size:,} bytes')
 
 
 if __name__ == '__main__':

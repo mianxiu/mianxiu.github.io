@@ -1,4 +1,4 @@
-/* Source-derived mosaics for AJAX, mobile routes and standalone articles. */
+/* Pre-baked frosted previews for AJAX, mobile routes and standalone articles. */
 (() => {
     const selector = '._banner, .preview-img, .gallery-link, img.gallery-img, img.m-preview, .m-gallery-grid img, .m-gallery-images img, .essay-context img'
     const records = new WeakMap()
@@ -11,8 +11,8 @@
         } catch { return '' }
     }
     function data() {
-        if (!manifest) manifest = fetch('/assets/image-placeholders.json?v=20261006-04')
-            .then(response => { if (!response.ok) throw new Error('Mosaic manifest unavailable'); return response.json() })
+        if (!manifest) manifest = fetch('/assets/image-placeholders.json?v=20261006-06')
+            .then(response => { if (!response.ok) throw new Error('Image preview manifest unavailable'); return response.json() })
             .catch(error => { console.warn(error.message); return {} })
         return manifest
     }

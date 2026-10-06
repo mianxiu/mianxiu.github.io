@@ -9,7 +9,7 @@
     }
     document.querySelector('title').innerText = decodeURI(window.location.href.split(/\//)[7])+" | Mianxiu's blog"
     const mosaics = document.createElement('script')
-    mosaics.src = '/js/image-placeholders.js?v=20261006-04'
+    mosaics.src = '/js/image-placeholders.js?v=20261006-06'
     document.head.append(mosaics)
     let settled = false, stopLoading = () => {}
     const finish = () => { settled = true; stopLoading() }
