@@ -72,10 +72,14 @@ function animateSiteTriangle(holder, interactive = false) {
 
 let desktopLoadingCount = 0
 let stopDesktopLoading = () => {}
+let desktopLoadingExitTimer = 0
 function beginDesktopLoading() {
     const layer = document.querySelector('#ajaxProgress')
     if (!layer) return () => {}
     if (desktopLoadingCount++ === 0) {
+        clearTimeout(desktopLoadingExitTimer)
+        desktopLoadingExitTimer = 0
+        layer.classList.remove('is-leaving')
         layer.hidden = false
         layer.classList.add('is-loading')
         layer.innerHTML = siteLoadingMarkup()
@@ -88,9 +92,19 @@ function beginDesktopLoading() {
         if (--desktopLoadingCount === 0) {
             stopDesktopLoading()
             stopDesktopLoading = () => {}
-            layer.hidden = true
-            layer.classList.remove('is-loading')
-            layer.replaceChildren()
+            const hide = () => {
+                desktopLoadingExitTimer = 0
+                layer.hidden = true
+                layer.classList.remove('is-loading')
+                layer.classList.remove('is-leaving')
+                layer.replaceChildren()
+            }
+            if (document.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) hide()
+            else {
+                layer.classList.add('is-leaving')
+                // Cancelled when another request starts, so an old exit cannot hide it.
+                desktopLoadingExitTimer = setTimeout(hide, 340)
+            }
         }
     }
 }

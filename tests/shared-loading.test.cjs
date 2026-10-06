@@ -11,7 +11,15 @@ const layer = {
     classList: { add: name => classes.add(name), remove: name => classes.delete(name) },
     querySelector: () => ({}), replaceChildren() { this.innerHTML = ''; clears++ }
 }
-const context = { document: { querySelector: () => layer } }
+const exitTimers = new Map()
+let timerId = 0
+const motion = { matches: false }
+const context = {
+    document: { querySelector: () => layer, hidden: false }, matchMedia: () => motion,
+    setTimeout(callback, delay) { assert.equal(delay, 340); exitTimers.set(++timerId, callback); return timerId },
+    clearTimeout(id) { exitTimers.delete(id) }
+}
+const finishExit = () => { const callbacks = [...exitTimers.values()]; exitTimers.clear(); callbacks.forEach(callback => callback()) }
 vm.createContext(context)
 vm.runInContext(shared, context)
 context.animateSiteTriangle = () => { starts++; return () => { stops++ } }
@@ -27,6 +35,11 @@ first()
 assert.equal(layer.hidden, false, 'one completion must not hide another pending request')
 second()
 second()
+assert.equal(layer.hidden, false, 'keep the cover while its exit animates')
+assert.ok(classes.has('is-leaving'))
+assert.equal(exitTimers.size, 1)
+assert.equal(stops, 1, 'stop continuous animation as soon as the request finishes')
+finishExit()
 assert.equal(layer.hidden, true)
 assert.equal(stops, 1)
 assert.equal(clears, 1)
@@ -34,6 +47,24 @@ assert.equal(classes.size, 0)
 context.beginDesktopLoading()()
 assert.equal(starts, 2)
 assert.equal(stops, 2)
+// Restarting during the exit must cancel the old hide timer and restore the cover.
+const restarted = context.beginDesktopLoading()
+assert.equal(exitTimers.size, 0)
+assert.equal(classes.has('is-leaving'), false)
+finishExit()
+assert.equal(layer.hidden, false)
+restarted()
+finishExit()
+assert.equal(layer.hidden, true)
+motion.matches = true
+context.beginDesktopLoading()()
+assert.equal(layer.hidden, true, 'reduced motion skips the blur animation')
+assert.equal(exitTimers.size, 0)
+motion.matches = false
+context.document.hidden = true
+context.beginDesktopLoading()()
+assert.equal(layer.hidden, true, 'hidden tabs clean up without waiting for an animation')
+context.document.hidden = false
 
 // Every XHR completion path must release its loader exactly once.
 const indexSource = read('js/index.js')
@@ -58,10 +89,13 @@ for (const outcome of ['success', 'http-error', 'onerror', 'ontimeout', 'onabort
         request.onload()
         assert.equal(callbackRuns, outcome === 'success' ? 1 : 0)
     } else request[outcome]()
-    assert.equal(layer.hidden, true, outcome + ' must stop loading')
+    assert.ok(classes.has('is-leaving'), outcome + ' must start exit')
+    finishExit()
+    assert.equal(layer.hidden, true, outcome + ' must remove the cover after exit')
 }
 context.XMLHttpRequest = class { open() {} send() { throw new Error('send failed') } }
 assert.throws(() => context.ajax('/context.html', () => {}), /send failed/)
+finishExit()
 assert.equal(layer.hidden, true)
 assert.equal(starts, stops)
 
@@ -127,8 +161,12 @@ assert.ok(index.indexOf('/js/loading.js?') < index.indexOf('/js/mobile-app.js?')
 assert.match(read('css/loading.css'), /width: 96px/)
 const loadingCSS = read('css/loading.css')
 assert.match(loadingCSS, /@media \(min-width: 768px\)/)
-assert.match(loadingCSS, /#ajaxProgress\.is-loading[^}]*inset: auto;[^}]*right: \.20rem;[^}]*bottom: var\(--desktop-mini-bottom\);[^}]*height: var\(--desktop-mini-height\);[^}]*background: transparent;[^}]*pointer-events: none;/)
+assert.match(loadingCSS, /#ajaxProgress\.is-loading[^}]*position: fixed;[^}]*inset: 0;[^}]*width: 100%;[^}]*height: 100%;[^}]*background: #fff;[^}]*pointer-events: auto;/)
 assert.match(loadingCSS, /#ajaxProgress \.m-loading\s*\{[^}]*min-height: 0;/)
+assert.match(loadingCSS, /#ajaxProgress\.is-leaving[^}]*pointer-events: none;[^}]*animation: loading-cover-exit 320ms/)
+assert.match(loadingCSS, /@keyframes loading-triangle-exit[^\n]*filter: blur\(8px\); opacity: 0;/)
+assert.match(loadingCSS, /prefers-reduced-motion: reduce/)
+assert.doesNotMatch(loadingCSS, /#ajaxProgress \.m-loading-triangle\s*\{[^}]*width: 100%/)
 assert.match(loadingCSS, /--desktop-mini-height: \.78rem; --desktop-mini-bottom: \.10rem;/)
 const miniCSS = read('css/mp3Player_min.css')
 assert.match(miniCSS, /#foot\s*\{[^}]*top: auto;[^}]*transform: none;[^}]*height: var\(--desktop-mini-height, \.78rem\);[^}]*bottom: var\(--desktop-mini-bottom, \.10rem\);/)
@@ -136,7 +174,7 @@ assert.doesNotMatch(miniCSS, /translateY\(680px\)/)
 assert.match(indexSource, /mp3Player_min\.css\?v=\d{8}-\d{2}/)
 assert.match(read('css/1366.css'), /@import url\('\.\/loading\.css\?v=/)
 assert.match(read('css/1366.scss'), /@import url\('\.\/loading\.css\?v=/)
-console.log('Shared desktop/mobile loader: identical markup, concurrent requests, success/error/timeout/abort cleanup and archive/standalone integration passed.')
+console.log('Shared loader: centered desktop white cover, blur exit, restart cancellation, reduced motion, concurrent requests and error cleanup passed.')
 ;(async () => {
     const page = standaloneHarness(true)
     page.request.status = 200

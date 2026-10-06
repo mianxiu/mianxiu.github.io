@@ -21,7 +21,7 @@
         stopLoading = beginDesktopLoading()
     } else {
         const script = document.createElement('script')
-        script.src = '/js/loading.js?v=20261006-01'
+        script.src = '/js/loading.js?v=20261006-08'
         script.onload = () => {
             if (!settled) stopLoading = beginDesktopLoading()
         }

@@ -1,4 +1,4 @@
-/* Shared home triangles; mobile stays centered, desktop uses the mini-player row. */
+/* Shared home triangles; desktop adds a white full-screen cover. */
 .m-loading { min-height: 100svh; display: grid; place-items: center; }
 .m-loading-triangle { width: 96px; aspect-ratio: 277.993 / 236.527; pointer-events: none; }
 .m-loading-triangle svg { display: block; width: 100%; height: 100%; overflow: visible; }
@@ -7,7 +7,13 @@
 #ajaxProgress[hidden] { display: none; }
 @media (min-width: 768px) {
     :root { --desktop-mini-height: .78rem; --desktop-mini-bottom: .10rem; }
-    #ajaxProgress.is-loading { z-index: 20; position: fixed; inset: auto; right: .20rem; bottom: var(--desktop-mini-bottom); width: calc(var(--desktop-mini-height) * 277.993 / 236.527); height: var(--desktop-mini-height); background: transparent; transition: none; overflow: visible; pointer-events: none; }
+    #ajaxProgress.is-loading { z-index: 1000; position: fixed; inset: 0; width: 100%; height: 100%; background: #fff; opacity: 1; transition: none; overflow: hidden; pointer-events: auto; }
     #ajaxProgress .m-loading { min-height: 0; width: 100%; height: 100%; }
-    #ajaxProgress .m-loading-triangle { width: 100%; height: 100%; }
+    #ajaxProgress.is-leaving { pointer-events: none; animation: loading-cover-exit 320ms ease-out both; }
+    #ajaxProgress.is-leaving .m-loading-triangle { animation: loading-triangle-exit 320ms ease-out both; }
+    @keyframes loading-cover-exit { to { opacity: 0; } }
+    @keyframes loading-triangle-exit { from { filter: blur(0); opacity: 1; } to { filter: blur(8px); opacity: 0; } }
+}
+@media (prefers-reduced-motion: reduce) {
+    #ajaxProgress.is-leaving, #ajaxProgress.is-leaving .m-loading-triangle { animation: none; }
 }
