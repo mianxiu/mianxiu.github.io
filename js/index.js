@@ -206,10 +206,7 @@ function ajax(url, run) {
 
     oReq.responseType = ''
     oReq.open("get", url, true);
-    $('#ajaxProgress').style = 'height:100vh;background-color:rgba(0,0,0,0.5);'
-    let finish = function () {
-        $('#ajaxProgress').style = 'height:0vh;background-color:rgba(0,0,0,0);'
-    }
+    const finish = beginDesktopLoading()
     oReq.onload = function () {
         finish()
         if (oReq.status >= 200 && oReq.status < 300) {
@@ -223,7 +220,8 @@ function ajax(url, run) {
         console.error('Network error:', url)
     }
     oReq.ontimeout = finish
-    oReq.send(null);
+    oReq.onabort = finish
+    try { oReq.send(null) } catch (error) { finish(); throw error }
 
 }
 

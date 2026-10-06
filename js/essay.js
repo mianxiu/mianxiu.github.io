@@ -8,9 +8,26 @@
         return
     }
     document.querySelector('title').innerText = decodeURI(window.location.href.split(/\//)[7])+" | Mianxiu's blog"
+    let settled = false, stopLoading = () => {}
+    const finish = () => { settled = true; stopLoading() }
+    // Standalone articles do not load the home app's scripts.
+    if (typeof beginDesktopLoading === 'function') {
+        stopLoading = beginDesktopLoading()
+    } else {
+        const script = document.createElement('script')
+        script.src = '/js/loading.js?v=20261006-01'
+        script.onload = () => {
+            if (!settled) stopLoading = beginDesktopLoading()
+        }
+        document.head.append(script)
+    }
     var oReq = new XMLHttpRequest();
     oReq.onload = function () {
-
+        finish()
+        if (this.status < 200 || this.status >= 300) {
+            console.error('Request failed:', this.status, './context.html')
+            return
+        }
         document.documentElement.scrollTop = 0
         document.querySelector('#essay-response').innerHTML = this.responseText
         document.querySelector('#essayClose').style.transform = 'scale(1,1)'
@@ -32,6 +49,7 @@
         })
     }
     oReq.responseType = ''
+    oReq.onerror = oReq.ontimeout = oReq.onabort = finish
     oReq.open("get", './context.html', true);
-    oReq.send();
+    try { oReq.send() } catch (error) { finish(); throw error }
 })()

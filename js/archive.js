@@ -5,7 +5,7 @@ function initDesktopArchive() {
     panel.hidden = true
     panel.setAttribute('aria-label', 'Archive')
     document.body.append(panel)
-    let cachedPosts, revision = 0
+    let cachedPosts, revision = 0, finishLoading = () => {}
     const escape = value => String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]))
     async function read(url) {
         const response = await fetch(url)
@@ -33,6 +33,7 @@ function initDesktopArchive() {
         return cachedPosts
     }
     async function update() {
+        finishLoading()
         const id = ++revision
         const active = location.hash === '#archive'
         panel.hidden = !active
@@ -40,7 +41,9 @@ function initDesktopArchive() {
         if (!active) return
         panel.scrollTop = 0
         const header = '<header><button class="archive-heading" data-archive-close aria-label="返回首页">Archive</button></header>'
-        panel.innerHTML = header + '<p role="status">Loading…</p>'
+        panel.innerHTML = header
+        const finish = beginDesktopLoading()
+        finishLoading = finish
         try {
             const all = await posts()
             if (id !== revision) return
@@ -49,6 +52,8 @@ function initDesktopArchive() {
         } catch (error) {
             if (id === revision) panel.innerHTML = header + '<p>归档加载失败，请刷新重试。</p>'
             console.error(error)
+        } finally {
+            finish()
         }
     }
     panel.addEventListener('click', event => {

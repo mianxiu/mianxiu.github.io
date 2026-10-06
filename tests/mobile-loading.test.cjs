@@ -2,6 +2,7 @@ const assert = require('node:assert/strict')
 const fs = require('node:fs')
 const vm = require('node:vm')
 const source = fs.readFileSync(require('node:path').join(__dirname, '../js/mobile-app.js'), 'utf8')
+const sharedSource = fs.readFileSync(require('node:path').join(__dirname, '../js/loading.js'), 'utf8')
 
 // Exercise the same animation used by home and loading without browser motion preferences.
 function animationHarness(reducedMotion = false, interactive = false) {
@@ -51,6 +52,7 @@ function animationHarness(reducedMotion = false, interactive = false) {
         load() { throw new Error('Inline loader must not fetch an asset') }
     }
     vm.createContext(sandbox)
+    vm.runInContext(sharedSource, sandbox)
     vm.runInContext(source.slice(0, source.indexOf('async function initMobileApp()')), sandbox)
     const start = source.indexOf('    async function animateTriangle(')
     const end = source.indexOf('\n    function menu()', start)
