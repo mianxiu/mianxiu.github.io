@@ -205,7 +205,8 @@ function ajax(url, run) {
 
 
     oReq.responseType = ''
-    oReq.open("get", url, true);
+    // Revalidate newly published content instead of retaining a stale list/banner.
+    oReq.open("get", url + (url.includes('?') ? '&' : '?') + 'v=20261006-05', true);
     const finish = beginDesktopLoading()
     oReq.onload = function () {
         finish()

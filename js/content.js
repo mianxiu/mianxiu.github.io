@@ -106,6 +106,10 @@ let writeEssay = function () {
     })
 }
 
+function desktopEssayPath(date, title) {
+    return './essay/' + date + '/' + encodeURIComponent(title) + '/'
+}
+
 function essayAjax() {
 
     //  history.replaceState({ name: 'essay' }, "mianxiu's blog", '/')
@@ -120,7 +124,8 @@ function essayAjax() {
             let date = new Date(eP.children[0].innerText)
             console.log(date.getMonth())
             let ePostDate = date.getFullYear() + '/' + (date.getMonth() < 9 ? '0' + (Number(date.getMonth()) + 1) : (Number(date.getMonth()) + 1)) + '/' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
-            ajax('./essay/' + ePostDate + '/' + encodeURI(ePostH1) + '/context.html', writeEssay)
+            const path = desktopEssayPath(ePostDate, ePostH1)
+            ajax(path + 'context.html', writeEssay)
             // url斜杠！！！
             let state = {
                 name: 'essayContext',
@@ -129,7 +134,7 @@ function essayAjax() {
             }
 
 
-            history.pushState(state, ePostH1, './essay/' + ePostDate + '/' + ePostH1 + '/')
+            history.pushState(state, ePostH1, path)
         }
     })
 

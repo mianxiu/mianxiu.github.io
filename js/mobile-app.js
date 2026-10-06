@@ -66,7 +66,7 @@ async function initMobileApp() {
     const routeFor = post => '#' + post.type + '=' + encodeURIComponent(post.path)
 
     async function load(url) {
-        if (!cache.has(url)) cache.set(url, fetch(url).then(response => {
+        if (!cache.has(url)) cache.set(url, fetch(url, { cache: 'no-cache' }).then(response => {
             if (!response.ok) throw new Error('Unable to load ' + url)
             return response.text()
         }).catch(error => { cache.delete(url); throw error }))
