@@ -1,8 +1,10 @@
 #foot{
     position: fixed;
     left: 0;
-    transform: translateY(680px);
-    bottom: 0;
+    top: auto;
+    transform: none;
+    height: var(--desktop-mini-height, .78rem);
+    bottom: var(--desktop-mini-bottom, .10rem);
 
 }
 #mp3Player{

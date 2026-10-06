@@ -188,7 +188,7 @@ function mp3PlayerType(type) {
             $('#mp3CSS').href = './css/mp3Player_normal.css'
             break;
         case 'min':
-            $('#mp3CSS').href = './css/mp3Player_min.css'
+            $('#mp3CSS').href = './css/mp3Player_min.css?v=20261006-03'
             break;
     }
 }
