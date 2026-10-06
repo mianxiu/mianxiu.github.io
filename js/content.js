@@ -33,7 +33,7 @@ let listenEassyClose = function () {
 let writeContent = function () {
     console.log('DONE', this.status);
 
-    this.responseText === undefined ? $('#rule').innerHTML = '' : $('#rule').innerHTML = this.responseText
+    this.responseText === undefined ? $('#rule').innerHTML = '' : $('#rule').innerHTML = sanitizeSiteContentHTML(this.responseText)
     //根据自定义id ajax
 
     let hidden = function (type) {
@@ -88,7 +88,7 @@ let writeEssay = function () {
     styleDisplay([$('#logo_other'), $('#essay')], 'none')
     $('#essayText').style = 'width:100vw;' // min-height:100vh;
     $('#navigation').style.filter = 'blur(0.04rem)'
-    $('#essayText>div').innerHTML = this.responseText
+    $('#essayText>div').innerHTML = sanitizeSiteContentHTML(this.responseText)
     $('#essayClose').style.transform = 'scale(1,1)'
     $('#main').style = 'display:flex;justify-content:center;' // height:100vh;
     $('title').innerText = decodeURI(window.location.href.split(/\//)[7]) + " | Mianxiu's blog"
@@ -154,7 +154,7 @@ function essayAjax() {
     })
 
     let essayLi = function () {
-        $('#essayLeft > ul').innerHTML = this.responseText
+        $('#essayLeft > ul').innerHTML = sanitizeSiteContentHTML(this.responseText)
         document.documentElement.scrollTop = 0
     }
 

@@ -8,9 +8,12 @@
         return
     }
     document.querySelector('title').innerText = decodeURI(window.location.href.split(/\//)[7])+" | Mianxiu's blog"
-    const mosaics = document.createElement('script')
-    mosaics.src = '/js/image-placeholders.js?v=20261006-06'
-    document.head.append(mosaics)
+    const imagesReady = typeof sanitizeSiteContentHTML === 'function' ? Promise.resolve() : new Promise(resolve => {
+        const mosaics = document.createElement('script')
+        mosaics.src = '/js/image-placeholders.js?v=20261006-07'
+        mosaics.onload = mosaics.onerror = resolve
+        document.head.append(mosaics)
+    })
     let settled = false, stopLoading = () => {}
     const finish = () => { settled = true; stopLoading() }
     // Standalone articles do not load the home app's scripts.
@@ -25,14 +28,15 @@
         document.head.append(script)
     }
     var oReq = new XMLHttpRequest();
-    oReq.onload = function () {
+    oReq.onload = async function () {
         finish()
         if (this.status < 200 || this.status >= 300) {
             console.error('Request failed:', this.status, './context.html')
             return
         }
+        await imagesReady
         document.documentElement.scrollTop = 0
-        document.querySelector('#essay-response').innerHTML = this.responseText
+        document.querySelector('#essay-response').innerHTML = typeof sanitizeSiteContentHTML === 'function' ? sanitizeSiteContentHTML(this.responseText) : this.responseText
         document.querySelector('#essayClose').style.transform = 'scale(1,1)'
         document.querySelector('#main').style = 'display:flex;justify-content:center;'// height:100vh;
         document.querySelector('#essayClose').addEventListener('click', () => {

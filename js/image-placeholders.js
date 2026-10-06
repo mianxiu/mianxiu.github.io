@@ -1,4 +1,49 @@
 /* Pre-baked frosted previews for AJAX, mobile routes and standalone articles. */
+function usableSiteImageSource(source) {
+    if (typeof source !== 'string' || !source.trim()) return ''
+    source = source.trim()
+    try {
+        const url = new URL(source, document.baseURI)
+        if (url.protocol === 'data:') return /^data:image\//i.test(source) ? source : ''
+        if (url.protocol === 'blob:') return source
+        if (!/^https?:$/.test(url.protocol)) return ''
+        const name = decodeURIComponent(url.pathname.split('/').pop())
+        return !name || /^\.(?:png|jpe?g|gif|webp|avif|svg|bmp|ico)$/i.test(name) ? '' : source
+    } catch { return '' }
+}
+
+function siteSlotImageSource(element) {
+    return element.tagName === 'IMG' ? element.getAttribute('src') :
+        element.style.backgroundImage.match(/^url\(["']?(.*?)["']?\)$/)?.[1]
+}
+
+function removeSiteImageSlot(element) {
+    const wrapper = element.matches('.preview-img') ? element.closest('.preview') : null
+    ;(wrapper || element).remove()
+}
+
+function sanitizeSiteImageSlots(root) {
+    const selector = '._banner, .preview-img, img.m-preview'
+    const elements = [...root.querySelectorAll(selector)]
+    if (root.matches?.(selector)) elements.unshift(root)
+    elements.forEach(element => {
+        // Preserve intentional gradients; only image/empty slots are checked.
+        const background = element.style.backgroundImage
+        if (element.tagName !== 'IMG' && background && background !== 'none' && !/^url\(/.test(background)) return
+        if (!usableSiteImageSource(siteSlotImageSource(element))) removeSiteImageSlot(element)
+    })
+    root.querySelectorAll('.preview').forEach(element => {
+        if (!element.querySelector('.preview-img, img')) element.remove()
+    })
+    if (root.matches?.('.preview') && !root.querySelector('.preview-img, img')) root.remove()
+}
+
+function sanitizeSiteContentHTML(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+    sanitizeSiteImageSlots(doc)
+    return doc.body.innerHTML
+}
+
 (() => {
     const selector = '._banner, .preview-img, .gallery-link, img.gallery-img, img.m-preview, .m-gallery-grid img, .m-gallery-images img, .essay-context img'
     const records = new WeakMap()
@@ -40,19 +85,24 @@
         const original = img ? element.getAttribute('src') : element.style.backgroundImage
         if (previous && (original === previous.original || original === previous.applied)) return
         forget(element)
-        if (!original) return
+        const removable = element.matches('._banner, .preview-img, img.m-preview')
+        if (!original) { if (removable) removeSiteImageSlot(element); return }
         const source = img ? original : original.match(/^url\(["']?(.*?)["']?\)$/)?.[1]
-        if (!source || source.startsWith('data:') || (img && element.hasAttribute('srcset'))) return
+        if (!source) return
+        if (!usableSiteImageSource(source)) { if (removable) removeSiteImageSlot(element); return }
+        if (source.startsWith('data:') || source.startsWith('blob:') || (img && element.hasAttribute('srcset'))) return
         // Register before waiting so repeated mutations do not create extra requests.
         const record = { original, applied: original, start: null }
         records.set(element, record)
         lazy?.unobserve(element)
         const preview = (await data())[imageKey(source)]
-        if (!preview || !element.isConnected || records.get(element) !== record) return
+        if (!element.isConnected || records.get(element) !== record || (!preview && !removable)) return
         if (img && element.complete && element.naturalWidth > 0) return
         element.setAttribute('data-mosaic-state', 'pending')
-        if (img) element.setAttribute('src', preview.preview)
-        else element.style.backgroundImage = 'url("' + preview.preview + '")'
+        if (preview) {
+            if (img) element.setAttribute('src', preview.preview)
+            else element.style.backgroundImage = 'url("' + preview.preview + '")'
+        }
         record.applied = img ? element.getAttribute('src') : element.style.backgroundImage
         record.start = () => {
             if (!element.isConnected || records.get(element) !== record) return
@@ -69,6 +119,7 @@
                 // Do not overwrite a newer source supplied by another renderer.
                 const current = img ? element.getAttribute('src') : element.style.backgroundImage
                 if (current !== record.applied) return
+                if (!success && !preview && removable) { removeSiteImageSlot(element); return }
                 if (success) {
                     if (img) element.setAttribute('src', original)
                     else element.style.backgroundImage = original
@@ -76,7 +127,7 @@
                 element.setAttribute('data-mosaic-state', success ? 'loaded' : 'error')
             }
             full.onload = () => settle(true)
-            full.onerror = () => settle(false) // Keep the preview, never a broken image icon.
+            full.onerror = () => settle(false) // Retain a valid preview; remove only empty slots.
             full.src = source
             if (full.complete) settle(full.naturalWidth > 0)
         }
@@ -85,6 +136,7 @@
     }
     function scan(node) {
         if (node.nodeType !== 1) return
+        sanitizeSiteImageSlots(node)
         if (node.matches(selector)) prepare(node)
         node.querySelectorAll(selector).forEach(prepare)
     }

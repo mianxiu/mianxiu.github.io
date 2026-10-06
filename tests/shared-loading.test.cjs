@@ -66,8 +66,9 @@ assert.equal(layer.hidden, true)
 assert.equal(starts, stops)
 
 // A standalone article must not show a late loader after a fast response/error.
-function standaloneHarness() {
+function standaloneHarness(deferImageHelpers = false) {
     let request, script, starts = 0, stops = 0
+    const scripts = []
     const nodes = { title: {}, '#essay-response': {}, '#essayClose': { style: {}, addEventListener() {} }, '#main': {} }
     const sandbox = {
         console: { error() {} }, decodeURI,
@@ -76,11 +77,12 @@ function standaloneHarness() {
         document: {
             documentElement: {},
             querySelector: selector => nodes[selector], querySelectorAll: () => [],
-            createElement: () => ({}), head: { append(el) { script = el } }
+            createElement: () => ({}), head: { append(el) { script = el; scripts.push(el) } }
         },
         hljs: { highlightBlock() {} }, mixxoPost: { init() {} },
         XMLHttpRequest: class { constructor() { request = this } open() {} send() {} }
     }
+    if (!deferImageHelpers) sandbox.sanitizeSiteContentHTML = html => html
     sandbox.window.location = sandbox.location
     vm.runInNewContext(read('js/essay.js'), sandbox)
     return {
@@ -89,6 +91,11 @@ function standaloneHarness() {
             sandbox.beginDesktopLoading = () => { starts++; return () => { stops++ } }
             script.onload()
         },
+        loadImageHelpers() {
+            sandbox.sanitizeSiteContentHTML = html => html.replace('<div class="_banner"></div>', '')
+            scripts.find(el => el.src.includes('image-placeholders.js')).onload()
+        },
+        content: () => nodes['#essay-response'].innerHTML,
         counts: () => ({ starts, stops })
     }
 }
@@ -130,3 +137,16 @@ assert.match(indexSource, /mp3Player_min\.css\?v=\d{8}-\d{2}/)
 assert.match(read('css/1366.css'), /@import url\('\.\/loading\.css\?v=/)
 assert.match(read('css/1366.scss'), /@import url\('\.\/loading\.css\?v=/)
 console.log('Shared desktop/mobile loader: identical markup, concurrent requests, success/error/timeout/abort cleanup and archive/standalone integration passed.')
+;(async () => {
+    const page = standaloneHarness(true)
+    page.request.status = 200
+    page.request.responseText = '<div class="_banner"></div><p>Article</p>'
+    const rendered = page.request.onload()
+    assert.equal(page.content(), undefined, 'a fast response must wait for pre-render image cleanup')
+    page.loadImageHelpers()
+    await rendered
+    assert.equal(page.content(), '<p>Article</p>')
+    page.loadScript()
+    assert.deepEqual(page.counts(), { starts: 0, stops: 0 })
+    console.log('Standalone fast response waits for image-slot cleanup without showing a late loader.')
+})().catch(error => { console.error(error); process.exitCode = 1 })

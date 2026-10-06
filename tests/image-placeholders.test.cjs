@@ -20,12 +20,16 @@ const preview = manifest[fullURL].preview
 const flush = () => new Promise(resolve => setImmediate(resolve))
 function node(img, original, options = {}) {
     const attrs = { src: original }
-    return {
+    const element = {
         nodeType: 1, tagName: img ? 'IMG' : 'DIV', isConnected: true,
         complete: false, naturalWidth: 0, loading: '', style: { backgroundImage: original },
         getAttribute: name => attrs[name], setAttribute: (name, value) => { attrs[name] = value },
-        hasAttribute: name => name in attrs, matches: () => true, querySelectorAll: () => [], ...options
+        hasAttribute: name => name in attrs,
+        matches: selector => new RegExp('\\.' + (options.className || (img ? 'gallery-img' : '_banner')) + '(?:[^\\w-]|$)').test(selector),
+        querySelectorAll: () => [], querySelector: () => null, closest: () => null,
+        remove: () => { element.isConnected = false }, ...options
     }
+    return element
 }
 async function harness(nodes) {
     let observer, lazy
@@ -34,18 +38,18 @@ async function harness(nodes) {
     const sandbox = {
         URL, location: { origin: 'https://mianxiu.me' }, console,
         fetch: async () => { fetches++; return { ok: true, json: async () => manifest } },
-        document: { readyState: 'complete', baseURI: 'https://mianxiu.me/', body: { nodeType: 1, matches: () => false, querySelectorAll: () => nodes } },
+        document: { readyState: 'complete', baseURI: 'https://mianxiu.me/', body: { nodeType: 1, matches: () => false, querySelectorAll: selector => selector === '.preview' ? [] : nodes } },
         MutationObserver: class { constructor(callback) { observer = callback } observe() {} },
         IntersectionObserver: class { constructor(callback) { lazy = callback } observe() {} unobserve() {} },
         Image: class { constructor() { this.complete = false; this.naturalWidth = 0; requests.push(this) } async decode() {} removeAttribute() { this.cancelled = true } }
     }
     vm.runInNewContext(source, sandbox)
     await flush()
-    return { requests, changed: el => observer([{ type: 'attributes', target: el }]), added: el => observer([{ type: 'childList', addedNodes: [el], removedNodes: [] }]), removed: el => observer([{ type: 'childList', addedNodes: [], removedNodes: [el] }]), visible: el => lazy([{ target: el, isIntersecting: true }]), fetches: () => fetches }
+    return { api: sandbox, requests, changed: el => observer([{ type: 'attributes', target: el }]), added: el => observer([{ type: 'childList', addedNodes: [el], removedNodes: [] }]), removed: el => observer([{ type: 'childList', addedNodes: [], removedNodes: [el] }]), visible: el => lazy([{ target: el, isIntersecting: true }]), fetches: () => fetches }
 }
 ;(async () => {
     const banner = node(false, 'url("' + fullURL + '")')
-    const img = node(true, fullURL)
+    const img = node(true, fullURL, { className: 'm-preview' })
     const cached = node(true, fullURL, { complete: true, naturalWidth: 1200 })
     const lazyImg = node(true, fullURL, { loading: 'lazy' })
     const unknown = node(true, 'https://other.example/image.jpg')
@@ -81,7 +85,41 @@ async function harness(nodes) {
     assert.equal(test.requests[3].cancelled, true)
     assert.equal(test.requests[3].onload, null)
     assert.equal(added.getAttribute('src'), preview, 'removed route stays untouched')
-    assert.match(fs.readFileSync('index.html', 'utf8'), /defer src="\/js\/image-placeholders\.js\?v=/)
+    const empty = node(false, '')
+    const missing = node(false, 'url("//img.mianxiu.me/image/essay/.png")')
+    const emptyImg = node(true, '', { className: 'm-preview' })
+    const wrapper = { removed: false, remove() { this.removed = true } }
+    const emptyCard = node(false, 'url("")', { className: 'preview-img', closest: () => wrapper })
+    const invalid = await harness([empty, missing, emptyImg, emptyCard])
+    for (const el of [empty, missing, emptyImg]) assert.equal(el.isConnected, false)
+    assert.equal(wrapper.removed, true, 'PC preview wrapper, not just its image, must disappear')
+    assert.equal(invalid.fetches(), 0, 'known empty sources are eliminated before any request')
+    assert.equal(invalid.requests.length, 0)
+    for (const value of [undefined, '', '  ', 'https://img.mianxiu.me/image/essay/.PNG?x=1', '/folder/', 'javascript:alert(1)']) {
+        assert.equal(invalid.api.usableSiteImageSource(value), '')
+    }
+    for (const value of [fullURL, '/gallery/中文.jpg', 'data:image/png;base64,AA==']) {
+        assert.equal(invalid.api.usableSiteImageSource(value), value)
+    }
+    const failedBanner = node(false, 'url("/not-uploaded.jpg")')
+    const failedWrapper = { removed: false, remove() { this.removed = true } }
+    const failedCard = node(false, 'url("/missing.jpg")', { className: 'preview-img', closest: () => failedWrapper })
+    const good = node(true, '/new-image.jpg', { className: 'm-preview' })
+    const failures = await harness([failedBanner, failedCard, good])
+    assert.equal(failures.requests.length, 3, 'unknown slots are probed instead of remaining blank forever')
+    await failures.requests[0].onerror()
+    await failures.requests[1].onerror()
+    await failures.requests[2].onload()
+    assert.equal(failedBanner.isConnected, false)
+    assert.equal(failedWrapper.removed, true)
+    assert.equal(good.isConnected, true)
+    assert.equal(good.getAttribute('data-mosaic-state'), 'loaded')
+    assert.equal(good.getAttribute('src'), '/new-image.jpg')
+    assert.match(fs.readFileSync('index.html', 'utf8'), /script src="\/js\/image-placeholders\.js\?v=/)
+    assert.ok(fs.readFileSync('index.html', 'utf8').indexOf('/js/image-placeholders.js?') < fs.readFileSync('index.html', 'utf8').indexOf('/js/mobile-app.js?'))
+    assert.match(fs.readFileSync('js/mobile-app.js', 'utf8'), /const image = usableSiteImageSource\(/)
+    assert.match(fs.readFileSync('js/mobile-app.js', 'utf8'), /sanitizeSiteImageSlots\(doc\)/)
+    assert.equal((fs.readFileSync('js/content.js', 'utf8').match(/sanitizeSiteContentHTML\(this.responseText\)/g) || []).length, 3)
     assert.match(fs.readFileSync('js/essay.js', 'utf8'), /mosaics\.src = '\/js\/image-placeholders\.js\?v=/)
-    console.log('Frosted source previews: baked blur, dimensions, shared manifest, load/error/cache/lazy, observer loops, new sources and removed routes passed.')
+    console.log('Image slots: pre-render empty-source cleanup, failed unknown-slot removal, retained blur on errors, load/cache/lazy and route cleanup passed.')
 })().catch(error => { console.error(error); process.exitCode = 1 })

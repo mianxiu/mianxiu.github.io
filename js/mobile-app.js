@@ -80,7 +80,7 @@ async function initMobileApp() {
             if (!title || !Number.isFinite(timestamp)) return []
             const d = new Date(timestamp)
             const path = 'essay/' + [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0'), title].join('/')
-            const image = item.querySelector('.preview-img')?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1]
+            const image = usableSiteImageSource(item.querySelector('.preview-img')?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1])
             return [{ title, timestamp, path, type: 'essay', image, summary: item.querySelector('.summary')?.textContent.trim() || '' }]
         })
     }
@@ -179,6 +179,7 @@ async function initMobileApp() {
             root.innerHTML = '<div class="m-detail"><main class="m-gallery-images">' + Array.from(doc.querySelectorAll('.gallery-img')).map(el => '<img src="' + escape(el.getAttribute('src')) + '" alt="' + escape(post.title) + '">').join('') + '</main>' + toolbar(post, next) + commentPanel() + '</div>'
         } else {
             doc.querySelectorAll('#mixxopost, .footer, script').forEach(el => el.remove())
+            sanitizeSiteImageSlots(doc)
             const banner = doc.querySelector('._banner')
             if (banner) {
                 banner.setAttribute('aria-hidden', 'true')
@@ -239,7 +240,6 @@ async function initMobileApp() {
             stopTriangle = () => {}
             syncViewport()
             if (root.querySelector('.m-home')) animateTriangle()
-            root.querySelectorAll('img.m-preview').forEach(img => img.addEventListener('error', () => img.remove(), { once: true }))
         } catch (error) {
             if (id === state.renderId) {
                 stopTriangle()
