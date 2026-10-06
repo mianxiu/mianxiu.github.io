@@ -21,7 +21,7 @@ for (const selector of ['#desktopArchive .archive-heading', '#desktopArchive sum
     assert.deepEqual(fontSize(rule(archive, selector)), title)
 }
 assert.deepEqual(fontSize(rule(archive, '#desktopArchive time')), date)
-assert.deepEqual(fontSize(rule(archive, '#desktopArchive a')), fontSize(rule(archive, '#desktopArchive time')))
+assert.deepEqual(fontSize(rule(archive, '#desktopArchive a')), { value: .18, unit: 'rem' })
 assert.match(rule(archive, '#desktopArchive li'), /line-height: .30rem;/)
 assert.match(rule(archive, '#desktopArchive time'), /white-space: nowrap;/)
 assert.match(rule(archive, '#desktopArchive a'), /min-width: 0;[^}]*overflow-wrap: anywhere;/)
@@ -33,4 +33,4 @@ assert.match(index, /href="\/css\/archive\.css\?v=\d{8}-\d{2}" media="\(min-widt
 assert.match(read('css/mobile.css'), /\.m-archive summary[^}]*font-size: 18px;/)
 assert.match(read('css/mobile.css'), /\.m-archive time[^}]*font-size: 10px;/)
 assert.deepEqual(fontSize(rule(read('css/mobile.css'), '.m-archive li a')), fontSize(rule(read('css/mobile.css'), '.m-archive time')))
-console.log('Archive article titles match date sizes on desktop and mobile; headings, icons, wrapping and spacing stay unchanged.')
+console.log('Desktop Archive article titles use an 18px rem baseline; dates, mobile typography, headings, icons and spacing stay unchanged.')
