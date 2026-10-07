@@ -81,9 +81,12 @@ body.m-overlay-open { overflow: hidden; }
 .m-comment-button { display: flex; align-items: center; gap: 8px; font-weight: 700 !important; min-height: 44px; }
 .m-next { padding: 10px !important; margin-right: 3px; }
 .m-article { padding: 54px calc(44 / 375 * 100%) 24px calc(42 / 375 * 100%); --m-article-font-scale: .875; font-size: calc(12px * var(--m-article-font-scale)); line-height: calc(16px * var(--m-article-font-scale)); user-select: text; }
+/* Fill short articles without fixing the toolbar or introducing an inner scroller. */
+.m-article { display: flex; flex-direction: column; min-height: 100svh; min-height: 100dvh; }
+.m-article > * { flex: 0 0 auto; }
 /* Align only the article banner; leave the verified document shell unchanged. */
 .m-article:has(> ._banner) { padding-top: 0; }
-.m-article > .m-detail-bar { margin: 24px calc(-44 / 375 * 100vw) -24px calc(-42 / 375 * 100vw); font-size: calc(12px * var(--m-article-font-scale)); }
+.m-article > .m-detail-bar { margin: auto calc(-44 / 375 * 100vw) -24px calc(-42 / 375 * 100vw); padding-top: 34px; font-size: calc(12px * var(--m-article-font-scale)); }
 /* Desktop metadata uses viewport widths; size it to the padded article instead. */
 #mobileApp .m-article > .essay-title, #mobileApp .m-article > ._date { width: auto; }
 .m-article > .essay-title { margin: 0 0 10px; overflow-wrap: anywhere; }
