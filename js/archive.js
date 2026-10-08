@@ -14,7 +14,7 @@ function initDesktopArchive() {
     }
     async function posts() {
         if (cachedPosts) return cachedPosts
-        const docs = await Promise.all(['/essay/index.html', ...Array.from({ length: 9 }, (_, i) => '/essay/pages/' + (i + 1) + '/index.html'), '/gallery/index.html'].map(read))
+        const docs = await Promise.all(['/essay/index.html', ...Array.from({ length: globalThis.MIXXO_BLOG_PAGE_COUNT || 9 }, (_, i) => '/essay/pages/' + (i + 1) + '/index.html'), '/gallery/index.html'].map(read))
         const items = docs.flatMap(doc => Array.from(doc.querySelectorAll('#essayLeft > ul > li, body > li')).flatMap(item => {
             const title = item.querySelector('.essay-title')?.textContent.trim()
             const timestamp = Date.parse(item.querySelector('._date')?.textContent.trim())

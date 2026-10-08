@@ -194,7 +194,7 @@ async function initMobileApp() {
     }
 
     async function archive() {
-        const docs = await Promise.all(Array.from({ length: 9 }, (_, i) => load('/essay/pages/' + (i + 1) + '/index.html')))
+        const docs = await Promise.all(Array.from({ length: globalThis.MIXXO_BLOG_PAGE_COUNT || 9 }, (_, i) => load('/essay/pages/' + (i + 1) + '/index.html')))
         const all = [...state.essays, ...docs.flatMap(readEssays), ...state.galleries]
         const posts = [...new Map(all.map(post => [post.path, post])).values()].sort((a, b) => b.timestamp - a.timestamp)
         state.essays = posts.filter(post => post.type === 'essay')

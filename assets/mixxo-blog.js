@@ -1,0 +1,1 @@
+window.MIXXO_BLOG_PAGE_COUNT=9;
